@@ -1,2 +1,3 @@
 create to test conflics.
 added by master.
+test command "git stash pop"
