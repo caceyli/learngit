@@ -1,7 +1,1 @@
 create to test conflics.
-added by master.
-<<<<<<< Updated upstream
-test command "git stash pop"
-=======
-test command "git stash"
->>>>>>> Stashed changes
