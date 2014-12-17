@@ -1,0 +1,138 @@
+Imports System.Data.SqlClient
+Partial Class _Default
+    Inherits System.Web.UI.Page
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Me.IsPostBack = False Then
+            Dim mycon As New SqlConnection
+            mycon.ConnectionString = "data source=VALLETTA\SQLEXPRESS; initial catalog=mydb; integrated security=true"
+            Try
+                Me.Response.Write("<script language=javascript>window.alert('connected');</script>")
+            Catch ex As Exception
+                Me.Response.Write("<script language=javascript>window.alert('not connected');</script>")
+            End Try
+
+            Dim mycmd As New SqlCommand
+            mycmd.CommandText = "select * from mytb"
+            mycmd.Connection = mycon
+
+            Dim myadp As New SqlDataAdapter
+            myadp.SelectCommand = mycmd
+
+            Dim myds As New Data.DataSet
+            myadp.Fill(myds, "mytb")
+
+            Me.GridView1.DataSource = myds.Tables("mytb")
+            Me.GridView1.DataBind()
+
+        End If
+        
+    End Sub
+End Class
+
+
+Imports System.Data.SqlClient
+Partial Class _Default
+    Inherits System.Web.UI.Page
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Me.IsPostBack = False Then
+            Dim mycon As New SqlConnection
+            mycon.ConnectionString = "data source=VALLETTA\SQLEXPRESS;initial catalog=mydb;integrated security=true"
+            Try
+                Me.Response.Write("<script language=javascript>window.alert('connected');</script>")
+            Catch ex As Exception
+                Me.Response.Write("<script language=javascript>window.alert('not connected');</script>")
+            End Try
+
+            Dim mycmd As New SqlCommand
+            mycmd.CommandText = "select * from mytb where id=1"
+            mycmd.Connection = mycon
+
+            mycon.Open()
+            Dim myreader As SqlDataReader = mycmd.ExecuteReader
+            If (myreader.Read()) Then
+                Dim i As Integer
+                For i = 0 To myreader.FieldCount - 1
+                    Me.Label1.Text &= myreader.GetValue(i).ToString + " "
+                Next
+
+            End If
+
+        End If
+    End Sub
+End Class
+
+
+Data Source=服务器地址，本地的话填一个点. ;Initial Catalog=数据库名;User Id=连接数据库的用户名(sa或者别的);Password=密码;
+
+select * from mytb;
+alter table mytb add age int;
+alter table mytb  age;
+alter table mytb 
+alter table mytb alter 
+update mytb set age=19 where id=2;
+insert into mytb values(4,'dec',17);
+select * from mytb order by age asc;
+select * from mytb order by age desc;
+alter table mytb add department varchar(30);
+update mytb set department='fp' where id=2 or id=3;
+update mytb set department='mc' where id=1 or id=4;
+select name from mytb group by department;
+select count(id) as 'No. of employees' from mytb where department='fp';
+select count(id) as 'No. of employees',department from mytb group by department;
+select top 3 * from mytb order by age desc;
+
+select * from mytb;
+select * from mytb order by id desc;
+select * from mytb order by age asc;
+select top 3 name, age from mytb order by age asc;
+insert into mytb values(5,'ell',18,'mc');
+select * from mytb where age in(select age from mytb group by age having COUNT(age)>1);
+select age from mytb group by age;
+select DISTINCT age from mytb;
+
+
+Imports System.Data.SqlClient
+Partial Class Default2
+    Inherits System.Web.UI.Page
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    End Sub
+    Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Dim mycon As New SqlConnection
+        mycon.ConnectionString = "data source=VALLETTA\SQLEXPRESS;initial catalog=mydb;integrated security=true"
+        Try
+            Me.Response.Write("<script language=javascript>window.alert('connected');</script>")
+        Catch ex As Exception
+            Me.Response.Write("<script language=javascript>window.alert('not connected');</script>")
+        End Try
+
+        Dim mycmd As New SqlCommand
+
+        mycmd.CommandText = "select id from mytb where name='" & Me.TextBox1.Text & "'"
+        mycmd.Connection = mycon
+
+        Dim mycmd1 As New SqlCommand
+        mycmd1.CommandText = "select passwd from mytb where name='" & Me.TextBox1.Text & "'"
+        mycmd1.Connection = mycon
+
+        mycon.Open()
+        Dim myreader As SqlDataReader = mycmd1.ExecuteReader
+        If (myreader.Read()) Then
+            Me.Label2.Text = myreader.GetValue(0).ToString
+        End If
+
+        myreader.Close()
+        If mycmd.ExecuteScalar.ToString <> 0 Then
+            If mycmd1.ExecuteScalar.ToString <> 0 And Me.TextBox2.Text = Me.Label2.Text Then
+                Me.Label1.Text = "password match"
+            Else
+                Me.Label1.Text = "password not match"
+            End If
+        Else
+            Me.Label1.Text = "the user not existing"
+        End If
+
+    End Sub
+End Class
