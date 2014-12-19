@@ -8,3 +8,6 @@ test command "git merge --no-ff -m "merge with no-ff" dev"
 123
 456
 789
+aaa
+bbb
+ccc
