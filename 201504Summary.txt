@@ -6,6 +6,12 @@ U    content/manifests/EnterpriseSequenceManifest.xml
 U    com/bdna/fingerprintTool/jiffy.list
 A    com/bdna/fingerprintTool/templates/jiffy/BrocadeCommunicationsSystems/UNIX_NetworkAdvisorClient.j4
 A    com/bdna/fingerprintTool/templates/jiffy/BrocadeCommunicationsSystems/UNIX_NetworkAdvisorServer.j4
+
+
+
+BUG02154: (cacey)--/15/01/24
+U    content/manifests/EnterpriseSequenceManifest.xml
+U    com/bdna/fingerprintTool/jiffy.list
 A    com/bdna/fingerprintTool/templates/jiffy/Veritas/UNIX_OpsCenterAnalyticsAgent.j4
 A    com/bdna/fingerprintTool/templates/jiffy/Veritas/UNIX_OpsCenterAnalyticsManagementServer.j4
 
@@ -35,3 +41,15 @@ U    com/bdna/fingerprintTool/jiffy.list
 A    com/bdna/fingerprintTool/templates/jiffy/Oracle/UNIX_JRE.j4
 A    com/bdna/fingerprintTool/templates/jiffy/Oracle/UNIX_JDK.j4
 Updated to revision 1814.
+
+
+BUG02158: (vivi) --15/02/06(svn) 
+
+com/bdna/fingerprintTool/jiffy.list
+content/manifests/EnterpriseSequenceManifest.xml
+com/bdna/fingerprintTool/templates/jiffy/EMC/RSA
+com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/EMC.j4
+com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/RSA.j4
+com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/UNIX_AuthenticationManager.j4
+
+All code checked in to gitlab on 15/02/06.
