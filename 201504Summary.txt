@@ -41,11 +41,11 @@ A    com/bdna/fingerprintTool/templates/jiffy/Oracle/UNIX_JDK.j4
 Updated to revision 1814.
 
 BUG02158: (vivi) --15/02/06(svn) 
-com/bdna/fingerprintTool/jiffy.list
-content/manifests/EnterpriseSequenceManifest.xml
-com/bdna/fingerprintTool/templates/jiffy/EMC/RSA
-com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/EMC.j4
-com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/RSA.j4
-com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/UNIX_AuthenticationManager.j4
+U    com/bdna/fingerprintTool/jiffy.list
+U    content/manifests/EnterpriseSequenceManifest.xml
+A    com/bdna/fingerprintTool/templates/jiffy/EMC/RSA
+A    com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/EMC.j4
+A    com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/RSA.j4
+A    com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/UNIX_AuthenticationManager.j4
 
 All code checked in to gitlab on 15/02/06.
