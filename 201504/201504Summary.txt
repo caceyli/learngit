@@ -48,7 +48,7 @@ A    com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/EMC.j4
 A    com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/RSA.j4
 A    com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/UNIX_AuthenticationManager.j4
 
-All code checked in to gitlab on 15/02/06.
+All above code checked in to gitlab on 15/02/06.
 
 
 BUG02157: (vivi) --15/02/28(gitlab) 
