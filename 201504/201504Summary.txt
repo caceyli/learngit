@@ -49,3 +49,13 @@ A    com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/RSA.j4
 A    com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/UNIX_AuthenticationManager.j4
 
 All code checked in to gitlab on 15/02/06.
+
+
+BUG02157: (vivi) --15/02/28(gitlab) 
+U    com/bdna/fingerprintTool/jiffy.list
+U    content/manifests/EnterpriseSequenceManifest.xml
+A    com/bdna/fingerprintTool/templates/jiffy/HitachiDataSystems/HitachiDataSystems.j4 
+A    com/bdna/fingerprintTool/templates/jiffy/HitachiDataSystems/HiCommand/HitachiDataSystems.j4 
+A    com/bdna/fingerprintTool/templates/jiffy/HitachiDataSystems/HiCommand/HiCommand.j4 
+A    com/bdna/fingerprintTool/templates/jiffy/HitachiDataSystems/HiCommand/UNIX_DeviceManagerServer.j4 
+
