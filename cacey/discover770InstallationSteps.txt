@@ -1,0 +1,192 @@
+oracle 11.2.0.2.0 µÄ°²×°£º
+
+1. prepare:
+a. VM IP: 192.168.9.102
+b. OS: ftp://192.168.8.25/app/BDNA/discover7.7.0/rhel-server-6.5-x86/
+   rhel-server-6.5-x86_64-dvd.iso
+
+c. database installer: ftp://192.168.8.25/app/BDNA/discover7.7.0/oracle11.2.0.2/
+   p10098816_112020_Linux-x86-64_1of7.zip
+   p10098816_112020_Linux-x86-64_2of7.zip
+
+d. all related packages: ftp://192.168.8.25/app/BDNA/discover7.7.0/
+   rpmForOracleDB64bit.tar.gz
+   rpmsforgcc.tar
+   rpmForXhost.tar.gz  
+   tigervnc-server-1.1.0-5.el6_4.1.x86_64.rpm
+
+   EssentialRPMs.tar.gz
+   EssentialPerlRPMs.tar.gz
+   Essential32bit.tar.gz
+
+   apache-ant-1.9.4-bin.tar.gz  
+   jdk-8u5-linux-x64.tar.gz
+   svn
+
+2. VM environment configuration:
+a. ip: vi /etc/sysconfig/network-scripts/ifcfg-eth0
+   BOOTPROTO=none
+   IPADDR=192.168.9.102
+   GATEWAY=192.168.8.5
+   DNS1=192.168.8.18
+
+b. hostname: vi /etc/sysconfig/network
+   HOSTNAME=VMST9102.BDNACN.COM
+
+a. set the vm time:
+   cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
+   date -s "2015-03-10 16:31:32"
+
+
+3. Oracle installation: http://wiki.bdnacorp.com/index.php/Installing_Oracle_Server_11.1.0.7.1
+a. Transfer the file under 1c to the VM. Place the files under /oracle directory.
+b. Login to the Linux server as root user.
+   cd /oracle
+   unzip XXX
+c. Set up the oracle DBA user and group:
+   $ groupadd -g 1001 dba
+   $ useradd -g dba -d /home/oracle -s /bin/bash -c "Oracle Owner" oracle
+   $ passwd oracle
+d. Create the following directories for Oracle installation:
+   $ mkdir -p /oracle/u01/app/oracle/product/11.2.0
+   $ mkdir -p /oracle/u01/oradata
+   $ mkdir -p /oracle/u02/oradata
+   $ mkdir -p /oracle/u03/oradata
+   $ chown -R oracle.dba /oracle/u01
+   $ chown -R oracle.dba /oracle/u02
+   $ chown -R oracle.dba /oracle/u03
+   $ cd /
+   $ ln -s /oracle/u01 u01
+   $ ln -s /oracle/u02 u02
+   $ ln -s /oracle/u03 u03
+e. Use any text editor, create or edit the /etc/sysctl.conf file, and add or edit lines similar to the following:
+   # BDNA customizations (added by cacey)
+   fs.file-max = 6815744
+   kernel.shmmni = 4096
+   kernel.sem = 250 32000 100 128
+   net.core.rmem_default = 4194304
+   net.core.rmem_max = 4194304
+   net.core.wmem_default = 262144
+   net.core.wmem_max = 1048576
+   net.ipv4.ip_forward = 0
+   net.ipv4.conf.default.rp_filter = 1
+   tcp.ipv4.tcp_wmem = 262144 262144 262144
+   tcp.ipv4.tcp_rmem = 4194304 4194304 4194304
+   fs.aio-max-nr = 1048576
+   net.ipv4.ip_local_port_range = 9000 65500
+f. Apply the system settings with the following command:
+   $ sysctl -p
+g. Add the following lines to the /etc/security/limits.conf file:
+   oracle soft nproc 2047
+   oracle hard nproc 16384
+   oracle soft nofile 1024
+   oracle hard nofile 65536
+   # Increased max number of open files to 2048, added by BDNA cacey
+   *               soft    nofile          3072
+   *               hard    nofile          3072
+h. Add or edit the following line in the /etc/pam.d/login file, if it does not already exist:
+   session required pam_limits.so
+i. Apply the following RPMs on the Linux server 
+   rpmForOracleDB64bit.tar.gz
+   rpmsforgcc.tar
+j. install vnc:
+   check if xhost installed, if not please install it first:rpmForXhost.tar.gz
+   install vnc: rpm -ivh tigervnc-server-1.1.0-5.el6_4.1.x86_64.rpm
+   configure vnc: vi /etc/sysconfig/vncservers
+   add remote desktop capability to my oracle/root user:
+   VNCSERVERS="1:root 2:oracle"
+   VNCSERVERARGS[1]="-geometry 800x600"
+   VNCSERVERARGS[2]="-geometry 800x600"
+   set a vnc password for users separately:
+   su - oracle
+   $vncpassword
+   set the vnc server service to auto-start on boot and start now.
+   #chkconfig vncserver on
+   #service vncserver start
+k.setup oracle invirenment parameters:
+  su - oracle
+  vi .bash_profile :
+  export ORACLE_BASE=/u01/app/oracle
+  export ORACLE_HOME=$ORACLE_BASE/product/11.2.0
+  export ORACLE_SID=ora11g
+  export LD_LIBRARY_PATH=$ORACLE_HOME/lib
+  export PATH=$PATH:$ORACLE_HOME/bin
+  export DISPLAY=<Cygwin_Host>:0.0
+l.login vnc :192.168.9.102: 2 (as oracle user)
+  xhost +
+  cd /oracle/database
+  ./runInstaller 
+  no email address -- next -- skip update
+  In Installation Option dialog, choose "Install database Software only". Click Next.
+  In Grid Installatio Options dialog, choose "Single instance database installation"
+  Product Languages.
+  Database Edition.
+  Installations Location.
+  In Operating System Groups dialog, select dba. Click Next.
+  Prerequisite Checks. (ignore swap file zise)
+  Summary
+  Install Product
+  Finish
+m.Copy file ora11g.dbt from the BDNA Server Installation Kit's ConfigurationFiles/ sub-directory onto $ORACLE_HOME/assistants/dbca/templates/. ora11g.dbt is the DBCA template that simplifies the database creation process.
+  /home/bdna/src/bdna/pso/common/ServerInstallation/src/ConfigurationFiles/ora11g.dbt onto /oracle/u01/app/oracle/product/11.2.0/assistants/dbca/templates/ora11g.dbt
+n.Run the Database Configuration Assistant utility (DBCA):
+  $ cd $ORACLE_HOME/bin
+  $ ./dbca
+  In DBCA wizard, choose the following options:
+  In Step 1 of 12: Operations dialog, select "Create a Databsase". Click Next.
+  In Step 2 of 12: Database Templates dialog, select "ora11g". Click Next.
+  In Step 3 of 12: Database Identification dialog, enter "ora11g" in Global Database Name and "ora11g" in SID fields. Click Next.
+  In Step 4 of 12: Management Options dialog, leave the default options. Click Next.
+  In Step 5 of 12: Database Credentials dialog, select "Use the Same Password for All Accounts" option. then enter the password. Click Next.
+  In Step 6 of 12: Storage Options dialog, leave the default options. Click Next.
+  In Step 7 of 12: Database File Locations dialog, select "Use Database File Locations from Template" option, click Next.
+  In Step 8 of 12: Recovery Configuration dialog, uncheck both "Specify Flash Recovery Area" and "Enable Archiving" option, click Next.
+  In Step 9 of 12: Database Content dialog, leave the default options. Click Next.
+  In Step 10 of 12: Initializing Parameters dialog, leave the default options. Click Next.
+  In Step 11 of 12: Database Storage dialog, leave the default options. Click Next.
+  In Step 12 of 12: Creation Options dialog, check "Create Database". Click Finish.
+o.Run the Network Configuration Assistant utility (NetCA):
+  $ cd $ORACLE_HOME/bin
+  $ ./netca
+  In NetCA wizard, choose the following options:
+  In Welcome page, select "Listener configuration".
+  In Listener Configuration, Listener page, select Add.
+  In Listener Configuration, Listener Name page, enter LISTENER.
+  In Listener Configuration, Select Protocol page, leave TCP as the default.
+  In Listener Configuration, TCP/IP Protocol page, select "Use the standard port number of 1521".
+  In Listener Configuration, More Listeners page, select No.
+  The wizard will go back to the Welcome screen. Click Finish.
+p. Edit /oracle/u01/app/oracle/admin/ora11g/pfile/init.ora and update the following parameters:
+   sga_target=1677721600
+   pga_aggregate_target=11767119872
+q. Edit /oracle/u01/app/oracle/admin/ora11g/pfile/init.ora and add the following parameters:
+   shared_pool_size=128m
+   session_cached_cursors=200
+   db_cache_size=1073741824
+   large_pool_size=0
+   java_pool_size=0
+   recyclebin=OFF  (already existed)
+   _gby_hash_aggregation_enabled=FALSE
+   _optimizer_push_pred_cost_based=false
+r. Edit /etc/oratab to allow automatically start and stop database.
+   Change "ora11g:/u01/app/oracle/product/11.1.0:N" to "ora11g:/u01/app/oracle/product/11.1.0:Y"
+s. By default, the Oracle instance is not set to automatically start on system bootup. To make Oracle auto-start, do the following:
+Copy oradb to /etc/init.d/, or create a new oradb file under /etc/init.d. (If you choose to create a new oradb file, copy the text from Appendix D).
+   Login the system as root.
+   chmod 750 /etc/init.d/oradb
+   chkconfig --level 35 oradb on
+   chkconfig --level 016 oradb off
+t. Use sqlplus to verify the Oracle instance is running:
+   $ cd $ORACLE_HOME/bin
+   $ ./sqlplus system/<sys_password>
+  
+  
+
+
+
+
+
+
+
+
+
