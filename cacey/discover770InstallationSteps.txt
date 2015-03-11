@@ -1,4 +1,4 @@
-oracle 11.2.0.2.0 �İ�װ��
+oracle 11.2.0.2.0 µÄ°²×°£º
 
 1. prepare:
 a. VM IP: 192.168.9.102
@@ -103,59 +103,59 @@ j. install vnc:
    set the vnc server service to auto-start on boot and start now.
    #chkconfig vncserver on
    #service vncserver start
-k.setup oracle invirenment parameters:
-  su - oracle
-  vi .bash_profile :
-  export ORACLE_BASE=/u01/app/oracle
-  export ORACLE_HOME=$ORACLE_BASE/product/11.2.0
-  export ORACLE_SID=ora11g
-  export LD_LIBRARY_PATH=$ORACLE_HOME/lib
-  export PATH=$PATH:$ORACLE_HOME/bin
-  export DISPLAY=<Cygwin_Host>:0.0
-l.login vnc :192.168.9.102: 2 (as oracle user)
-  xhost +
-  cd /oracle/database
-  ./runInstaller 
-  no email address -- next -- skip update
-  In Installation Option dialog, choose "Install database Software only". Click Next.
-  In Grid Installatio Options dialog, choose "Single instance database installation"
-  Product Languages.
-  Database Edition.
-  Installations Location.
-  In Operating System Groups dialog, select dba. Click Next.
-  Prerequisite Checks. (ignore swap file zise)
-  Summary
-  Install Product
-  Finish
-m.Copy file ora11g.dbt from the BDNA Server Installation Kit's ConfigurationFiles/ sub-directory onto $ORACLE_HOME/assistants/dbca/templates/. ora11g.dbt is the DBCA template that simplifies the database creation process.
+k. setup oracle invirenment parameters:
+   su - oracle
+   vi .bash_profile :
+   export ORACLE_BASE=/u01/app/oracle
+   export ORACLE_HOME=$ORACLE_BASE/product/11.2.0
+   export ORACLE_SID=ora11g
+   export LD_LIBRARY_PATH=$ORACLE_HOME/lib
+   export PATH=$PATH:$ORACLE_HOME/bin
+   export DISPLAY=<Cygwin_Host>:0.0
+l. login vnc :192.168.9.102: 2 (as oracle user)
+   xhost +
+   cd /oracle/database
+   ./runInstaller 
+   no email address -- next -- skip update
+   In Installation Option dialog, choose "Install database Software only". Click Next.
+   In Grid Installation Options dialog, choose "Single instance database installation"
+   Product Languages.
+   Database Edition.
+   Installations Location.
+   In Operating System Groups dialog, select dba. Click Next.
+   Prerequisite Checks. (ignore swap file zise)
+   Summary
+   Install Product
+   Finish
+m. Copy file ora11g.dbt from the BDNA Server Installation Kit's ConfigurationFiles/ sub-directory onto $ORACLE_HOME/assistants/dbca/templates/. ora11g.dbt is the DBCA template that simplifies the database creation process.
   /home/bdna/src/bdna/pso/common/ServerInstallation/src/ConfigurationFiles/ora11g.dbt onto /oracle/u01/app/oracle/product/11.2.0/assistants/dbca/templates/ora11g.dbt
-n.Run the Database Configuration Assistant utility (DBCA):
-  $ cd $ORACLE_HOME/bin
-  $ ./dbca
-  In DBCA wizard, choose the following options:
-  In Step 1 of 12: Operations dialog, select "Create a Databsase". Click Next.
-  In Step 2 of 12: Database Templates dialog, select "ora11g". Click Next.
-  In Step 3 of 12: Database Identification dialog, enter "ora11g" in Global Database Name and "ora11g" in SID fields. Click Next.
-  In Step 4 of 12: Management Options dialog, leave the default options. Click Next.
-  In Step 5 of 12: Database Credentials dialog, select "Use the Same Password for All Accounts" option. then enter the password. Click Next.
-  In Step 6 of 12: Storage Options dialog, leave the default options. Click Next.
-  In Step 7 of 12: Database File Locations dialog, select "Use Database File Locations from Template" option, click Next.
-  In Step 8 of 12: Recovery Configuration dialog, uncheck both "Specify Flash Recovery Area" and "Enable Archiving" option, click Next.
-  In Step 9 of 12: Database Content dialog, leave the default options. Click Next.
-  In Step 10 of 12: Initializing Parameters dialog, leave the default options. Click Next.
-  In Step 11 of 12: Database Storage dialog, leave the default options. Click Next.
-  In Step 12 of 12: Creation Options dialog, check "Create Database". Click Finish.
-o.Run the Network Configuration Assistant utility (NetCA):
-  $ cd $ORACLE_HOME/bin
-  $ ./netca
-  In NetCA wizard, choose the following options:
-  In Welcome page, select "Listener configuration".
-  In Listener Configuration, Listener page, select Add.
-  In Listener Configuration, Listener Name page, enter LISTENER.
-  In Listener Configuration, Select Protocol page, leave TCP as the default.
-  In Listener Configuration, TCP/IP Protocol page, select "Use the standard port number of 1521".
-  In Listener Configuration, More Listeners page, select No.
-  The wizard will go back to the Welcome screen. Click Finish.
+n. Run the Database Configuration Assistant utility (DBCA):
+   $ cd $ORACLE_HOME/bin
+   $ ./dbca
+   In DBCA wizard, choose the following options:
+   In Step 1 of 12: Operations dialog, select "Create a Databsase". Click Next.
+   In Step 2 of 12: Database Templates dialog, select "ora11g". Click Next.
+   In Step 3 of 12: Database Identification dialog, enter "ora11g" in Global Database Name and "ora11g" in SID fields. Click Next.
+   In Step 4 of 12: Management Options dialog, leave the default options. Click Next.
+   In Step 5 of 12: Database Credentials dialog, select "Use the Same Password for All Accounts" option. then enter the password. Click Next.
+   In Step 6 of 12: Storage Options dialog, leave the default options. Click Next.
+   In Step 7 of 12: Database File Locations dialog, select "Use Database File Locations from Template" option, click Next.
+   In Step 8 of 12: Recovery Configuration dialog, uncheck both "Specify Flash Recovery Area" and "Enable Archiving" option, click Next.
+   In Step 9 of 12: Database Content dialog, leave the default options. Click Next.
+   In Step 10 of 12: Initializing Parameters dialog, leave the default options. Click Next.
+   In Step 11 of 12: Database Storage dialog, leave the default options. Click Next.
+   In Step 12 of 12: Creation Options dialog, check "Create Database". Click Finish.
+o. Run the Network Configuration Assistant utility (NetCA):
+   $ cd $ORACLE_HOME/bin
+   $ ./netca
+   In NetCA wizard, choose the following options:
+   In Welcome page, select "Listener configuration".
+   In Listener Configuration, Listener page, select Add.
+   In Listener Configuration, Listener Name page, enter LISTENER.
+   In Listener Configuration, Select Protocol page, leave TCP as the default.
+   In Listener Configuration, TCP/IP Protocol page, select "Use the standard port number of 1521".
+   In Listener Configuration, More Listeners page, select No.
+   The wizard will go back to the Welcome screen. Click Finish.
 p. Edit /oracle/u01/app/oracle/admin/ora11g/pfile/init.ora and update the following parameters:
    sga_target=1677721600
    pga_aggregate_target=11767119872
