@@ -1,0 +1,54 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/bin
+
+export PATH
+
+export BDNA_VER=7.7.0
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+export ORACLE_BASE=/u01/app/oracle
+export ORACLE_HOME=$ORACLE_BASE/product/11.2.0
+export ORACLE_SID=ora11g
+#export CLASSPATH=$ORACLE_HOME/jdbc/lib/classes12.zip
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib
+export ORA_NLS33=$ORACLE_HOME/ocommon/nls/admin/data
+export BDNA_SRC=$HOME/src/bdna
+export BDNA_SEQ=$HOME/src/sequences
+export BDNA_HOME=$HOME/install770
+export J4SC_HOME=$BDNA_SRC/tools/j4sc/bin
+export J4C_HOME=$BDNA_SRC/ShellScripts/UNIX
+export ANT_HOME=/usr/share/apache-ant-1.9.4
+export ANT_OPTS=-Xmx1024M
+export JAVA_HOME=/usr/java/jdk1.8.0_05
+export JRE_HOME=$JAVA_HOME/jre
+export BDNA_JIFFY=$BDNA_SEQ/com/bdna/fingerprintTool/templates/jiffy
+export SVN_HOME=/opt/CollabNet_Subversion
+export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$ANT_HOME/bin:$BDNA_HOME/bin:$ORACLE_HOME/bin:$J4SC_HOME:$J4C_HOME:$PATH:/usr/sbin:/sbin:$BDNA_HOME/bin:$SVN_HOME/bin
+export NLS_LANG=AMERICAN_AMERICA.AL32UTF8
+#export CLASSPATH=$J4SC_HOME/lib:$BDNA_HOME/lib:$JAVA_HOME/lib:$JRE_HOME/lib:$BDNA_SRC/nih/gnu/gnu-regexp-1.1.4.jar:$BDNA_SRC/nih/Xerces/xercesImpl.jar
+export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib::$BDNA_HOME/lib:$BDNA_SRC/nih/gnu/gnu-regexp-1.1.4.jar:$BDNA_SRC/nih/Xerces/xercesImpl.jar
+export SVN_EDITOR=vim
+export NMAPDIR=$BDNA_HOME/nih/Nmap/src
+
+#export NLS_LANG=AMERICAN_AMERICA.AL32UTF8
+export LANG=C
+
+echo "Current BDNA Version is:" $BDNA_VER
+echo "BDNA HOME is:" $BDNA_HOME
+echo "BDNA Source Location is:" $BDNA_SRC
+
+
+alias kkill="sudo killall -9 java perl sqlplus"
+alias rmHome="sudo rm -rf /home/bdna/install770 /home/bdna/install770_4012"
+alias sid="echo $ORACLE_SID"
+
+
+# BDNA environment settings
+. ~/.bash_bdna

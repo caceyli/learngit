@@ -179,14 +179,61 @@ Copy oradb to /etc/init.d/, or create a new oradb file under /etc/init.d. (If yo
 t. Use sqlplus to verify the Oracle instance is running:
    $ cd $ORACLE_HOME/bin
    $ ./sqlplus system/<sys_password>
+u. turn off firewall auto-start on boot: /sbin/chkconfig --level 2345 iptables off or chkconfig iptables off (need restart system)
+v. SELECT * FROM dba_profiles s WHERE s.profile='DEFAULT' AND resource_name='PASSWORD_LIFE_TIME';
+   ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;  (user password never expired)
+   select * from dba_profiles;
+   alter profile default limit FAILED_LOGIN_ATTEMPTS unlimited;  (user never locked)
+
+
+Discover 7.7 Production Machine Setup (http://wiki.bdnacorp.com/index.php/Discover_7.7_Production_Machine_Setup)
+1. Setup cron for time synchronization  (not clear)
+2. Create users (eg: bdna)
+3. Install DB client  (not clear)
+4. Install RPMs from the EssentialRPMs.tar.gz
+6. Install Perl RPMs from EssentialPerlRPMs.tar.gz
+9. Install RPMs for 32 bit application support from Essential32bit.tar.gz
+7. Turn off firewall for CLE access
+   Turning off RHEL 6 firewall
+   // Login as root
+   # service iptables save
+   # service iptables stop
+   # chkconfig iptables off
+8. Fix /etc/sudoers
+   %visudo
+   // Comment out the "Defaults requiretty" line
+   # Defaults requiretty
+   // Add a line to turn off requiretty for the user
+   Defaults:<username> !requiretty
+   // Comment out the env_reset line
+   # Defaults env_reset
+   // Add a line to turn off env_reset for the user
+   Defaults:<username> !env_reset
+   // Comment out PASSWD
+   root    ALL=NOPASSWD: ALL
+   bdna    ALL=NOPASSWD: ALL
+   oracle  ALL=NOPASSWD: ALL
+10. Add the local hostname and ip address to /etc/hosts
+   192.168.9.102    VMST9102   VMST9102.BDNACN.COM
+
+
+Discover 7.7 Development Machine Setup (http://wiki.bdnacorp.com/index.php/Discover_7.7_Development_Machine_Setup)
+1. Install Ant 1.9.4 into /usr/share/apache-ant-1.9.4. (extraction is installation)
+2. Install Java into /usr/java/jdk1.8.0_05  (extraction is installation)
+3. Add the following lines to .bash_profile
+   export ANT_HOME=/usr/share/apache-ant-1.9.4
+   export ANT_OPTS=-Xmx1024M
+   export JAVA_HOME=/usr/java/jdk1.8.0_05
+   export PATH=$JAVA_HOME/bin:$PATH:/usr/sbin:/sbin:$HOME/bin:$ORACLE_HOME/bin:$ANT_HOME/bin
+   export BDNA_SEQ_SRC =<path to seq src eg /home/bdna/sequences)
+   export BDNA_SEQ=<path to seq src eg /home/bdna/sequences)
+4. Build sequences and then bdna
+   cd sequences/build
+   sh dobuild.sh
+   ant stamp build
+   cd bdna/build
+   ant stamp buil
   
-  
-
-
-
-
-
-
 
 
 
