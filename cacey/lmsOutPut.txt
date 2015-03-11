@@ -1,0 +1,48 @@
+Generating Oracle LMS 3PTV Output
+After completing all Oracle Level 3 Collection Tasks you can use the following steps to generate the Oracle LMS
+3PTV output in the format specified by Oracle LMS.
+Note: These steps must be completed against the Collection Store schema. Oracle LMS 3PTV output generation is
+not currently supported against a FactBase schema.
+In addition to the steps used to export the results, after refreshanalytics has been completed in step 1, the LMS data
+may be viewed directly using the Analytics application. All Oracle LMS related reports may be found under the
+Analytics application in a folder named ¡®Oracle Licensing¡¯.
+To generate Oracle LMS 3PTV Output from a Collection Store:
+The following steps must be completed while logged on to the primary BDNA Discover Linux component as the user
+bdna. The export will target the schema currently connected to the Collection Store instance, as specified in the file
+$BDNA_HOME/conf/connection.properties. If export from an instance other than the currently connected
+instance is desired, update the connection.properties in order to specify a different target schema.
+1. Connect to the Collection Store and run refreshanalytics using the bdna shell
+2. Execute the following shell script to generate the Oracle LMS 3PTV output:
+$BDNA_HOME/conf/bcp_store/EnterpriseSequence/bin/ExtractLMS3PTVOutput.sh
+This script takes one optional argument that may be used to specify a target output directory. If no directory
+argument is passed to the script the current directory will be the target for the output files. Example:
+[bdna@server tmp]$ cd $BDNA_HOME/conf/bcp_store/EnterpriseSequence/bin/
+[bdna@server bin]$ sh ./ExtractLMS3PTVOutput.sh -f /tmp
+Usage: ExtractLMS3PTVOutput.sh [-f target_folder]
+where:
+[-f target_folder] is the directory path where the LMS 3PTV output files get
+saved. (optional)
+[Thu Oct 6 10:38:08 PDT 2011] Generating LMS 3PTV Output files
+LMSTABLES.DMP and LMS_OVERVIEW.CSV.
+[Thu Oct 6 10:38:09 PDT 2011] exporting tables onto lmsTables.dmp file
+Export: Release 10.2.0.4.0 - Production on Thu Oct 6 10:38:09 2011
+Copyright (c) 1982, 2007, Oracle. All rights reserved. BDNA Discover for Oracle Licensing Generating Oracle LMS 3PTV Output
+Discover for Oracle Licensing Data Extraction Guide ¡ª Confidential and Proprietary to BDNA 8
+Connected to: Oracle Database 10g Enterprise Edition Release 10.2.0.4.0 -
+Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing
+options
+Export done in WE8ISO8859P1 character set and AL16UTF16 NCHAR character set
+server uses AL32UTF8 character set (possible charset conversion)
+About to export specified tables via Conventional Path ...
+. . exporting table LMS_DETAIL 2 rows exported
+. . exporting table LMS_OPTIONS 1491 rows exported
+. . exporting table LMS_DBA_USERS 56 rows exported
+. . exporting table LMS_V$LICENSE 2 rows exported
+. . exporting table LMS_V$SESSION 58 rows exported
+Export terminated successfully without warnings.
+[bdna@server bin]$ cd /tmp
+[bdna@server tmp]$ ls -lrt
+-rw-rw-r-- 1 bdna bdna 794 Oct 6 10:38 lmsTables20111006.log
+-rw-rw-r-- 1 bdna bdna 278528 Oct 6 10:38 lmsTables20111006.dmp
+-rw-rw-r-- 1 bdna bdna 3004 Oct 6 10:38 lms_overview_20111006.csv
