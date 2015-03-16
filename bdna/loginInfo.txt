@@ -14,7 +14,7 @@ Gary movie share:
 cst account:
 passwd0 873172
 
-IB account: 
+IC account: 
 passwd0: 198612
 passwd1: simple00
 passwd2: simple01
