@@ -1,0 +1,36 @@
+The instructions for Modular Collection Infrastructure (MCI) for UNIX Level 2 in Discover_7.7.0_Administrator_Guide.pdf/Page 164:
+
+1. installed latest sequence on 192.168.9.104. (discover 770) 
+2. login bdna server 192.168.9.104 (as bdna user) 
+[bdna@VMDC9104 ~]$ sh bdna.sh 
+bdna> module -i /home/bdna/install770/examples/mci/ModularCollectionForOutOfSystemFind.xml 
+bdna> buildPresRls 
+bdna> exit 
+[bdna@VMDC9104 ~]$ cd /home/bdna/install770/scripts/ModularCollection/Perl/ 
+[bdna@VMDC9104 perl]$ perl generateFindProvScript.pl 
+[bdna@VMDC9104 perl]$ scp ProvisionFindScript.sh bdna@192.168.8.152:/tmp/ 
+
+3. login 192.168.8.152 (the target machine) 
+[bdna@rh4-8152 ~]$ cd /tmp 
+[bdna@rh4-8152 tmp]$ sh ProvisionFindScript.sh 
+[bdna@rh4-8152 tmp]$ cd /tmp/ModularCollFind/bdnaFind/ 
+[bdna@rh4-8152 bdnaFind]$ sh invokeFindScript.sh 
+[bdna@rh4-8152 bdnaFind]$ Aborting: Wrapper file Checksum failure 
+[bdna@rh4-8152 bdnaFind]$ 
+
+
+
+
+Lms_output for Collection Store:
+
+[bdna@VMDC8245 bin]$ cd /tmp/
+[bdna@VMDC8245 tmp]$ sh $BDNA_HOME/conf/bcp_store/EnterpriseSequence/bin/ExtractLMS3PTVOutput.sh
+.................................
+Export terminated successfully without warnings.
+[bdna@VMDC8245 tmp]$ ls
+lmsOverview_20150316.csv  lmsTables_20150316.dmp  lmsTables_20150316.log
+
+
+
+
+

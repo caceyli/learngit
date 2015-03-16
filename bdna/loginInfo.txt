@@ -1,0 +1,63 @@
+CVS/git/USvpn/serviceNow Logins: CaceyLi/anDb327
+
+cdb Logins: caceyli/bdna4249
+
+own host/bdna ftp/GZvpn: lihh/bdnacn
+
+ESX SERVER:
+192.168.8.41  (root/bdna202)
+192.168.8.100 (root/Simple.0)
+
+Gary movie share:
+192.168.8.113 (administrator/bdna@202)
+
+construction account:
+passwd0 873172
+
+Industry Businese account: 
+passwd0: 198612
+passwd1: simple00
+passwd2: simple01
+
+QQ/weixin:
+simple01
+
+zhifubao account:
+passwd1: simple01
+passwd2: simple00
+
+Service Now:
+https://bdna.service-now.com/
+
+cdb:
+http://192.168.10.88:8000/cdb/login
+
+Enterprse GA sequences, bdnacs, automation code backup location:
+ftp://192.168.8.25/Repository/Release/
+
+bdna wiki:
+http://wiki.bdnacorp.com/index.php/Main_Page
+
+bugzilla:
+http://bugzilla.bdnacorp.com/
+192.168.1.60
+
+US VPN:
+vpn1mv.bdna.com
+12.54.125.134
+
+GZ VPN:
+58.67.154.138
+
+mygithup: (caceyli/Simple.0)
+git clone git@github.com:caceyli/learngit.git?
+
+
+
+
+
+
+
+
+
+
