@@ -11,10 +11,10 @@ ESX SERVER:
 Gary movie share:
 192.168.8.113 (administrator/bdna@202)
 
-construction account:
+cst account:
 passwd0 873172
 
-Industry Businese account: 
+IC account: 
 passwd0: 198612
 passwd1: simple00
 passwd2: simple01
@@ -22,7 +22,7 @@ passwd2: simple01
 QQ/weixin:
 simple01
 
-zhifubao account:
+zfb account:
 passwd1: simple01
 passwd2: simple00
 
@@ -50,7 +50,7 @@ GZ VPN:
 58.67.154.138
 
 mygithup: (caceyli/Simple.0)
-git clone git@github.com:caceyli/learngit.git?
+git clone git@github.com:caceyli/learngit.git
 
 
 
