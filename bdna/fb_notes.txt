@@ -1,0 +1,2 @@
+做 factbase upgrade的tests 查看一下它是否有问题，包括运行过程中是否有error， log里是否有error， 还有这个 SQL 语句的值是否正常：  
+select table_name, comments from user_tab_comments where table_name like 'BDNA\_%' escape '\' ;   
