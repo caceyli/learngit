@@ -1,0 +1,13 @@
+BUG02559: [Oracle] Oracle LMS Re-Verification: Update LMS reports and 3PTV output with new Oracle LMS scripts v15.1
+Developer--miya
+
+M       modules/com/bdna/modules/database/UNIXOracleLMS.xml
+M       wincs/Scripts/WindowsOracleInstanceLMSConcurrencyOptionsScript.cs
+M       wincs/Scripts/WindowsOracleInstanceLMSRawDataDetailsScript.cs
+M       wincs/Scripts/WindowsOracleInstanceLMSRawDataOpt1aScript.cs
+M       wincs/Scripts/WindowsOracleInstanceLMSRawDataOpt1bScript.cs
+M       wincs/Scripts/WindowsOracleInstanceLMSRawDataOpt1cScript.cs
+M       wincs/Scripts/WindowsOracleInstanceLMSRawDataOpt2Script.cs
+M       wincs/Scripts/WindowsOracleInstanceLMSRawDataOpt3Script.cs
+M       wincs/Scripts/WindowsOracleInstanceLMSRawDataOpt4Script.cs
+M       wincs/Scripts/WindowsOracleInstanceLMSRawDataOpt5Script.cs
