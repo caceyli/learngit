@@ -1360,10 +1360,6 @@
         <depend name="hardwareDevices" />
     </package>
 -->
-    <packageRelationship parentPackage="Windows" childPackage="WinSIMCard" />
-    <packageRelationship parentPackage="WindowsPkg" childPackage="WinSIMCard" />
-    <packageRelationship parentPackage="WindowsPkgSys" childPackage="WinSIMCard" />
-    <packageAttributeSet packageName="WinSIMCard" attributeSetName="WinSIMCardFilePropFootprintStatic"  />
 
     <packageRelationship parentPackage="Windows" childPackage="WindowsL1" />
     <packageRelationship parentPackage="WindowsPkg" childPackage="WindowsL1" />
@@ -1372,6 +1368,11 @@
     <packageRelationship parentPackage="Windows" childPackage="WindowsL2" />
     <packageRelationship parentPackage="WindowsPkg" childPackage="WindowsL2" />
     <packageRelationship parentPackage="WindowsPkgSys" childPackage="WindowsL2Sys" />
+
+    <packageRelationship parentPackage="WindowsL2" childPackage="WinSIMCard" />
+    <packageRelationship parentPackage="WindowsL2" childPackage="WinSIMCard" />
+    <packageRelationship parentPackage="WindowsL2Sys" childPackage="WinSIMCard" />
+    <packageAttributeSet packageName="WinSIMCard" attributeSetName="WinSIMCardFilePropFootprintStatic"  />
 
     <packageRelationship parentPackage="software" childPackage="desktopSoftware" />
     <packageAttributeSet packageName="SNMP" attributeSetName="RAIDDataStatic" /> 
