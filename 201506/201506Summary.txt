@@ -11,3 +11,9 @@ M       wincs/Scripts/WindowsOracleInstanceLMSRawDataOpt2Script.cs
 M       wincs/Scripts/WindowsOracleInstanceLMSRawDataOpt3Script.cs
 M       wincs/Scripts/WindowsOracleInstanceLMSRawDataOpt4Script.cs
 M       wincs/Scripts/WindowsOracleInstanceLMSRawDataOpt5Script.cs
+
+
+BUG02657: WinSIMCardFilePropFootprintStatic collection task results in "Process creation failed"
+Developer--gary
+
+M       modules/com/bdna/modules/os/Windows.xml
