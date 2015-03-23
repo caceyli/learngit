@@ -20,8 +20,7 @@ bdna> exit
 
 
 
-
-Lms_output for Collection Store:
+Lms_output for Collection Store: (after built report)
 
 [bdna@VMDC8245 bin]$ cd /tmp/
 [bdna@VMDC8245 tmp]$ sh $BDNA_HOME/conf/bcp_store/EnterpriseSequence/bin/ExtractLMS3PTVOutput.sh
@@ -29,6 +28,16 @@ Lms_output for Collection Store:
 Export terminated successfully without warnings.
 [bdna@VMDC8245 tmp]$ ls
 lmsOverview_20150316.csv  lmsTables_20150316.dmp  lmsTables_20150316.log
+
+
+Git commands
+git clone git@gitlab.bdnacorp.com:discover-team/sequences-7-7.git
+git clone git@gitlab.bdnacorp.com:discover-team/sequences-7-6-1.git
+
+
+
+
+
 
 
 
