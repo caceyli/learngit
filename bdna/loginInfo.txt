@@ -1,4 +1,4 @@
-CVS/git/USvpn/serviceNow Logins: CaceyLi/anDb327
+CVS/git/USvpn/serviceNow/outlook Logins: CaceyLi/anDb327
 
 cdb Logins: caceyli/bdna4249
 
@@ -29,11 +29,17 @@ passwd2: simple00
 Service Now:
 https://bdna.service-now.com/
 
+outlook:
+https://outlook.office365.com
+
 cdb:
 http://192.168.10.88:8000/cdb/login
 
 Enterprse GA sequences, bdnacs, automation code backup location:
 ftp://192.168.8.25/Repository/Release/
+
+US nas2 shared:
+\\192.168.1.17
 
 bdna wiki:
 http://wiki.bdnacorp.com/index.php/Main_Page
