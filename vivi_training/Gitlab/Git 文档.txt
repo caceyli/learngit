@@ -1,0 +1,1979 @@
+git clone git@10.10.11.88:discover-team/sequences-7-7.git
+
+git clone git@10.10.11.88:discover-team/sequences-7-6-1.git
+
+git clone git@10.10.11.88:discover-team/sequence-hotfix.git
+
+
+git@gitlab.bdnacorp.com:discover-team/sequence-hotfix.git
+
+
+git@gitlab.bdnacorp.com:discover-team/sequence-hotfix.git
+
+
+git@gitlab.bdnacorp.com:discover-team/content.git
+
+
+git@gitlab.bdnacorp.com:discover-team/sequences-7-7.git
+
+
+git@gitlab.bdnacorp.com:discover-team/sequence-documentation.git
+
+
+
+git commit -m "Hotfix for ENH10799 (Collect 6 'CodSede  CodUfficio  CodUfficio2  KitVer  Regione  TipoUfficio' attributes ) on Jan 16,2015. "  hotfix_ENH10799_for_Daman.zip
+
+
+
+
+
+
+
+
+美国的Wiki 参考文档：
+http://wiki.bdnacorp.com/index.php/Discover_git_setup
+
+
+Git 分支管理和冲突解决
+http://www.cnblogs.com/mengdd/p/3585038.html
+
+
+
+
+
+
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch develop
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#       modified:   build/bcp.build.number
+#       modified:   content/manifests/EnterpriseSequenceManifest.xml
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status -u
+# On branch develop
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#       modified:   build/bcp.build.number
+#       modified:   content/manifests/EnterpriseSequenceManifest.xml
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git checkout -- build/bcp.build.number  content/manifests/EnterpriseSequenceManifest.xml
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch develop
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status -u
+# On branch develop
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+
+
+
+
+
+
+[bdna@VMDC8249 sequences-7-6-1]$ git checkout qa
+Switched to branch 'qa'
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git branch
+  develop
+  master
+* qa
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch qa
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git merge develop
+Merge made by recursive.
+ build/build_env.Linux.properties                   |    2 +-
+ com/bdna/app/data/marketData-NextGen.zip           |  Bin 45444363 -> 47993837 bytes
+ com/bdna/fingerprintTool/jiffy.list                |   33 ++++++-
+ .../UNIX_NetworkAdvisorClient.j4                   |  105 +++++++++++++++++++
+ .../UNIX_NetworkAdvisorServer.j4                   |  106 ++++++++++++++++++++
+ .../fingerprintTool/templates/jiffy/EMC/RSA/EMC.j4 |   16 +++
+ .../fingerprintTool/templates/jiffy/EMC/RSA/RSA.j4 |   14 +++
+ .../jiffy/EMC/RSA/UNIX_AuthenticationManager.j4    |   32 ++++++
+ .../HitachiDataSystems/HiCommand/HiCommand.j4      |   14 +++
+ .../HiCommand/HitachiDataSystems.j4                |   18 ++++
+ .../HiCommand/UNIX_DeviceManagerServer.j4          |   44 ++++++++
+ .../jiffy/HitachiDataSystems/HitachiDataSystems.j4 |   18 ++++
+ .../templates/jiffy/Oracle/UNIX_JDK.j4             |   58 +++++++++++
+ .../templates/jiffy/Oracle/UNIX_JRE.j4             |   79 +++++++++++++++
+ .../templates/jiffy/Pivotal/Pivotal.j4             |   19 ++++
+ .../jiffy/Pivotal/UNIX_Pivotal_Web_Server.j4       |   51 ++++++++++
+ .../templates/jiffy/Pivotal/UNIX_tc_Server.j4      |   47 +++++++++
+ .../templates/jiffy/Splunk/Splunk.j4               |   18 ++++
+ .../templates/jiffy/Splunk/UNIX_Splunk.j4          |   70 +++++++++++++
+ .../jiffy/Splunk/UNIX_UniversalForwarder.j4        |   70 +++++++++++++
+ .../jiffy/Veritas/UNIX_OpsCenterAnalyticsAgent.j4  |   31 ++++++
+ .../UNIX_OpsCenterAnalyticsManagementServer.j4     |   44 ++++++++
+ content/manifests/EnterpriseSequenceManifest.xml   |   17 +++
+ content/manifests/OracleSoftwareManifest.xml       |    2 +
+ modules/com/bdna/modules/database/Oracle.xml       |    3 +
+ scripts/ModularCollection/sh/invokeFindScript.sh   |   22 ----
+ 26 files changed, 908 insertions(+), 25 deletions(-)
+ create mode 100644 com/bdna/fingerprintTool/templates/jiffy/BrocadeCommunicationsSystems/UNIX_NetworkAdvisorClient.j4
+ create mode 100644 com/bdna/fingerprintTool/templates/jiffy/BrocadeCommunicationsSystems/UNIX_NetworkAdvisorServer.j4
+ create mode 100755 com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/EMC.j4
+ create mode 100755 com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/RSA.j4
+ create mode 100755 com/bdna/fingerprintTool/templates/jiffy/EMC/RSA/UNIX_AuthenticationManager.j4
+ create mode 100755 com/bdna/fingerprintTool/templates/jiffy/HitachiDataSystems/HiCommand/HiCommand.j4
+ create mode 100755 com/bdna/fingerprintTool/templates/jiffy/HitachiDataSystems/HiCommand/HitachiDataSystems.j4
+ create mode 100755 com/bdna/fingerprintTool/templates/jiffy/HitachiDataSystems/HiCommand/UNIX_DeviceManagerServer.j4
+ create mode 100755 com/bdna/fingerprintTool/templates/jiffy/HitachiDataSystems/HitachiDataSystems.j4
+ create mode 100644 com/bdna/fingerprintTool/templates/jiffy/Oracle/UNIX_JDK.j4
+ create mode 100644 com/bdna/fingerprintTool/templates/jiffy/Oracle/UNIX_JRE.j4
+ create mode 100644 com/bdna/fingerprintTool/templates/jiffy/Pivotal/Pivotal.j4
+ create mode 100644 com/bdna/fingerprintTool/templates/jiffy/Pivotal/UNIX_Pivotal_Web_Server.j4
+ create mode 100644 com/bdna/fingerprintTool/templates/jiffy/Pivotal/UNIX_tc_Server.j4
+ create mode 100755 com/bdna/fingerprintTool/templates/jiffy/Splunk/Splunk.j4
+ create mode 100755 com/bdna/fingerprintTool/templates/jiffy/Splunk/UNIX_Splunk.j4
+ create mode 100755 com/bdna/fingerprintTool/templates/jiffy/Splunk/UNIX_UniversalForwarder.j4
+ create mode 100644 com/bdna/fingerprintTool/templates/jiffy/Veritas/UNIX_OpsCenterAnalyticsAgent.j4
+ create mode 100644 com/bdna/fingerprintTool/templates/jiffy/Veritas/UNIX_OpsCenterAnalyticsManagementServer.j4
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status -u
+# On branch qa
+# Your branch is ahead of 'origin/qa' by 14 commits.
+#
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch qa
+# Your branch is ahead of 'origin/qa' by 14 commits.
+#
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git push
+Counting objects: 7, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 356 bytes, done.
+Total 3 (delta 2), reused 0 (delta 0)
+To git@10.10.11.88:discover-team/sequences-7-6-1.git
+   c1a045c..d9d3ead  qa -> qa
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch qa
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+
+
+
+git 直接合并（straight merge 是 Fast-forward快进式合并）的话，原来已经存在的develop（但是在qa中修改的文件）的文件不会理会的，只会合并做了修改提交的文件，即是 把 develop branch merge到 qa branch 上的东西的时候，
+只会把develop 做了修改的内容合并过去，如果是develop没有修改，但是qa 有修改的，不会把 develop 没有修改的内容合并过去覆盖掉 qa有修改的。
+
+
+
+
+
+
+
+
+
+
+[root@VMDC8249 Git]# pwd
+/root/Git
+[root@VMDC8249 Git]#
+[root@VMDC8249 Git]# ls
+git-1.7.1-3.el6_4.1.x86_64.rpm  Microsoft.TeamFoundation.Git.Provider.msi  perl-Git-1.7.1-3.el6_4.1.noarch.rpm
+Git-1.9.4-preview20140815.exe   perl-Error-0.17015-4.el6.noarch.rpm        VS2012.4.exe
+[root@VMDC8249 Git]#
+[root@VMDC8249 Git]#
+
+
+[root@VMDC8249 Git]# rpm -Uvh perl-Error-0.17015-4.el6.noarch.rpm
+warning: perl-Error-0.17015-4.el6.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID fd431d51: NOKEY
+Preparing...                ########################################### [100%]
+        package perl-Error-1:0.17015-4.el6.noarch is already installed
+[root@VMDC8249 Git]#
+[root@VMDC8249 Git]#
+
+[root@VMDC8249 Git]# rpm -Uvh perl-Git-1.7.1-3.el6_4.1.noarch.rpm
+warning: perl-Git-1.7.1-3.el6_4.1.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID fd431d51: NOKEY
+error: Failed dependencies:
+        git = 1.7.1-3.el6_4.1 is needed by perl-Git-1.7.1-3.el6_4.1.noarch
+[root@VMDC8249 Git]#
+[root@VMDC8249 Git]#
+
+[root@VMDC8249 Git]# rpm -Uvh git-1.7.1-3.el6_4.1.x86_64.rpm
+warning: git-1.7.1-3.el6_4.1.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID fd431d51: NOKEY
+error: Failed dependencies:
+        perl(Git) is needed by git-1.7.1-3.el6_4.1.x86_64
+        perl-Git = 1.7.1-3.el6_4.1 is needed by git-1.7.1-3.el6_4.1.x86_64
+[root@VMDC8249 Git]#
+[root@VMDC8249 Git]#
+
+
+
+
+
+perl-Git-1.7.1-3.el6_4.1.noarch.rpm   和  git-1.7.1-3.el6_4.1.x86_64.rpm 是相互依赖的关系，他们需要同时安装的。
+
+perl-git与git互相依赖，需同时安装。
+
+
+
+
+[root@VMDC8249 Git]# pwd
+/root/Git
+[root@VMDC8249 Git]#
+[root@VMDC8249 Git]# ll
+total 25568
+-rw-r--r--. 1 root root  4829876 Sep 26 07:47 git-1.7.1-3.el6_4.1.x86_64.rpm
+-rw-r--r--. 1 root root 17806885 Sep 26 10:13 Git-1.9.4-preview20140815.exe
+-rw-r--r--. 1 root root  2113536 Oct  6 04:19 Microsoft.TeamFoundation.Git.Provider.msi
+-rw-r--r--. 1 root root    29328 Sep 26 07:47 perl-Error-0.17015-4.el6.noarch.rpm
+-rw-r--r--. 1 root root    28420 Sep 26 07:47 perl-Git-1.7.1-3.el6_4.1.noarch.rpm
+-rw-r--r--. 1 root root  1359960 Oct  6 04:23 VS2012.4.exe
+[root@VMDC8249 Git]#
+[root@VMDC8249 Git]# rpm -ivh perl-Error-0.17015-4.el6.noarch.rpm
+warning: perl-Error-0.17015-4.el6.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID fd431d51: NOKEY
+Preparing...                ########################################### [100%]
+        package perl-Error-1:0.17015-4.el6.noarch is already installed
+[root@VMDC8249 Git]#
+[root@VMDC8249 Git]#
+
+
+[root@VMDC8249 Git]# rpm -ivh git-1.7.1-3.el6_4.1.x86_64.rpm perl-Git-1.7.1-3.el6_4.1.noarch.rpm
+warning: git-1.7.1-3.el6_4.1.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID fd431d51: NOKEY
+Preparing...                ########################################### [100%]
+   1:perl-Git               ########################################### [ 50%]
+   2:git                    ########################################### [100%]
+[root@VMDC8249 Git]#
+[root@VMDC8249 Git]#
+
+
+
+
+[root@VMDC8249 Git]# rpm -ivh git-1.7.1-3.el6_4.1.x86_64.rpm perl-Git-1.7.1-3.el6_4.1.noarch.rpm
+warning: git-1.7.1-3.el6_4.1.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID fd431d51: NOKEY
+Preparing...                ########################################### [100%]
+        package perl-Git-1.7.1-3.el6_4.1.noarch is already installed
+        package git-1.7.1-3.el6_4.1.x86_64 is already installed
+[root@VMDC8249 Git]#
+[root@VMDC8249 Git]#
+
+
+
+
+
+
+
+[root@VMDC8249 Git]# git
+usage: git [--version] [--exec-path[=GIT_EXEC_PATH]] [--html-path]
+           [-p|--paginate|--no-pager] [--no-replace-objects]
+           [--bare] [--git-dir=GIT_DIR] [--work-tree=GIT_WORK_TREE]
+           [--help] COMMAND [ARGS]
+
+The most commonly used git commands are:
+   add        Add file contents to the index
+   bisect     Find by binary search the change that introduced a bug
+   branch     List, create, or delete branches
+   checkout   Checkout a branch or paths to the working tree
+   clone      Clone a repository into a new directory
+   commit     Record changes to the repository
+   diff       Show changes between commits, commit and working tree, etc
+   fetch      Download objects and refs from another repository
+   grep       Print lines matching a pattern
+   init       Create an empty git repository or reinitialize an existing one
+   log        Show commit logs
+   merge      Join two or more development histories together
+   mv         Move or rename a file, a directory, or a symlink
+   pull       Fetch from and merge with another repository or a local branch
+   push       Update remote refs along with associated objects
+   rebase     Forward-port local commits to the updated upstream head
+   reset      Reset current HEAD to the specified state
+   rm         Remove files from the working tree and from the index
+   show       Show various types of objects
+   status     Show the working tree status
+   tag        Create, list, delete or verify a tag object signed with GPG
+
+See 'git help COMMAND' for more information on a specific command.
+[root@VMDC8249 Git]#
+[root@VMDC8249 Git]# rpm -qi git
+Name        : git                          Relocations: (not relocatable)
+Version     : 1.7.1                             Vendor: Red Hat, Inc.
+Release     : 3.el6_4.1                     Build Date: Tue 26 Feb 2013 06:50:05 PM CST
+Install Date: Tue 25 Nov 2014 02:03:03 PM CST      Build Host: x86-007.build.bos.redhat.com
+Group       : Development/Tools             Source RPM: git-1.7.1-3.el6_4.1.src.rpm
+Size        : 15286443                         License: GPLv2
+Signature   : RSA/8, Mon 04 Mar 2013 04:02:15 PM CST, Key ID 199e2f91fd431d51
+Packager    : Red Hat, Inc. <http://bugzilla.redhat.com/bugzilla>
+URL         : http://git-scm.com/
+Summary     : Fast Version Control System
+Description :
+Git is a fast, scalable, distributed revision control system with an
+unusually rich command set that provides both high-level operations
+and full access to internals.
+
+The git rpm installs the core tools with minimal dependencies.  To
+install all git packages, including tools for integrating with other
+SCMs, install the git-all meta-package.
+[root@VMDC8249 Git]#
+[root@VMDC8249 Git]#
+
+
+
+
+
+[bdna@VMDC8249 ~]$ pwd
+/home/bdna
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ git
+usage: git [--version] [--exec-path[=GIT_EXEC_PATH]] [--html-path]
+           [-p|--paginate|--no-pager] [--no-replace-objects]
+           [--bare] [--git-dir=GIT_DIR] [--work-tree=GIT_WORK_TREE]
+           [--help] COMMAND [ARGS]
+
+The most commonly used git commands are:
+   add        Add file contents to the index
+   bisect     Find by binary search the change that introduced a bug
+   branch     List, create, or delete branches
+   checkout   Checkout a branch or paths to the working tree
+   clone      Clone a repository into a new directory
+   commit     Record changes to the repository
+   diff       Show changes between commits, commit and working tree, etc
+   fetch      Download objects and refs from another repository
+   grep       Print lines matching a pattern
+   init       Create an empty git repository or reinitialize an existing one
+   log        Show commit logs
+   merge      Join two or more development histories together
+   mv         Move or rename a file, a directory, or a symlink
+   pull       Fetch from and merge with another repository or a local branch
+   push       Update remote refs along with associated objects
+   rebase     Forward-port local commits to the updated upstream head
+   reset      Reset current HEAD to the specified state
+   rm         Remove files from the working tree and from the index
+   show       Show various types of objects
+   status     Show the working tree status
+   tag        Create, list, delete or verify a tag object signed with GPG
+
+See 'git help COMMAND' for more information on a specific command.
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ rpm -qa --queryformat installDirectory=\"%{DIRNAMES}\" git
+installDirectory="/etc/"[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ which git
+/usr/bin/git
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ whereis git
+git: /usr/bin/git /usr/share/man/man1/git.1.gz
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+
+
+
+
+[bdna@VMDC8249 ~]$ pwd
+/home/bdna
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ ls
+770GA  bv  cacey  install770  oradiag_bdna  src  vivi
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ ls -al
+total 104
+drwx------. 11 bdna bdna  4096 Nov 13 17:20 .
+drwxr-xr-x.  5 root root  4096 Sep 22 13:24 ..
+drwxrwxr-x.  5 bdna bdna  4096 Nov 13 13:20 770GA
+-rw-rw-r--.  1 bdna bdna   369 Sep 23 11:10 .bash_bdna
+-rw-------.  1 bdna bdna 12068 Nov 25 13:44 .bash_history
+-rw-r--r--.  1 bdna bdna    18 Jul  9  2013 .bash_logout
+-rw-r--r--.  1 bdna bdna  1772 Sep 22 18:16 .bash_profile
+-rw-r--r--.  1 bdna bdna   124 Jul  9  2013 .bashrc
+drwxr-xr-t.  2 bdna bdna  4096 Oct 24 10:50 .bdna
+-rw-rw-r--.  1 bdna bdna  2171 Sep 23 09:49 .bdna_response_file
+-rw-rw-r--.  1 bdna bdna   436 Nov 13 17:21 .bdna_setup_response
+-rw-rw-r--.  1 bdna bdna   436 Nov 13 17:20 .bdna_setup_response.tmp
+-rw-r--r--.  1 bdna bdna  1729 Sep 22 17:09 bv
+drwxrwxr-x.  4 bdna bdna  4096 Oct  8 11:52 cacey
+-rw-------.  1 bdna bdna    60 Oct 30 12:34 .cvspass
+drwxrwxr-x. 40 bdna bdna  4096 Nov 13 17:21 install770
+drwxr-xr-x.  3 bdna bdna  4096 Sep 28 02:08 oradiag_bdna
+drwxrwxr-x.  3 bdna bdna  4096 Oct 30 12:34 src
+drwx------.  2 bdna bdna  4096 Sep 23 11:17 .ssh
+drwxrwxr-x.  3 bdna bdna  4096 Sep 22 13:26 .subversion
+-rw-------.  1 bdna bdna  9672 Nov 13 17:17 .viminfo
+drwxrwxr-x.  2 bdna bdna  4096 Nov 13 13:21 vivi
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ cd .ssh/
+[bdna@VMDC8249 .ssh]$ ls
+known_hosts
+[bdna@VMDC8249 .ssh]$
+[bdna@VMDC8249 .ssh]$
+[bdna@VMDC8249 .ssh]$ pwd
+/home/bdna/.ssh
+[bdna@VMDC8249 .ssh]$
+[bdna@VMDC8249 .ssh]$
+[bdna@VMDC8249 .ssh]$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/bdna/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+passphrase too short: have 4 bytes, need > 4
+Saving the key failed: /home/bdna/.ssh/id_rsa.
+[bdna@VMDC8249 .ssh]$
+[bdna@VMDC8249 .ssh]$ ls -al
+total 12
+drwx------.  2 bdna bdna 4096 Sep 23 11:17 .
+drwx------. 11 bdna bdna 4096 Nov 13 17:20 ..
+-rw-r--r--.  1 bdna bdna 2765 Oct 22 10:40 known_hosts
+[bdna@VMDC8249 .ssh]$
+[bdna@VMDC8249 .ssh]$ pwd
+/home/bdna/.ssh
+[bdna@VMDC8249 .ssh]$ ls -al
+total 12
+drwx------.  2 bdna bdna 4096 Sep 23 11:17 .
+drwx------. 11 bdna bdna 4096 Nov 13 17:20 ..
+-rw-r--r--.  1 bdna bdna 2765 Oct 22 10:40 known_hosts
+[bdna@VMDC8249 .ssh]$
+[bdna@VMDC8249 .ssh]$
+
+这里生成密钥失败
+
+
+
+[bdna@VMDC8249 .ssh]$ pwd
+/home/bdna/.ssh
+[bdna@VMDC8249 .ssh]$ ls
+known_hosts
+[bdna@VMDC8249 .ssh]$
+[bdna@VMDC8249 .ssh]$
+[bdna@VMDC8249 .ssh]$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/bdna/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/bdna/.ssh/id_rsa.
+Your public key has been saved in /home/bdna/.ssh/id_rsa.pub.
+The key fingerprint is:
+7b:c7:a0:f5:95:75:3f:7c:a1:7b:bd:c6:34:26:cb:89 bdna@VMDC8249.BDNACN.COM
+The key's randomart image is:
++--[ RSA 2048]----+
+|                 |
+|                 |
+|               .o|
+|              oo+|
+|        S o  .ooo|
+|         + + o.++|
+|        o . *.B.o|
+|         . E +.o.|
+|              .. |
++-----------------+
+[bdna@VMDC8249 .ssh]$
+[bdna@VMDC8249 .ssh]$
+[bdna@VMDC8249 .ssh]$ ls -al
+total 20
+drwx------.  2 bdna bdna 4096 Nov 25 14:29 .
+drwx------. 11 bdna bdna 4096 Nov 13 17:20 ..
+-rw-------.  1 bdna bdna 1675 Nov 25 14:29 id_rsa
+-rw-r--r--.  1 bdna bdna  406 Nov 25 14:29 id_rsa.pub
+-rw-r--r--.  1 bdna bdna 2765 Oct 22 10:40 known_hosts
+[bdna@VMDC8249 .ssh]$
+[bdna@VMDC8249 .ssh]$
+
+
+这里生成 rsa 密钥一对 成功， 没有输入 passphrase 密码短语。
+
+[bdna@VMDC8249 .ssh]$ cat id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAqhqLmxoFfsPFT/b/nuCRFmLpW6uA1o5kGjqYIj+z3J1L75s8qX6M1XTH/HVH0YeZstH2qTfM5IXkvdSQpVdjPAQ7tN0poso+VVQmzYANkMVCRyCKqJNwVXjnjgXAZZAV6C+nphDsxFWl9yhGKQb5q7/5rAYAj3nqzHV1y/5giRwHRMPdEPzfdqLIE9RzPQfjdJvfk+YqAdTiCTmubo/oQ5GUe64SEHLSlJNPs7SZXxtFOlLTxco35l3ndbJkjIi19RoJte0OYlMGtnr8dDdD+RNOusuetXQYRMACkhtxR1OSEKcjEEEw/KnFw/VNV8dPcl5Xji6rkVoMhcBpKCyGpw== bdna@VMDC8249.BDNACN.COM
+[bdna@VMDC8249 .ssh]$
+[bdna@VMDC8249 .ssh]$
+
+
+
+To avoid login to the ldap every time, generate public key credential using this command:
+ - ssh-keygen -t rsa
+ - After key generation, copy and paste the public key to your profile on the Gitlab webpage
+   
+ For example, the public key is on cat ~/.ssh/id_rsa.pub, and then copy everything under 
+      http://gitlab.bdnacorp.com/profile/keys
+
+
+
+
+
+[bdna@VMDC8249 ~]$ pwd
+/home/bdna
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ ls -al
+total 104
+drwx------. 11 bdna bdna  4096 Nov 13 17:20 .
+drwxr-xr-x.  5 root root  4096 Sep 22 13:24 ..
+drwxrwxr-x.  5 bdna bdna  4096 Nov 13 13:20 770GA
+-rw-rw-r--.  1 bdna bdna   369 Sep 23 11:10 .bash_bdna
+-rw-------.  1 bdna bdna 12068 Nov 25 13:44 .bash_history
+-rw-r--r--.  1 bdna bdna    18 Jul  9  2013 .bash_logout
+-rw-r--r--.  1 bdna bdna  1772 Sep 22 18:16 .bash_profile
+-rw-r--r--.  1 bdna bdna   124 Jul  9  2013 .bashrc
+drwxr-xr-t.  2 bdna bdna  4096 Oct 24 10:50 .bdna
+-rw-rw-r--.  1 bdna bdna  2171 Sep 23 09:49 .bdna_response_file
+-rw-rw-r--.  1 bdna bdna   436 Nov 13 17:21 .bdna_setup_response
+-rw-rw-r--.  1 bdna bdna   436 Nov 13 17:20 .bdna_setup_response.tmp
+-rw-r--r--.  1 bdna bdna  1729 Sep 22 17:09 bv
+drwxrwxr-x.  4 bdna bdna  4096 Oct  8 11:52 cacey
+-rw-------.  1 bdna bdna    60 Oct 30 12:34 .cvspass
+drwxrwxr-x. 40 bdna bdna  4096 Nov 13 17:21 install770
+drwxr-xr-x.  3 bdna bdna  4096 Sep 28 02:08 oradiag_bdna
+drwxrwxr-x.  3 bdna bdna  4096 Oct 30 12:34 src
+drwx------.  2 bdna bdna  4096 Nov 25 14:29 .ssh
+drwxrwxr-x.  3 bdna bdna  4096 Sep 22 13:26 .subversion
+-rw-------.  1 bdna bdna  9672 Nov 13 17:17 .viminfo
+drwxrwxr-x.  2 bdna bdna  4096 Nov 13 13:21 vivi
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+
+
+
+
+git初始化之git config  
+
+2011-12-28 01:07:54|  分类： 默认分类 |  标签：git   |举报|字号 订阅
+1. 下面的命令将修改/home/[username]/.gitconfig文件，也就是说下面的配置只对每一个ssh的用户可见，所以每个人都需要做。
+
+ 提交代码的log里面会显示提交者的信息
+  git config --global user.name [username]
+  git config --global user.email [email]
+
+ 在git命令中开启颜色显示
+  git config --global color.ui true
+
+2. 下面的命令将修改/etc/gitconfig文件，这是全局配置，所以admin来做一次就可以了。
+ 
+ 配置一些git的常用命令alias
+ sudo git config --system alias.st status     #git st
+ sudo git config --system alias.ci commit   #git commit
+ sudo git config --system alias.co checkout  #git co
+ sudo git config --system alias.br  branch  #git branch
+
+3. 也可以进入工作根目录，运行git config -e，这样就只会修改工作区的.git/config文件，但是暂时还用不着.
+
+git config文件的override顺序是3>1>2.
+
+
+
+
+ git config配置文件
+分类： Git Experience 2012-02-20 15:48 33820人阅读 评论(5) 收藏 举报
+git文本编辑emacs工具windows
+一.Git已经在你的系统中了，你会做一些事情来客户化你的Git环境。你只需要做这些设置一次；即使你升级了，他们也会绑定到你的环境中。你也可以在任何时刻通过运行命令来重新更改这些设置。
+      Git有一个工具被称为git config，它允许你获得和设置配置变量；这些变量可以控制Git的外观和操作的各个方面。这些变量可以被存储在三个不同的位置： 
+　　1./etc/gitconfig 文件：包含了适用于系统所有用户和所有库的值。如果你传递参数选项’--system’ 给 git config，它将明确的读和写这个文件。 
+　　2.~/.gitconfig 文件 ：具体到你的用户。你可以通过传递--global 选项使Git 读或写这个特定的文件。
+　　3.位于git目录的config文件 (也就是 .git/config) ：无论你当前在用的库是什么，特定指向该单一的库。每个级别重写前一个级别的值。因此，在.git/config中的值覆盖了在/etc/gitconfig中的同一个值。
+ 　　在Windows系统中，Git在$HOME目录中查找.gitconfig文件（对大多数人来说，位于C:\Documents and Settings\$USER下）。它也会查找/etc/gitconfig，尽管它是相对于Msys 根目录的。这可能是你在Windows中运行安装程序时决定安装Git的任何地方。
+ 
+二.你的标识(Your Identity)
+2.1　当你安装Git后首先要做的事情是设置你的用户名称和e-mail地址。这是非常重要的，因为每次Git提交都会使用该信息。它被永远的嵌入到了你的提交中：
+　　$ git config --global user.name "John Doe"
+　　$ git config --global user.email johndoe@example.com
+ 　　重申一遍，你只需要做一次这个设置。如果你传递了 --global 选项，因为Git将总是会使用该信息来处理你在系统中所做的一切操作。如果你希望在一个特定的项目中使用不同的名称或e-mail地址，你可以在该项目中运行该命令而不要--global选项。
+ 
+2.2 你的编辑器(Your Editor)
+　　现在，你的标识已经设置，你可以配置你的缺省文本编辑器，Git在需要你输入一些消息时会使用该文本编辑器。缺省情况下，Git使用你的系统的缺省编辑器，这通常可能是vi 或者 vim。如果你想使用一个不同的文本编辑器，例如Emacs，你可以做如下操作：
+　　$ git config --global core.editor emacs
+ 
+2.3 你的比较工具(Your Diff Tool)
+　　另外一个你可能需要配置的有用的选项是缺省的比较工具它用来解决合并时的冲突。例如，你想使用vimdiff:
+　　$ git config --global merge.tool vimdiff
+ 　　Git可以接受kdiff3, tkdiff, meld, xxdiff, emerge, vimdiff, gvimdiff, ecmerge, 和 opendiff作为有效的合并工具。你也可以设置一个客户化的工具；查看第7章获得更多关于此的信息。
+ 
+2.4 检查你的设置(Checking Your Settings)
+　　如果你想检查你的设置，你可以使用 git config --list 命令来列出Git可以在该处找到的所有的设置:
+　　$ git config --list
+　　user.name=Scott Chacon
+　　user.email=schacon@gmail.com
+　　color.status=auto
+　　color.branch=auto
+　　color.interactive=auto
+　　color.diff=auto
+　　...
+ 
+　　你可能会看到一个关键字出现多次，这是因为Git从不同的文件中(例如：/etc/gitconfig以及~/.gitconfig)读取相同的关键字。 在这种情况下，对每个唯一的关键字，Git使用最后的那个值。 
+　　你也可以查看Git认为的一个特定的关键字目前的值，使用如下命令 git config {key}:
+　　$ git config user.name
+　　Scott Chacon
+ 
+2.5 获取帮助(Getting help)
+　　如果当你在使用Git时需要帮助，有三种方法可以获得任何git命令的手册页(manpage)帮助信息:
+　　$ git help <verb>
+　　$ git <verb> --help
+　　$ man git-<verb>
+ 　　例如，你可以运行如下命令获取对config命令的手册页帮助:
+　　$ git help config
+ 　　这些命令非常友好，因为你可以在任何地方存取他们，即使非在线状态。如果手册页和本书仍然不足而你需要个人的帮助，你可以试着使用Freenode IRCServer上的#git或#github 频道(irc.freenode.net)。这些频道会定期由数百个对Git非常熟悉的专业人士所维护，他们会非常乐意帮助你。
+ 
+2.6 总结(Summary)
+　　你应该对Git是什么以及Git与你可能使用的其它CVCS之间的不同有了一个基本的了解。你也应当在你的系统中有了一个具有你个人标识的可以工作的Git版本。是时候来学习一些Git的基本知识了。
+
+
+
+http://blog.csdn.net/joe_007/article/details/7276195
+
+http://blog.csdn.net/wirelessqa/article/details/8572928
+
+
+
+
+
+
+
+
+
+
+
+
+
+[root@VMDC8249 .ssh]# pwd
+/root/.ssh
+[root@VMDC8249 .ssh]#
+[root@VMDC8249 .ssh]# ll
+total 4
+-rw-r--r--. 1 root root 1185 Oct 29 14:41 known_hosts
+[root@VMDC8249 .ssh]#
+[root@VMDC8249 .ssh]#
+[root@VMDC8249 .ssh]# ll /etc/gitconfig
+ls: cannot access /etc/gitconfig: No such file or directory
+[root@VMDC8249 .ssh]#
+[root@VMDC8249 .ssh]# ll /home/bdna/.gitconfig
+ls: cannot access /home/bdna/.gitconfig: No such file or directory
+[root@VMDC8249 .ssh]#
+[root@VMDC8249 .ssh]# ll  .git/config
+ls: cannot access .git/config: No such file or directory
+[root@VMDC8249 .ssh]#
+[root@VMDC8249 .ssh]#
+
+
+
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ git config --list
+fatal: error processing config file(s)
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+
+
+
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ pwd
+/home/bdna
+[bdna@VMDC8249 ~]$ ls -al
+total 104
+drwx------. 11 bdna bdna  4096 Nov 13 17:20 .
+drwxr-xr-x.  5 root root  4096 Sep 22 13:24 ..
+drwxrwxr-x.  5 bdna bdna  4096 Nov 13 13:20 770GA
+-rw-rw-r--.  1 bdna bdna   369 Sep 23 11:10 .bash_bdna
+-rw-------.  1 bdna bdna 12068 Nov 25 13:44 .bash_history
+-rw-r--r--.  1 bdna bdna    18 Jul  9  2013 .bash_logout
+-rw-r--r--.  1 bdna bdna  1772 Sep 22 18:16 .bash_profile
+-rw-r--r--.  1 bdna bdna   124 Jul  9  2013 .bashrc
+drwxr-xr-t.  2 bdna bdna  4096 Oct 24 10:50 .bdna
+-rw-rw-r--.  1 bdna bdna  2171 Sep 23 09:49 .bdna_response_file
+-rw-rw-r--.  1 bdna bdna   436 Nov 13 17:21 .bdna_setup_response
+-rw-rw-r--.  1 bdna bdna   436 Nov 13 17:20 .bdna_setup_response.tmp
+-rw-r--r--.  1 bdna bdna  1729 Sep 22 17:09 bv
+drwxrwxr-x.  4 bdna bdna  4096 Oct  8 11:52 cacey
+-rw-------.  1 bdna bdna    60 Oct 30 12:34 .cvspass
+drwxrwxr-x. 40 bdna bdna  4096 Nov 13 17:21 install770
+drwxr-xr-x.  3 bdna bdna  4096 Sep 28 02:08 oradiag_bdna
+drwxrwxr-x.  3 bdna bdna  4096 Oct 30 12:34 src
+drwx------.  2 bdna bdna  4096 Nov 25 14:29 .ssh
+drwxrwxr-x.  3 bdna bdna  4096 Sep 22 13:26 .subversion
+-rw-------.  1 bdna bdna  9672 Nov 13 17:17 .viminfo
+drwxrwxr-x.  2 bdna bdna  4096 Nov 13 13:21 vivi
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ git config --global user.name "vivi_liu"
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ ll /etc/gitconfig
+ls: cannot access /etc/gitconfig: No such file or directory
+[bdna@VMDC8249 ~]$ ll /home/bdna/.gitconfig
+-rw-rw-r--. 1 bdna bdna 24 Nov 25 14:50 /home/bdna/.gitconfig
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ cat .gitconfig
+[user]
+        name = vivi_liu
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ git config --global user.email "vivi_liu@bdna.com"
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ cat .gitconfig
+[user]
+        name = vivi_liu
+        email = vivi_liu@bdna.com
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ ls -al
+total 108
+drwx------. 11 bdna bdna  4096 Nov 25 14:51 .
+drwxr-xr-x.  5 root root  4096 Sep 22 13:24 ..
+drwxrwxr-x.  5 bdna bdna  4096 Nov 13 13:20 770GA
+-rw-rw-r--.  1 bdna bdna   369 Sep 23 11:10 .bash_bdna
+-rw-------.  1 bdna bdna 12068 Nov 25 13:44 .bash_history
+-rw-r--r--.  1 bdna bdna    18 Jul  9  2013 .bash_logout
+-rw-r--r--.  1 bdna bdna  1772 Sep 22 18:16 .bash_profile
+-rw-r--r--.  1 bdna bdna   124 Jul  9  2013 .bashrc
+drwxr-xr-t.  2 bdna bdna  4096 Oct 24 10:50 .bdna
+-rw-rw-r--.  1 bdna bdna  2171 Sep 23 09:49 .bdna_response_file
+-rw-rw-r--.  1 bdna bdna   436 Nov 13 17:21 .bdna_setup_response
+-rw-rw-r--.  1 bdna bdna   436 Nov 13 17:20 .bdna_setup_response.tmp
+-rw-r--r--.  1 bdna bdna  1729 Sep 22 17:09 bv
+drwxrwxr-x.  4 bdna bdna  4096 Oct  8 11:52 cacey
+-rw-------.  1 bdna bdna    60 Oct 30 12:34 .cvspass
+-rw-rw-r--.  1 bdna bdna    51 Nov 25 14:51 .gitconfig
+drwxrwxr-x. 40 bdna bdna  4096 Nov 13 17:21 install770
+drwxr-xr-x.  3 bdna bdna  4096 Sep 28 02:08 oradiag_bdna
+drwxrwxr-x.  3 bdna bdna  4096 Oct 30 12:34 src
+drwx------.  2 bdna bdna  4096 Nov 25 14:29 .ssh
+drwxrwxr-x.  3 bdna bdna  4096 Sep 22 13:26 .subversion
+-rw-------.  1 bdna bdna  9672 Nov 13 17:17 .viminfo
+drwxrwxr-x.  2 bdna bdna  4096 Nov 13 13:21 vivi
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$ git config --list
+user.name=vivi_liu
+user.email=vivi_liu@bdna.com
+[bdna@VMDC8249 ~]$
+[bdna@VMDC8249 ~]$
+
+设置标识成功，即是 user 和 email 。
+
+
+[root@VMDC8249 .ssh]# ll /etc/gitconfig
+ls: cannot access /etc/gitconfig: No such file or directory
+[root@VMDC8249 .ssh]#
+[root@VMDC8249 .ssh]# ll /home/bdna/.gitconfig
+-rw-rw-r--. 1 bdna bdna 51 Nov 25 14:51 /home/bdna/.gitconfig
+[root@VMDC8249 .ssh]#
+[root@VMDC8249 .ssh]# ll  .git/config
+ls: cannot access .git/config: No such file or directory
+[root@VMDC8249 .ssh]#
+[root@VMDC8249 .ssh]#
+
+
+
+
+
+
+
+git clone
+
+http://blog.csdn.net/hudashi/article/details/7664396/
+
+
+
+
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$ pwd
+/home/bdna/vivi/Git
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$ ls
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$ git clone git@gitlab.bdnacorp.com:root/discover.git
+Initialized empty Git repository in /home/bdna/vivi/Git/discover/.git/
+ssh: Could not resolve hostname gitlab.bdnacorp.com: Name or service not known
+fatal: The remote end hung up unexpectedly
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$
+
+
+
+
+[bdna@svr1018 ~]$
+[bdna@svr1018 ~]$ ping http://gitlab.bdnacorp.com/
+ping: unknown host http://gitlab.bdnacorp.com/
+[bdna@svr1018 ~]$
+[bdna@svr1018 ~]$ nslookup gitlab
+Server:         10.10.0.2
+Address:        10.10.0.2#53
+
+gitlab.bdnacorp.com     canonical name = vm098rh.bdnacorp.com.
+Name:   vm098rh.bdnacorp.com
+Address: 10.10.11.88
+
+[bdna@svr1018 ~]$
+[bdna@svr1018 ~]$
+[bdna@svr1018 ~]$
+[bdna@svr1018 ~]$ ping gitlab.bdnacorp.com
+PING vm098rh.bdnacorp.com (10.10.11.88) 56(84) bytes of data.
+64 bytes from vm098rh.bdnacorp.com (10.10.11.88): icmp_seq=1 ttl=64 time=1.92 ms
+64 bytes from vm098rh.bdnacorp.com (10.10.11.88): icmp_seq=2 ttl=64 time=0.364 ms
+64 bytes from vm098rh.bdnacorp.com (10.10.11.88): icmp_seq=3 ttl=64 time=0.235 ms
+
+--- vm098rh.bdnacorp.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2000ms
+rtt min/avg/max/mdev = 0.235/0.840/1.921/0.766 ms
+[bdna@svr1018 ~]$
+[bdna@svr1018 ~]$
+[bdna@svr1018 ~]$
+
+
+
+
+[bdna@VMDC8249 Git]$ ping gitlab.bdnacorp.com
+ping: unknown host gitlab.bdnacorp.com
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$
+
+
+
+
+
+
+[bdna@VMDC8249 Git]$ pwd
+/home/bdna/vivi/Git
+[bdna@VMDC8249 Git]$ ll
+total 0
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$ git clone git@10.10.11.88:root/discover.git
+Initialized empty Git repository in /home/bdna/vivi/Git/discover/.git/
+The authenticity of host '10.10.11.88 (10.10.11.88)' can't be established.
+RSA key fingerprint is 9e:c3:b2:75:57:ff:50:2c:ac:f2:8e:a8:8b:8b:f6:33.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '10.10.11.88' (RSA) to the list of known hosts.
+remote: Counting objects: 42412, done.
+remote: Compressing objects: 100% (25497/25497), done.
+remote: Total 42412 (delta 24389), reused 33436 (delta 15800)
+Receiving objects: 100% (42412/42412), 1.28 GiB | 81 KiB/s, done.
+Resolving deltas: 100% (24389/24389), done.
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$ ls
+discover
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$ ll discover/
+total 104
+drwxrwxr-x.  2 bdna bdna 4096 Nov 25 21:29 access
+drwxrwxr-x.  2 bdna bdna 4096 Nov 25 21:29 build
+drwxrwxr-x.  3 bdna bdna 4096 Nov 25 21:29 bvl
+drwxrwxr-x.  3 bdna bdna 4096 Nov 25 21:29 com
+drwxrwxr-x.  5 bdna bdna 4096 Nov 25 21:30 conf
+drwxrwxr-x. 15 bdna bdna 4096 Nov 25 21:30 content
+drwxrwxr-x.  3 bdna bdna 4096 Nov 25 21:30 install
+drwxrwxr-x.  3 bdna bdna 4096 Nov 25 21:30 installer
+drwxrwxr-x.  3 bdna bdna 4096 Nov 25 21:30 modules
+drwxrwxr-x. 54 bdna bdna 4096 Nov 25 21:30 nih
+drwxrwxr-x.  4 bdna bdna 4096 Nov 25 21:30 pl
+drwxrwxr-x.  2 bdna bdna 4096 Nov 25 21:30 presentation
+drwxrwxr-x.  2 bdna bdna 4096 Nov 25 21:30 proj
+drwxrwxr-x.  8 bdna bdna 4096 Nov 25 21:30 pso
+-rw-rw-r--.  1 bdna bdna  205 Nov 25 21:29 README.md
+drwxrwxr-x.  3 bdna bdna 4096 Nov 25 21:30 releases
+drwxrwxr-x.  4 bdna bdna 4096 Nov 25 21:30 rulebuilder
+drwxrwxr-x.  3 bdna bdna 4096 Nov 25 21:30 schema
+drwxrwxr-x.  8 bdna bdna 4096 Nov 25 21:30 scripts
+drwxrwxr-x.  7 bdna bdna 4096 Nov 25 21:29 ShellScripts
+drwxrwxr-x.  2 bdna bdna 4096 Nov 25 21:30 sysbuild
+drwxrwxr-x. 14 bdna bdna 4096 Nov 25 21:30 tools
+drwxrwxr-x.  4 bdna bdna 4096 Nov 25 21:30 upgrade
+drwxrwxr-x.  6 bdna bdna 4096 Nov 25 21:30 winAgent
+drwxrwxr-x. 16 bdna bdna 4096 Nov 25 21:30 winCLA
+drwxrwxr-x. 25 bdna bdna 4096 Nov 25 21:30 wincs
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$
+
+
+
+
+
+[bdna@VMDC8249 discover]$ pwd
+/home/bdna/vivi/Git/discover
+[bdna@VMDC8249 discover]$
+[bdna@VMDC8249 discover]$ git checkout develop
+Branch develop set up to track remote branch develop from origin.
+Switched to a new branch 'develop'
+[bdna@VMDC8249 discover]$
+[bdna@VMDC8249 discover]$ cat build/build.number
+build.number=1002
+[bdna@VMDC8249 discover]$
+[bdna@VMDC8249 discover]$
+[bdna@VMDC8249 discover]$ git status
+# On branch develop
+nothing to commit (working directory clean)
+[bdna@VMDC8249 discover]$
+
+
+
+Git 学习笔记
+http://www.cnblogs.com/craftor/archive/2012/11/04/2754140.html
+
+git checkout简介
+原文：
+http://web.mit.edu/~thefred/MacData/afs/sipb/project/git/git-doc/git-checkout.html 
+git checkout的主要功能就是迁出一个分支的特定版本。默认是迁出分支的HEAD版本
+示例：
+git checkout master     //取出master版本的head。
+git checkout tag_name    //在当前分支上 取出 tag_name 的版本
+git checkout  master file_name  //放弃当前对文件file_name的修改
+git checkout  commit_id file_name  //取文件file_name的 在commit_id是的版本。commit_id为 git commit 时的sha值。
+$ git checkout -- hello.rb
+这条命令把hello.rb从HEAD中签出.
+$ git checkout .
+这条命令把 当前目录所有修改的文件 从HEAD中签出并且把它恢复成未修改时的样子.
+注意：在使用git checkout 时，如果其对应的文件被修改过，那么该修改会被覆盖掉。
+
+
+
+
+
+
+
+[bdna@VMDC8249 Git]$ pwd
+/home/bdna/vivi/Git
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$ ll
+total 0
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$ git clone git@10.10.11.88:discover-team/sequences.git
+Initialized empty Git repository in /home/bdna/vivi/Git/sequences/.git/
+remote: Counting objects: 12919, done.
+remote: Compressing objects: 100% (7517/7517), done.
+remote: Total 12919 (delta 4657), reused 12912 (delta 4655)
+Receiving objects: 100% (12919/12919), 123.34 MiB | 43 KiB/s, done.
+Resolving deltas: 100% (4657/4657), done.
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$ ls
+sequences
+[bdna@VMDC8249 Git]$
+[bdna@VMDC8249 Git]$
+
+
+
+git@gitlab.bdnacorp.com:discover-team/sequences-7-7.git
+
+git@gitlab.bdnacorp.com:discover-team/sequences-7-6-1.git
+
+
+
+
+
+
+
+用 git-archive。
+
+預設是輸出成 tar 格式到 stdout，所以可以用下面的指令取出一份 archive：
+
+mkdir ../working
+git archive master | tar -x -C ../working
+
+
+
+
+git@gitlab.bdnacorp.com:discover-team/sequences-7-6-1.git
+
+git@gitlab.bdnacorp.com:discover-team/sequences-7-7.git
+
+
+
+
+
+[bdna@VMDC8249 770]$ git clone git@10.10.11.88:discover-team/sequences-7-7.git
+Initialized empty Git repository in /home/bdna/vivi/Git/770/sequences-7-7/.git/
+remote: Counting objects: 12938, done.
+remote: Compressing objects: 100% (7524/7524), done.
+remote: Total 12938 (delta 4683), reused 12898 (delta 4666)
+Receiving objects: 100% (12938/12938), 123.33 MiB | 89 KiB/s, done.
+Resolving deltas: 100% (4683/4683), done.
+[bdna@VMDC8249 770]$
+
+
+
+
+[bdna@VMDC8249 761]$ git clone git@10.10.11.88:discover-team/sequences-7-6-1.git
+Initialized empty Git repository in /home/bdna/vivi/Git/761/sequences-7-6-1/.git/
+remote: Counting objects: 12595, done.
+remote: Compressing objects: 100% (7478/7478), done.
+remote: Total 12595 (delta 4651), reused 12556 (delta 4635)
+Receiving objects: 100% (12595/12595), 93.93 MiB | 269 KiB/s, done.
+Resolving deltas: 100% (4651/4651), done.
+[bdna@VMDC8249 761]$
+
+
+
+
+
+
+
+
+
+[bdna@VMDC8249 sequences-7-6-1]$ pwd
+/home/bdna/vivi/Git/761/sequences-7-6-1
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch master
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git checkout develop
+Branch develop set up to track remote branch develop from origin.
+Switched to a new branch 'develop'
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch develop
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ pwd
+/home/bdna/vivi/Git/761/sequences-7-6-1
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch develop
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#       modified:   build/build_env.Linux.properties
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git diff HEAD -- build/build_env.Linux.properties
+diff --git a/build/build_env.Linux.properties b/build/build_env.Linux.properties
+index a3b1133..9b835d7 100755
+--- a/build/build_env.Linux.properties
++++ b/build/build_env.Linux.properties
+@@ -2,7 +2,7 @@
+ # Version and release information (propagates to various built-time and
+ # run-time properties)
+ #
+-bdna.bcp.version=201412
++bdna.bcp.version=201502
+
+ #
+ #    Platform dependent directories
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch develop
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#       modified:   build/build_env.Linux.properties
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git add build/build_env.Linux.properties
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git commit -m "BUG01434 in ServiceNow : Update bcp version from 201412 to 201502 for Discover 7.7.0 by Vivi on December 18,2014."
+[develop aa9ac15] BUG01434 in ServiceNow : Update bcp version from 201412 to 201502 for Discover 7.7.0 by Vivi on December 18,2014.
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch develop
+# Your branch is ahead of 'origin/develop' by 1 commit.
+#
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git push
+Counting objects: 7, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 421 bytes, done.
+Total 4 (delta 3), reused 0 (delta 0)
+To git@10.10.11.88:discover-team/sequences-7-6-1.git
+   22185be..aa9ac15  develop -> develop
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+
+
+
+
+
+
+[bdna@VMDC8249 sequences-7-6-1]$ git pull origin develop
+From 10.10.11.88:discover-team/sequences-7-6-1
+ * branch            develop    -> FETCH_HEAD
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-6-1]$
+
+
+
+
+[bdna@VMDC8249 sequences-7-6-1]$ git branch
+* develop
+  master
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git checkout qa
+Branch qa set up to track remote branch qa from origin.
+Switched to a new branch 'qa'
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git branch
+  develop
+  master
+* qa
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch qa
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git pull origin qa
+From 10.10.11.88:discover-team/sequences-7-6-1
+ * branch            qa         -> FETCH_HEAD
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-6-1]$ git merge develop
+Updating 8c16f22..aa9ac15
+Fast-forward
+ build/build_env.Linux.properties                   |    2 +-
+ com/bdna/fingerprintTool/templates/fingerprint.src |    2 +
+ modules/com/bdna/modules/os/Linux.xml              |   22 +++++++++-
+ nih/Nmap/src/nmap-os-db                            |   30 +++++++++++++-
+ .../CLE/Perl/Modules/RemoteShell/RemoteShell.pm    |   44 +++++++++++++-------
+ 5 files changed, 82 insertions(+), 18 deletions(-)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ pwd
+/home/bdna/vivi/Git/761/sequences-7-6-1
+[bdna@VMDC8249 sequences-7-6-1]$
+
+
+
+
+
+
+
+[bdna@VMDC8249 sequences-7-7]$ git status
+# On branch master
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git status
+# On branch master
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git pull origin master
+From 10.10.11.88:discover-team/sequences-7-7
+ * branch            master     -> FETCH_HEAD
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ pwd
+/home/bdna/vivi/Git/770/sequences-7-7
+[bdna@VMDC8249 sequences-7-7]$
+
+
+
+[bdna@VMDC8249 sequences-7-7]$ git status
+# On branch master
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ pwd
+/home/bdna/vivi/Git/770/sequences-7-7
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git branch
+* master
+[bdna@VMDC8249 sequences-7-7]$
+
+
+
+
+[bdna@VMDC8249 sequences-7-7]$ git checkout develop
+Branch develop set up to track remote branch develop from origin.
+Switched to a new branch 'develop'
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git branch
+* develop
+  master
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git pull  origin develop
+From 10.10.11.88:discover-team/sequences-7-7
+ * branch            develop    -> FETCH_HEAD
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ pwd
+/home/bdna/vivi/Git/770/sequences-7-7
+[bdna@VMDC8249 sequences-7-7]$
+
+
+
+
+
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git status
+# On branch develop
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#       modified:   build/build_env.Linux.properties
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git diff HEAD -- build/build_env.Linux.properties
+diff --git a/build/build_env.Linux.properties b/build/build_env.Linux.properties
+index a3b1133..9b835d7 100755
+--- a/build/build_env.Linux.properties
++++ b/build/build_env.Linux.properties
+@@ -2,7 +2,7 @@
+ # Version and release information (propagates to various built-time and
+ # run-time properties)
+ #
+-bdna.bcp.version=201412
++bdna.bcp.version=201502
+
+ #
+ #    Platform dependent directories
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git add build/build_env.Linux.properties
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git commit -m "BUG01434 in ServiceNow : Update bcp version from 201412 to 201502 for Discover 7.6.1 GA platform by Vivi on December 18,2014." build/build_env.Linux.properties
+[develop 0222cb9] BUG01434 in ServiceNow : Update bcp version from 201412 to 201502 for Discover 7.6.1 GA platform by Vivi on December 18,2014.
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git status
+# On branch develop
+# Your branch is ahead of 'origin/develop' by 1 commit.
+#
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git pull origin develop
+From 10.10.11.88:discover-team/sequences-7-7
+ * branch            develop    -> FETCH_HEAD
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git push origin develop
+Counting objects: 7, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 429 bytes, done.
+Total 4 (delta 3), reused 0 (delta 0)
+To git@10.10.11.88:discover-team/sequences-7-7.git
+   9f4f76c..0222cb9  develop -> develop
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git status
+# On branch develop
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+
+
+
+
+
+[bdna@VMDC8249 sequences-7-6-1]$ ls
+build  com  conf  content  CVS  java  lib  modules  nih  pl  pso  schema  scripts  wincs
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ pwd
+/home/bdna/Vivi/1226/761/sequences-7-6-1
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch develop
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git branch -a
+* develop
+  master
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/develop
+  remotes/origin/master
+  remotes/origin/qa
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git branch -r
+  origin/HEAD -> origin/master
+  origin/develop
+  origin/master
+  origin/qa
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git branch
+* develop
+  master
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git checkout qa
+Branch qa set up to track remote branch qa from origin.
+Switched to a new branch 'qa'
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch qa
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git branch
+  develop
+  master
+* qa
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git pull origin qa
+From 10.10.11.88:discover-team/sequences-7-6-1
+ * branch            qa         -> FETCH_HEAD
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch qa
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git diff develop qa
+diff --git a/build/build_env.Linux.properties b/build/build_env.Linux.properties
+index 9b835d7..a3b1133 100755
+--- a/build/build_env.Linux.properties
++++ b/build/build_env.Linux.properties
+@@ -2,7 +2,7 @@
+ # Version and release information (propagates to various built-time and
+ # run-time properties)
+ #
+-bdna.bcp.version=201502
++bdna.bcp.version=201412
+
+ #
+ #    Platform dependent directories
+diff --git a/com/bdna/app/data/marketData-NextGen.zip b/com/bdna/app/data/marketData-NextGen.zip
+index bf4202b..f55765a 100755
+Binary files a/com/bdna/app/data/marketData-NextGen.zip and b/com/bdna/app/data/marketData-NextGen.zip differ
+diff --git a/com/bdna/fingerprintTool/templates/fingerprint.src b/com/bdna/fingerprintTool/templates/fingerprint.src
+index f93e553..4f0c6f3 100755
+--- a/com/bdna/fingerprintTool/templates/fingerprint.src
++++ b/com/bdna/fingerprintTool/templates/fingerprint.src
+@@ -2754,8 +2754,6 @@ NMAP $$$ root.types.resource.software.operatingSystem.UNIX.Linux $$$ OpenVZ Linu
+ NMAP $$$ root.types.resource.software.operatingSystem.UNIX.Linux $$$ OpenVZ Linux virtualization kernel (Linux 2.6.18-028stab045) $$$ NMAP_CONFIDENCE
+ NMAP $$$ root.types.resource.software.operatingSystem.UNIX.Linux $$$ Scientific Linux 5x $$$ NMAP_CONFIDENCE
+ NMAP $$$ root.types.resource.software.operatingSystem.UNIX.Linux $$$ Scientific Linux 6x $$$ NMAP_CONFIDENCE
+-NMAP $$$ root.types.resource.software.operatingSystem.UNIX.Linux $$$ Linux Ubuntu 10.x 12.x 13.x 14.x $$$ NMAP_CONFIDENCE
+-NMAP $$$ root.types.resource.software.operatingSystem.UNIX.Linux $$$ Linux Ubuntu 11.x $$$ NMAP_CONFIDENCE
+ NMAP $$$ root.types.resource.software.operatingSystem.UNIX $$$ Minix 2.0.4 $$$ NMAP_CONFIDENCE
+ NMAP $$$ root.types.resource.software.operatingSystem.UNIX $$$ Minix 3.1.2a $$$ NMAP_CONFIDENCE
+ NMAP $$$ root.types.resource.software.operatingSystem.UNIX $$$ NeXT NEXTSTEP 3.3 (patch level 3, m68k) or OPENSTEP 4.2 $$$ NMAP_CONFIDENCE
+diff --git a/modules/com/bdna/modules/os/Linux.xml b/modules/com/bdna/modules/os/Linux.xml
+index 67a1d5f..410c8d1 100755
+--- a/modules/com/bdna/modules/os/Linux.xml
++++ b/modules/com/bdna/modules/os/Linux.xml
+@@ -1650,9 +1650,8 @@ if (($currUserId ne "0") && (!defined($BDNA_Params{'ModularCollection::rootCmdsO
+ # grep for Class ff00 to see if there are any Dell specific strings
+
+ @output = &shellcmd($host, "/sbin/lspci | egrep 'RAID|VGA|Ethernet|Class ff00'", "lspci");
+-my( $raidString, $vgaString, $ethString, $hardware ,$flag0);
++my( $raidString, $vgaString, $ethString, $hardware );
+ foreach (@output) {
+-    $flag0 = "Y";
+     if( $_ =~ /RAID bus controller: (.*)$/ ) {
+         $raidString .= (($raidString eq "") ? "" : $BDNA_Separator)
+           . $1;
+@@ -1667,25 +1666,6 @@ foreach (@output) {
+           . $1;
+     }
+ }
+-my @output0 = &shellcmd($host, "/usr/bin/lspci | egrep 'RAID|VGA|Ethernet|Class ff00'", "lspci0");
+-if (!$flag0) {
+-    foreach (@output0) {
+-        if( $_ =~ /RAID bus controller: (.*)$/ ) {
+-            $raidString .= (($raidString eq "") ? "" : $BDNA_Separator)
+-              . $1;
+-            if ( $1 =~ /Dell\s.*?PowerEdge/ ) {
+-                $hardware = 'Dell PowerEdge';
+-            }
+-        }elsif( $_ =~ /VGA compatible controller: (.*)$/ ){
+-            $vgaString .= (($vgaString eq "") ? "" : $BDNA_Separator)
+-              . $1;
+-        }elsif( $_ =~ /Ethernet controller: (.*)$/ ){
+-            $ethString .= (($ethString eq "") ? "" : $BDNA_Separator)
+-              . $1;
+-        }
+-   }
+-}
+-
+ if (!$hardware) {
+     if ( grep {/Class ff00: Dell\s.*?Remote Access/} @output ) {
+         $hardware = 'Dell';
+diff --git a/nih/Nmap/src/nmap-os-db b/nih/Nmap/src/nmap-os-db
+index 9adbefd..2f73500 100755
+--- a/nih/Nmap/src/nmap-os-db
++++ b/nih/Nmap/src/nmap-os-db
+@@ -41964,32 +41964,4 @@ T5(R=Y%DF=Y%T=7B-85%W=0%S=O%A=S+%F=AR%O=%RD=0%Q=)
+ T6(R=N)
+ T7(R=N)
+ U1(R=Y%DF=N%T=7B-85%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)
+-IE(R=N)
+-
+-# Linux Ubuntu 10.x 12.x 13.x 14.x
+-Fingerprint Linux Ubuntu 10.x 12.x 13.x 14.x
+-SEQ(SP=F0-111%GCD=1-4%ISR=F0-11A%TI=Z%CI=Z|I%II=I%TS=8)
+-OPS(O1=M5B4ST11NW7|M5B4ST11NW4%O2=M5B4ST11NW7|M5B4ST11NW4%O3=M5B4NNT11NW7|M5B4NNT11NW4%O4=M5B4ST11NW7|M5B4ST11NW4%O5=M5B4ST11NW7|M5B4ST11NW4%O6=M5B4ST11)
+-WIN(W1=3890|16A0|7120%W2=3890|16A0|7120%W3=3890|16A0|7120%W4=3890|16A0|7120%W5=3890|16A0|7120%W6=3890|16A0|7120)
+-ECN(R=Y%DF=Y%T=40%W=3908|16D0|7210%O=M5B4NNSNW7|M5B4NNSNW4%CC=Y%Q=)
+-T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)
+-T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+-T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+-T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+-T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+-U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)
+-IE(R=Y%DFI=N%T=40%CD=S)
+-
+-# Linux Ubuntu 11.x
+-Fingerprint Linux Ubuntu 11.x
+-SEQ(SP=B0-DF%GCD=1-4%ISR=B0-DF%TI=Z%CI=Z%II=I%TS=8)
+-OPS(O1=M5B4ST11NW6%O2=M5B4ST11NW6%O3=M5B4NNT11NW6%O4=M5B4ST11NW6%O5=M5B4ST11NW6%O6=M5B4ST11)
+-WIN(W1=3890%W2=3890%W3=3890%W4=3890%W5=3890%W6=3890)
+-ECN(R=Y%DF=Y%T=40%W=3908%O=M5B4NNSNW6%CC=Y%Q=)
+-T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)
+-T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+-T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+-T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+-T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+-U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)
+-IE(R=Y%DFI=N%T=40%CD=S)
++IE(R=N)
+\ No newline at end of file
+diff --git a/scripts/CLE/Perl/Modules/RemoteShell/RemoteShell.pm b/scripts/CLE/Perl/Modules/RemoteShell/RemoteShell.pm
+index 31da118..e36a61b 100755
+--- a/scripts/CLE/Perl/Modules/RemoteShell/RemoteShell.pm
++++ b/scripts/CLE/Perl/Modules/RemoteShell/RemoteShell.pm
+@@ -3676,11 +3676,6 @@ unlock_file ()
+
+ # Set the value of OSTYPE which is needed for platform dependent
+ # code in some of the routines.
+-IFUBUNTU=`uname -a | egrep [Uu][Bb][Uu][Nn][Tt][Uu]`
+-if [ "$IFUBUNTU" ]
+-then
+-    IFUBUNTU=Y
+-fi
+
+ OSTYPE=`uname`
+ if [ "x$OSTYPE" = "xIRIX64" ]
+@@ -3831,15 +3826,11 @@ trap "rm -f $TRANSFERTMP1 $TRANSFERTMP2" EXIT
+ FILESUM=`echo $TRANSFERCMDFILE | $SEDCMD -e "s;.*/[^.][^.]*\.\([^.][^.]*\)\..*;\1;"`
+ SUMRETURN=`$SUMCMD $TRANSFERCMDFILE`
+ CHECKSUM=`echo $SUMRETURN | $SEDCMD -e "s/^\([0-9][0-9]*\)\([  ]*[0-9]*\)\([^0-9].*\)$/\1/"`
+-if [ "$IFUBUNTU" = "" ]
++
++if [ $FILESUM -ne $CHECKSUM ]
+ then
+-    if [ $FILESUM -ne $CHECKSUM ]
+-    then
+-        $PRINTCMD __BDNA_CHECKSUM_ERROR__
+-        exit 1
+-    fi
+-else
+-    $PRINTCMD __UBUNTU_SKIP__
++    $PRINTCMD __BDNA_CHECKSUM_ERROR__
++    exit 1
+ fi
+
+ # Save the original terminal settings so that we can restore them later.
+@@ -3954,23 +3945,18 @@ do
+         # and compare that to what was sent to us by the local
+         # side.  Set SENDPROMPT to __BDNA_RESEND__ on failure
+         # so that the packet is transfered again.
+-        if [ "$IFUBUNTU" = "" ]
+-        then
+-            SUMRETURN=`$SUMCMD $TRANSFERTMP1`
+-            LENGTH=`wc -c $TRANSFERTMP1 | $SEDCMD -e "s/^\([ ]*\)\([0-9][0-9]*\)\([^0-9].*\)$/\2/"`
+-            CHECKSUM=`echo $SUMRETURN | $SEDCMD -e "s/^\([0-9][0-9]*\)\([      ]*[0-9]*\)\([^0-9].*\)$/\1/"`
+
+-            if [ $CHECKSUM -eq $INPUT_CHECKSUM ] && [ $LENGTH -eq $INPUT_LENGTH ]
+-            then
+-                SENDPROMPT=__BDNA_SEND__
+-                cat $TRANSFERTMP1 /dev/null >>$TRANSFERTMP2
+-            else
+-                SENDPROMPT="__BDNA_RESEND__ $LENGTH $CHECKSUM $INPUT"
+-            fi
+-         else
+-             SENDPROMPT=__BDNA_SEND__
+-             cat $TRANSFERTMP1 /dev/null >>$TRANSFERTMP2
+-         fi
++        SUMRETURN=`$SUMCMD $TRANSFERTMP1`
++        LENGTH=`wc -c $TRANSFERTMP1 | $SEDCMD -e "s/^\([ ]*\)\([0-9][0-9]*\)\([^0-9].*\)$/\2/"`
++        CHECKSUM=`echo $SUMRETURN | $SEDCMD -e "s/^\([0-9][0-9]*\)\([  ]*[0-9]*\)\([^0-9].*\)$/\1/"`
++
++        if [ $CHECKSUM -eq $INPUT_CHECKSUM ] && [ $LENGTH -eq $INPUT_LENGTH ]
++        then
++            SENDPROMPT=__BDNA_SEND__
++            cat $TRANSFERTMP1 /dev/null >>$TRANSFERTMP2
++        else
++            SENDPROMPT="__BDNA_RESEND__ $LENGTH $CHECKSUM $INPUT"
++        fi
+     fi
+
+ done
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+
+
+
+
+
+[bdna@VMDC8249 sequences-7-6-1]$ pwd
+/home/bdna/Vivi/1226/761/sequences-7-6-1
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch qa
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git checkout develop
+Switched to branch 'develop'
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git branch
+* develop
+  master
+  qa
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch develop
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git pull origin develop
+From 10.10.11.88:discover-team/sequences-7-6-1
+ * branch            develop    -> FETCH_HEAD
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git branch
+* develop
+  master
+  qa
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git checkout qa
+Switched to branch 'qa'
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch qa
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git branch
+  develop
+  master
+* qa
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git pull origin qa
+From 10.10.11.88:discover-team/sequences-7-6-1
+ * branch            qa         -> FETCH_HEAD
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git merge develop
+Updating 8c16f22..4475cb8
+Fast-forward
+ build/build_env.Linux.properties                   |    2 +-
+ com/bdna/app/data/marketData-NextGen.zip           |  Bin 43710891 -> 45444363 bytes
+ com/bdna/fingerprintTool/templates/fingerprint.src |    2 +
+ modules/com/bdna/modules/os/Linux.xml              |   22 +++++++++-
+ nih/Nmap/src/nmap-os-db                            |   30 +++++++++++++-
+ .../CLE/Perl/Modules/RemoteShell/RemoteShell.pm    |   44 +++++++++++++-------
+ 6 files changed, 82 insertions(+), 18 deletions(-)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git push origin qa
+Total 0 (delta 0), reused 0 (delta 0)
+To git@10.10.11.88:discover-team/sequences-7-6-1.git
+   8c16f22..4475cb8  qa -> qa
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-6-1]$
+
+
+
+
+[bdna@VMDC8249 sequences-7-7]$ git diff qa master
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git status
+# On branch qa
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git merge develop
+Updating 9abba25..9157c62
+Fast-forward
+ build/build_env.Linux.properties                   |    2 +-
+ com/bdna/app/data/marketData-NextGen.zip           |  Bin 43710891 -> 45444363 bytes
+ com/bdna/fingerprintTool/templates/fingerprint.src |    2 +
+ modules/com/bdna/modules/os/Linux.xml              |   22 +++++++++-
+ nih/Nmap/src/nmap-os-db                            |   30 +++++++++++++-
+ .../CLE/Perl/Modules/RemoteShell/RemoteShell.pm    |   44 +++++++++++++-------
+ 6 files changed, 82 insertions(+), 18 deletions(-)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git push origin qa
+Total 0 (delta 0), reused 0 (delta 0)
+To git@10.10.11.88:discover-team/sequences-7-7.git
+   9abba25..9157c62  qa -> qa
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ pwd
+/home/bdna/Vivi/1226/770/sequences-7-7
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git diff qa develop
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git diff qa develop
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git diff qa master
+diff --git a/build/build_env.Linux.properties b/build/build_env.Linux.properties
+index 9b835d7..a3b1133 100755
+
+
+
+
+[bdna@VMDC8249 sequences-7-7]$ git branch
+* develop
+  master
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git branch vivicvs
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git branch
+* develop
+  master
+  vivicvs
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git checkout vivicvs
+Switched to branch 'vivicvs'
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git branch
+  develop
+  master
+* vivicvs
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+
+
+
+
+[bdna@VMDC8249 sequences-7-7]$ git status
+# On branch develop
+# Your branch is ahead of 'origin/develop' by 1 commit.
+#
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git merge vivicvs
+
+
+
+[bdna@VMDC8249 sequences-7-7]$ git status
+# On branch develop
+# Your branch is ahead of 'origin/develop' by 1 commit.
+#
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git pull origin develop
+From 10.10.11.88:discover-team/sequences-7-7
+ * branch            develop    -> FETCH_HEAD
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git status
+# On branch develop
+# Your branch is ahead of 'origin/develop' by 1 commit.
+#
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ pwd
+/home/bdna/Vivi/1229/770/sequences-7-7
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+
+
+
+
+[bdna@VMDC8249 sequences-7-7]$ git status
+# On branch develop
+# Your branch is ahead of 'origin/develop' by 1 commit.
+#
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git push origin develop
+Counting objects: 2072, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (902/902), done.
+Writing objects: 100% (1062/1062), 89.14 KiB, done.
+Total 1062 (delta 672), reused 0 (delta 0)
+To git@10.10.11.88:discover-team/sequences-7-7.git
+   9157c62..db19f5c  develop -> develop
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git status
+# On branch develop
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+
+
+
+
+
+[bdna@VMDC8249 sequences-7-6-1]$ git push origin develop
+Counting objects: 2099, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (908/908), done.
+Writing objects: 100% (1090/1090), 90.77 KiB, done.
+Total 1090 (delta 672), reused 0 (delta 0)
+To git@10.10.11.88:discover-team/sequences-7-6-1.git
+   4475cb8..e79bb41  develop -> develop
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git status
+# On branch develop
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$ git branch
+  cvs
+* develop
+  master
+[bdna@VMDC8249 sequences-7-6-1]$
+[bdna@VMDC8249 sequences-7-6-1]$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[bdna@VMDC8249 sequence-hotfix]$ git branch -a
+* master
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/master
+[bdna@VMDC8249 sequence-hotfix]$
+[bdna@VMDC8249 sequence-hotfix]$ git status
+# On branch master
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#       Daman/modifiedSourceFilesBackup/
+nothing added to commit but untracked files present (use "git add" to track)
+[bdna@VMDC8249 sequence-hotfix]$
+[bdna@VMDC8249 sequence-hotfix]$
+[bdna@VMDC8249 sequence-hotfix]$ git add Daman/modifiedSourceFilesBackup/
+[bdna@VMDC8249 sequence-hotfix]$
+[bdna@VMDC8249 sequence-hotfix]$ git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#       new file:   Daman/modifiedSourceFilesBackup/ENH10799/Aggregate.xml
+#       new file:   Daman/modifiedSourceFilesBackup/ENH10799/Base.xml
+#       new file:   Daman/modifiedSourceFilesBackup/ENH10799/WinStaticScript.cs
+#       new file:   Daman/modifiedSourceFilesBackup/ENH10799/Windows.xml
+#       new file:   Daman/modifiedSourceFilesBackup/ENH10799/readme.txt
+#
+[bdna@VMDC8249 sequence-hotfix]$
+[bdna@VMDC8249 sequence-hotfix]$ git commit -m "Add the 4 modified source files as backup for ENH10799 hotfix on Feb 3,2015." Daman/modifiedSourceFilesBackup/ENH10799/Aggregate.xml Daman/modifiedSourceFilesBackup/ENH10799/Base.xml Daman/modifiedSourceFilesBackup/ENH10799/WinStaticScript.cs Daman/modifiedSourceFilesBackup/ENH10799/Windows.xml Daman/modifiedSourceFilesBackup/ENH10799/readme.txt
+[master 6a10c7c] Add the 4 modified source files as backup for ENH10799 hotfix on Feb 3,2015.
+ 5 files changed, 16898 insertions(+), 0 deletions(-)
+ create mode 100755 Daman/modifiedSourceFilesBackup/ENH10799/Aggregate.xml
+ create mode 100755 Daman/modifiedSourceFilesBackup/ENH10799/Base.xml
+ create mode 100755 Daman/modifiedSourceFilesBackup/ENH10799/WinStaticScript.cs
+ create mode 100755 Daman/modifiedSourceFilesBackup/ENH10799/Windows.xml
+ create mode 100644 Daman/modifiedSourceFilesBackup/ENH10799/readme.txt
+[bdna@VMDC8249 sequence-hotfix]$
+[bdna@VMDC8249 sequence-hotfix]$ git status
+# On branch master
+# Your branch is ahead of 'origin/master' by 1 commit.
+#
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequence-hotfix]$
+[bdna@VMDC8249 sequence-hotfix]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequence-hotfix]$
+[bdna@VMDC8249 sequence-hotfix]$ git push
+Counting objects: 12, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (10/10), 114.70 KiB, done.
+Total 10 (delta 0), reused 0 (delta 0)
+To git@10.10.11.88:discover-team/sequence-hotfix.git
+   642f526..6a10c7c  master -> master
+[bdna@VMDC8249 sequence-hotfix]$
+[bdna@VMDC8249 sequence-hotfix]$ git pull origin master
+From 10.10.11.88:discover-team/sequence-hotfix
+ * branch            master     -> FETCH_HEAD
+Already up-to-date.
+[bdna@VMDC8249 sequence-hotfix]$
+[bdna@VMDC8249 sequence-hotfix]$ git status
+# On branch master
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequence-hotfix]$
+[bdna@VMDC8249 sequence-hotfix]$
+
+
+
+
+
+
+
+
+
+
+[bdna@VMDC8249 sequences-7-7]$ pwd
+/home/bdna/Vivi/checkin/sequences-7-7
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git status
+# On branch develop
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#       modified:   com/bdna/app/data/marketData-NextGen.zip
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git add com/bdna/app/data/marketData-NextGen.zip
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git commit -m "Update marketData-NextGen.zip for 2015-02 sequence for 7.7.0 platform by Vivi on Feb 12,2015." com/bdna/app/data/marketData-NextGen.zip
+[develop a116b33] Update marketData-NextGen.zip for 2015-02 sequence for 7.7.0 platform by Vivi on Feb 12,2015.
+ 1 files changed, 0 insertions(+), 0 deletions(-)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git pull origin develop
+From 10.10.11.88:discover-team/sequences-7-7
+ * branch            develop    -> FETCH_HEAD
+Already up-to-date.
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git status
+# On branch develop
+# Your branch is ahead of 'origin/develop' by 1 commit.
+#
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ git push origin develop
+Counting objects: 13, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (7/7), 45.11 MiB | 298 KiB/s, done.
+Total 7 (delta 3), reused 0 (delta 0)
+To git@10.10.11.88:discover-team/sequences-7-7.git
+   d17e1a3..a116b33  develop -> develop
+[bdna@VMDC8249 sequences-7-7]$
+[bdna@VMDC8249 sequences-7-7]$ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Git global setup:
+git config --global user.name "Vivi Liu"
+git config --global user.email "vivi_liu@bdna.com"
+Create Repository
+mkdir sequence-documentation
+cd sequence-documentation
+git init
+touch README
+git add README
+git commit -m 'first commit'
+git remote add origin git@gitlab.bdnacorp.com:discover-team/sequence-documentation.git
+git push -u origin master
+Existing Git Repo?
+cd existing_git_repo
+git remote add origin git@gitlab.bdnacorp.com:discover-team/sequence-documentation.git
+git push -u origin master
+
+
+
+

@@ -1,0 +1,13 @@
+1. 分配bug
+2. 修复bug
+3. Check-in code 到svn
+4. Verify
+5. Check-in code 到Gitlab
+6. 在code freeze date 之前 close bug
+7. Load Discovered data 到 Staging（192.168.8.45）， 让Lijun 检查，没问题后告诉他让小青load到CDB
+8. 在Lijun做完CDB的mapping之后，然后开始做MDE，check-in marketdata 文件到Gitlab
+9. Sanity testing
+10. handover 给QA
+
+
+

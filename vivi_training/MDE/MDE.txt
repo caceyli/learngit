@@ -1,0 +1,114 @@
+
+[[[[[[[[[[确保下面几个文件的版本：]]]]]]]]]]]]]]]]]
+1.  10.10.1.14  build n1md@345 查看最新是哪一个EnterpriseSequence
+    srv399 10.10.1.122 bdna bdna 查看platform_8.0.0 和 Baseline
+
+    crontab -l  ， date ，查看时间
+    查看log， 例如 cron-800-build-bcp.Friday.out
+    确认是否build完
+
+[build@vega 2013_10_18_00_40_2793]$ ll EnterpriseSequence_201311_2793.seq
+-rw-rw-r-- 1 build build 70340580 Oct 18 00:50 EnterpriseSequence_201311_2793.seq
+[build@vega 2013_10_18_00_40_2793]$ ll ../../EnterpriseSequence_latest.seq
+-rw-rw-r-- 1 build build 70340580 Oct 18 00:50 ../../EnterpriseSequence_latest.seq
+
+大小一一对应
+
+    在目标机输入 scp build@10.10.1.14:/home/build/nightly_builds/EnterpriseSequence_latest.seq .
+                scp bdna@10.10.1.122:/home/bdna/install750/Baseline_201206_2185.seq .
+                scp bdna@10.10.1.122:/home/bdna/install750/bdna_platform_8.0.0_2763_20130807.jar .
+    或
+    在vega上输入 scp EnterpriseSequence_latest.seq bdna@192.168.8.16:/home/bdna/automation/
+    在svr399 10.10.1.122 上输入
+
+    svr399的install750上没有platform8.0，可以到vega的nightly_builds拿 Baseline_latest.seq bdna_platform_latest.jar
+
+    bdna_7.6.1_GA_baseline.seq 即係 Baseline_201206_2185.seq
+    bdna_platform_8.0.0_2690_20130612.jar
+
+传文件~解压
+    传完后，分别在两台机器对3个文件用 ll 命令 对比大小
+!!!    platform_8.0.0 和 Baseline 解压到 BDNA_HOME
+!!!    EnterpriseSequence_latest.seq 需要放在 BDNA_HOME 里面, 前缀必须EnterpriseSequence
+
+    如果不能连，检查能否ping通和网关设置
+    [root@unicorn ~]# vi /etc/sysconfig/network-scripts/ifcfg-eth0
+    [root@unicorn ~]# service network restart
+
+
+2. apps_content_load.sql cvs用最新
+    位置：
+    http://cvs.bdnacorp.com/public/cvsweb.cgi/bdna/schema/oracle/apps_content_load.sql?rev=1.42;content-type=text%2Fplain
+    http://192.168.1.99/public/cvsweb.cgi/bdna/schema/oracle/apps_content_load.sql
+
+    修改文件内容
+    CREATE DATABASE link appscontent_link CONNECT TO appscontent IDENTIFIED BY content4me USING 'svr544.bdnacorp.com';
+    svr544.bdnacorp.com --> appscontent 与第3步TNS对应
+
+覆盖SQL
+    放到 $bdna_home/sql/oracle/apps_content_load.sql   !!!!!
+
+
+3.修改 /u01/app/oracle/product/10.2.0/network/admin/tnsnames.ora 文件  done修改    有时需要换oracle用户
+appscontent =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.8.22)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SID = ora11g)
+    )
+  )
+
+
+4.  查看http://wiki.bdnacorp.com/index.php/Command_to_export_Market_Data_tables_to_XML_file 是否有更新命令  or 查看suma的bug   done!
+    更新入去 run_extract_MD_800.sh
+    /tmp/marketData-NextGen.xml    -->   $cvs_home_dir/$cvs_generate_xml_file_path
+
+
+5.$home/automation/run_extract_MD_760.sh  done      run_extract_MD_800.sh  改用户 cvs_login_user="garyzhou"
+    sh run_extract_MD_800.sh -d -e          （-d 本地install_home)
+    2013-9-2313 automation --> mde
+        内容参考 过程.txt
+
+
+/home/bdna/setup_logs
+grep ERROR *
+如果在md-extract.log, 提示
+drop table
+ORA-00942: table or view does not exist
+这些错误是正常
+
+cd /home/bdna/test_results/8.0.0/extractMD/2013_08_17_14_19_23_2763 查看最新的
+cd cvs_home/sequences/com/bdna/app/data
+unzip marketData-NextGen.zip
+vi marketData-NextGen.xml
+root.types.resource.software.application.TimKosse.FileZilla_Client\s*:\s*:\s*3.7.1
+root.types.resource.software.application.Microsoft.MSOffice\s*:\s*Professional Edition\s*:\s*15.0.4535.1511
+
+root.types.resource.software.application.Adobe.FlashPlayer
+
+与 CDB 数据对应
+Content Audit Counts --> Software Products --> Discovered Software Data -->
+    Source --> 2013-12
+
+
+Content Audit Counts --> Fingerprint Development --> BDNA Types
+    Release --> 2013-12
+
+
+可CVS 机 bdna bdna
+10.10.11.10 vm017rh
+10.10.11.11
+10.10.1.122
+
+可CVS机上 自己建一个文件夹  最好不要用龟来提交
+
+
+
+
+
+http://192.168.1.99/public/cvsweb.cgi/bdna/documentation/source/designdoc/MarketData_reports.vsd
+
+

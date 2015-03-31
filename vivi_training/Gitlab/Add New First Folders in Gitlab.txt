@@ -1,0 +1,128 @@
+Git global setup:
+git config --global user.name "Vivi Liu"
+git config --global user.email "vivi_liu@bdna.com"
+Create Repository
+mkdir sequence-documentation
+cd sequence-documentation
+git init
+touch README
+git add README
+git commit -m 'first commit'
+git remote add origin git@gitlab.bdnacorp.com:discover-team/sequence-documentation.git
+git push -u origin master
+Existing Git Repo?
+cd existing_git_repo
+git remote add origin git@gitlab.bdnacorp.com:discover-team/sequence-documentation.git
+git push -u origin master
+
+
+
+
+
+
+
+
+
+[bdna@VMDC8249 sequence-documentation]$ pwd
+/home/bdna/vivi/03032015/sequence-documentation
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ ll
+total 8
+drwxrwxr-x. 2 bdna bdna 4096 Mar  3 10:44 Sequence 7.6.1 Release Notes
+drwxrwxr-x. 2 bdna bdna 4096 Mar  3 10:45 Sequence 7.7.0 Release Notes
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ git status
+# On branch master
+#
+# Initial commit
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#       Sequence 7.6.1 Release Notes/
+#       Sequence 7.7.0 Release Notes/
+nothing added to commit but untracked files present (use "git add" to track)
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ git add Sequence\ 7.6.1\ Release\ Notes/ Sequence\ 7.7.0\ Release\ Notes/
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ git status
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#   (use "git rm --cached <file>..." to unstage)
+#
+#       new file:   Sequence 7.6.1 Release Notes/bdna_761_2015_April_Sequence_Release_Notes.xlsx
+#       new file:   Sequence 7.7.0 Release Notes/bdna_770_2015_April_Sequence_Release_Notes.xlsx
+#
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ git commit -m "Add the release notes of 2015-04 sequence for 7.6.1 GA platform by Vivi on Mar 2,2015." Sequence\ 7.6.1\ Release\ Notes/bdna_761_2015_April_Sequence_Release_Notes.xlsx
+[master (root-commit) e0f68fb] Add the release notes of 2015-04 sequence for 7.6.1 GA platform by Vivi on Mar 2,2015.
+ 1 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 Sequence 7.6.1 Release Notes/bdna_761_2015_April_Sequence_Release_Notes.xlsx
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ git commit -m "Add the release notes of 2015-04 sequence for 7.7.0 platform by Vivi on Mar 2,2015." Sequence\ 7.7.0\ Release\ Notes/bdna_770_2015_April_Sequence_Release_Notes.xlsx
+[master 275c772] Add the release notes of 2015-04 sequence for 7.7.0 platform by Vivi on Mar 2,2015.
+ 1 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 Sequence 7.7.0 Release Notes/bdna_770_2015_April_Sequence_Release_Notes.xlsx
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ git status
+# On branch master
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ git pull origin master
+fatal: Couldn't find remote ref master
+[bdna@VMDC8249 sequence-documentation]$ fatal: The remote end hung up unexpectedly
+
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ git push
+No refs in common and none specified; doing nothing.
+Perhaps you should specify a branch such as 'master'.
+fatal: The remote end hung up unexpectedly
+error: failed to push some refs to 'git@10.10.11.88:discover-team/sequence-documentation.git'
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ git status
+# On branch master
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ git push origin master
+Counting objects: 8, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (8/8), 2.84 MiB | 987 KiB/s, done.
+Total 8 (delta 2), reused 0 (delta 0)
+To git@10.10.11.88:discover-team/sequence-documentation.git
+ * [new branch]      master -> master
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ git branch
+* master
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ git status
+# On branch master
+nothing to commit (working directory clean)
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ ll
+total 8
+drwxrwxr-x. 2 bdna bdna 4096 Mar  3 10:44 Sequence 7.6.1 Release Notes
+drwxrwxr-x. 2 bdna bdna 4096 Mar  3 10:45 Sequence 7.7.0 Release Notes
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ git pull
+Already up-to-date.
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$ git pull origin master
+From 10.10.11.88:discover-team/sequence-documentation
+ * branch            master     -> FETCH_HEAD
+Already up-to-date.
+[bdna@VMDC8249 sequence-documentation]$
+[bdna@VMDC8249 sequence-documentation]$
+
+
+
+

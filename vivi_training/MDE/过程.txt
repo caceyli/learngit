@@ -1,0 +1,94 @@
+[bdna@unicorn automation]$ sh run_extract_MD_800.sh -d -e
+Current BDNA Version is: 7.5.0
+BDNA HOME is: /home/bdna/install761
+BDNA bdna Source Location is: /home/bdna/src/bdna
+BDNA sequences Source Location is: /home/bdna/src/sequences
+MD Extract Test Log
+-------------------
+[Wed Oct 16 16:15:36 HKT 2013] Script started.
+[Wed Oct 16 16:15:36 HKT 2013] Skip installation option was specified.
+[Wed Oct 16 16:15:36 HKT 2013] Commit CVS option was not specified.
+[Wed Oct 16 16:15:36 HKT 2013] DB Encryption option was specified.
+[Wed Oct 16 16:15:36 HKT 2013] Killing all running Java, Perl, and SQL-Plus processes.
+[Wed Oct 16 16:15:46 HKT 2013] CVS command: cvs co sequences/com/bdna/app/data
+mv: cannot stat `/home/bdna/setup_logs/cvs_home/sequences/com/bdna/app/data/*.xml': No such file or directory
+mv: cannot stat `/home/bdna/setup_logs/cvs_home/sequences/com/bdna/app/data/*.std': No such file or directory
+[Wed Oct 16 16:32:40 HKT 2013] Checking for valid entry in tnsnames.ora
+[Wed Oct 16 16:32:40 HKT 2013] Setting up BDNA 8.0.0 Build 2690.
+[Wed Oct 16 16:32:40 HKT 2013] Installing BDNA on bdna@unicorn:/home/bdna/install761.
+[Wed Oct 16 16:32:40 HKT 2013] Dropping schema BDNA800_MD_EXTRACT@unicorn.
+sh configure_db.sh -d 1234567890 -a -u BDNA800_MD_EXTRACT -p BDNA800_MD_EXTRACT -s unicorn -i ora10g -o 1521 -t unicorn -b BDNA800_FACTBASE -w BD             NA800_FACTBASE -v redwood -q ora10g -z 1521 -x redwood
+cp: target `/var/www/html' is not a directory
+[Wed Oct 16 16:32:46 HKT 2013] Creating new BDNA schema (BDNA800_MD_EXTRACT@unicorn).
+[Wed Oct 16 16:32:49 HKT 2013] Starting BDNA Agent.
+[Wed Oct 16 16:33:13 HKT 2013] Initializing BDNA collection store schema.
+[Wed Oct 16 16:35:59 HKT 2013] Granting create database link permission to BDNA800_MD_EXTRACT.
+[Wed Oct 16 16:36:00 HKT 2013] Loading Sequence - Enterprise Sequence...
+[Wed Oct 16 16:36:00 HKT 2013] Enterprise Sequence file: /home/bdna/install761/EnterpriseSequence_latest.seq
+[Wed Oct 16 16:36:00 HKT 2013] Running BcpLoader...
+[Wed Oct 16 16:36:00 HKT 2013] Load sequence script started.
+[Wed Oct 16 16:36:00 HKT 2013] /home/bdna/install761/bin/bcploader.sh script executed with args [-f /home/bdna/install761/EnterpriseSequence_late             st.seq -k 4e00b854c9f3f79a7220add5132a2f76b1eaa0e8ead4b36f98945e80ee24eb846942c76e2bbf7d74 -s -i].
+[Wed Oct 16 16:36:02 HKT 2013] BCP_FILE=/home/bdna/install761/EnterpriseSequence_latest.seq
+[Wed Oct 16 16:36:02 HKT 2013] LICENSE_KEY=4e00b854c9f3f79a7220add5132a2f76b1eaa0e8ead4b36f98945e80ee24eb846942c76e2bbf7d74
+[Wed Oct 16 16:36:02 HKT 2013] SKIP_STARTUP_BDNA=true
+[Wed Oct 16 16:36:02 HKT 2013] FORCE_INSTALL=true
+[Wed Oct 16 16:36:02 HKT 2013] IGNORE_LICENSE=false
+[Wed Oct 16 16:36:02 HKT 2013] UPDATE_CONTENT=true
+[Wed Oct 16 16:36:02 HKT 2013] UPDATE_CONTENT_FILES=true
+[Wed Oct 16 16:36:02 HKT 2013] UPDATE_CONTENT_FILES_LOCALLY_ONLY=true
+[Wed Oct 16 16:36:02 HKT 2013] UPDATE_DATABASE=true
+[Wed Oct 16 16:36:02 HKT 2013] Unpacking /home/bdna/install761/EnterpriseSequence_latest.seq onto /home/bdna/install761/appframe/temp/bcp/7e81f53             b...
+[Wed Oct 16 16:36:12 HKT 2013] bcp_package_name=Enterprise Sequence
+[Wed Oct 16 16:36:12 HKT 2013] bcp_package_folder_name=EnterpriseSequence
+[Wed Oct 16 16:36:12 HKT 2013] bcp_package_version=201311
+[Wed Oct 16 16:36:12 HKT 2013] bcp_package_runPostInstallScript=
+[Wed Oct 16 16:36:12 HKT 2013] bcp_package_binaryDirs=nih,pso,scripts
+[Wed Oct 16 16:36:12 HKT 2013] bcp_build_manifest_file=2900
+[Wed Oct 16 16:36:12 HKT 2013] bcp_build_schema=0
+[Wed Oct 16 16:36:12 HKT 2013] binary_elements=nih pso scripts
+[Wed Oct 16 16:36:12 HKT 2013] bcp_package_restartBDNAAgent=0
+[Wed Oct 16 16:36:15 HKT 2013] Installing BDNA Sequence (Enterprise Sequence) Build 2900...
+[Wed Oct 16 16:36:15 HKT 2013] Shutting down BDNA Agent and Components on localhost...
+[Wed Oct 16 16:36:15 HKT 2013] Copying new binaries onto localhost...
+[Wed Oct 16 16:36:15 HKT 2013] Copying new binaries onto /home/bdna/install761...
+[Wed Oct 16 16:36:15 HKT 2013] Copying /home/bdna/install761/appframe/temp/bcp/7e81f53b/nih to /home/bdna/install761.
+[Wed Oct 16 16:36:16 HKT 2013] Copying /home/bdna/install761/appframe/temp/bcp/7e81f53b/pso to /home/bdna/install761.
+[Wed Oct 16 16:36:16 HKT 2013] Copying /home/bdna/install761/appframe/temp/bcp/7e81f53b/scripts to /home/bdna/install761.
+[Wed Oct 16 16:36:19 HKT 2013] Loading Enterprise Sequence from /home/bdna/install761/appframe/temp/bcp/7e81f53b...
+Loading manifest data into database...
+Parse and save BCP manifest ...
+Parse and save BCP manifest finished
+[Wed Oct 16 16:58:00 HKT 2013] Loading additional UDTs...
+[Wed Oct 16 16:58:56 HKT 2013] Unzipping the sequence to /home/bdna/install761/conf/bcp_store/EnterpriseSequence directory.
+[Wed Oct 16 16:59:09 HKT 2013] Script completed.
+[Wed Oct 16 16:59:11 HKT 2013] Starting BDNA Agent.
+[Wed Oct 16 16:59:39 HKT 2013] Processing full market data.
+
+[Wed Oct 16 20:02:41 HKT 2013] Generating new market data XML file.
+[Wed Oct 16 20:02:41 HKT 2013] XML Generation command for BDNA 8.0.0: sh runjava.sh com.bdna.app.util.ImportUtil export tables=REF_BIC_UDT2,BIC_INDEX1_TMP2,TMS_BIC_REF4,BIC_ARR_RESULT12,BASE_BIC_TYPE,BIC_SCRATCH_APP6,BIC_ARRAY_RESULT3,DELTA_BIC_TYPE1,DELTA_BIC_TYPE12,BIC_SCRATCH_APP12,REF_CAT_SRC1,TAX_CAT_VAL1,ATTR_BIC_DELTA6,BASE_BIC_DATA1,USR_BIC_VAL5,BIC_ARR_FINAL1,BIC_ARR_RESULT5,DELTA_SCRATCH_UDT5,type_to_market_data,BASE_BIC_VAL1,ATTR_BIC_TMP2,BASE_BIC_LOOKUP,BASEVAL1_LOOKUP,ATTR_BIC_VAL1,ATTR_LIC_VAL,BASE_BIC_DATA2,BIC_ARR_DATA3,BIC_SCPE_APP2,BIC_HCPE_APP3,ATTR_BIC_SRC1,technopedia_versions file=/home/bdna/setup_logs/cvs_home/sequences/com/bdna/app/data/marketData-NextGen.xml.
+[Wed Oct 16 20:04:16 HKT 2013] Generating latest market data files into ZIP files.
+[Wed Oct 16 20:04:16 HKT 2013] INFO: Processing marketData-NextGen.zip
+  adding: marketData-NextGen.xml (deflated 84%)
+[Wed Oct 16 20:04:29 HKT 2013] Re-running InitDB to verify the generated XML file.
+mv: cannot stat `/home/bdna/install761/appdata/marketData-NextGen.xml': No such file or directory
+Archive:  marketData-NextGen.zip
+  inflating: marketData-NextGen.xml
+[Wed Oct 16 20:04:44 HKT 2013] Dropping schema BDNA800_MD_EXTRACT_RETEST@unicorn.
+sh configure_db.sh -d 1234567890 -a -u BDNA800_MD_EXTRACT_RETEST -p BDNA800_MD_EXTRACT_RETEST -s unicorn -i ora10g -o 1521 -t unicorn -b BDNA800_FACTBASE -w BDNA800_FACTBASE -v redwood -q ora10g -z 1521 -x redwood
+cp: target `/var/www/html' is not a directory
+[Wed Oct 16 20:04:51 HKT 2013] Creating new BDNA schema (BDNA800_MD_EXTRACT_RETEST@unicorn).
+[Wed Oct 16 20:04:55 HKT 2013] Starting BDNA Agent.
+[Wed Oct 16 20:05:09 HKT 2013] Initializing BDNA collection store schema.
+[Wed Oct 16 20:38:56 HKT 2013] Granting create database link permission to BDNA800_MD_EXTRACT_RETEST.
+
+Directory Listing: Latest Market Data Files
+/home/bdna/setup_logs/cvs_home/sequences/com/bdna/app/data
+ls: /home/bdna/setup_logs/cvs_home/sequences/com/bdna/app/data/*.zip: No such file or directory
+
+Directory Listing: Previous Market Data Files
+/home/bdna/setup_logs/cvs_home/sequences/com/bdna/app/data/cvs_co
+ls: /home/bdna/setup_logs/cvs_home/sequences/com/bdna/app/data/cvs_co/*.zip: No such file or directory
+[Wed Oct 16 20:38:59 HKT 2013] Results have been copied onto unicorn:/home/bdna/test_results/8.0.0/extractMD/2013_10_16_16_32_40_2690.
+[Wed Oct 16 20:38:59 HKT 2013] Script completed.
+
+[bdna@unicorn automation]$

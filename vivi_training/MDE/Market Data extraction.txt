@@ -1,0 +1,179 @@
+1. 在 192.168.8.184 上做
+   用 bdna/bdna 登录
+
+2. 将下面这两个 770GA的文件copy 到 $BDNA_HOME 上,并解压。
+[bdna@Autobot ~]$
+[bdna@Autobot ~]$ pwd
+/home/bdna
+[bdna@Autobot ~]$
+[bdna@Autobot ~]$ ll /home/bdna/770GA/bdna_platform_7.7.0_4012_20140905.jar
+-rw-rw-r--. 1 bdna bdna 321042330 Sep 22  2014 /home/bdna/770GA/bdna_platform_7.7.0_4012_20140905.jar
+[bdna@Autobot ~]$
+[bdna@Autobot ~]$ ll /home/bdna/770GA/Baseline_201409_3078.seq
+-rw-rw-r--. 1 bdna bdna 26193702 Sep 22  2014 /home/bdna/770GA/Baseline_201409_3078.seq
+[bdna@Autobot ~]$
+[bdna@Autobot ~]$
+
+
+[bdna@Autobot ~]$
+[bdna@Autobot ~]$
+[bdna@Autobot ~]$ cd $BDNA_HOME
+[bdna@Autobot install770]$ pwd
+/home/bdna/install770
+[bdna@Autobot install770]$
+[bdna@Autobot install770]$ ll
+total 0
+[bdna@Autobot install770]$
+[bdna@Autobot install770]$
+[bdna@Autobot install770]$ cp /home/bdna/770GA/bdna_platform_7.7.0_4012_20140905.jar $BDNA_HOME
+[bdna@Autobot install770]$
+[bdna@Autobot install770]$ cp /home/bdna/770GA/Baseline_201409_3078.seq $BDNA_HOME
+[bdna@Autobot install770]$
+[bdna@Autobot install770]$ ll
+total 339100
+-rw-rw-r--. 1 bdna bdna  26193702 Mar 31 15:40 Baseline_201409_3078.seq
+-rw-rw-r--. 1 bdna bdna 321042330 Mar 31 15:40 bdna_platform_7.7.0_4012_20140905.jar
+[bdna@Autobot install770]$
+[bdna@Autobot install770]$ pwd
+/home/bdna/install770
+[bdna@Autobot install770]$
+[bdna@Autobot install770]$ jar xf bdna_platform_7.7.0_4012_20140905.jar
+[bdna@Autobot install770]$ jar xf Baseline_201409_3078.seq
+[bdna@Autobot install770]$
+[bdna@Autobot install770]$
+
+
+
+3. 将最新的 EnterpriseSequence 文件放到 $BDNA_HOME 下面，前缀必须是EnterpriseSequence 。
+   只需要放在 $BDNA_HOME 下面 就可以了，不需要做任何操作。
+   注意 8.184 是用 770的， 所以 EnterpriseSequence 一定也要是 770 platform可以用的。
+
+
+[bdna@Autobot install770]$ pwd
+/home/bdna/install770
+[bdna@Autobot install770]$ cp /home/bdna/EnterpriseSequence_latest.seq $BDNA_HOME
+[bdna@Autobot install770]$
+[bdna@Autobot install770]$
+[bdna@Autobot install770]$ ls
+access       Baseline_201409_3078.seq               classes         ctsService                     file_store  logs      pre_upgrade  scripts
+appdata      bcpui                                  clmService      debug                          i18n        MANIFEST  pso          sql
+appframe     bdna_platform_7.7.0_4012_20140905.jar  conf            doc                            install     META-INF  rsService    temp
+application  bdna_web                               content         EnterpriseSequence_latest.seq  java        modules   sccache      upgrade
+archive      bin                                    cts_file_store  examples                       lib         nih       schema       wincs
+[bdna@Autobot install770]$
+[bdna@Autobot install770]$
+
+
+
+4. 确保你自己的cvs 帐号在 192.168.8.184 本机登录
+例如我自己的cvs 帐号是 vivi_liu
+用它登录
+
+
+[bdna@Autobot install770]$ cvs -d :pserver:vivi_liu@192.168.1.99:2401/home/cvsroot/ login
+
+
+执行命令，输入你自己的cvs 帐号密码，就可以登录成功。
+
+[bdna@Autobot install770]$ cd
+[bdna@Autobot ~]$
+[bdna@Autobot ~]$ cvs -d :pserver:vivi_liu@192.168.1.99:2401/home/cvsroot/ login
+Logging in to :pserver:vivi_liu@192.168.1.99:2401/home/cvsroot
+CVS password:
+[bdna@Autobot ~]$
+[bdna@Autobot ~]$
+
+
+
+5. 在cvs上检查最新的apps_content_load.sql ，并且checkout 下来。 
+
+http://192.168.1.99/public/cvsweb.cgi/bdna/schema/oracle/apps_content_load.sql
+
+例如co下来，就可以得到最新的文件了。
+
+[bdna@Autobot ~]$ cvs -d :pserver:vivi_liu@192.168.1.99:2401/home/cvsroot/ co bdna/schema/oracle/
+
+
+
+
+然后把这个最新的 
+apps_content_load.sql 里面的 
+
+CREATE DATABASE link appscontent_link CONNECT TO appscontent IDENTIFIED BY content4me USING 'svr544.bdnacorp.com';
+
+这句中 的 svr544.bdnacorp.com 中的 改为  appscontent
+
+
+
+
+其实 appscontent 就是 /u01/app/oracle/product/11.2.0/dbhome_1/network/admin/tnsnames.ora 这个文件里设置好的DNS name ，它连接的是 192.168.8.22，是中国的CDB地址。
+
+
+
+
+
+
+
+
+6. 把更改后 最新的 apps_content_load.sql 文件 copy 到   $BDNA_HOME/sql/oracle/ 目录下 
+
+其实 $BDNA_HOME/sql/oracle/ 目录下本身也有一个旧的 “apps_content_load.sql" 文件
+
+但是要用最新的 apps_content_load.sql 文件去代替它。
+
+例子：
+
+[bdna@Autobot ~]$ cd $BDNA_HOME/sql/oracle/
+[bdna@Autobot oracle]$
+[bdna@Autobot oracle]$
+[bdna@Autobot oracle]$ pwd
+/home/bdna/install770/sql/oracle
+[bdna@Autobot oracle]$
+[bdna@Autobot oracle]$
+[bdna@Autobot oracle]$ cp /home/bdna/vivi/apps_content_load.sql ./
+[bdna@Autobot oracle]$ ll apps_content_load.sql
+-rw-rw-r--. 1 bdna bdna 42680 Mar 31 15:58 apps_content_load.sql
+[bdna@Autobot oracle]$
+[bdna@Autobot oracle]$
+
+
+
+
+
+
+7.  run_extract_MD_800.sh 文件里面的 cvs_login_user="vivi_liu" 改成 cvs_login_user="你自己的cvs名字"
+
+run_extract_MD_800.sh 现在放在了 192.168.8.184 上的 /home/bdna/MDE/  目录下面的 。
+
+ 改好之后，就可以运行了。
+
+[bdna@Autobot ~]$ cd MDE/
+[bdna@Autobot MDE]$ ls
+run_extract_MD_800.sh
+[bdna@Autobot MDE]$
+[bdna@Autobot MDE]$ pwd
+/home/bdna/MDE
+[bdna@Autobot MDE]$
+[bdna@Autobot MDE]$
+[bdna@Autobot MDE]$ ls
+run_extract_MD_800.sh
+[bdna@Autobot MDE]$
+[bdna@Autobot MDE]$ pwd
+/home/bdna/MDE
+[bdna@Autobot MDE]$
+[bdna@Autobot MDE]$
+[bdna@Autobot MDE]$ sh run_extract_MD_800.sh -d -e
+
+
+
+然后就整个运行的过程。
+
+
+
+
+
+
+
+
+
+  
