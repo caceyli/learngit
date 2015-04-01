@@ -46,7 +46,7 @@ Start to load Discovered Data in Staging CDB:
       /home/prod/backup/smoketest/20150331/Report_New_Discovered_Data_Count.txt
    d. open UI http://192.168.8.45:8000/cdb/login, login with your own cdb user (eg: cacey_cn/bdna4249).
    e. validate the LOADED DATA by comparing the logs result(c) and UI result(d):
-      element   --  BDNA Types (filter by release filde: 201504)
+      element   --  BDNA Types (filter by release filde: 2015-04)
       cpu data  --  CPU Discovered Data  (filter by source filde with today's date:20150401)
       hwsw data --  Discovered Software Data  (filter by source filde with today's date:20150401)
    (ps: cpu/hwsw data loaded by script has mark 'BDNA' at the start on source filde)
