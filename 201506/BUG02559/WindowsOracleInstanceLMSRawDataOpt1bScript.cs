@@ -6,9 +6,9 @@
 *   Creation Date: 2011/06/27
 *
 * Current Status
-*       $Revision: 1.8 $
-*           $Date: 2014/03/13 07:57:08 $
-*         $Author: MiyaChen $
+*       $Revision: 1.9 $
+*           $Date: 2014/07/16 23:02:43 $
+*         $Author: ameau $
 *
 *******************************************************************
 *
@@ -69,6 +69,9 @@ namespace bdna.Scripts
                 IDictionary<string, string> attributes,
                 IDictionary<string, string> scriptParameters,
                 IDictionary<string, object> connection,
+                string tftpPath,
+                string tftpPath_login,
+                string tftpPath_password,
                 ITftpDispatcher tftpDispatcher)
         {
 
@@ -254,7 +257,7 @@ namespace bdna.Scripts
 
                     StringBuilder stdoutData = new StringBuilder();
                     using (IRemoteProcess rp = RemoteProcess.ExecuteBatchFile
-                        (m_taskId, cimvScope, strBatchFileContent, connection, tftpDispatcher))
+                        (m_taskId, cimvScope, strBatchFileContent, connection, tftpPath, tftpPath_login, tftpPath_password, tftpDispatcher))
                     {
                         //This method will block until the entire remote process operation completes.
                         resultCode = rp.Launch();
@@ -868,6 +871,7 @@ namespace bdna.Scripts
 .AppendLine(" alter session set NLS_TERRITORY='AMERICA'; ")
 .AppendLine(" alter session set NLS_DATE_FORMAT='YYYY-MM-DD_HH24:MI:SS'; ")
 .AppendLine(" alter session set NLS_TIMESTAMP_FORMAT='YYYY-MM-DD_HH24:MI:SS'; ")
+.AppendLine(" alter session set NLS_TIMESTAMP_TZ_FORMAT='YYYY-MM-DD_HH24:MI:SS_TZH:TZM'; ")
 .AppendLine(" -- Get host_name and instance_name ")
 .AppendLine(" define INSTANCE_NAME=ERR_NEW_VAL_INSTANCE_NAME; ")
 .AppendLine(" col C1 new_val INSTANCE_NAME noprint; ")

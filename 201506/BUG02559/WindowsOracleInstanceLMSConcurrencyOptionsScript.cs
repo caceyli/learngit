@@ -6,9 +6,9 @@
 *   Creation Date: 2011/07/11
 *
 * Current Status
-*       $Revision: 1.8 $
-*           $Date: 2012/06/14 13:09:22 $
-*         $Author: smanvi $
+*       $Revision: 1.9 $
+*           $Date: 2014/07/16 23:02:43 $
+*         $Author: ameau $
 *
 *******************************************************************
 *
@@ -69,6 +69,9 @@ namespace bdna.Scripts
                 IDictionary<string, string> attributes,
                 IDictionary<string, string> scriptParameters,
                 IDictionary<string, object> connection,
+                string tftpPath,
+                string tftpPath_login,
+                string tftpPath_password,
                 ITftpDispatcher tftpDispatcher)
         {
 
@@ -250,7 +253,7 @@ namespace bdna.Scripts
                     string strBatchFileContent = buildBatchFile(strTempDir, strHostName, strDBName, strOracleHome, strSchemaName, strSchemaPassword);
                     StringBuilder stdoutData = new StringBuilder();
                     using (IRemoteProcess rp = RemoteProcess.ExecuteBatchFile
-                        (m_taskId, cimvScope, strBatchFileContent, connection, tftpDispatcher))
+                        (m_taskId, cimvScope, strBatchFileContent, connection, tftpPath, tftpPath_login, tftpPath_password, tftpDispatcher))
                     {
                         //This method will block until the entire remote process operation completes.
                         resultCode = rp.Launch();
@@ -325,7 +328,7 @@ namespace bdna.Scripts
                         {
                             entry.Value.ResultHandler(this, entry.Key, stdoutData.ToString());
                         }
-                        CollectedData[@"lmsScriptVersion"] = "12.3";
+                        CollectedData[@"lmsScriptVersion"] = "15.1";
                         CollectedData[@"lmsMachineID"] = strHostName;
                         CollectedData[@"lmsDBName"] = strDBName;
                         this.processVLicenseCollectedData();
@@ -901,7 +904,7 @@ namespace bdna.Scripts
         private static Regex all_ver_pattern = new Regex(@".*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static Regex ver9_pattern = new Regex(@"^9\..*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static Regex ver89_pattern = new Regex(@"^9\..*|^8\..*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private static Regex ver1011_pattern = new Regex(@"^10\..*|^11\..*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static Regex ver101112_pattern = new Regex(@"^10\..*|^11\..*|^12\..*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static Regex ver10r1_pattern = new Regex(@"^10\.1.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static Regex ver10r2_pattern = new Regex(@"^10\.2.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static Regex ver11r2_pattern = new Regex(@"^11\.2.*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -920,7 +923,7 @@ namespace bdna.Scripts
                        "||'<BDNA,1>SESSIONS_CURRENT='||SESSIONS_CURRENT||'<BDNA,1>SESSIONS_HIGHWATER='||SESSIONS_HIGHWATER" +
                        "||'<BDNA,1>CPU_COUNT_CURRENT='||CPU_COUNT_CURRENT||'<BDNA,1>CPU_COUNT_HIGHWATER='||CPU_COUNT_HIGHWATER" +
                        "||'<BDNA,1>USERS_MAX='||USERS_MAX||'<BDNA,1>TIMESTAMP='||SYSDATE||'<=BDNA>' FROM V$LICENSE;",                       
-            ver1011_pattern,
+            ver101112_pattern,
             new QueryResultHandler(ConcurrencyOptionsValueHandler))),
             new KeyValuePair<string, QueryTableEntry>(@"VLicense_9",
             new QueryTableEntry(@"SELECT '<BDNA=>SESSIONS_MAX='||SESSIONS_MAX||'<BDNA,1>SESSIONS_WARNING='||SESSIONS_WARNING" +

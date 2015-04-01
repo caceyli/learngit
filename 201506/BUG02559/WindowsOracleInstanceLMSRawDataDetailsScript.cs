@@ -6,9 +6,9 @@
 *   Creation Date: 2011/08/03
 *
 * Current Status
-*       $Revision: 1.8 $
-*           $Date: 2012/06/14 13:09:22 $
-*         $Author: smanvi $
+*       $Revision: 1.9 $
+*           $Date: 2014/07/16 23:02:43 $
+*         $Author: ameau $
 *
 *******************************************************************
 *
@@ -69,6 +69,9 @@ namespace bdna.Scripts
                 IDictionary<string, string> attributes,
                 IDictionary<string, string> scriptParameters,
                 IDictionary<string, object> connection,
+                string tftpPath,
+                string tftpPath_login,
+                string tftpPath_password,
                 ITftpDispatcher tftpDispatcher)
         {
 
@@ -250,7 +253,7 @@ namespace bdna.Scripts
                     string strBatchFileContent = buildBatchFile(strTempDir, strHostName, strDBName, strOracleHome, strSchemaName, strSchemaPassword);
                     StringBuilder stdoutData = new StringBuilder();
                     using (IRemoteProcess rp = RemoteProcess.ExecuteBatchFile
-                        (m_taskId, cimvScope, strBatchFileContent, connection, tftpDispatcher))
+                        (m_taskId, cimvScope, strBatchFileContent, connection, tftpPath, tftpPath_login, tftpPath_password, tftpDispatcher))
                     {
                         //This method will block until the entire remote process operation completes.
                         resultCode = rp.Launch();
@@ -329,7 +332,7 @@ namespace bdna.Scripts
                         {
                             this.BuildDataRow(kvp.Key, kvp.Value);
                         }
-                        CollectedData[@"lmsScriptVersion"] = "12.3";
+                        CollectedData[@"lmsScriptVersion"] = "15.1";
                         CollectedData[@"lmsMachineID"] = strHostName;
                         CollectedData[@"lmsDBName"] = strDBName;
                         //Console.WriteLine(CollectedData[@"lmsBanner"]);
