@@ -1,8 +1,8 @@
-Ã¿¸öÔÂcode freezeÖ®ºó¶¼Òª°Ñ release µÄ  Type ºÍ Discovered data µ¼Èëstaging £¬È»ºó¸æËßÊĞ³¡²¿µÄLijun ÈÃËû¼ì²é¡£
-Lijun ÔÚstaging ÉÏ¼ì²éÖ®ºóÃ»ÓĞÎÊÌâºó£¬¾Í¸æËßĞ¡Çàµ¼ÈëCDB£¬ È»ºó¸æËßLijun ÈÃËû×ömapping¡£
+æ¯ä¸ªæœˆcode freezeä¹‹åéƒ½è¦æŠŠ release çš„  Type å’Œ Discovered data å¯¼å…¥staging ï¼Œç„¶åå‘Šè¯‰å¸‚åœºéƒ¨çš„Lijun è®©ä»–æ£€æŸ¥ã€‚
+Lijun åœ¨staging ä¸Šæ£€æŸ¥ä¹‹åæ²¡æœ‰é—®é¢˜åï¼Œå°±å‘Šè¯‰å°é’å¯¼å…¥CDBï¼Œ ç„¶åå‘Šè¯‰Lijun è®©ä»–åšmappingã€‚
 
-µ¼³öµÄType ºÍ Discvoered data ÆäÊµ 8.12 ºÍ 9.102 µÄsmoke test ¶¼ÊÇÓĞ×Ô¶¯Íê³ÉµÄ£¬ ¿ÉÒÔ²é¿´ËüÃÇÃ¿Ìì×ötestµÄcrontab log¡£
-ÒÔÏÂÓÃÊÖ¶¯×öÒ»´Î£¬¿ÉÒÔ·½±ã´ó¼ÒÀí½âÕû¸ö¹ı³Ì¡£
+å¯¼å‡ºçš„Type å’Œ Discvoered data å…¶å® 8.12 å’Œ 9.102 çš„smoke test éƒ½æ˜¯æœ‰è‡ªåŠ¨å®Œæˆçš„ï¼Œ å¯ä»¥æŸ¥çœ‹å®ƒä»¬æ¯å¤©åštestçš„crontab logã€‚
+ä»¥ä¸‹ç”¨æ‰‹åŠ¨åšä¸€æ¬¡ï¼Œå¯ä»¥æ–¹ä¾¿å¤§å®¶ç†è§£æ•´ä¸ªè¿‡ç¨‹ã€‚
 
 
 Prepare Discovered Data:
@@ -19,10 +19,10 @@ Prepare Discovered Data:
       /u01/app/oracle/product/11.2.0/bin/exp vmst9102_bdna_770_20/vmst9102_bdna_770_20@BDNA buffer=10485760 recordlength=65535 feedback=10000 compress=n direct=y tables=element file=element_vmst9102_20150330_test.dmp
       element_vmst9102_20150330_test.dmp
 
-   b. export  Discovered Data £¬with Discover Collection Server script DataExtract.sh£º
+   b. export  Discovered Data ï¼Œwith Discover Collection Server script DataExtract.shï¼š
       sh /home/bdna/install770/pso/CDB/DataExtract.sh vmst9102_bdna_770_20 vmst9102_bdna_770_20 BDNA
       cpu_data.dmp  (CPU Discovered Data)
-      hwsw_data.dmp  (hardware£¬software Discvoered Data)
+      hwsw_data.dmp  (hardwareï¼Œsoftware Discvoered Data)
 
    c. gzip compress the 3 dmp packages.
       gzip -f XXX.dmp (produced :XXX.dmp.gz)
@@ -46,10 +46,10 @@ Start to load Discovered Data in Staging CDB:
       /home/prod/backup/smoketest/20150331/Report_New_Discovered_Data_Count.txt
    d. open UI http://192.168.8.45:8000/cdb/login, login with your own cdb user (eg: cacey_cn/bdna4249).
    e. validate the LOADED DATA by comparing the logs result(c) and UI result(d):
-      element   --  BDNA Types (filter by release filde: 201504)
+      element   --  BDNA Types (filter by release filde: 2015-04)
       cpu data  --  CPU Discovered Data  (filter by source filde with today's date:20150401)
       hwsw data --  Discovered Software Data  (filter by source filde with today's date:20150401)
-      (ps: cpu/hwsw data loaded by script has mark 'BDNA' at the start on source filde)
-      (ps: if the new type has no version discovered, need to as lijun to manually added on CDB, here is an example: (discovery type)root.types.resource.software.application.HitachiDataSystems.HiCommand.UNIX_DeviceManagerServer)
+   (ps: cpu/hwsw data loaded by script has mark 'BDNA' at the start on source filde)
+   (ps: if the new type has no version discovered, need to ask lijun to manually added on CDB, here is an example: (discovery type)root.types.resource.software.application.HitachiDataSystems.HiCommand.UNIX_DeviceManagerServer)
 
-È»ºóÍ¨Öª Lijun ²é¿´½á¹û£¬¾ÍÊÇStaging UI ÉÏµÄÕâĞ©±íµÄÊı¾İÒªºÍ ÉÏÃæÄÇÁ½¸öÎÄ¼şµÄÄÚÈİÏà·ûºÏ¡£
+ç„¶åé€šçŸ¥ Lijun æŸ¥çœ‹ç»“æœï¼Œå°±æ˜¯Staging UI ä¸Šçš„è¿™äº›è¡¨çš„æ•°æ®è¦å’Œ ä¸Šé¢é‚£ä¸¤ä¸ªæ–‡ä»¶çš„å†…å®¹ç›¸ç¬¦åˆã€‚
