@@ -93,72 +93,6 @@
 <!--                                  -->
 
 
-<!-- view_def hypervNICs: hypervNICs -->
-
-<bvl name="hypervNICs" label="hypervNICs" description="" version="1.0" >
-<metadataProperty name="description" >
-<value><![CDATA[]]></value></metadataProperty>
-<metadataProperty name="displayLabel" >
-<value><![CDATA[hypervNICs]]></value></metadataProperty>
-<metadataProperty name="type" >
-<value><![CDATA[view_def]]></value></metadataProperty>
-<bvlNode name="HyperVServer" label="Microsoft Hyper-V Server" typeFullName="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" >
-<bvlColumn name="HyperVServer_id" label="Microsoft Hyper-V Server Id" entityTable="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" sourceColumnName="id" type="id" isUDTField="false" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="HyperVServer_label" label="Microsoft Hyper-V Server Label" entityTable="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" sourceColumnName="label" type="string" isUDTField="false" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="HyperVServer_bdna_type" label="Microsoft Hyper-V Server Type" entityTable="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" sourceColumnName="bdna_type" classifierTypeFullName="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" type="integer" isUDTField="false" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="hpv_winNics" label="NICs" entityTable="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" udtInfo="HyperVNics" sourceColumnName="hpv_winNics" type="udt" isUDTField="false" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="hostName" label="DNS Host Name" entityTable="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" sourceColumnName="hostName" type="string" isUDTField="false" isCurrency="false" isInternal="false" >
-</bvlColumn>
-</bvlNode>
-<bvlNode name="hpv_winNics" label="Hyper-V Server NICs" parentName="HyperVServer" linkType="udtOf" linkRequired="parent" udtAttrName="hpv_winNics" >
-<bvlColumn name="name" label="name" sourceColumnName="name" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="nicName" label="nicName" sourceColumnName="nicName" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="PNPDeviceID" label="PNPDeviceID" sourceColumnName="PNPDeviceID" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="manufacturer" label="manufacturer" sourceColumnName="manufacturer" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="MACAddress" label="MACAddress" sourceColumnName="MACAddress" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="IPAddress" label="IPAddress" sourceColumnName="IPAddress" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="defaultRoute" label="defaultRoute" sourceColumnName="defaultRoute" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="networkMask" label="networkMask" sourceColumnName="networkMask" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="DHCPEnabled" label="DHCPEnabled" sourceColumnName="DHCPEnabled" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="DHCPServer" label="DHCPServer" sourceColumnName="DHCPServer" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="DHCPLeaseExpires" label="DHCPLeaseExpires" sourceColumnName="DHCPLeaseExpires" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="DNS" label="DNS" sourceColumnName="DNS" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="DNSSearchOrder" label="DNSSearchOrder" sourceColumnName="DNSSearchOrder" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="PrimaryDNSSvr" label="PrimaryDNSSvr" sourceColumnName="PrimaryDNSSvr" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="SecondaryDNSSvr" label="SecondaryDNSSvr" sourceColumnName="SecondaryDNSSvr" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="TertiaryDNSSvr" label="TertiaryDNSSvr" sourceColumnName="TertiaryDNSSvr" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="OtherDNSSvr" label="OtherDNSSvr" sourceColumnName="OtherDNSSvr" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="WINSPrimarySvr" label="WINSPrimarySvr" sourceColumnName="WINSPrimarySvr" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="WINSSecondarySvr" label="WINSSecondarySvr" sourceColumnName="WINSSecondarySvr" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-<bvlColumn name="rec_id" label="NICs rec_id" sourceColumnName="rec_id" type="id" isUDTField="true" isCurrency="false" isInternal="false" >
-</bvlColumn>
-</bvlNode>
-</bvl>
-
-
 <!-- view_def osNICs: osNICs -->
 
 <bvl name="osNICs" label="osNICs" description="" version="1.0" >
@@ -352,6 +286,72 @@
 <bvlColumn name="DHCPServer" label="DHCPServer" sourceColumnName="DHCPServer" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
 </bvlColumn>
 <bvlColumn name="DHCPLeaseExpires" label="DHCPLeaseExpires" sourceColumnName="DHCPLeaseExpires" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="rec_id" label="NICs rec_id" sourceColumnName="rec_id" type="id" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+</bvlNode>
+</bvl>
+
+
+<!-- view_def hypervNICs: hypervNICs -->
+
+<bvl name="hypervNICs" label="hypervNICs" description="" version="1.0" >
+<metadataProperty name="description" >
+<value><![CDATA[]]></value></metadataProperty>
+<metadataProperty name="displayLabel" >
+<value><![CDATA[hypervNICs]]></value></metadataProperty>
+<metadataProperty name="type" >
+<value><![CDATA[view_def]]></value></metadataProperty>
+<bvlNode name="HyperVServer" label="Microsoft Hyper-V Server" typeFullName="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" >
+<bvlColumn name="HyperVServer_id" label="Microsoft Hyper-V Server Id" entityTable="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" sourceColumnName="id" type="id" isUDTField="false" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="HyperVServer_label" label="Microsoft Hyper-V Server Label" entityTable="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" sourceColumnName="label" type="string" isUDTField="false" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="HyperVServer_bdna_type" label="Microsoft Hyper-V Server Type" entityTable="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" sourceColumnName="bdna_type" classifierTypeFullName="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" type="integer" isUDTField="false" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="hpv_winNics" label="NICs" entityTable="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" udtInfo="HyperVNics" sourceColumnName="hpv_winNics" type="udt" isUDTField="false" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="hostName" label="DNS Host Name" entityTable="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" sourceColumnName="hostName" type="string" isUDTField="false" isCurrency="false" isInternal="false" >
+</bvlColumn>
+</bvlNode>
+<bvlNode name="hpv_winNics" label="Hyper-V Server NICs" parentName="HyperVServer" linkType="udtOf" linkRequired="parent" udtAttrName="hpv_winNics" >
+<bvlColumn name="name" label="name" sourceColumnName="name" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="nicName" label="nicName" sourceColumnName="nicName" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="PNPDeviceID" label="PNPDeviceID" sourceColumnName="PNPDeviceID" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="manufacturer" label="manufacturer" sourceColumnName="manufacturer" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="MACAddress" label="MACAddress" sourceColumnName="MACAddress" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="IPAddress" label="IPAddress" sourceColumnName="IPAddress" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="defaultRoute" label="defaultRoute" sourceColumnName="defaultRoute" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="networkMask" label="networkMask" sourceColumnName="networkMask" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="DHCPEnabled" label="DHCPEnabled" sourceColumnName="DHCPEnabled" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="DHCPServer" label="DHCPServer" sourceColumnName="DHCPServer" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="DHCPLeaseExpires" label="DHCPLeaseExpires" sourceColumnName="DHCPLeaseExpires" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="DNS" label="DNS" sourceColumnName="DNS" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="DNSSearchOrder" label="DNSSearchOrder" sourceColumnName="DNSSearchOrder" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="PrimaryDNSSvr" label="PrimaryDNSSvr" sourceColumnName="PrimaryDNSSvr" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="SecondaryDNSSvr" label="SecondaryDNSSvr" sourceColumnName="SecondaryDNSSvr" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="TertiaryDNSSvr" label="TertiaryDNSSvr" sourceColumnName="TertiaryDNSSvr" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="OtherDNSSvr" label="OtherDNSSvr" sourceColumnName="OtherDNSSvr" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="WINSPrimarySvr" label="WINSPrimarySvr" sourceColumnName="WINSPrimarySvr" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
+</bvlColumn>
+<bvlColumn name="WINSSecondarySvr" label="WINSSecondarySvr" sourceColumnName="WINSSecondarySvr" type="string" isUDTField="true" isCurrency="false" isInternal="false" >
 </bvlColumn>
 <bvlColumn name="rec_id" label="NICs rec_id" sourceColumnName="rec_id" type="id" isUDTField="true" isCurrency="false" isInternal="false" >
 </bvlColumn>
@@ -1880,6 +1880,12 @@
 <value><![CDATA[osCPU:cpu.isa]]></value></expression>
 </expression>
 </expression>
+</expression>
+</bqlShow>
+<bqlShow name="cpu_cores_sum" label="cpu_cores_sum" sourceAlias="osCPU" sourceType="none" type="string" hidden="false" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="false" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >
+<expression operator="function" type="string" func="sum" hasParen="false" isInternal="false" >
+<expression operator="column" type="string" hasParen="false" isInternal="false" >
+<value><![CDATA[osCPU:cpu.cores]]></value></expression>
 </expression>
 </bqlShow>
 <bqlGroupBy name="operatingSystem_id" >
@@ -3813,6 +3819,8 @@
 </bqlShow>
 <bqlShow name="userLoginCount" label="User Login Information" entityTable="root.types.resource.software.operatingSystem" udtInfo="UserLoginCount" sourceAlias="os_agg1" sourceColumnName="userLoginCount" sourceType="View" type="udt" hidden="false" entityAttribute="userLoginCount" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="false" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >
 </bqlShow>
+<bqlShow name="cpu_cores_sum" label="cpu_cores_sum" sourceAlias="osCPU_agg1" sourceColumnName="cpu_cores_sum" sourceType="none" type="string" hidden="false" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="false" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >
+</bqlShow>
 <bqlConstraint><expression operator="and" type="string" hasParen="false" isInternal="false" >
 <expression operator="and" type="string" hasParen="false" isInternal="false" >
 <expression operator="and" type="string" hasParen="false" isInternal="false" >
@@ -4523,6 +4531,8 @@
 <bqlShow name="HyperVlastLogon" label="Hyper-V Last Logon User" entityTable="root.types.resource.software.operatingSystem.hypervisor.HyperVServer" sourceAlias="os_agg_nics" sourceColumnName="HyperVlastLogon" sourceType="View" type="longstring" hidden="false" entityAttribute="HyperVServerhpv_lastLogon" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="false" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >
 </bqlShow>
 <bqlShow name="userLoginCount" label="User Login Information" entityTable="root.types.resource.software.operatingSystem" udtInfo="UserLoginCount" sourceAlias="os_agg_nics" sourceColumnName="userLoginCount" sourceType="View" type="udt" hidden="false" entityAttribute="userLoginCount" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="false" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >
+</bqlShow>
+<bqlShow name="cpu_cores_sum" label="cpu_cores_sum" sourceAlias="os_agg_nics" sourceColumnName="cpu_cores_sum" sourceType="none" type="string" hidden="false" entityAttribute="cpu_cores_sum" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="true" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >
 </bqlShow>
 </bql>
 

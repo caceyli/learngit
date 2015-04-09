@@ -332,7 +332,7 @@ namespace bdna.Scripts
                         {
                             this.BuildDataRow(kvp.Key, kvp.Value);
                         }
-                        CollectedData[@"lmsScriptVersion"] = "12.3";
+                        CollectedData[@"lmsScriptVersion"] = "15.1";
                         CollectedData[@"lmsMachineID"] = strHostName;
                         CollectedData[@"lmsDBName"] = strDBName;
                         //Console.WriteLine(CollectedData[@"lmsBanner"]);

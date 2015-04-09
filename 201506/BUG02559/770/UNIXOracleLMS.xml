@@ -2749,7 +2749,7 @@ print "Output: @outputOEMSchemaOwner\n";
             }
         }
 
-        $BDNA_Results{"lmsScriptVersion"} = '14.1';
+        $BDNA_Results{"lmsScriptVersion"} = '15.1';
         $BDNA_Results{"lmsMachineID"} = $hostName;
         $BDNA_Results{"lmsDBName"} = $dbName;
 
@@ -2844,7 +2844,7 @@ REM       1 = machine_id for the measured database (as entered in lms_dblist)
 REM       2 = db_name    for the measured database (as entered in lms_dblist)
 REM       3 = tns_name   for the measured database (as entered in lms_dblist)
 
-define SCRIPT_RELEASE=14.1
+define SCRIPT_RELEASE=15.1
 
 SET ECHO OFF
 SET FEEDBACK OFF
@@ -2862,6 +2862,7 @@ alter session set NLS_LANGUAGE='AMERICAN';
 alter session set NLS_TERRITORY='AMERICA';
 alter session set NLS_DATE_FORMAT='YYYY-MM-DD_HH24:MI:SS';
 alter session set NLS_TIMESTAMP_FORMAT='YYYY-MM-DD_HH24:MI:SS';
+alter session set NLS_TIMESTAMP_TZ_FORMAT='YYYY-MM-DD_HH24:MI:SS_TZH:TZM';
 alter session set GLOBAL_NAMES = FALSE;
 
 -- Get host_name and instance_name
@@ -5178,87 +5179,64 @@ END;
 /
 
 define OPTION_NAME=DATABASE_VAULT
-define OPTION_QUERY=DBA_DV_REALM
+define OPTION_QUERY=DVSYS.DBA_DV_REALM
+
 DECLARE
         mycode number;
         myerr varchar2 (3000);
-        does_not_exist exception;
-        PRAGMA EXCEPTION_INIT(does_not_exist, -942);
+        mycount number;
 BEGIN
-begin
-  execute immediate ('insert into lms_options
-    (
-      MACHINE_ID,
-      DB_NAME,
-      TIMESTAMP,
-      HOST_NAME,
-      INSTANCE_NAME,
-      OPTION_NAME,
-      OPTION_QUERY,
-      COL010
+  delete from TMP_LMS_OPTIONS;
+
+  -- Using dynamic SQL in order to capture 'ORA-00942: table or view does not exist' error
+  EXECUTE IMMEDIATE ('insert into TMP_LMS_OPTIONS
+    ( MACHINE_ID, DB_NAME, TIMESTAMP, HOST_NAME, INSTANCE_NAME, OPTION_NAME, OPTION_QUERY,
+      COL010,
+      COL020,
+      COL030
     )
-    SELECT
-      ''&MACHINE_ID.'',
-      ''&DB_NAME.'',
-      ''&SYS_TIME.'',
-      ''&HOST_NAME.'',
-      ''&INSTANCE_NAME.'',
-      ''&OPTION_NAME.'',
-      ''&OPTION_QUERY.'',
-      count(*)
-    FROM
-      DVSYS.DBA_DV_REALM&DBL');
-  EXCEPTION
+    select
+      ''&MACHINE_ID.'', ''&DB_NAME.'', ''&SYS_TIME.'', ''&HOST_NAME.'', ''&INSTANCE_NAME.'', ''&OPTION_NAME.'', ''&OPTION_QUERY.'',
+      NAME       ,
+      DESCRIPTION,
+      ENABLED
+  from DVSYS.DBA_DV_REALM&DBL
+  order by NAME
+  ');
+
+  mycount := SQL%ROWCOUNT;
+  -- Recording 'no rows selected' case
+  IF mycount=0 THEN
+    INSERT INTO LMS_OPTIONS
+    ( MACHINE_ID, DB_NAME, TIMESTAMP, HOST_NAME, INSTANCE_NAME, OPTION_NAME, OPTION_QUERY,
+      SQL_ERR_CODE,
+      SQL_ERR_MESSAGE)
+    VALUES
+    ( '&MACHINE_ID.', '&DB_NAME.', '&SYS_TIME.', '&HOST_NAME.', '&INSTANCE_NAME.', '&OPTION_NAME.', '&OPTION_QUERY.',
+      0,
+      'no rows selected');
+  ELSE
+    update TMP_LMS_OPTIONS set SQL_ERR_CODE=mycount, SQL_ERR_MESSAGE='count';
+    insert into LMS_OPTIONS (select * from TMP_LMS_OPTIONS);
+  END IF;
+
+  dbms_output.put_line ('PL/SQL block completed for [&OPTION_NAME.].[&OPTION_QUERY.]. ' || mycount || ' rows collected.');
+
+EXCEPTION
+    -- Recording Errors
     when OTHERS then
       mycode := SQLCODE;
       myerr  := SQLERRM;
+      dbms_output.put_line ('PL/SQL block exception ['|| mycode ||'] for [&OPTION_NAME.].[&OPTION_QUERY.]');
+
       INSERT INTO LMS_OPTIONS
-       (MACHINE_ID,
-        DB_NAME,
-        TIMESTAMP,
-  HOST_NAME,
-        INSTANCE_NAME,
-        OPTION_NAME,
-        OPTION_QUERY,
+      ( MACHINE_ID, DB_NAME, TIMESTAMP, HOST_NAME, INSTANCE_NAME, OPTION_NAME, OPTION_QUERY,
         SQL_ERR_CODE,
         SQL_ERR_MESSAGE)
        VALUES
-        ('&MACHINE_ID.',
-         '&DB_NAME.',
-         '&SYS_TIME.',
-         '&HOST_NAME.',
-         '&INSTANCE_NAME.',
-         '&OPTION_NAME.',
-         '&OPTION_QUERY.',
+      ( '&MACHINE_ID.', '&DB_NAME.', '&SYS_TIME.', '&HOST_NAME.', '&INSTANCE_NAME.', '&OPTION_NAME.', '&OPTION_QUERY.',
          mycode,
          myerr);
-       GOTO abc22;
-END;
-IF SQL%ROWCOUNT=0 THEN
-  INSERT INTO LMS_OPTIONS
-   (MACHINE_ID,
-    DB_NAME,
-    TIMESTAMP,
-    HOST_NAME,
-    INSTANCE_NAME,
-    OPTION_NAME,
-    OPTION_QUERY,
-    SQL_ERR_CODE,
-    SQL_ERR_MESSAGE
-   )
-  VALUES
-   ('&MACHINE_ID.',
-    '&DB_NAME.',
-    '&SYS_TIME.',
-    '&HOST_NAME.',
-    '&INSTANCE_NAME.',
-    '&OPTION_NAME.',
-    '&OPTION_QUERY.',
-    0,
-    'no rows selected');
-END IF;
-<<abc22>>
-  dbms_output.put_line ('PL/SQL block completed for [&OPTION_NAME.].[&OPTION_QUERY.]');
 END;
 /
 
@@ -5716,109 +5694,83 @@ END IF;
 END;
 /
 
-------------------
+---------------------------------------------------
 -- GV\$PARAMETER --
-------------------
+---------------------------------------------------
 define OPTION_NAME=GV\$PARAMETER
 define OPTION_QUERY=NULL
+
 DECLARE
         mycode number;
         myerr varchar2 (3000);
-        does_not_exist exception;
-        PRAGMA EXCEPTION_INIT(does_not_exist, -942);
+        mycount number;
 BEGIN
-begin
-  execute immediate ('insert into lms_options
-    (
-      MACHINE_ID,
-      DB_NAME,
-      TIMESTAMP,
-      HOST_NAME,
-      INSTANCE_NAME,
-      OPTION_NAME,
-      OPTION_QUERY,
+  delete from TMP_LMS_OPTIONS;
+
+  -- Using dynamic SQL in order to capture 'ORA-00942: table or view does not exist' error
+  EXECUTE IMMEDIATE ('insert into TMP_LMS_OPTIONS
+    ( MACHINE_ID, DB_NAME, TIMESTAMP, HOST_NAME, INSTANCE_NAME, OPTION_NAME, OPTION_QUERY,
       COL010,
-    COL020,
-    COL030,
-    COL040,
-    COL050
+      COL020,
+      COL030,
+      COL040,
+      COL050
     )
-    SELECT
-      ''&MACHINE_ID.'',
-      ''&DB_NAME.'',
-      ''&SYS_TIME.'',
-      ''&HOST_NAME.'',
-      ''&INSTANCE_NAME.'',
-      ''&OPTION_NAME.'',
-      ''&OPTION_QUERY.'',
-      INST_ID,
-    NAME,
-    VALUE,
-    ISDEFAULT,
-    DESCRIPTION
-    FROM
-      GV\$PARAMETER&DBL
-    WHERE UPPER(name) LIKE ''%CPU_COUNT%''
-       OR UPPER(name) LIKE ''%FAL_CLIENT%''
-       OR UPPER(name) LIKE ''%FAL_SERVER%''
-       OR UPPER(name) LIKE ''%CLUSTER%''
-       OR UPPER(name) LIKE ''%CONTROL_MANAGEMENT_PACK_ACCESS%''
-       OR UPPER(name) LIKE ''%LOG_ARCHIVE_DEST%''
-       OR UPPER(name) LIKE ''%ENABLE_DDL_LOGGING%''
-       OR UPPER(name) LIKE ''%COMPATIBLE%''
-       OR UPPER(name) LIKE ''%LOG_ARCHIVE_DEST%''
-       ORDER BY NAME, INST_ID');
-  EXCEPTION
+    select
+      ''&MACHINE_ID.'', ''&DB_NAME.'', ''&SYS_TIME.'', ''&HOST_NAME.'', ''&INSTANCE_NAME.'', ''&OPTION_NAME.'', ''&OPTION_QUERY.'',
+      INST_ID     ,
+      NAME        ,
+      VALUE       ,
+      ISDEFAULT   ,
+      DESCRIPTION
+    from GV\$PARAMETER&DBL
+    where upper(NAME) like ''%CPU_COUNT%''
+       or upper(NAME) like ''%FAL_CLIENT%''
+       or upper(NAME) like ''%FAL_SERVER%''
+       or upper(NAME) like ''%CLUSTER%''
+       or upper(NAME) like ''%CONTROL_MANAGEMENT_PACK_ACCESS%''
+       or upper(NAME) like ''%ENABLE_DDL_LOGGING%''
+       or upper(NAME) like ''%COMPATIBLE%''
+       or upper(NAME) like ''%LOG_ARCHIVE_DEST%''
+       or upper(NAME) like ''%O7_DICTIONARY_ACCESSIBILITY%''
+       or upper(NAME) like ''%ENABLE_PLUGGABLE_DATABASE%''
+       or upper(NAME) like ''%INMEMORY%''
+       order by NAME, INST_ID
+  ');
+
+  mycount := SQL%ROWCOUNT;
+  -- Recording 'no rows selected' case
+  IF mycount=0 THEN
+    INSERT INTO LMS_OPTIONS
+    ( MACHINE_ID, DB_NAME, TIMESTAMP, HOST_NAME, INSTANCE_NAME, OPTION_NAME, OPTION_QUERY,
+      SQL_ERR_CODE,
+      SQL_ERR_MESSAGE)
+    VALUES
+    ( '&MACHINE_ID.', '&DB_NAME.', '&SYS_TIME.', '&HOST_NAME.', '&INSTANCE_NAME.', '&OPTION_NAME.', '&OPTION_QUERY.',
+      0,
+      'no rows selected');
+  ELSE
+    update TMP_LMS_OPTIONS set SQL_ERR_CODE=mycount, SQL_ERR_MESSAGE='count';
+    insert into LMS_OPTIONS (select * from TMP_LMS_OPTIONS);
+  END IF;
+
+  dbms_output.put_line ('PL/SQL block completed for [&OPTION_NAME.].[&OPTION_QUERY.]. ' || mycount || ' rows collected.');
+
+EXCEPTION
+    -- Recording Errors
     when OTHERS then
       mycode := SQLCODE;
       myerr  := SQLERRM;
+      dbms_output.put_line ('PL/SQL block exception ['|| mycode ||'] for [&OPTION_NAME.].[&OPTION_QUERY.]');
+
       INSERT INTO LMS_OPTIONS
-       (MACHINE_ID,
-        DB_NAME,
-        TIMESTAMP,
-  HOST_NAME,
-        INSTANCE_NAME,
-        OPTION_NAME,
-        OPTION_QUERY,
+      ( MACHINE_ID, DB_NAME, TIMESTAMP, HOST_NAME, INSTANCE_NAME, OPTION_NAME, OPTION_QUERY,
         SQL_ERR_CODE,
         SQL_ERR_MESSAGE)
        VALUES
-        ('&MACHINE_ID.',
-         '&DB_NAME.',
-         '&SYS_TIME.',
-         '&HOST_NAME.',
-         '&INSTANCE_NAME.',
-         '&OPTION_NAME.',
-         '&OPTION_QUERY.',
+      ( '&MACHINE_ID.', '&DB_NAME.', '&SYS_TIME.', '&HOST_NAME.', '&INSTANCE_NAME.', '&OPTION_NAME.', '&OPTION_QUERY.',
          mycode,
          myerr);
-       GOTO abc33;
-END;
-IF SQL%ROWCOUNT=0 THEN
-  INSERT INTO LMS_OPTIONS
-   (MACHINE_ID,
-    DB_NAME,
-    TIMESTAMP,
-    HOST_NAME,
-    INSTANCE_NAME,
-    OPTION_NAME,
-    OPTION_QUERY,
-    SQL_ERR_CODE,
-    SQL_ERR_MESSAGE
-   )
-  VALUES
-   ('&MACHINE_ID.',
-    '&DB_NAME.',
-    '&SYS_TIME.',
-    '&HOST_NAME.',
-    '&INSTANCE_NAME.',
-    '&OPTION_NAME.',
-    '&OPTION_QUERY.',
-    0,
-    'no rows selected');
-END IF;
-<<abc33>>
-  dbms_output.put_line ('PL/SQL block completed for [&OPTION_NAME.].[&OPTION_QUERY.]');
 END;
 /
 
@@ -7672,6 +7624,167 @@ EXCEPTION
          myerr);
 END;
 /
+
+---------------------------------------------------
+-- DATABASE IN-MEMORY (introduced in 12.1.0.2.0) - tables configured to use In-Memory Column Store
+---------------------------------------------------
+define OPTION_NAME=DB_IN_MEMORY
+define OPTION_QUERY=INMEMORY_ENABLED_TABLES
+
+DECLARE
+        mycode number;
+        myerr varchar2 (3000);
+        mycount number;
+BEGIN
+  delete from TMP_LMS_OPTIONS;
+
+  -- Using dynamic SQL in order to capture 'ORA-00942: table or view does not exist' error
+  EXECUTE IMMEDIATE ('insert into TMP_LMS_OPTIONS
+    ( MACHINE_ID, DB_NAME, TIMESTAMP, HOST_NAME, INSTANCE_NAME, OPTION_NAME, OPTION_QUERY,
+      COL010,
+      COL020,
+      COL030,
+      COL040,
+      COL050,
+      COL060
+    )
+    select
+      ''&MACHINE_ID.'', ''&DB_NAME.'', ''&SYS_TIME.'', ''&HOST_NAME.'', ''&INSTANCE_NAME.'', ''&OPTION_NAME.'', ''&OPTION_QUERY.'',
+       x.*
+    from (
+      select ''DBA_TABLES''            as SOURCE_, OWNER      , TABLE_NAME,''''           , INMEMORY, INMEMORY_PRIORITY
+        from DBA_TABLES&DBL
+        where INMEMORY in (''ENABLED'')
+      union all
+      select ''DBA_TAB_PARTITIONS''    as SOURCE_, TABLE_OWNER, TABLE_NAME, PARTITION_NAME, INMEMORY, INMEMORY_PRIORITY
+        from DBA_TAB_PARTITIONS&DBL
+        where INMEMORY in (''ENABLED'')
+      union all
+      select ''DBA_TAB_SUBPARTITIONS'' as SOURCE_, TABLE_OWNER, TABLE_NAME, PARTITION_NAME, INMEMORY, INMEMORY_PRIORITY
+        from DBA_TAB_SUBPARTITIONS&DBL
+        where INMEMORY in (''ENABLED'')
+      union all
+      select ''DBA_OBJECT_TABLES''     as SOURCE_, OWNER      , TABLE_NAME, OBJECT_ID_TYPE, INMEMORY, INMEMORY_PRIORITY
+        from DBA_OBJECT_TABLES&DBL
+        where INMEMORY in (''ENABLED'')
+      ) x
+  ');
+
+  mycount := SQL%ROWCOUNT;
+  -- Recording 'no rows selected' case
+  IF mycount=0 THEN
+    INSERT INTO LMS_OPTIONS
+    ( MACHINE_ID, DB_NAME, TIMESTAMP, HOST_NAME, INSTANCE_NAME, OPTION_NAME, OPTION_QUERY,
+      SQL_ERR_CODE,
+      SQL_ERR_MESSAGE)
+    VALUES
+    ( '&MACHINE_ID.', '&DB_NAME.', '&SYS_TIME.', '&HOST_NAME.', '&INSTANCE_NAME.', '&OPTION_NAME.', '&OPTION_QUERY.',
+      0,
+      'no rows selected');
+  ELSE
+    update TMP_LMS_OPTIONS set SQL_ERR_CODE=mycount, SQL_ERR_MESSAGE='count';
+    insert into LMS_OPTIONS (select * from TMP_LMS_OPTIONS);
+  END IF;
+
+  dbms_output.put_line ('PL/SQL block completed for [&OPTION_NAME.].[&OPTION_QUERY.]. ' || mycount || ' rows collected.');
+
+EXCEPTION
+    -- Recording Errors
+    when OTHERS then
+      mycode := SQLCODE;
+      myerr  := SQLERRM;
+      dbms_output.put_line ('PL/SQL block exception ['|| mycode ||'] for [&OPTION_NAME.].[&OPTION_QUERY.]');
+
+      INSERT INTO LMS_OPTIONS
+      ( MACHINE_ID, DB_NAME, TIMESTAMP, HOST_NAME, INSTANCE_NAME, OPTION_NAME, OPTION_QUERY,
+        SQL_ERR_CODE,
+        SQL_ERR_MESSAGE)
+       VALUES
+      ( '&MACHINE_ID.', '&DB_NAME.', '&SYS_TIME.', '&HOST_NAME.', '&INSTANCE_NAME.', '&OPTION_NAME.', '&OPTION_QUERY.',
+         mycode,
+         myerr);
+END;
+/
+
+
+---------------------------------------------------
+-- DATABASE IN-MEMORY - GV\$IM_SEGMENTS
+---------------------------------------------------
+define OPTION_NAME=DB_IN_MEMORY
+define OPTION_QUERY=GV\$IM_SEGMENTS
+
+DECLARE
+        mycode number;
+        myerr varchar2 (3000);
+        mycount number;
+BEGIN
+  delete from TMP_LMS_OPTIONS;
+
+  -- Using dynamic SQL in order to capture 'ORA-00942: table or view does not exist' error
+  EXECUTE IMMEDIATE ('insert into TMP_LMS_OPTIONS
+    ( MACHINE_ID, DB_NAME, TIMESTAMP, HOST_NAME, INSTANCE_NAME, OPTION_NAME, OPTION_QUERY,
+      COL010,
+      COL020,
+      COL030,
+      COL040,
+      COL050,
+      COL060,
+      COL070,
+      COL080,
+      COL090
+    )
+    select
+      ''&MACHINE_ID.'', ''&DB_NAME.'', ''&SYS_TIME.'', ''&HOST_NAME.'', ''&INSTANCE_NAME.'', ''&OPTION_NAME.'', ''&OPTION_QUERY.'',
+      a.CON_ID                ,
+      a.INST_ID               ,
+      a.SEGMENT_TYPE          ,
+      a.OWNER                 ,
+      a.SEGMENT_NAME          ,
+      a.PARTITION_NAME        ,
+      a.POPULATE_STATUS       ,
+      a.INMEMORY_PRIORITY     ,
+      a.INMEMORY_COMPRESSION
+    from GV\$IM_SEGMENTS&DBL a
+    order by a.SEGMENT_TYPE, a.OWNER, a.SEGMENT_NAME, a.PARTITION_NAME
+  ');
+
+  mycount := SQL%ROWCOUNT;
+  -- Recording 'no rows selected' case
+  IF mycount=0 THEN
+    INSERT INTO LMS_OPTIONS
+    ( MACHINE_ID, DB_NAME, TIMESTAMP, HOST_NAME, INSTANCE_NAME, OPTION_NAME, OPTION_QUERY,
+      SQL_ERR_CODE,
+      SQL_ERR_MESSAGE)
+    VALUES
+    ( '&MACHINE_ID.', '&DB_NAME.', '&SYS_TIME.', '&HOST_NAME.', '&INSTANCE_NAME.', '&OPTION_NAME.', '&OPTION_QUERY.',
+      0,
+      'no rows selected');
+  ELSE
+    update TMP_LMS_OPTIONS set SQL_ERR_CODE=mycount, SQL_ERR_MESSAGE='count';
+    insert into LMS_OPTIONS (select * from TMP_LMS_OPTIONS);
+  END IF;
+
+  dbms_output.put_line ('PL/SQL block completed for [&OPTION_NAME.].[&OPTION_QUERY.]. ' || mycount || ' rows collected.');
+
+EXCEPTION
+    -- Recording Errors
+    when OTHERS then
+      mycode := SQLCODE;
+      myerr  := SQLERRM;
+      dbms_output.put_line ('PL/SQL block exception ['|| mycode ||'] for [&OPTION_NAME.].[&OPTION_QUERY.]');
+
+      INSERT INTO LMS_OPTIONS
+      ( MACHINE_ID, DB_NAME, TIMESTAMP, HOST_NAME, INSTANCE_NAME, OPTION_NAME, OPTION_QUERY,
+        SQL_ERR_CODE,
+        SQL_ERR_MESSAGE)
+       VALUES
+      ( '&MACHINE_ID.', '&DB_NAME.', '&SYS_TIME.', '&HOST_NAME.', '&INSTANCE_NAME.', '&OPTION_NAME.', '&OPTION_QUERY.',
+         mycode,
+         myerr);
+END;
+/
+
+
 COMMIT;
 EXIT
 
@@ -7716,7 +7829,7 @@ EXIT
         my @outputDropTTable = &execSQL($host, $dropTSQL, "tmp_lms_option_dropTable");
         &echo(join("\n", @outputDropTTable));
 
-        $BDNA_Results{"lmsScriptVersion"} = '14.1';
+        $BDNA_Results{"lmsScriptVersion"} = '15.1';
         $BDNA_Results{"lmsMachineID"} = $hostName;
         $BDNA_Results{"lmsDBName"} = $dbName;
         $BDNA_Results{"lmsOptions"} = $resultString;
@@ -7894,7 +8007,7 @@ END;
                 }
             } 
         }
-        $BDNA_Results{"lmsScriptVersion"} = '14.1';
+        $BDNA_Results{"lmsScriptVersion"} = '15.1';
         $BDNA_Results{"lmsMachineID"} = $hostName;
         $BDNA_Results{"lmsDBName"} = $dbName;
 
@@ -7965,7 +8078,7 @@ END;
         @output = split("\n",$outputCombined);
         while (@output) {
             my $oneRecord = shift(@output);
-            if ($oneRecord =~ /^<BDNA=>(.*?)<=BDNA>/) {
+            if ($oneRecord =~ /<BDNA=>(.*)<=BDNA>/) {
                 if (!($oneRecord =~/SESSIONS_MAX='SESSIONS_MAX'<BDNA,1>SESSIONS_WARNING='SESSIONS_WARNING'/)) {
                     $oneRecord = $1;
                     if ($resultString) {
@@ -7975,7 +8088,7 @@ END;
                 }
             } 
         }
-        $BDNA_Results{"lmsScriptVersion"} = '14.1';
+        $BDNA_Results{"lmsScriptVersion"} = '15.1';
         $BDNA_Results{"lmsMachineID"} = $hostName;
         $BDNA_Results{"lmsDBName"} = $dbName;
         $BDNA_Results{"lmsVLicense"} = $resultString;
@@ -8042,7 +8155,7 @@ END;
                 }
             }
         }
-        $BDNA_Results{"lmsScriptVersion"} = '14.1';
+        $BDNA_Results{"lmsScriptVersion"} = '15.1';
         $BDNA_Results{"lmsMachineID"} = $hostName;
         $BDNA_Results{"lmsDBName"} = $dbName;
         $BDNA_Results{"lmsVSession"} = $resultString;

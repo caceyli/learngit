@@ -871,6 +871,7 @@ namespace bdna.Scripts
 .AppendLine(" alter session set NLS_TERRITORY='AMERICA'; ")
 .AppendLine(" alter session set NLS_DATE_FORMAT='YYYY-MM-DD_HH24:MI:SS'; ")
 .AppendLine(" alter session set NLS_TIMESTAMP_FORMAT='YYYY-MM-DD_HH24:MI:SS'; ")
+.AppendLine(" alter session set NLS_TIMESTAMP_TZ_FORMAT='YYYY-MM-DD_HH24:MI:SS_TZH:TZM'; ")
 .AppendLine(" -- Get host_name and instance_name ")
 .AppendLine(" define INSTANCE_NAME=ERR_NEW_VAL_INSTANCE_NAME; ")
 .AppendLine(" col C1 new_val INSTANCE_NAME noprint; ")

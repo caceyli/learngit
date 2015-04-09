@@ -2143,24 +2143,22 @@
 <expression operator="value" type="string" hasParen="false" isInternal="false" >
 <value><![CDATA[VMWARE]]></value></expression>
 </expression>
-<expression operator="*" type="string" hasParen="true" isInternal="false" >
-<expression operator="column" type="string" hasParen="false" isInternal="false" >
-<value><![CDATA[oraInstances_lms_full_agg.numCPUs]]></value></expression>
-<expression operator="column" type="string" hasParen="false" isInternal="false" >
-<value><![CDATA[oraInstances_lms_full_agg.cores]]></value></expression>
-</expression>
+<expression operator="column" type="string" hasParen="true" isInternal="false" >
+<value><![CDATA[oraInstances_lms_full_agg.cpu_cores_sum]]></value></expression>
 </expression>
 </bqlShow>
 <bqlShow name="PARTITIONING_METHOD" label="Partitioning Methods" sourceAlias="oraInstances_lms_full_agg" sourceType="none" type="string" hidden="false" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="false" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >
 <expression operator="case" type="string" hasParen="false" isInternal="false" >
-<expression operator="=" type="string" hasParen="false" isInternal="false" >
-<expression operator="value" type="string" hasParen="false" isInternal="false" >
-<value><![CDATA[1]]></value></expression>
-<expression operator="value" type="string" hasParen="false" isInternal="false" >
-<value><![CDATA[1]]></value></expression>
+<expression operator="contains" type="string" hasParen="true" isInternal="false" >
+<expression operator="function" type="string" func="upper" hasParen="false" isInternal="false" >
+<expression operator="column" type="string" hasParen="false" isInternal="false" >
+<value><![CDATA[oraInstances_lms_full_agg.hardware]]></value></expression>
 </expression>
 <expression operator="value" type="string" hasParen="false" isInternal="false" >
-<value><![CDATA[ ]]></value></expression>
+<value><![CDATA[VMWARE]]></value></expression>
+</expression>
+<expression operator="value" type="string" hasParen="false" isInternal="false" >
+<value><![CDATA[soft partitioning]]></value></expression>
 </expression>
 </bqlShow>
 <bqlShow name="DB_ROLE" label="Database Role" entityTable="root.types.resource.applicationObject.server.database.OracleInstance" sourceAlias="oraInstances_lms_full_agg" sourceColumnName="dbRole" sourceType="View" type="longstring" hidden="false" entityAttribute="dbRole" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="false" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >
@@ -2754,24 +2752,22 @@
 <expression operator="value" type="string" hasParen="false" isInternal="false" >
 <value><![CDATA[VMWARE]]></value></expression>
 </expression>
-<expression operator="*" type="string" hasParen="true" isInternal="false" >
-<expression operator="column" type="string" hasParen="false" isInternal="false" >
-<value><![CDATA[oraInstances_lms_full_agg.numCPUs]]></value></expression>
-<expression operator="column" type="string" hasParen="false" isInternal="false" >
-<value><![CDATA[oraInstances_lms_full_agg.cores]]></value></expression>
-</expression>
+<expression operator="column" type="string" hasParen="true" isInternal="false" >
+<value><![CDATA[oraInstances_lms_full_agg.cpu_cores_sum]]></value></expression>
 </expression>
 </bqlShow>
 <bqlShow name="partitioning_methods" label="Partitioning Methods" sourceAlias="oraInstances_lms_full_agg" sourceType="none" type="string" hidden="false" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="false" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >
 <expression operator="case" type="string" hasParen="false" isInternal="false" >
-<expression operator="=" type="string" hasParen="false" isInternal="false" >
-<expression operator="value" type="string" hasParen="false" isInternal="false" >
-<value><![CDATA[1]]></value></expression>
-<expression operator="value" type="string" hasParen="false" isInternal="false" >
-<value><![CDATA[1]]></value></expression>
+<expression operator="contains" type="string" hasParen="true" isInternal="false" >
+<expression operator="function" type="string" func="upper" hasParen="false" isInternal="false" >
+<expression operator="column" type="string" hasParen="false" isInternal="false" >
+<value><![CDATA[oraInstances_lms_full_agg.hardware]]></value></expression>
 </expression>
 <expression operator="value" type="string" hasParen="false" isInternal="false" >
-<value><![CDATA[ ]]></value></expression>
+<value><![CDATA[VMWARE]]></value></expression>
+</expression>
+<expression operator="value" type="string" hasParen="false" isInternal="false" >
+<value><![CDATA[soft partitioning]]></value></expression>
 </expression>
 </bqlShow>
 <bqlShow name="database_role" label="Database Role" entityTable="root.types.resource.applicationObject.server.database.OracleInstance" sourceAlias="oraInstances_lms_full_agg" sourceColumnName="dbRole" sourceType="View" type="longstring" hidden="false" entityAttribute="dbRole" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="false" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >

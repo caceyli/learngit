@@ -1329,6 +1329,8 @@
 </bqlShow>
 <bqlShow name="lmsBanner" label="LMS_DETAIL BANNER" entityTable="root.types.resource.applicationObject.server.database.OracleInstance" sourceAlias="oraInstances_agg2" sourceColumnName="lmsBanner" sourceType="View" type="string" hidden="false" entityAttribute="lmsBanner" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="false" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >
 </bqlShow>
+<bqlShow name="cpu_cores_sum" label="cpu_cores_sum" sourceAlias="os_full_agg1" sourceColumnName="cpu_cores_sum" sourceType="none" type="string" hidden="false" entityAttribute="cpu_cores_sum" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="true" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >
+</bqlShow>
 <bqlConstraint><expression operator="and" type="string" hasParen="false" isInternal="false" >
 <expression operator="=" type="string" hasParen="false" isInternal="false" >
 <expression operator="column" type="string" hasParen="false" isInternal="false" >
@@ -1774,6 +1776,8 @@
 <bqlShow name="lmsPacksGranted" label="LMS Packs Granted" entityTable="root.types.resource.applicationObject.server.database.OracleInstance" sourceAlias="oraInstances_full_agg" sourceColumnName="lmsPacksGranted" sourceType="View" type="string" hidden="false" entityAttribute="lmsPacksGranted" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="false" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >
 </bqlShow>
 <bqlShow name="lmsBanner" label="LMS_DETAIL BANNER" entityTable="root.types.resource.applicationObject.server.database.OracleInstance" sourceAlias="oraInstances_full_agg" sourceColumnName="lmsBanner" sourceType="View" type="string" hidden="false" entityAttribute="lmsBanner" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="false" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >
+</bqlShow>
+<bqlShow name="cpu_cores_sum" label="cpu_cores_sum" sourceAlias="oraInstances_full_agg" sourceColumnName="cpu_cores_sum" sourceType="none" type="string" hidden="false" entityAttribute="cpu_cores_sum" isRollupCountColumn="false" columnPropertyFlag="0" isCurrency="false" isInternal="true" userHide="false" isUnique="false" isPrimary="false" isForColorDisplay="false" isMaterializedViewColumn="false" stringLength="none" >
 </bqlShow>
 <bqlConstraint><expression operator="and" type="string" hasParen="false" isInternal="false" >
 <expression operator="and" type="string" hasParen="false" isInternal="false" >

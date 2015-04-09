@@ -1126,6 +1126,8 @@ if ($haveDetails) {
             $last_line .= "<BDNA,1>cores=$cpu_cores";
         } elsif ($cpu_model =~ /UltraSPARC-IV\+/) {
             $last_line .= "<BDNA,1>cores=2";
+        } elsif ($cpu_model =~ /x86/) {
+            $last_line .= "<BDNA,1>cores=$cpu_num_vproc";
         }
         push @CPUs, $last_line;
         push @cpu_names, $cpu_name;
