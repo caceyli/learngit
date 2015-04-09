@@ -1,0 +1,2567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+**********************************************************************
+*
+* Copyright (c) 2007-2008 BDNA Corporation.
+* All Rights Reserved. BDNA products and services are protected
+* by the following U.S. patent: #6,988,134. BDNA is trademark of
+* BDNA Corporation.
+*
+* ******BDNA CONFIDENTIAL******
+*
+* The following code was developed and is owned by BDNA Corporation.
+* This code is confidential and may contain trade secrets.  The code
+* must not be distributed to any party outside of BDNA Corporation
+* without written permission from BDNA Corporation.  The code may be
+* covered by patents, patents pending, or patents applied for in the
+* US or elsewhere.
+*
+**********************************************************************
+-->
+<!DOCTYPE bdna SYSTEM "bdna.dtd">
+
+<!-- ............................................................... -->
+<!-- .......            Solaris fingerprints             ........... -->
+<!-- ............................................................... -->
+<module 
+    name="com.bdna.modules.os.Solaris" 
+    displayLabel="Solaris"
+    requiredPlatformVersion="030300"         
+    version="1" 
+    lastCompatibleVersion="1">
+
+    <moduleDependency
+        parentModuleName="com.bdna.modules.os.UNIX" parentModuleVersion="1" />
+    <moduleDependency
+        parentModuleName="com.bdna.modules.os.OperatingSystemTypes" parentModuleVersion="1" />
+
+    <!-- IP based Solaris fingerprint -->
+    <target type="root.types.resource.software.operatingSystem.UNIX.Solaris" />
+
+    <!-- ............................................................... -->
+    <!-- .......        Solaris type declarations            ........... -->
+    <!-- ............................................................... -->
+
+    <!-- generic Solaris -->
+    <element
+        elementName="Solaris"
+        elementTypePath="root.types.resource.software.operatingSystem.UNIX"
+        displayLabel="Solaris"
+        icon="ico_os_solaris.xsl"
+        isTemplate="true" >
+
+        <attribute attributeName="isZonesConfigured" dataType="string" displayLabel="Is Solaris Zones Configured"/>
+        <attribute attributeName="isGlobalZone" dataType="string" displayLabel="Is Solaris Global Zone"/>
+        <attribute attributeName="isNonGlobalZone" dataType="string" displayLabel="Is Solaris Non Global Zone"/>
+        <attribute attributeName="nonGlobalZonesInfo" dataType="text" isList="true" displayLabel="Non-Global Zones information obtained from Global Zone"/>
+        <attribute attributeName="zoneID" dataType="string" displayLabel="Solaris Zone ID"/>
+        <attribute attributeName="zoneName" dataType="string" displayLabel="Solaris Zone Name"/>
+        <attribute attributeName="zoneState" dataType="string" displayLabel="Solaris Zone State"/>
+        <attribute attributeName="zonePath" dataType="string" displayLabel="Solaris Zone Path"/>
+        <attribute attributeName="zoneUUID" dataType="string" displayLabel="Solaris Zone UUID"/>
+        <attribute attributeName="isControlDomain" dataType="string" displayLabel="Is Sun Control Domain"/>
+        <attribute attributeName="isLogicalDomain" dataType="string" displayLabel="Is Sun Logical Domain"/>
+        <attribute attributeName="logicalDomainResources" dataType="text" isList="true" displayLabel="Logical Domain Resources"/>
+        <attribute attributeName="parsedLDomData" dataType="text" isList="true" displayLabel="Parsed LDom Data"/>
+        <attribute attributeName="isZoneRunningInLogicalDomain" dataType="string" displayLabel="Is Solaris Zone Running in Logical Domain" />
+        <attribute attributeName="isZoneRunningInGuestDomain" dataType="string" displayLabel="Is Solaris Zone Running In Guest Domain" />
+        <attribute attributeName="isZoneRunningInControlDomain" dataType="string" displayLabel="Is Solaris Zone Running In Control Domain" />
+
+        <attributeSet attributeSetName="SolarisStatic"
+                      collectorName="SolarisStaticCollector"
+                      collectionInterval="-1"
+                      displayLabel="Solaris Static">
+            <attributeSetEntry attributeName="numCPUs" />
+            <attributeSetEntry attributeName="totalMemory" />
+            <attributeSetEntry attributeName="version" />
+            <attributeSetEntry attributeName="tmp_serialNumber" />
+            <attributeSetEntry attributeName="deviceUniqueID" />
+            <attributeSetEntry attributeName="hardware" />
+            <attributeSetEntry attributeName="bdnaUniqueID" />
+            <attributeSetEntry attributeName="fileSystems"/>
+            <attributeSetEntry attributeName="UNIXNics"/>
+            <attributeSetEntry attributeName="patchLevel"/>
+            <attributeSetEntry attributeName="patchesInstalled"/>
+            <attributeSetEntry attributeName="osComputerName"/>
+            <attributeSetEntry attributeName="VGAController"/>
+            <attributeSetEntry attributeName="EthernetController"/>
+            <attributeSetEntry attributeName="CPUString"/>
+            <attributeSetEntry attributeName="CPUs"/>
+            <attributeSetEntry attributeName="osBitMode"/>
+            <attributeSetEntry attributeName="isGlobalZone"/>
+            <attributeSetEntry attributeName="isNonGlobalZone"/>
+            <attributeSetEntry attributeName="virtualizationTechnology"/>
+            <attributeSetEntry attributeName="isVirtualizedSystem"/>
+            <attributeSetEntry attributeName="isZonesConfigured"/>
+            <attributeSetEntry attributeName="zoneID"/>
+            <attributeSetEntry attributeName="zonePath"/>
+            <attributeSetEntry attributeName="zoneState"/>
+            <attributeSetEntry attributeName="zoneUUID"/>
+            <attributeSetEntry attributeName="zoneName"/>
+            <attributeSetEntry attributeName="nonGlobalZonesInfo"/>
+            <attributeSetEntry attributeName="isLogicalDomain"/>
+            <attributeSetEntry attributeName="isControlDomain"/>
+            <attributeSetEntry attributeName="logicalDomainResources"/>
+            <attributeSetEntry attributeName="parsedLDomData"/>
+            <attributeSetEntry attributeName="isZoneRunningInLogicalDomain"/>
+            <attributeSetEntry attributeName="isZoneRunningInGuestDomain"/>
+            <attributeSetEntry attributeName="isZoneRunningInControlDomain"/>
+            <attributeSetEntry attributeName="osInstallDate"/>
+            <attributeSetEntry attributeName="fcPwwn"/>
+            <attributeSetEntry attributeName="hbainfo"/>
+        </attributeSet>
+        <attributeSet attributeSetName="SolarisDynamic"
+                      collectorName="SolarisDynamicCollector"
+                      collectionInterval="-1"
+                      displayLabel="Solaris Dynamic">
+            <attributeSetEntry attributeName="upTime" />
+            <attributeSetEntry attributeName="fileSystemSizes" />
+            <attributeSetEntry attributeName="processes" />
+            <attributeSetEntry attributeName="userLoginCount" />
+        </attributeSet>
+        <attributeSet attributeSetName="SolarisProcessCollection"
+                      collectorName="SolarisProcessCollector"
+                      collectionInterval="-1"
+                      displayLabel="Solaris Process Collection">
+            <attributeSetEntry attributeName="UNIXProcessList" />
+            <attributeSetEntry attributeName="numProcesses" />
+        </attributeSet>
+        <attributeSet attributeSetName="SolarisRealTime"
+                      collectorName="SolarisRealTimeCollector"
+                      collectionInterval="-1"
+                      displayLabel="Solaris RealTime">
+            <attributeSetEntry attributeName="CPUUtilPercent" />
+            <attributeSetEntry attributeName="memoryUtilPercent" />
+        </attributeSet>
+        <attributeSet attributeSetName="SolarisHousekeeping"
+                      collectorName="SolarisHousekeepingCollector"
+                      collectionInterval="-1"
+                      displayLabel="Solaris Housekeeping">
+            <attributeSetEntry attributeName="TimeTempFilesPurged" />
+            <attributeSetEntry attributeName="__DiscoveryUserHomeDirectory" />
+            <attributeSetEntry attributeName="__DiscoveryUserFileSystem" />
+            <attributeSetEntry attributeName="__DiscoveryUserIsLocal" />
+        </attributeSet>
+        <attributeSet attributeSetName="SolarisApplicationFileFootprints"
+                      collectorName="SolarisApplicationFileFootprintsCollector"
+                      maxScriptRunTime="10800000"
+                      collectionInterval="-1"
+                      displayLabel="Solaris Application Signature File Footprints">
+            <attributeSetEntry attributeName="applicationFileFootprintTags" />
+            <attributeSetEntry attributeName="findCommandSuccessful" />
+            <attributeSetEntry attributeName="isFindRunOutOfSystem" />
+            <attributeSetEntry attributeName="isProvisionedAndFindNotRun" />
+            <attributeSetEntry attributeName="outOfSystemFindFileTimeStamp" />
+        </attributeSet>
+        <attributeSet attributeSetName="SolarisApplicationProcessFootprints"
+                      collectorName="SolarisApplicationProcessFootprintsCollector"
+                      collectionInterval="-1"
+                      displayLabel="Solaris Application Signature Process Footprints">
+            <attributeSetEntry attributeName="applicationProcessFootprintTags" />
+        </attributeSet>
+        <attributeSet attributeSetName="SolarisDevicesStatic"
+                      collectorName="SolarisDevicesStaticCollector"
+                      collectionInterval="-1"
+                      displayLabel="Solaris Devices Static">
+            <attributeSetEntry attributeName="hddString" />
+            <attributeSetEntry attributeName="cdromString" />
+            <attributeSetEntry attributeName="tapeString" />
+        </attributeSet>
+        <attributeSet attributeSetName="SolarisUpdateSSHGenerationalKeysStatic"
+                      collectorName="SolarisUpdateSSHGenerationalKeysStaticCollector"
+                      collectionInterval="-1"
+                      displayLabel="Solaris Update OpenSSH Generational Keys Task">
+            <attributeSetEntry attributeName="__GenerationalSSHKeyInEffect" />
+        </attributeSet>
+        <attributeSet attributeSetName="SolarisLevel1Access"
+                      collectorName="UNIXLevel1AccessCollector"
+                      collectionInterval="-1"
+                      displayLabel="Solaris Level 1 Access">
+            <attributeSetEntry attributeName="sshVersion" />
+            <attributeSetEntry attributeName="level1AccessOK" />
+        </attributeSet>
+        <attributeSet attributeSetName="SolarisLevel2Access"
+                      collectorName="UNIXLevel2AccessCollector"
+                      collectionInterval="-1"
+                      displayLabel="Solaris Level 2 Access">
+            <attributeSetEntry attributeName="level2AccessOK" />
+            <attributeSetEntry attributeName="KnownSSHPublicKeys" />
+            <attributeSetEntry attributeName="UnknownSSHPublicKeys" />
+            <attributeSetEntry attributeName="scanDate" />
+            <attributeSetEntry attributeName="ntpServer" />
+        </attributeSet>
+        <attributeSet attributeSetName="SolarisInstalledPackagesStatic"
+                      collectorName="SolarisInstalledPackagesStaticCollector"
+                      collectionInterval="-1"
+                      displayLabel="Solaris Installed Packages Static">
+            <attributeSetEntry attributeName="installedSoftwareDetails" />
+        </attributeSet>
+        <attributeSet attributeSetName="SolarisCheckLongRunningFindPids"
+                      collectorName="SolarisCheckLongRunningFindPidsCollector"
+                      collectionInterval="-1"
+                      displayLabel="Solaris Check Find Command Pids Not Cleaned">
+            <attributeSetEntry attributeName="UNIXFindCmdPidsNotCleaned" />
+        </attributeSet>
+        <attributeSet attributeSetName="SolarisfindFileDirTokensStatic"
+                      collectorName="SolarisfindFileDirTokensStaticCollector"
+                      maxScriptRunTime="7200000"
+                      collectionInterval="-1"
+                      displayLabel="find File and Directory Tokens">
+            <attributeSetEntry attributeName="__filedirTokens" />
+        </attributeSet>
+        <attributeSet attributeSetName="SolarisNicsForDedupping"
+                      collectorName="SolarisNicsForDeduppingCollector"
+                      collectionInterval="-1"
+                      displayLabel="Solaris Nics Collection For Dedupping">
+            <attributeSetEntry attributeName="UNIXNics"/>
+        </attributeSet>
+
+        <attrSysDefValue attributeName="manufacturer">Sun Microsystems Inc</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="SolarisFileSystem"
+        elementTypePath="root.types.resource.storageAllocation.fileSystem"
+        displayLabel="Solaris File System"
+        isTemplate="true">
+        <attrSysDefValue attributeName="manufacturer">Sun Microsystems Inc</attrSysDefValue>
+    </element>
+
+    <element elementName="com_bdna_modules_os_Solaris"
+        elementTypePath="root.types.moduleConfig.singleModuleConfig"
+        displayLabel="Type of Module Configuration Info for com_bdna_modules_os_Solaris module"
+        isTemplate="true">
+        <attribute
+            attributeName="SolarisStaticScript::sudoHBAScan"
+            dataType="string"
+            displayLabel="Enable Sudo HBA Scan" />
+        <attrSysDefValue attributeName="SolarisStaticScript::sudoHBAScan"><![CDATA[0]]></attrSysDefValue>
+        <attribute
+            attributeName="SolarisStaticScript::sesudoHBAScan"
+            dataType="string"
+            displayLabel="Enable SeSudo HBA Scan" />
+        <attrSysDefValue attributeName="SolarisStaticScript::sesudoHBAScan"><![CDATA[0]]></attrSysDefValue>
+    </element>
+
+    <element elementName="com_bdna_modules_os_Solaris"
+        parentPath="root.$bdna.globalModuleConfig"
+        elementTypePath="root.types.moduleConfig.singleModuleConfig.com_bdna_modules_os_Solaris"
+        displayLabel="Instance of Module Configuration Info for com_bdna_modules_os_Solaris module"
+        isTemplate="false" />
+    
+    <!-- ............................................................... -->
+    <!-- .......           Solaris Packages Info             ........... -->
+    <!-- ............................................................... -->
+    
+    <package name="Solaris" displayLabel="Solaris">
+        <depend name="IPAddresses" />
+        <depend name="hardwareDevices" />
+        <depend name="UNIX" />
+    </package>
+
+    <package name="SolarisL2Sys" displayLabel="Solaris Level2 Systems Information">
+        <depend name="IPAddresses" />
+        <depend name="hardwareDevices" />
+    </package>
+    
+    <packageRelationship parentPackage="UNIX" childPackage="Solaris" />
+    <packageRelationship parentPackage="UNIXL2" childPackage="Solaris" />
+    
+    <packageRelationship parentPackage="UNIXL2Sys" childPackage="SolarisL2Sys" />
+
+    <packageAttributeSet packageName="fileSystems" attributeSetName="SolarisStatic"/>
+    <packageAttributeSet packageName="Solaris" attributeSetName="SolarisStatic"/>
+    <packageAttributeSet packageName="SolarisL2Sys" attributeSetName="SolarisStatic"/>
+    <packageAttributeSet packageName="level2CredTest" attributeSetName="SolarisStatic"/>
+    
+    <packageAttributeSet packageName="fileSystems" attributeSetName="SolarisDevicesStatic"/>
+    <packageAttributeSet packageName="Solaris" attributeSetName="SolarisDevicesStatic"/>
+    <packageAttributeSet packageName="SolarisL2Sys" attributeSetName="SolarisDevicesStatic"/>
+    
+    <packageAttributeSet packageName="fileSystems" attributeSetName="SolarisDynamic"/>
+    <packageAttributeSet packageName="Solaris" attributeSetName="SolarisDynamic"/>
+    <packageAttributeSet packageName="SolarisL2Sys" attributeSetName="SolarisDynamic"/>
+    <packageAttributeSet packageName="level2CredTest" attributeSetName="SolarisDynamic"/>
+    
+    <packageAttributeSet packageName="fileSystems" attributeSetName="SolarisProcessCollection"/>
+    <packageAttributeSet packageName="Solaris" attributeSetName="SolarisProcessCollection"/>
+    <packageAttributeSet packageName="SolarisL2Sys" attributeSetName="SolarisProcessCollection"/>
+    <packageAttributeSet packageName="level2CredTest" attributeSetName="SolarisProcessCollection"/>
+
+    <packageAttributeSet packageName="Solaris" attributeSetName="SolarisRealTime"/>
+    <packageAttributeSet packageName="SolarisL2Sys" attributeSetName="SolarisRealTime"/>
+
+    <packageAttributeSet packageName="Solaris" attributeSetName="SolarisHousekeeping"/>
+    <packageAttributeSet packageName="SolarisL2Sys" attributeSetName="SolarisHousekeeping"/>
+
+    <packageAttributeSet packageName="Solaris" attributeSetName="SolarisApplicationFileFootprints"/>
+
+    <packageAttributeSet packageName="Solaris" attributeSetName="SolarisCheckLongRunningFindPids"/>
+
+    <packageAttributeSet packageName="Solaris" attributeSetName="SolarisApplicationProcessFootprints"/>
+    <packageAttributeSet packageName="SolarisL2Sys" attributeSetName="SolarisApplicationProcessFootprints"/>
+
+    <packageAttributeSet packageName="level1Test" attributeSetName="SolarisLevel1Access"/>
+    <packageAttributeSet packageName="level2Test" attributeSetName="SolarisLevel2Access"/>
+    <packageAttributeSet packageName="Update" attributeSetName="SolarisUpdateSSHGenerationalKeysStatic"/>
+    <packageAttributeSet packageName="Tokenize" attributeSetName="SolarisfindFileDirTokensStatic"/>
+
+    <packageAttributeSet packageName="Solaris" attributeSetName="SolarisInstalledPackagesStatic"/>
+    <!-- <packageAttributeSet packageName="SolarisL2Sys" attributeSetName="SolarisInstalledPackagesStatic"/> -->
+
+    <packageAttributeSet packageName="UNIXNicsForDedupping" attributeSetName="SolarisNicsForDedupping"/>
+
+    <rule
+        name="FindSolarisFileSystems"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX.Solaris" >
+            <use attribute="fileSystems" />
+        </search>
+        <output type="root.types.resource.storageAllocation.fileSystem.SolarisFileSystem"/>    
+        <output parentType="os" childType="root.types.resource.storageAllocation.fileSystem.SolarisFileSystem" />           
+        <output type="root.types.resource.storageAllocation.fileSystem.SolarisFileSystem" attribute="name" />
+        <output type="root.types.resource.storageAllocation.fileSystem.SolarisFileSystem" attribute="type" />
+        <output type="root.types.resource.storageAllocation.fileSystem.SolarisFileSystem" attribute="mountPoint" />
+        <output type="root.types.resource.storageAllocation.fileSystem.SolarisFileSystem" attribute="isLocal" />
+        <output type="root.types.resource.storageAllocation.fileSystem.SolarisFileSystem" attribute="remoteHost" />         
+        <conclusion type="perl">
+            <![CDATA[
+            my $parent = $os{"elementFullName"};
+            my @fss = split(/<BDNA,><BDNA,>/, $os{"fileSystems"});
+            $result = "<result>";
+            while ($_ = shift(@fss)) {
+                my ($fileSystemName,$type,$mountPoint,$isLocal,$remoteHost) =
+                    split(/<BDNA,>/);
+                my $eltName = "fileSystem_$fileSystemName";
+                $eltName =~ s/\./_/g;
+                $eltName =~ s/ /_/g;
+                my $eltFullName = "$parent.$eltName";
+                $result .=
+                    &elementXML($eltName, "root.types.resource.storageAllocation.fileSystem.SolarisFileSystem", $parent) .
+                    &dataXML($eltFullName, "name", $fileSystemName) .
+                    &dataXML($eltFullName, "type", $type) .
+                    &dataXML($eltFullName, "mountPoint", $mountPoint) .
+                    &dataXML($eltFullName, "isLocal", $isLocal) .
+                    &dataXML($eltFullName, "remoteHost", $remoteHost);
+            }
+            $result .= "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="FindSolarisFileSystemSizes"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX.Solaris" >
+            <use attribute="fileSystemSizes" />
+        </search>
+        <output type="root.types.resource.storageAllocation.fileSystem.SolarisFileSystem"/>    
+        <output parentType="os" childType="root.types.resource.storageAllocation.fileSystem.SolarisFileSystem" />           
+        <output type="root.types.resource.storageAllocation.fileSystem.SolarisFileSystem" attribute="name" />
+        <output type="root.types.resource.storageAllocation.fileSystem.SolarisFileSystem" attribute="capacity" />
+        <output type="root.types.resource.storageAllocation.fileSystem.SolarisFileSystem" attribute="availableCapacity" />
+        <output type="root.types.resource.storageAllocation.fileSystem.SolarisFileSystem" attribute="capacityUsed" />
+        <output type="root.types.resource.storageAllocation.fileSystem.SolarisFileSystem" attribute="percentUtilized" />         
+        <conclusion type="perl">
+            <![CDATA[
+            my $parent = $os{"elementFullName"};
+            my @fss = split(/<BDNA,><BDNA,>/, $os{"fileSystemSizes"});
+            $result = "<result>";
+            while ($_ = shift(@fss)) {
+                my ($fileSystemName, $blocksTotal, $blocksUsed, $blocksAvailable) =
+                    split(/<BDNA,>/);
+                my $percent = (($blocksTotal == 0) || ($blocksUsed == 0)) ? "0" :
+                    sprintf("%2.0f", ($blocksUsed/$blocksTotal)*100);
+                my $eltName = "fileSystem_$fileSystemName";
+                $eltName =~ s/\./_/g;
+                $eltName =~ s/ /_/g;
+                my $eltFullName = "$parent.$eltName";
+                $result .=
+                    &elementXML($eltName, "root.types.resource.storageAllocation.fileSystem.SolarisFileSystem", $parent) .
+                    &dataXML($eltFullName, "name", $fileSystemName) .
+                    &dataXML($eltFullName, "capacity", $blocksTotal*1024) .
+                    &dataXML($eltFullName, "capacityUsed", $blocksUsed*1024) .
+                    &dataXML($eltFullName, "availableCapacity", $blocksAvailable*1024) .
+                    &dataXML($eltFullName, "percentUtilized", $percent);
+            }
+            $result .= "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+    <!-- Find Solaris CPU data -->
+     <rule
+         name="findSolarisCPUInfo"
+         weight="90" >
+         <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX.Solaris" >
+             <use attribute="CPUs" />
+         </search>
+         <output type="root.types.resource.peripheral.cpu" />
+         <output parentType="os" childType="root.types.resource.peripheral.cpu" />         
+         <output type="root.types.resource.peripheral.cpu" attribute="name" />
+         <output type="root.types.resource.peripheral.cpu" attribute="manufacturer" />
+         <output type="root.types.resource.peripheral.cpu" attribute="model" />
+         <output type="root.types.resource.peripheral.cpu" attribute="isa" />
+         <output type="root.types.resource.peripheral.cpu" attribute="bits" />
+         <output type="root.types.resource.peripheral.cpu" attribute="speed" />
+         <output type="root.types.resource.peripheral.cpu" attribute="maxSpeed" />
+         <output type="root.types.resource.peripheral.cpu" attribute="cores" />
+         <output type="root.types.resource.peripheral.cpu" attribute="threads" />
+         <conclusion type="perl">
+             <![CDATA[
+#CPUs element & UDT:
+#
+#name
+#manufacturer
+#model
+#isa
+#bits
+#speed
+#maxSpeed
+#cores (total on CPU)
+#threads (total on CPU)
+#
+#CPUs element only:
+#
+#cpuCore (element)
+#  name
+#  type
+#  threads (on this core)
+
+our %os;
+my $type   = "root.types.resource.peripheral.cpu";
+my $parent = $os{"elementFullName"};
+my $count = 0;
+my ( $eltName, $eltFullName );
+$result = "<result>";
+
+my @cpus = split( /$BDNA_Separator/, $os{"CPUs"} );
+foreach my $cpu (@cpus) {
+    #need to make element first
+    $eltName = "cpu_" . $count;
+    $eltFullName = "$parent.$eltName";
+    $result .= &elementXML( $eltName, $type, $parent );
+    my @lines = split( /$BDNA_SubSeparator/, $cpu );
+    foreach my $line (@lines) {
+        if ( $line =~ /name=(.+)/ ) {
+            $result .= &dataXML( $eltFullName, "name", $1 );
+        } elsif ( $line =~ /manufacturer=(.+)/ ) {
+            use SharedData::CPUManufacturerMap;
+            $result .= &dataXML( $eltFullName, "manufacturer",&CPUManufacturerMap::getCPUManufacturerName($1));
+        } elsif ( $line =~ /model=(.+)/ ) {
+            $result .= &dataXML( $eltFullName, "model", $1 );
+        } elsif ( $line =~ /isa=(.+)/ ) {
+            $result .= &dataXML( $eltFullName, "isa", $1 );
+        } elsif ( $line =~ /bits=(.+)/ ) {
+            $result .= &dataXML( $eltFullName, "bits", $1 );
+        } elsif ( $line =~ /speed=(.+)/ ) {
+            $result .= &dataXML( $eltFullName, "speed", $1 );
+        } elsif ( $line =~ /maxSpeed=(.+)/ ) {
+            $result .= &dataXML( $eltFullName, "maxSpeed", $1 );
+        } elsif ( $line =~ /cores=(.+)/ ) {
+            $result .= &dataXML( $eltFullName, "cores", $1 );
+        } elsif ( $line =~ /threads=(.+)/ ) {
+            $result .= &dataXML( $eltFullName, "threads", $1 );
+        }
+    }
+    $count += 1;
+}
+$result .= "</result>";
+            ]]>
+        </conclusion>
+    </rule>    
+
+
+    <!-- Creates the Solaris HDD Info -->
+    <rule
+        name="FindSolarisHDDInfo"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX.Solaris" >
+            <use attribute="hddString" />
+        </search>
+        <output type="root.types.resource.software.operatingSystem" attribute="hddSerialNumber" />
+        <conclusion type="perl">
+            <![CDATA[
+            our (%os);
+            my $parent = $os{"elementFullName"};
+            my @hddString = split(/<BDNA,>/, $os{"hddString"});
+            our $result = "<result>";
+            my (@hddSerialNumber);
+            foreach (@hddString){
+                my @hddObject = split(/<BDNA,1>/, $_);
+                my ($hddmfr, $hddmodel, $hddserial);
+                foreach (@hddObject){
+                    if(/manufacturer=(.*)/){
+                        $hddmfr = $1;
+                    }elsif(/model=(.*)/){
+                        $hddmodel = $1;
+                    }elsif(/serialNumber=(.*)/){
+                        $hddserial = $1;
+                    }
+                }
+                next if ($hddmfr =~ m/^\s*EMC\s*$/ && $hddmodel =~ m/^\s*SYMMETRIX\s*$/);
+                next if ($hddmfr =~ m/^\s*EMC\s*$/ && $hddmodel =~ m/^\s*SYMMETRIX-SUNAPE\s*$/);
+                next if ($hddmfr =~ m/^\s*DGC\s*$/ && $hddmodel =~ m/^\s*RAID 5\s*$/);
+                next if ($hddmodel =~ m/^\s*OPEN-E-/);
+                
+                push(@hddSerialNumber,$hddserial) if ($hddserial !~ /^0+$/ && $hddserial !~ /^\s*$/ && $hddserial !~ /Not Available/);
+            }
+            if (@hddSerialNumber) {
+                @hddSerialNumber = sort @hddSerialNumber;
+                ## This is a temporary workaround for Bug 6689. 
+                ## For 3.3, we store the first 15 sorted serial numbers in hddSerialNumber attribute
+                ## Todo: SI needs to have logic to handle big clob data in refreshDataMatchIndex
+                splice(@hddSerialNumber,15);
+                my $hddSerialNumberStr = join($BDNA_Separator, @hddSerialNumber);
+                $result .= &dataXML($parent, "hddSerialNumber", $hddSerialNumberStr);
+            }
+            $result .= "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+    <!-- Creates the Solaris CDROM Info -->
+    <rule
+        name="FindSolarisCDROMInfo"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX.Solaris" >
+            <use attribute="cdromString" />
+        </search>
+        <output type="root.types.resource.software.operatingSystem" attribute="cdromSerialNumber" />
+        <conclusion type="perl">
+            <![CDATA[
+            our (%os);
+            my $parent = $os{"elementFullName"};
+            my @cdromString = split(/<BDNA,>/, $os{"cdromString"});
+            $result = "<result>";
+            my (@cdromSerialNumber);
+            foreach (@cdromString){
+                my @cdromObject = split(/<BDNA,1>/, $_);
+                my ($cdrommfr, $cdrommodel, $cdromserial);
+                foreach (@cdromObject){
+                    if(/manufacturer=(.*)/){
+                        $cdrommfr = $1;
+                    }elsif(/model=(.*)/){
+                        $cdrommodel = $1;
+                    }elsif(/serialNumber=(.*)/){
+                        $cdromserial = $1;
+                    }
+                }
+                push(@cdromSerialNumber, $cdromserial) if ($cdromserial ne "" && $cdromserial !~ /Not Available/);
+            }
+            if (@cdromSerialNumber){
+                my $cdromSerialNumberStr = join($BDNA_Separator, @cdromSerialNumber);
+                $result .= &dataXML($parent, "cdromSerialNumber", $cdromSerialNumberStr);
+            }
+            $result .= "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+    <!-- Creates the Solaris TAPE Info -->
+    <rule
+        name="FindSolarisTapeDriveInfo"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX.Solaris" >
+            <use attribute="tapeString" />
+        </search>
+        <output type="root.types.resource.software.operatingSystem" attribute="tapedriveSerialNumber"/>    
+
+        <conclusion type="perl">
+            <![CDATA[
+            our (%os);
+            my $parent = $os{"elementFullName"};
+            my @tapeString = split(/<BDNA,>/, $os{"tapeString"});
+            our $result = "<result>";
+            my (@tapedriveSerialNumber);
+            foreach (@tapeString){
+                my @tapeObject = split(/<BDNA,1>/, $_);
+                my ($tapemfr, $tapemodel, $tapeserial);
+                foreach (@tapeObject){
+                    if(/manufacturer=(.*)/){
+                        $tapemfr = $1;
+                    }elsif(/model=(.*)/){
+                        $tapemodel = $1;
+                    }elsif(/serialNumber=(.*)/){
+                        $tapeserial = $1;
+                    }
+                }
+                push(@tapedriveSerialNumber, $tapeserial) if ($tapeserial ne "" && $tapeserial !~ /Not Available/);
+            }
+            if (@tapedriveSerialNumber){
+                my $tapedriveSerialNumberStr = join($BDNA_Separator, @tapedriveSerialNumber);
+                $result .= &dataXML($parent, "tapedriveSerialNumber", $tapedriveSerialNumberStr);
+            }
+            $result .= "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+    <!-- Create installed Date from installedSoftwareDetails -->
+    <rule
+        name="FindSolarisInstalledDate"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX.Solaris" >
+            <use attribute="installedSoftwareDetails" />
+        </search>
+        <output type="root.types.resource.software.operatingSystem.UNIX.Solaris" attribute="osInstallDate" />
+        <conclusion type="perl">
+        <![CDATA[
+            our $result = "<result>";
+            my $packages = "";
+            my $eltFullName = $os{"elementFullName"};
+
+            $os{"installedSoftwareDetails"} =~ s/^$BDNA_Separator(.+)/$1/;
+            my @installedSoftwareDetails = split(/$BDNA_Separator/, $os{"installedSoftwareDetails"});
+            my $osInstallDate;
+
+            foreach my $software (@installedSoftwareDetails) {
+                if ($software =~ /(pkgName="SUNWcar[\..]?"|pkgName="system\/library\/processor")$BDNA_SubSeparator/) {
+                    my @attributes = split(/$BDNA_SubSeparator/, $software);
+                    foreach my $attribute (@attributes) {
+                        if ($attribute =~ /installDate="(.+)"/) {
+                            $osInstallDate = $1;
+                        }
+                    }
+                }
+            }
+            $result .= &dataXML($eltFullName, "osInstallDate", $osInstallDate) . "</result>";
+
+            ]]>
+        </conclusion>
+    </rule>
+
+    <!-- Create installed Software from installedSoftwareDetails -->
+    <rule
+        name="FindSolarisInstalledSoftware"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX.Solaris" >
+            <use attribute="installedSoftwareDetails" />
+        </search>
+        <output type="root.types.resource.software.operatingSystem.UNIX.Solaris" attribute="installedSoftware" />
+        <conclusion type="perl">
+        <![CDATA[
+            our $result = "<result>";
+            my $packages = "";
+            my $eltFullName = $os{"elementFullName"};
+
+            $os{"installedSoftwareDetails"} =~ s/^$BDNA_Separator(.+)/$1/;
+            my @installedSoftwareDetails = split(/$BDNA_Separator/, $os{"installedSoftwareDetails"});
+
+            foreach my $software (@installedSoftwareDetails)
+            {
+               if ($software =~ /pkgName="(.+?)"$BDNA_SubSeparator/)
+               {
+                  if ($packages ne "")
+                  {
+                    $packages .= $BDNA_Separator;
+                  }
+                  $packages .= $1;
+               }
+            }
+            my @packages = split(/$BDNA_Separator/,$packages);
+            @packages = sort @packages;
+            $result .= &dataXML($eltFullName, "installedSoftware", join($BDNA_Separator, @packages)) . "</result>";
+
+            ]]>
+        </conclusion>
+    </rule>
+    
+    <!-- parse storageDevices from hddString -->
+    <rule
+        name="parseStorageDevicesFromHddStringSolaris"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX.Solaris" >
+            <use attribute="hddString" />
+        </search>
+        <output type="os" attribute="storageDevices" />
+        <conclusion type="perl">
+            <![CDATA[
+#Storage Device parsing - 2007-01-29 poppenheim
+#see Bug 11694 - Collect more information for hddString (Hard Disk Drive String) UDT attribute
+my $element = $os{"elementFullName"};
+$result = "<result>";
+
+my @devices;
+my $hddString = $os{"hddString"};
+my $storageDevices;
+
+#hdds
+my @hdds = split(/$BDNA_Separator/,$hddString);
+foreach my $line (@hdds) {
+    my @attrs = split(/$BDNA_SubSeparator/,$line);
+    #attrs:
+    # name - (lin) device name (win) model name
+    # manufacturer
+    # model
+    # type - connection type
+    # capacity
+    # bootPartition
+    # serialNumber
+    my @dev;
+    my ($deviceName, $manufacturer, $model, $connectionType, $capacity, $serialNumber);
+    push @dev, "deviceType=Hard Drive";
+    foreach (@attrs) {
+        if (/^name=(.*)/) {
+            $deviceName = $1;
+            push @dev, "deviceName=$deviceName";
+        } elsif (/^manufacturer=(.*)/) {
+            $manufacturer = $1;
+            push @dev, "manufacturer=$manufacturer";
+        } elsif (/^model=(.*)/) {
+            $model = $1;
+            push @dev, "model=$model";
+        } elsif (/^type=(.*)/) {
+            $connectionType = $1;
+            push @dev, "connectionType=$connectionType";
+        } elsif (/^capacity=(\d+)$/) {
+            $capacity = $1;
+            push @dev, "capacity=$capacity";
+        } elsif (/^serialNumber=(.*)/) {
+            $serialNumber = $1;
+            push @dev, "serialNumber=$serialNumber";
+        }
+    }
+    #Yes, that's an or. Better to have a nasty name than null
+    if ( ($deviceName ne "") || ($model ne "") ) {
+        push @dev, "name=$deviceName ($model)";
+    }
+    my $dev = join $BDNA_SubSeparator, @dev;
+    push @devices, $dev;
+}
+
+#output storageDevices
+my $storage_udt = join("<BDNA,>", @devices);
+if ($storage_udt ne "") {
+    if ($storageDevices ne "") {
+        $storageDevices .= "<BDNA,>";
+    }
+    $storageDevices .= $storage_udt;
+    $result .= &dataXML($element,"storageDevices",$storageDevices);
+}
+$result .= "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+    <!-- ............................................................... -->
+    <!-- .......            Solaris Collectors                 ........... -->
+    <!-- ............................................................... -->
+
+    <collector
+        collectorName="SolarisStaticCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="SolarisStaticScript">
+    </collector>
+
+    <collector
+        collectorName="SolarisNicsForDeduppingCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="SolarisNicsForDeduppingScript">
+    </collector>
+
+    <collector
+        collectorName="SolarisDynamicCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="SolarisDynamicScript">
+    </collector>
+
+    <collector
+        collectorName="SolarisProcessCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="SolarisProcessCollectionScript">
+    </collector>
+
+    <collector
+        collectorName="SolarisRealTimeCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="SolarisRealTimeScript">
+    </collector>
+
+    <collector
+        collectorName="SolarisHousekeepingCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXHousekeepingScript">
+    </collector>
+
+    <collector
+        collectorName="SolarisApplicationFileFootprintsCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXApplicationFileFootprintsScript">
+        <scriptRef name="UNIXApplicationFileFootprintsScript" scriptType="collection" seqNum="1" />
+    </collector>
+
+    <collector
+        collectorName="SolarisApplicationProcessFootprintsCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXApplicationProcessFootprintsScript">
+        <scriptRef name="UNIXApplicationProcessFootprintsScript" scriptType="collection" seqNum="1" />
+    </collector>
+
+    <collector
+        collectorName="SolarisDevicesStaticCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="SolarisDevicesStaticScript">
+    </collector>
+
+    <collector
+        collectorName="SolarisUpdateSSHGenerationalKeysStaticCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection.ssh.sshWithKey.sshWithGenerationalOpenSSHKey"
+        collectionScriptName="UNIXUpdateSSHGenerationalKeysStaticScript">
+    </collector>
+
+    <collector
+        collectorName="SolarisInstalledPackagesStaticCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="SolarisInstalledPackagesStaticScript">
+    </collector>
+
+    <collector
+        collectorName="SolarisCheckLongRunningFindPidsCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXCheckLongRunningFindPidsScript">
+        <scriptRef name="UNIXCheckLongRunningFindPidsScript" scriptType="collection" seqNum="1" />
+    </collector>
+
+    <collector
+        collectorName="SolarisfindFileDirTokensStaticCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXfindFileDirTokensStaticScript">
+    </collector>
+
+    <!-- ............................................................... -->
+    <!-- .......            Solaris Scripts                  ........... -->
+    <!-- ............................................................... -->
+
+    <scriptTable
+        scriptName="SolarisNicsForDeduppingScript"
+        scriptVersion="1.0">
+        <![CDATA[
+
+# Find network adapters on Solaris (don't find loopback, but do find aliases)
+# Each tuple separated by $BDNA_Separator.
+# Internal to each tuple, fields separated by comma.
+# Possible tuples:
+# <INTERFACE_NAME>
+# <INTERFACE_NAME,IP_ADDRESS>
+# <INTERFACE_NAME,IP_ADDRESS,MAC_ADDRESS>
+# Solaris IP aliases appear as additional interfaces.
+
+my @unixNics;
+
+my (@output_netstat, %macAddr);
+@output_netstat = &shellcmd($BDNA_Connection_Info{"HostObject"}, 'netstat -np|grep SP', "netstat");
+
+foreach(@output_netstat) {
+    /(([0-9a-f][0-9a-f]:){5}[0-9a-f][0-9a-f])/;
+    my $res = $1;
+    my ($ifac) = /(^\S+)/;
+    $macAddr{$ifac} = $res;
+}
+
+# Find gateways
+my (@output_gateways, %gateways);
+@output_gateways = &shellcmd($BDNA_Connection_Info{"HostObject"}, 'netstat -nr -f inet', "netstat_gateways");
+for (@output_gateways) {
+    if (/^default\s*(\d+\.\d+\.\d+\.\d+)\s*([A-Z]+)/) {
+        my $gateway = $1;
+        my $flags = $2;
+        next unless $flags =~ /G/;
+        my @gatewayRoute = &shellcmd($BDNA_Connection_Info{"HostObject"}, "/usr/sbin/route get $gateway | grep interface", "route_gateway");
+        if ($gatewayRoute[0] =~ /interface: (\S+)/) {
+            $gateways{$1} = $gateway;
+            &echo("Found gateway '$gateway' for interface $1.");
+        }
+    }
+}
+
+# Find nameservers
+my (@output_nameservers, %nameservers);
+@output_nameservers = &shellcmd($BDNA_Connection_Info{"HostObject"}, 'cat /etc/resolv.conf', "resolv.conf");
+for (@output_nameservers) {
+    if (/^nameserver\s*(\d+\.\d+\.\d+\.\d+)/) {
+        my $nameserver = $1;
+        my @nsRoute = &shellcmd($BDNA_Connection_Info{"HostObject"}, "/usr/sbin/route get $nameserver | grep interface", "route_nameserver");
+        if ($nsRoute[0] =~ /interface: (\S+)/) {
+            $nameservers{$1} = () unless exists($nameservers{$1});
+            push(@{$nameservers{$1}}, $nameserver);
+            &echo("Found nameserver '$nameserver' for interface $1.");
+        }
+    }
+}
+
+@output0 = &shellcmd($BDNA_Connection_Info{"HostObject"}, '/usr/sbin/ifconfig -a', "ifconfig");
+chomp(@output0);
+@output0 = grep(/^\S+:\s+/ || /\sinet(6)? /, @output0);
+@output0 = grep(!/^lo[0-9]*:\s+/ && !/\sinet 127.0.0.1\s+/, @output0);
+
+@output1 = &shellcmd($BDNA_Connection_Info{"HostObject"}, '/usr/ifconfig -a', "ifconfig");
+chomp(@output1);
+@output1 = grep(/^\S+:\s+/ || /\sinet(6)? /, @output1);
+@output1 = grep(!/^lo[0-9]*:\s+/ && !/\sinet 127.0.0.1\s+/, @output1);
+
+if (@output0) {
+    @output = @output0;
+}
+if (@output1) {
+    @output = @output1;
+}
+
+print join("\n", @output, "\n");
+
+while (@output) {
+    my ($line, $peek, $iface, $mask, $ipaddr);
+
+    $line = shift(@output);
+    ($iface) = ($line =~ m/^(\S+):\s+/);
+    if ($iface !~ m/^[\w:]+$/) {
+        &echo("Strange: expecting NIC interface name and parsed '$iface' from line '$line' instead.");
+        next;
+    }
+
+    $peek = scalar(@output) ? $output[0] : "";
+    ($ipaddr) = ($peek =~ m/\sinet (\d+\.\d+\.\d+\.\d+)/);
+    if (!$ipaddr and $peek =~ /\sinet6\s/) {
+        shift(@output);
+        next;
+    }
+    ($mask) = ($peek =~ m/\snetmask\s+(\S+)/);
+    if ($mask =~ /^[0-9a-f]+$/) {
+        $mask = join('.', unpack("C*", pack("H*", $mask)));
+    }
+    shift(@output) if ($ipaddr ne "");
+
+    $peek = scalar(@output) ? $output[0] : "";
+    shift(@output) if ($peek =~ m/\sinet6/);
+
+    if ($ipaddr eq "0.0.0.0") {
+        $ipaddr = "";
+    }
+    if($iface =~ /(\S+):\S+/) {
+        $macAddr{$iface} = $macAddr{$1};
+    }
+
+    my @dhcpOut = &shellcmd($BDNA_Connection_Info{"HostObject"}, "ls /etc/dhcp.$iface 2>/dev/null", "ls-dhcp");
+    my $dhcpEnabled = $dhcpOut[0] ? 1 : 0;
+
+    my @unixNicLine;
+    push(@unixNicLine, "name=$iface");
+    push(@unixNicLine, "IPAddress=$ipaddr") if $ipaddr;
+    push(@unixNicLine, "MACAddress=$macAddr{$iface}") if $macAddr{$iface};
+    push(@unixNicLine, "NetworkMask=$mask") if $mask;
+    push(@unixNicLine, "Gateway=$gateways{$iface}") if exists($gateways{$iface});
+    push(@unixNicLine, "DHCPEnabled=$dhcpEnabled");
+    push(@unixNicLine, "Nameservers=" . join(",", @{$nameservers{$iface}})) if exists($nameservers{$iface});
+    
+    push(@unixNics, join($BDNA_SubSeparator, @unixNicLine));
+}
+
+$BDNA_Results{"UNIXNics"} = join($BDNA_Separator, @unixNics);
+&echo("Network Adaptors string: $BDNA_Results{'UNIXNics'}");
+
+        $BDNA_ErrorCode = 0;
+        $BDNA_MessageBundle = "MessagesBundle";
+        if ($BDNA_Results{"UNIXNics"}) {
+            $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        }
+        else {
+            $BDNA_ResultCode = "com.bdna.cle.scripts.noData";
+        }
+        ]]>
+    </scriptTable>
+
+    <scriptTable
+        scriptName="SolarisStaticScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="true" isOptional="true"
+            argNamePattern="%atr%"
+            efnSource="root.$bdna.globalModuleConfig.com_bdna_modules_os_Solaris"
+            attributeName="SolarisStaticScript::sudoHBAScan" />
+        <scriptArg isGlobal="true" isOptional="true"
+            argNamePattern="%atr%"
+            efnSource="root.$bdna.globalModuleConfig.com_bdna_modules_os_Solaris"
+            attributeName="SolarisStaticScript::sesudoHBAScan" />
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.software.operatingSystem"
+            attributeName="level2AccessOK" />
+        <![CDATA[
+################################################################################
+# SolarisStaticScript
+################################################################################
+
+###
+# CPU collection
+###
+&echo("######################################## CPU collection");
+
+# going to take a different approach than the previous trial-and-error code...
+
+&echo("#################### commands");
+my $cmd;
+#commands
+$cmd = '/usr/sbin/psrinfo';
+my @out_psrinfo = &shellcmd($BDNA_Connection_Info{"HostObject"},$cmd, "$cmd");
+$cmd = '/usr/sbin/psrinfo -v';
+my @out_psrinfo_v = &shellcmd($BDNA_Connection_Info{"HostObject"},$cmd, "$cmd");
+$cmd = '/usr/sbin/psrinfo -p';
+my @out_psrinfo_p = &shellcmd($BDNA_Connection_Info{"HostObject"},$cmd, "$cmd");
+$cmd = '/usr/sbin/psrinfo -pv';
+my @out_psrinfo_pv = &shellcmd($BDNA_Connection_Info{"HostObject"},$cmd, "$cmd");
+$cmd = '/usr/sbin/prtconf | grep UltraSPARC';
+my @out_prtconf_grep_proc = &shellcmd($BDNA_Connection_Info{"HostObject"},$cmd, "$cmd");
+$cmd = 'isainfo -b ; echo $?';
+my @out_isainfo_b = &shellcmd($BDNA_Connection_Info{"HostObject"},$cmd, "$cmd");
+$cmd = 'isainfo -n';
+my @out_isainfo_n = &shellcmd($BDNA_Connection_Info{"HostObject"},$cmd, "$cmd");
+
+# Multi-CPU / Multi-core / Multi-thread detection
+&echo("#################### processing");
+
+my $numCPUs;
+my $haveDetails; #this variable is critical: it indicates whether you have psrinfo -p or not
+#psrinfo -p doesn't exist on a LOT of solaris versions.
+if (0 == scalar(@out_psrinfo_p)) {
+    #...and we're on one of them.
+    #assume plain psrinfo is correct, count lines.
+    $haveDetails = 0;
+    $numCPUs = scalar(@out_psrinfo);
+    &echo("Found $numCPUs Solaris CPU(s) using psrinfo");
+} else {
+    #we've got a direct count of physical CPUs
+    $haveDetails = 1;
+    $numCPUs = $out_psrinfo_p[0];
+    &echo("Found $numCPUs Solaris CPU(s) using psrinfo -p");
+}
+$BDNA_Results{"numCPUs"} = $numCPUs if $numCPUs;
+
+my $last_line;
+#psrinfo_pv and _v could be split among lines.
+#Let's get all output about one CPU on one line.
+my (@out_psrinfo_pv_flat, @out_psrinfo_v_flat);
+if ($haveDetails) {
+    foreach my $line (@out_psrinfo_pv) {
+        #see if line begins with "The "
+        if ($line =~ /^The /) {
+            if ($last_line ne "") {
+                push @out_psrinfo_pv_flat, $last_line;
+            }
+            $last_line = $line;
+        } else {
+            $last_line .= $line;
+        }
+    }
+    push @out_psrinfo_pv_flat, $last_line;
+    #&echo("out_psrinfo_pv_flat:");
+    #foreach (@out_psrinfo_pv_flat) {
+    #    &echo("$_");
+    #}
+}
+$last_line = "";
+foreach my $line (@out_psrinfo_v) {
+    #see if line begins with "Status "
+    if ($line =~ /^Status /) {
+        if ($last_line ne "") {
+            push @out_psrinfo_v_flat, $last_line;
+        }
+        $last_line = $line;
+    } else {
+        $last_line .= $line;
+    }
+}
+@out_psrinfo_v_flat = (@out_psrinfo_v_flat,$last_line);
+#&echo("out_psrinfo_v_flat:");
+#foreach (@out_psrinfo_v_flat) {
+#    &echo("$_");
+#}
+
+#CPUs element & UDT:
+#
+#name
+#manufacturer
+#model
+#isa
+#bits
+#speed
+#maxSpeed
+#cores (total on CPU)
+#threads (total on CPU)
+#
+#CPUs element only:
+#
+#cpuCore (element)
+#  name
+#  type
+#  threads (on this core)
+
+my (@CPUs, @cpu_names);
+&echo("haveDetails $haveDetails");
+#get the basic details for each CPU
+if ($haveDetails) {
+    #have CPU details
+    #psrinfo could be split among lines. Let's merge!
+    foreach my $line (@out_psrinfo_pv_flat) {
+        my ($cpu_model, $cpu_name, $cpu_num_vproc);
+        if ($line =~ /The (\S+) physical processor has (\d+) virtual processor[s]? \(([^\)]+)\)/) {
+            $cpu_model = $1;
+            $cpu_num_vproc = $2;
+            $cpu_name = $3;
+            &echo("This $cpu_model has $cpu_num_vproc vprocs named $cpu_name");
+        } elsif ($line =~ /The physical processor has (\d+) virtual processor[s]? \(([^\)]+)\)\s+(\S+)(.+)/ ) {
+            $cpu_model = $3;
+            $cpu_num_vproc = $1;
+            $cpu_name = $2;
+            my $misc_cpu = $4;
+            #BUGBUG: NEED TO DO x86 ARCH HERE... (would say "x86" not "Pentium 4"...)
+            &echo("This $cpu_model has $cpu_num_vproc vprocs named $cpu_name and extra CPU info: $misc_cpu");
+        } else {
+            &echo("I can't understand this output from psrinfo -pv...");
+            last;
+        }
+        $last_line = "name=$cpu_name";
+        $last_line .= "<BDNA,1>model=$cpu_model";
+        $last_line .= "<BDNA,1>threads=$cpu_num_vproc";
+        if ($cpu_model =~ /UltraSPARC-T1/) {
+            my $cpu_cores = $cpu_num_vproc / 4;
+            $last_line .= "<BDNA,1>cores=$cpu_cores";
+        } elsif ($cpu_model =~ /UltraSPARC-IV\+/) {
+            $last_line .= "<BDNA,1>cores=2";
+        }
+        push @CPUs, $last_line;
+        push @cpu_names, $cpu_name;
+    }
+} else {
+    #Have to get CPU model from prtconf.. watch out for multi-cpu, may or may not have output anyway
+    &echo("no physical CPU details");
+    my %cpu_models;
+    foreach my $line (@out_prtconf_grep_proc) {
+        #since we're here, have names.
+        $line =~ /(UltraSPARC[^ ,]+)[ ,]/;
+        my $cpu_model = $1;
+        # See if have ID
+        if ($line =~ /instance \#(\d+)/) {
+            $cpu_models{$1} = $cpu_model;
+        } else {
+            # no num, put generic
+            $cpu_models{"default"} = $cpu_model;
+        }
+    }
+    foreach my $line (@out_psrinfo_v_flat) {
+        my $cpu_name;
+        if ($line =~ /Status of(\s+\S+)?\s+processor (\d+)/) {
+            #Status of virtual processor 0 as of: 03/07/2006 19:25:03  on-line since 01/02/2006 04:09:06.  The sparcv9 processor operates at 360 MHz,        and has a sparcv9 floating point processor.
+            $cpu_name = $2;
+        } else {
+            &echo("I can't understand this output from psrinfo -v...");
+            last;
+        }
+        $last_line = "name=$cpu_name";
+        if (defined $cpu_models{$cpu_name}) {
+            #have model for this proc ID
+            $last_line .= "<BDNA,1>model=$cpu_models{$cpu_name}";
+        } elsif (defined $cpu_models{"default"}) {
+            #have *a* proc model, and unlikely we'd be in a multi-model system if no IDs
+            $last_line .= "<BDNA,1>model=$cpu_models{default}";
+        } else {
+            # no model
+        }
+        push @CPUs, $last_line;
+        push @cpu_names, $cpu_name;
+    }
+}
+
+#foreach my $line (@CPUs) {
+#    &echo("CPU so far: $line");
+#}
+
+#create CPU id-speed lookup
+my %cpu_speeds;
+foreach my $line (@out_psrinfo_v_flat) {
+    my ($cpu_id, $cpu_speed);
+    if ($line =~ /Status of(\s+\S+)?\s+processor (\d+).*operates at (\d+) [ KMGT]Hz/) {
+        #Status of virtual processor 0 as of: 03/07/2006 19:25:03  on-line since 01/02/2006 04:09:06.  The sparcv9 processor operates at 360 MHz,        and has a sparcv9 floating point processor.
+        $cpu_id = $2;
+        $cpu_speed = $3;
+        &echo("CPU $cpu_id runs at $cpu_speed");
+        $cpu_speeds{$cpu_id}="$cpu_speed";
+    }
+}
+
+#speed for physical CPUs
+my $count=0;
+foreach my $line (@CPUs) {
+    # each phys. CPU has one clock - pick first VCPU and get speed.
+    if ($line ne "") {
+        $CPUs[$count] .= "<BDNA,1>";
+    }
+    $line =~ /name=(\d+)/;
+    my $id = $1;
+    &echo("CPU $id is the $count and runs at $cpu_speeds{$id}");
+    $CPUs[$count] .= "speed=$cpu_speeds{$id}";
+    $count += 1;
+}
+
+#manufacturer
+$count=0;
+my $arrayref;
+if ($haveDetails) {
+    $arrayref = \@out_psrinfo_pv_flat;
+} else {
+    $arrayref = \@out_psrinfo_v_flat;
+}
+
+foreach my $line (@$arrayref) {
+    my $cpu_manufacturer_key;
+    if ($line =~ /AuthenticAMD/) {
+        $cpu_manufacturer_key = "AuthenticAMD";
+    } elsif ($line =~ /GenuineIntel/ ) {
+        $cpu_manufacturer_key = "GenuineIntel";
+    } elsif ($line =~ /(sparc|SPARC)/ ) {
+        $cpu_manufacturer_key = "Sun";
+    } else {
+        &echo("I can't understand this CPU manufacturer from psrinfo -(p)v");
+        last;
+    }
+    if ($CPUs[$count] ne "") {
+        $CPUs[$count] = $CPUs[$count] . "<BDNA,1>";
+    }
+    &echo("CPU $count was made by $cpu_manufacturer_key in line $count");
+    use SharedData::CPUManufacturerMap;
+    my $cpu_manufacturer = &CPUManufacturerMap::getCPUManufacturerName($cpu_manufacturer_key);
+    $CPUs[$count].="manufacturer=$cpu_manufacturer"; 
+    #$CPUs[$count] = $CPUs[$count] . "speed=$cpu_speeds{$id}";
+    $count += 1;
+}
+
+#bits, courtesy nimish
+my $cpu_bits;
+$count = 0;
+if ($out_isainfo_b[-1] != 0) {
+    $cpu_bits = 32;
+    &echo("Solaris Kernel is 5.6 or earlier, running in 32 bit mode.");
+} else {
+    if($out_isainfo_b[0] =~ /^\s*(\d+)\s*$/ ) {
+        $cpu_bits = $1;
+    }else {
+        &echo("Invalid data collected for Solaris CPU bits = $out_isainfo_b[0]");            
+    }
+}
+if(defined $cpu_bits) {            
+    $BDNA_Results{"osBitMode"} = $cpu_bits;
+    foreach my $line (@CPUs) {
+        if ($line ne "") {
+            $CPUs[$count] .= "<BDNA,1>";
+        }
+        &echo("CPU has bits $cpu_bits");
+        $CPUs[$count] .= "bits=$cpu_bits";
+        $count += 1;
+    }
+}
+            
+#CPU ISA (Instruction Set Architecture)
+my $cpu_isa;
+$count = 0;
+if (scalar @out_isainfo_n > 0) {
+    $cpu_isa = $out_isainfo_n[0];
+    foreach my $line (@CPUs) {
+        if ($line ne "") {
+            $CPUs[$count] .= "<BDNA,1>";
+        }
+        &echo("CPU has ISA $cpu_isa");
+        $CPUs[$count] .= "isa=$cpu_isa";
+        $count += 1;
+    }
+}
+
+#done
+#spit CPU to UDT
+my $cpu_udt = "";
+foreach my $cpu (@CPUs) {
+    if ($cpu_udt ne "") {
+        $cpu_udt = $cpu_udt . "<BDNA,>";
+    }
+    $cpu_udt = $cpu_udt . $cpu;
+}
+&echo("complete CPU UDT: $cpu_udt");
+$BDNA_Results{"CPUs"} = $cpu_udt;
+
+&echo("######################################## END CPU collection");
+###
+# END CPU collection
+###
+
+#
+# Parse output of /usr/platform/platform-name/sbin/prtdiag
+# for VGA Controller(s) and Ethernet Controller(s)
+# kolson.3.3.05: querying hardware on solaris lousy and not reliable
+#
+my @output = &shellcmd($BDNA_Connection_Info{"HostObject"}, "/usr/platform/`uname -i`/sbin/prtdiag -v | egrep 'net|hme|le|display'", "prtdiag");
+my( $vgaString, $ethString );
+foreach (@output) {
+    if($_ =~ /^\s*\S*\s*\S*\s*\S*\s*\S*\s*(.*disp.*$)/ ){
+        $vgaString .= (($vgaString eq "") ? "" : $BDNA_Separator)
+          . $1;
+    }elsif($_ =~ /^\s*\S*\s*\S*\s*\S*\s*\S*\s*(.*(net|hme|\ble).*$)/ ){
+        $ethString .= (($ethString eq "") ? "" : $BDNA_Separator)
+          . $1;
+    }
+}
+
+if( $vgaString ne "" ){
+    $BDNA_Results{"VGAController"} = $vgaString;
+    &echo("VGA Controller(s) found: $vgaString");
+}
+if( $ethString ne "" ) {
+    $BDNA_Results{"EthernetController"} = $ethString;
+        &echo("Ethernet Controller(s) found: $ethString");
+}
+
+# Collect hostname
+
+my $hostname;
+
+## Alternative ways to discover the info which can be easily reordered....
+
+if (!defined($hostname)) {
+    $cmd = "hostname";
+    @output = &shellcmd($BDNA_Connection_Info{"HostObject"}, $cmd, "hn");
+    chomp($output[0]);
+    $hostname = shift(@output);
+    &echo("Solaris hostname = $hostname");
+}
+
+if (!defined($hostname)) {
+    $cmd = "uname -n";
+    @output = &shellcmd($BDNA_Connection_Info{"HostObject"}, $cmd, "hn");
+    chomp($output[0]);
+    $hostname = shift(@output);
+    &echo("Solaris hostname = $hostname");
+}
+
+if (defined($hostname)) {
+    $BDNA_Results{"osComputerName"} = $hostname;
+} else {
+    &echo("No mechanism figured out hostname!");
+}
+
+# Find total/free memory from prtconf
+
+$cmd = "/usr/sbin/prtconf | grep Memory";
+@output  = &shellcmd($BDNA_Connection_Info{"HostObject"}, $cmd, "mem");
+while (@output) {
+    $_ = shift(@output);
+    if (/Memory size: (\d*) Megabytes/) {
+        &echo("Solaris has total memory $1 MB");
+        $BDNA_Results{"totalMemory"} = $1 * 1024 * 1024;
+    }
+}
+
+# Find release and hardware from uname
+
+$cmd = "uname -r";
+@output = &shellcmd($BDNA_Connection_Info{"HostObject"}, $cmd, "rel");
+$BDNA_Results{"version"} = $output[0];
+
+$cmd = "/usr/platform/`uname -m`/sbin/prtdiag | grep \"System Configuration\"";
+@output  = &shellcmd($BDNA_Connection_Info{"HostObject"}, $cmd, "hw");
+$_ = shift(@output);
+if (/System Configuration:\s*(.*)$/) {
+    $BDNA_Results{"hardware"} = $1;
+} else {
+    $cmd = "uname -i";
+    @output  = &shellcmd($BDNA_Connection_Info{"HostObject"}, $cmd, "hw");
+    $_ = shift(@output);
+    &echo("Solaris hardware = $_");
+    $BDNA_Results{"hardware"} = $_;
+}
+
+# Find serial number
+my $serial = "";
+@output = &shellcmd($BDNA_Connection_Info{"HostObject"}, "/usr/bin/hostid", "hostid");
+chomp(@output);
+@output = grep(m/^\s*[0-9a-f]+\s*$/i, @output);
+$serial = $1
+    if ((scalar(@output) == 1)
+        && ($output[0] =~ m/^\s*([0-9a-f]+)\s*$/i)
+        && ($1 !~ m/^0+$/));
+&echo("Serial number: $serial.");
+#$BDNA_Results{"serialNumber"} = $serial if ($serial ne "");
+$BDNA_Results{"tmp_serialNumber"} = $serial if ($serial ne "");
+
+# Solaris serial number may not be unique across product lines
+if ($BDNA_Results{"hardware"} && $BDNA_Results{"tmp_serialNumber"}) {
+    $BDNA_Results{"deviceUniqueID"} = 
+         $BDNA_Results{"hardware"} . "." . $BDNA_Results{"tmp_serialNumber"};
+}
+
+#BDNA GUID file creation for device matching
+$BDNA_Results{"bdnaUniqueID"} = &bdnaGUID($BDNA_Connection_Info{"HostObject"}, $BDNA_Connection_Info{"workingDir"});
+
+
+# Find fileSystems on Solaris
+
+# Return tuples <fileSystemName,fileSystemType,mountPoint,isLocal,remoteHost>
+# Internally, each tuple's components are separated by $BDNA_Separator.
+# Tuples are separated by two instances of $BDNA_Separator.
+# Note: this formatting allows us to change the length of a tuple and
+# preserve backward compatibility; new code just has to be able to
+# continue to parse old tuple formats.
+# isLocal is the string 'local' for local FS and 'remote' for remote FS.
+# remoteHost is the string 'localHost' for local FS and the remote host
+# name for remote FS.
+
+my $fileSysString = "";
+my ($fileSystemName, $type, $mountPoint, $isLocal, $remoteHost);
+
+my @outputN = &shellcmd($BDNA_Connection_Info{"HostObject"}, "df -ln", "df-ln");
+my @outputK = &shellcmd($BDNA_Connection_Info{"HostObject"}, "df -lk", "df-lk");
+shift(@outputK)
+    if (($#outputK >= 0) && ($outputK[0] =~ m/^Filesystem\s+/));
+
+my %types;
+
+while ($_ = shift(@outputN)) {
+    chomp($_); s/^\s+//; s/\s+$//;
+    ($mountPoint, $type) = split(/\s+:\s+/);
+    if (($mountPoint ne "") && ($type ne "")) {
+        $types{$mountPoint} = $type;
+    }
+}
+
+while ($_ = shift(@outputK)) {
+    chomp($_); s/^\s+//; s/\s+$//;
+    if (/^\S+$/) {
+        $_ .= " " . shift(@outputK);
+    }
+    ($fileSystemName, $_, $_, $_, $_, $mountPoint) =
+        split(/\s+/);
+    next if ($fileSystemName !~ m"/" || $mountPoint !~ m"/");
+    if (!defined($types{$mountPoint})) {
+        &echo("WARNING: unable to find the type of filesystem with name $fileSystemName and mount point $mountPoint.");
+        next;
+    }
+    next if ($mountPoint eq "/proc" || $types{$mountPoint} eq "proc");
+    next if ($types{$mountPoint} eq "mvfs");
+    next if ($types{$mountPoint} eq "lofs");
+    if ($fileSystemName =~ /(.*):(.*)/) {
+        $isLocal = "remote";
+        $remoteHost = $1;
+    } else {
+        $isLocal = "local";
+        $remoteHost = "localHost";
+    }
+
+    my $thisFileSystem = join($BDNA_Separator, $fileSystemName, $types{$mountPoint}, $mountPoint, $isLocal, $remoteHost);
+    1 while ($thisFileSystem =~ s/$BDNA_Separator$BDNA_Separator/$BDNA_Separator<unknown>$BDNA_Separator/);
+
+    $fileSysString .= (($fileSysString eq "") ? "" : $BDNA_Separator . $BDNA_Separator) . $thisFileSystem;
+}
+
+&echo("File Systems string: $fileSysString.");
+$BDNA_Results{"fileSystems"} = $fileSysString if ($fileSysString ne "");
+
+# Find network adapters on Solaris (don't find loopback, but do find aliases)
+# Each tuple separated by $BDNA_Separator.
+# Internal to each tuple, fields separated by comma.
+# Possible tuples:
+# <INTERFACE_NAME>
+# <INTERFACE_NAME,IP_ADDRESS>
+# <INTERFACE_NAME,IP_ADDRESS,MAC_ADDRESS>
+# Solaris IP aliases appear as additional interfaces.
+
+my @unixNics;
+
+my (@output_netstat, %macAddr);
+@output_netstat = &shellcmd($BDNA_Connection_Info{"HostObject"}, 'netstat -np|grep SP', "netstat");
+
+foreach(@output_netstat) {
+    /(([0-9a-f][0-9a-f]:){5}[0-9a-f][0-9a-f])/;
+    my $res = $1;
+    my ($ifac) = /(^\S+)/;
+    $macAddr{$ifac} = $res;
+}
+
+# Find gateways
+my (@output_gateways, %gateways);
+@output_gateways = &shellcmd($BDNA_Connection_Info{"HostObject"}, 'netstat -nr -f inet', "netstat_gateways");
+for (@output_gateways) {
+    if (/^default\s*(\d+\.\d+\.\d+\.\d+)\s*([A-Z]+)/) {
+        my $gateway = $1;
+        my $flags = $2;
+        next unless $flags =~ /G/;
+        my @gatewayRoute = &shellcmd($BDNA_Connection_Info{"HostObject"}, "/usr/sbin/route get $gateway | grep interface", "route_gateway");
+        if ($gatewayRoute[0] =~ /interface: (\S+)/) {
+            $gateways{$1} = $gateway;
+            &echo("Found gateway '$gateway' for interface $1.");
+        }
+    }
+}
+
+# Find nameservers
+my (@output_nameservers, %nameservers);
+@output_nameservers = &shellcmd($BDNA_Connection_Info{"HostObject"}, 'cat /etc/resolv.conf', "resolv.conf");
+for (@output_nameservers) {
+    if (/^nameserver\s*(\d+\.\d+\.\d+\.\d+)/) {
+        my $nameserver = $1;
+        my @nsRoute = &shellcmd($BDNA_Connection_Info{"HostObject"}, "/usr/sbin/route get $nameserver | grep interface", "route_nameserver");
+        if ($nsRoute[0] =~ /interface: (\S+)/) {
+            $nameservers{$1} = () unless exists($nameservers{$1});
+            push(@{$nameservers{$1}}, $nameserver);
+            &echo("Found nameserver '$nameserver' for interface $1.");
+        }
+    }
+}
+
+@output = &shellcmd($BDNA_Connection_Info{"HostObject"}, '/usr/sbin/ifconfig -a', "ifconfig");
+chomp(@output);
+@output = grep(/^\S+:\s+/ || /\sinet(6)? /, @output);
+@output = grep(!/^lo[0-9]*:\s+/ && !/\sinet 127.0.0.1\s+/, @output);
+
+print join("\n", @output, "\n");
+
+while (@output) {
+    my ($line, $peek, $iface, $mask, $ipaddr);
+
+    $line = shift(@output);
+    ($iface) = ($line =~ m/^(\S+):\s+/);
+    if ($iface !~ m/^[\w:]+$/) {
+        &echo("Strange: expecting NIC interface name and parsed '$iface' from line '$line' instead.");
+        next;
+    }
+
+    $peek = scalar(@output) ? $output[0] : "";
+    ($ipaddr) = ($peek =~ m/\sinet (\d+\.\d+\.\d+\.\d+)/);
+    if (!$ipaddr and $peek =~ /\sinet6\s/) {
+        shift(@output);
+        next;
+    }
+    ($mask) = ($peek =~ m/\snetmask\s+(\S+)/);
+    if ($mask =~ /^[0-9a-f]+$/) {
+        $mask = join('.', unpack("C*", pack("H*", $mask)));
+    }
+    shift(@output) if ($ipaddr ne "");
+
+    $peek = scalar(@output) ? $output[0] : "";
+    shift(@output) if ($peek =~ m/\sinet6/);
+
+    if ($ipaddr eq "0.0.0.0") {
+        $ipaddr = "";
+    }
+    if($iface =~ /(\S+):\S+/) {
+        $macAddr{$iface} = $macAddr{$1};
+    }
+
+    my @dhcpOut = &shellcmd($BDNA_Connection_Info{"HostObject"}, "ls /etc/dhcp.$iface 2>/dev/null", "ls-dhcp");
+    my $dhcpEnabled = $dhcpOut[0] ? 1 : 0;
+
+    my @unixNicLine;
+    push(@unixNicLine, "name=$iface");
+    push(@unixNicLine, "IPAddress=$ipaddr") if $ipaddr;
+    push(@unixNicLine, "MACAddress=$macAddr{$iface}") if $macAddr{$iface};
+    push(@unixNicLine, "NetworkMask=$mask") if $mask;
+    push(@unixNicLine, "Gateway=$gateways{$iface}") if exists($gateways{$iface});
+    push(@unixNicLine, "DHCPEnabled=$dhcpEnabled");
+    push(@unixNicLine, "Nameservers=" . join(",", @{$nameservers{$iface}})) if exists($nameservers{$iface});
+    
+    push(@unixNics, join($BDNA_SubSeparator, @unixNicLine));
+}
+
+$BDNA_Results{"UNIXNics"} = join($BDNA_Separator, @unixNics);
+&echo("Network Adaptors string: $BDNA_Results{'UNIXNics'}");
+
+# Find out patches installed
+# Test command execution before attempting to evaluate output
+my $pi = 'Unknown';
+@output = &shellcmd($BDNA_Connection_Info{"HostObject"}, "showrev -p; echo EXITCODE: \$?", "pi");
+chomp(@output); 
+my $checkExitCode = pop(@output);
+if ($checkExitCode =~ m/^EXITCODE: 0$/) {
+    if (scalar(@output) > 0) {
+        while (@output) {
+            my $ln = shift(@output); chomp($ln);
+            if ($ln =~ /^Patch: (\d+-\d+)\s+/) {
+                if ($pi ne 'Unknown') {
+                    $pi = $pi . $BDNA_Separator . $1;
+                } elsif ($pi eq 'Unknown') {
+                    $pi = $1;
+                }
+            }
+        }
+    } else {
+        $pi = 'None';
+    }
+}
+&echo("Patches Installed: $pi");
+$BDNA_Results{"patchesInstalled"} = $pi;
+
+# Find out patch level of OS
+# Test command execution before attempting to evaluate output
+my $patchLevel='Unknown';
+@output = &shellcmd($BDNA_Connection_Info{"HostObject"}, "uname -v; echo EXITCODE: \$?", "patchLvl");
+$checkExitCode = pop(@output);
+if ($checkExitCode =~ m/^EXITCODE: 0$/) {
+    my $out = shift(@output); chomp($out);
+    if ($out =~ /^s\d+_(\d+)/) {
+        $patchLevel = $1;
+    } elsif ($out =~ /Generic_(\S+\d+-\d+)$/) {
+        $patchLevel = $1;
+    } elsif ($out =~ /\bGeneric\b/) {
+        $patchLevel = "No Patch Level";
+    }
+}
+&echo("Patches Level: $patchLevel");
+$BDNA_Results{"patchLevel"} = $patchLevel;
+
+
+## Collect Logical Domain Information
+# First determine if Logical Domain Manager Daemon(ldmd) is running 
+# If so, then control domain, else it could be a guest domain or not a LDom
+
+my $isControlDomain;
+@output = &shellcmd($BDNA_Connection_Info{"HostObject"}, "ps -eo args | egrep -e /opt/SUNWldm/bin/ldmd | grep -v egrep");
+chomp(@output);
+if (defined $output[0]) {
+    $output[0] =~ s/^\s+//;
+    $output[0] =~ s/\s+$//;
+    if ($output[0] eq '/opt/SUNWldm/bin/ldmd') {
+        $BDNA_Results{"isLogicalDomain"} = 'Yes';
+        $BDNA_Results{"isControlDomain"} = 'Yes';
+        $BDNA_Results{"virtualizationTechnology"} = 'Sun Logical Domain (LDom)';
+        $BDNA_Results{"isVirtualizedSystem"} = 'Yes';
+        $isControlDomain = 'Yes';
+    }
+}
+if ( ($isControlDomain) && ($isControlDomain eq 'Yes') ) {
+    # execute ldm list command to get information about control domain and guest domains.
+    my @ldmListOutput = &shellcmd($BDNA_Connection_Info{"HostObject"}, '/opt/SUNWldm/bin/ldm list -l -p; echo EXITCODE: $?');
+    chomp(@ldmListOutput);
+    my $checkExitCode = pop(@ldmListOutput);
+    if ($checkExitCode =~ m/^EXITCODE: 0$/) {
+        my $line = $ldmListOutput[0];
+        while ($line !~ /DOMAIN\|name=primary\|/) {
+            shift(@ldmListOutput);
+            $line = $ldmListOutput[0];
+        }
+        foreach (@ldmListOutput) {
+            $_ =~ s/^\s+//;
+            $_ =~ s/\s+$//;
+        }
+        if (scalar(@ldmListOutput)) {
+            $BDNA_Results{"logicalDomainResources"} = join('<BDNA,>', @ldmListOutput);
+            my $ldmOut = $BDNA_Results{"logicalDomainResources"};
+            my @ldmArr = split(/DOMAIN\|/, $ldmOut);
+
+            my (@finalParsedData);
+            foreach my $thisldm (@ldmArr) {
+                my (@parsedLDomData);
+                if ($thisldm =~ /^name=primary/) {
+                    # Control domain properties
+                    push(@parsedLDomData , 'name=primary');
+                    push(@parsedLDomData , "state=$1") if ($thisldm =~ /\|state=(.+?)\|/);
+                    push(@parsedLDomData , "flags=$1") if ($thisldm =~ /\|flags=(.+?)\|/);
+                    push(@parsedLDomData , "ncpu=$1") if ($thisldm =~ /\|ncpu=(\d+)\|/);
+                    push(@parsedLDomData , "mem=$1") if ($thisldm =~ /\|mem=(\d+)\|/);
+                    my @pidArr = ($thisldm =~ /\|vid=\d+\|pid=(\d+)\|/g);
+                    push(@parsedLDomData , "pcpuids=".join(',', @pidArr));
+                    push(@finalParsedData, join('<BDNA,1>', @parsedLDomData));
+                } elsif ($thisldm =~ /^name=(.+?)\|/) {
+                    push(@parsedLDomData , "name=$1");
+                    push(@parsedLDomData , "state=$1") if ($thisldm =~ /\|state=(.+?)\|/);
+                    push(@parsedLDomData , "flags=$1") if ($thisldm =~ /\|flags=(.+?)\|/);
+                    push(@parsedLDomData , "ncpu=$1") if ($thisldm =~ /\|ncpu=(\d+)\|/);
+                    push(@parsedLDomData , "mem=$1") if ($thisldm =~ /\|mem=(\d+)\|/);
+                    my @pidArr = ($thisldm =~ /\|vid=\d+\|pid=(\d+)\|/g);
+                    push(@parsedLDomData , "pcpuids=".join(',', @pidArr));
+                    my @macArr = ($thisldm =~ /\|mac-addr=(\w\w:\w\w:\w\w:\w\w:\w\w:\w\w)/g);
+                    push(@parsedLDomData , "mac-addrs=".join(',', @macArr));
+                    push(@finalParsedData, join('<BDNA,1>', @parsedLDomData));
+                }
+            }
+            $BDNA_Results{"parsedLDomData"} = join('<BDNA,>', @finalParsedData) if (@finalParsedData);
+        }
+    } elsif (grep {/Authorization failed/} @ldmListOutput) {
+        &echo("BDNA L2 Scan user does not have LDoms Review access.");
+    }
+} else {
+    # This could be a guest domain or not a domain at all.
+    # Determine if Guest Domain.
+    my @gdomOutput = &shellcmd($BDNA_Connection_Info{"HostObject"}, 'grep \'/virtual-devices@100/channel-devices\' /etc/path_to_inst');
+    chomp(@gdomOutput);
+    if ( grep {m|^\"/virtual-devices|} @gdomOutput ) {
+        #check nics output to make sure the interface name contains the string vnet.
+        my @nicsArr = split(/<BDNA,>/, $BDNA_Results{"UNIXNics"});
+        if ( grep {/Interface=vnet\d+/} @nicsArr ) {
+            # Now there is a strong reason to believe that this is a guest domain.
+            $BDNA_Results{"isLogicalDomain"} = 'Yes';
+            $BDNA_Results{"isControlDomain"} = 'No';
+            $BDNA_Results{"virtualizationTechnology"} = 'Sun Logical Domain (LDom)';
+            $BDNA_Results{"isVirtualizedSystem"} = 'Yes';
+        } else {
+            $BDNA_Results{"isLogicalDomain"} = 'No';
+        }
+    } else {
+        $BDNA_Results{"isLogicalDomain"} = 'No';
+    }
+}
+if ( ($BDNA_Results{"isLogicalDomain"} eq 'No') || ( ($BDNA_Results{"isLogicalDomain"} eq 'Yes') && ($BDNA_Results{"isControlDomain"} eq 'No') ) ) {
+    # Find out if zones are configured.
+    @output = &shellcmd($BDNA_Connection_Info{"HostObject"}, '/usr/sbin/zoneadm list -p; echo EXITCODE: $?');
+    chomp(@output);
+    my $checkExitCode = pop(@output);
+    if ($checkExitCode =~ m/^EXITCODE: 0$/) {
+        if (scalar(@output)) {
+            $output[0] =~ s/^\s+//;
+            $output[0] =~ s/\s+$//;
+            if(scalar(@output) > 1) {
+                $BDNA_Results{"isZonesConfigured"} = 'Yes';
+            } else {
+                $BDNA_Results{"isZonesConfigured"} = 'No';
+            }
+
+            my @zoneInfo = split(/:/, $output[0]);
+            @zoneInfo = map {$_ =~ s/^\s+//; $_ =~ s/\s+$//; $_;} @zoneInfo;
+            if(scalar(@zoneInfo) >= 4) {
+                if (defined($zoneInfo[1]) && ($zoneInfo[1] ne 'global')) {
+                    $BDNA_Results{"isNonGlobalZone"} = 'Yes';
+                    $BDNA_Results{"virtualizationTechnology"} = 'Solaris Zone';
+                    $BDNA_Results{"isVirtualizedSystem"} = 'Yes';
+                    $BDNA_Results{"zoneID"} = $zoneInfo[0] if(defined($zoneInfo[0]));
+                    $BDNA_Results{"zoneName"} = $zoneInfo[1] if(defined($zoneInfo[1]));
+                    $BDNA_Results{"zoneState"} = $zoneInfo[2] if(defined($zoneInfo[2]));
+                    $BDNA_Results{"zonePath"} = $zoneInfo[3] if(defined($zoneInfo[3]));
+                    $BDNA_Results{"zoneUUID"} = $zoneInfo[4] if(defined($zoneInfo[4]));
+                    if ($BDNA_Results{"isLogicalDomain"} eq 'Yes') {
+                        $BDNA_Results{"isZoneRunningInLogicalDomain"} = 'Yes';
+                        $BDNA_Results{"isZoneRunningInGuestDomain"} = 'Yes';
+                    } else {
+                        $BDNA_Results{"isZoneRunningInLogicalDomain"} = 'No';
+                    }
+                } elsif ( (defined($zoneInfo[1])) && ($zoneInfo[1] eq 'global') && ($BDNA_Results{"isZonesConfigured"}) ) {
+                    $BDNA_Results{"isGlobalZone"} = 'Yes';
+                    $BDNA_Results{"virtualizationTechnology"} = 'Solaris Zone';
+                    $BDNA_Results{"isVirtualizedSystem"} = "Yes";
+                    $BDNA_Results{"zoneID"} = $zoneInfo[0] if(defined($zoneInfo[0]));
+                    $BDNA_Results{"zoneName"} = $zoneInfo[1] if(defined($zoneInfo[1]));
+                    $BDNA_Results{"zoneState"} = $zoneInfo[2] if(defined($zoneInfo[2]));
+                    $BDNA_Results{"zonePath"} = $zoneInfo[3] if(defined($zoneInfo[3]));
+                    $BDNA_Results{"zoneUUID"} = $zoneInfo[4] if(defined($zoneInfo[4]));
+                    if ($BDNA_Results{"isLogicalDomain"} eq 'Yes') {
+                        $BDNA_Results{"isZoneRunningInLogicalDomain"} = 'Yes';
+                        $BDNA_Results{"isZoneRunningInGuestDomain"} = 'Yes';
+                    } else {
+                        $BDNA_Results{"isZoneRunningInLogicalDomain"} = 'No';
+                    }
+                    shift(@output);
+                    $BDNA_Results{"nonGlobalZonesInfo"} = join($BDNA_Separator, @output);
+                }
+            } else {
+                &echo("/usr/sbin/zoneadm list -p is successful, but no Zone UUID information."); 
+            }
+        } else {
+            &echo("/usr/sbin/zoneadm list -p command succeeds, but no results returned.");
+        }
+    } else {
+        &echo("/usr/sbin/zoneadm list -p command is not successful.");    
+    }
+}
+
+if ($BDNA_Params{'SolarisStaticScript::sudoHBAScan'} == 1) {
+# Example port output:
+#HBA Port WWN: 210000e08b074cb5
+#        OS Device Name: /dev/cfg/c1
+#        Manufacturer: QLogic Corp.
+#        Model: 375-3108-xx
+#        Firmware Version: 3.3.116
+#        FCode/BIOS Version: 1.13.08
+#        Type: N-port
+#        State: online
+#        Supported Speeds: 1Gb 2Gb
+#        Current Speed: 2Gb
+#        Node WWN: 200000e08b074cb5
+
+    my @fcinfoOut = &shellcmd($BDNA_Connection_Info{"HostObject"}, 'sudo -S fcinfo hba-port </dev/null 2>/dev/null', 'fcinfo');
+
+    my @portWWNs;
+    my @hbaUDT;
+
+    my @hbaPort;
+    for (@fcinfoOut) {
+        if (/^HBA Port WWN:\s*(\w+)/) {
+            # Start of a new HBA Port; close out the previous one
+            push(@hbaUDT, join($BDNA_SubSeparator, @hbaPort)) if @hbaPort;
+            @hbaPort = ();
+
+            my $portWWN = $1;
+            push(@portWWNs, $portWWN);
+            push(@hbaPort, "port_wwn=$portWWN");
+        } elsif (/^\s*OS Device Name:\s*(.+)/) {
+            push(@hbaPort, "hba_instance=$1");
+        } elsif (/^\s*Manufacturer:\s*(.+)/) {
+            push(@hbaPort, "manufacturer=$1");
+        } elsif (/^\s*Model:\s*(.+)/) {
+            push(@hbaPort, "model=$1");
+        } elsif (/^\s*Firmware Version:\s*(.+)/) {
+            push(@hbaPort, "microcode=$1");
+        }
+    }
+    push(@hbaUDT, join($BDNA_SubSeparator, @hbaPort)) if @hbaPort;
+    $BDNA_Results{"fcPwwn"} = join($BDNA_Separator, @portWWNs) if @portWWNs;
+    $BDNA_Results{"hbainfo"} = join($BDNA_Separator, @hbaUDT) if @hbaUDT;
+}
+if ($BDNA_Params{'SolarisStaticScript::sesudoHBAScan'} == 1) {
+# Example port output:
+#HBA Port WWN: 210000e08b074cb5
+#        OS Device Name: /dev/cfg/c1
+#        Manufacturer: QLogic Corp.
+#        Model: 375-3108-xx
+#        Firmware Version: 3.3.116
+#        FCode/BIOS Version: 1.13.08
+#        Type: N-port
+#        State: online
+#        Supported Speeds: 1Gb 2Gb
+#        Current Speed: 2Gb
+#        Node WWN: 200000e08b074cb5
+
+    my @fcinfoOut = &shellcmd($BDNA_Connection_Info{"HostObject"}, 'sesudo -S fcinfo hba-port </dev/null 2>/dev/null', 'fcinfo');
+
+    my @portWWNs;
+    my @hbaUDT;
+
+    my @hbaPort;
+    for (@fcinfoOut) {
+        if (/^HBA Port WWN:\s*(\w+)/) {
+            # Start of a new HBA Port; close out the previous one
+            push(@hbaUDT, join($BDNA_SubSeparator, @hbaPort)) if @hbaPort;
+            @hbaPort = ();
+
+            my $portWWN = $1;
+            push(@portWWNs, $portWWN);
+            push(@hbaPort, "port_wwn=$portWWN");
+        } elsif (/^\s*OS Device Name:\s*(.+)/) {
+            push(@hbaPort, "hba_instance=$1");
+        } elsif (/^\s*Manufacturer:\s*(.+)/) {
+            push(@hbaPort, "manufacturer=$1");
+        } elsif (/^\s*Model:\s*(.+)/) {
+            push(@hbaPort, "model=$1");
+        } elsif (/^\s*Firmware Version:\s*(.+)/) {
+            push(@hbaPort, "microcode=$1");
+        }
+    }
+    push(@hbaUDT, join($BDNA_SubSeparator, @hbaPort)) if @hbaPort;
+    $BDNA_Results{"fcPwwn"} = join($BDNA_Separator, @portWWNs) if @portWWNs;
+    $BDNA_Results{"hbainfo"} = join($BDNA_Separator, @hbaUDT) if @hbaUDT;
+}
+$BDNA_ErrorCode = 0;
+$BDNA_ResultCode = "com.bdna.cle.scripts.success";
+$BDNA_MessageBundle = "MessagesBundle";
+
+################################################################################
+# END SolarisStaticScript
+################################################################################
+
+        ]]>
+    </scriptTable>
+
+    <scriptTable
+        scriptName="SolarisDynamicScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.software.operatingSystem"
+            attributeName="level2AccessOK" />
+        <![CDATA[
+        
+        # uptime
+
+        my $uptime = "";
+        my @output = &shellcmd($BDNA_Connection_Info{"HostObject"}, "uptime");
+        my $uptimeOutput = shift(@output);
+        chomp($uptimeOutput);
+        &echo("Uptime output is: $uptimeOutput.");
+        my $uptime_secs = &upTimeInSeconds($uptimeOutput);
+        $BDNA_Results{"upTime"} = $uptime_secs if ($uptime_secs != -1);
+
+        # User Login Information
+        {
+                my $userLoginResults = &userLoginInfo();
+                if ($userLoginResults) {
+                    $BDNA_Results{"userLoginCount"} = $userLoginResults;
+                    &echo("UserLogin details: $BDNA_Results{'userLoginCount'}");
+                }
+                else {
+                    &echo("UserLogin details not available."); 
+                }
+        }
+
+        # fileSystemSizes
+
+        my $fileSystemSizesString = "";
+        my ($fileSystemName, $blocksTotal, $blocksUsed, $blocksAvailable, $mountPoint);
+
+        my %types;
+        @output = &shellcmd($BDNA_Connection_Info{"HostObject"}, "df -ln", "df-ln");
+        while ($_ = shift(@output)) {
+            chomp($_); s/^\s+//; s/\s+$//;
+            my ($mountPoint, $type) = split(/\s+:\s+/);
+            if (($mountPoint ne "") && ($type ne "")) {
+                $types{$mountPoint} = $type;
+            }
+        }
+
+        my $cmd = "df -lk";
+        @output = &shellcmd($BDNA_Connection_Info{"HostObject"}, $cmd, "df-lk");
+        shift(@output)
+            if (($#output >= 0) && ($output[0] =~ m/^Filesystem\s+/));
+
+        my $line;
+        while ($line = shift(@output)) {
+            chomp($line); $line =~ s/^\s+//; $line =~ s/\s+$//;
+            if ($line =~ m/^\S+$/) {
+                $line .= " " . shift(@output);
+            }
+            ($fileSystemName, $blocksTotal, $blocksUsed, $blocksAvailable, $_, $mountPoint) =
+                split(/\s+/, $line);
+            if ($blocksTotal <= 0) {
+                $blocksTotal = $blocksUsed + $blocksAvailable; #bug 22104 calcule the total blocks when output is 0
+            } else {
+                $blocksUsed = $blocksTotal - $blocksAvailable; #add formatting space to used space - bug 11074
+            }
+            next if ($fileSystemName !~ m"/" || $mountPoint !~ m"/");
+            if (!defined($types{$mountPoint})) {
+                &echo("WARNING: unable to find the type of filesystem with name $fileSystemName and mount point $mountPoint.");
+                next;
+            }
+            next if ($mountPoint eq "/proc" || $types{$mountPoint} eq "proc");
+            next if ($types{$mountPoint} eq "mvfs");
+            next if ($types{$mountPoint} eq "lofs");
+            &echo("WARNING: output from '$cmd' contained non-numeric data where numeric data expected: $line.")
+                unless ($blocksTotal =~ /^\d+$/ && $blocksUsed =~ /^\d+$/ && $blocksAvailable =~ /^\d+$/);
+
+            my $thisFileSystem = join($BDNA_Separator, $fileSystemName, $blocksTotal, $blocksUsed, $blocksAvailable);
+            1 while ($thisFileSystem =~ s/$BDNA_Separator$BDNA_Separator/$BDNA_Separator<unknown>$BDNA_Separator/);
+
+            $fileSystemSizesString .= (($fileSystemSizesString eq "") ? "" : $BDNA_Separator . $BDNA_Separator) . $thisFileSystem;
+        }
+        &echo("File System Sizes string: $fileSystemSizesString.");
+        $BDNA_Results{"fileSystemSizes"} = $fileSystemSizesString if ($fileSystemSizesString ne "");
+
+
+        $BDNA_ErrorCode = 0;
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_MessageBundle = "MessagesBundle";
+        ]]>
+    </scriptTable>
+
+
+    <scriptTable
+        scriptName="SolarisProcessCollectionScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.software.operatingSystem"
+            attributeName="level2AccessOK" />
+        <scriptArg isGlobal="true"  isOptional="false"
+          argNamePattern="%efnname%:%atr%"
+          efnSource="root.$bdna.globalModuleConfig.UNIXProcessCollConfig"
+          attributeName="computeUNIXProcessDepList" />
+        <![CDATA[
+
+my $computeUNIXProcessDepListFlag = $BDNA_Params{'root.$bdna.globalModuleConfig.UNIXProcessCollConfig:computeUNIXProcessDepList'};
+
+
+my @psOut;
+
+###############################################
+## Code to handle global zone dups processes ##
+###############################################
+
+my $zoneadmCmd = "/usr/sbin/zoneadm list -icv; echo EXITCODE: $?";
+my @zoneadmOut = &shellcmd($BDNA_Connection_Info{"HostObject"}, $zoneadmCmd);
+
+if(pop(@zoneadmOut) =~ m/^EXITCODE: 0$/) {
+    &echo("zoneadm command successful, check is it a global zone.");
+
+    my %zoneHash;
+    if($zoneadmOut[0] =~ /ID\s+NAME\s+/ ) {
+        shift(@zoneadmOut);
+    }
+    foreach my $line (@zoneadmOut) {
+       $line =~ s/^\s+//;
+       $line =~ s/\s+$//;
+       my($id, $name, $status, $path, $brand, $ip) = $line =~m /^(\d+)\s+(.+?)\s+(.+?)\s+(.+?)\s+(.+?)\s+(.+?)\s*$/;
+       $zoneHash{$id}{"name"} = $name if($name);
+       $zoneHash{$id}{"status"} = $status if($status);
+       $zoneHash{$id}{"path"} = $path if($path);
+       $zoneHash{$id}{"brand"} = $brand if($brand);
+       $zoneHash{$id}{"ip"} = $ip if($ip);
+    }
+
+    if(exists($zoneHash{"0"}) && ($zoneHash{"0"}{"name"} =~ /^global$/i) ) {
+        &echo("zoneadm command output contains global zone info, that means this is a global zone");
+
+        ## run ps command only for the zone with id 0 (in other words run ps command only for global zone proccesses
+        my $cmdZone = "ps -z 0 -o pid,ppid,ruser,rgroup,pcpu,pmem,etime,time,vsz,comm,args | grep -v 'ps -eo pid' | grep -v 'grep -v'";
+        @psOut = &shellcmd($BDNA_Connection_Info{"HostObject"}, $cmdZone);
+
+        ##print"DEBUG psout_SIZE: " . scalar(@psOut) . "\n";
+    } else {
+        &echo("zoneadm did not return global zone info, so this is a not a global zone");
+        ## Below command and one in the outer else block are same.
+        my $cmd = "ps -eo pid,ppid,ruser,rgroup,pcpu,pmem,etime,time,vsz,comm,args | grep -v 'ps -eo pid' | grep -v 'grep -v'";
+        @psOut = &shellcmd($BDNA_Connection_Info{"HostObject"}, $cmd);
+    }
+} else {
+&echo("zoneadm command did not return exitcode 0");
+
+# Process List Information - Bug 13388
+
+my $cmd = "ps -eo pid,ppid,ruser,rgroup,pcpu,pmem,etime,time,vsz,comm,args | grep -v 'ps -eo pid' | grep -v 'grep -v'";
+@psOut = &shellcmd($BDNA_Connection_Info{"HostObject"}, $cmd);
+}
+
+my $pidOrder;
+if (@psOut) {
+    if ( $psOut[0] =~ /PID\s+PPID\s+/ ) {
+        shift(@psOut);
+    }
+    $pidOrder = 0;
+
+  if ($computeUNIXProcessDepListFlag == 1) {
+    my ( %psHash, @allRows );
+    foreach my $psLine (@psOut) {
+        chomp($psLine);
+        $psLine =~ s/^\s+//;
+        $psLine =~ s/\s+$//;
+        my ($pid, $ppid, $ruser, $rgroup, $pcpu, $pmem, $etime, $totalExecTime, $vsz, $command, $commandLine, $pcpu_num, $pmem_num);
+        if ( $psLine =~ /^(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s+(.+)$/ ) {
+            $pid = $1;
+            $ppid = $2;
+            $ruser= $3;
+            $rgroup = $4;
+            $pcpu = $5;
+            $pmem = $6;
+            $etime = $7;
+            $totalExecTime = $8;
+            $vsz = $9;
+            $command = $10;
+            $commandLine = $11;
+            $pidOrder++;
+            if ($pcpu =~ /^(\d*\.?\d*)$/) {
+                $pcpu_num = $1;
+            }
+            if ($pmem =~ /^(\d*\.?\d*)$/) {
+                $pmem_num = $1;
+            }
+            $command =~ s/<BDNA,>/ /g;
+            $command =~ s/<BDNA,1>/ /g;
+            $commandLine =~ s/<BDNA,>/ /g;
+            $commandLine =~ s/<BDNA,1>/ /g;
+            $psHash{$pid}{'ppid'} = $ppid;
+            $psHash{$pid}{'pidOwner'} = $ruser;
+            $psHash{$pid}{'pidGroup'} = $rgroup;
+            $psHash{$pid}{'percentCPUUsed'} = $pcpu_num if ( defined $pcpu_num );
+            $psHash{$pid}{'percentMemUsed'} = $pmem_num if ( defined $pmem_num );
+            $psHash{$pid}{'elapsedTime'} = $etime;
+            $psHash{$pid}{'cumCPUTime'} =$totalExecTime;
+            $psHash{$pid}{'prSizeInVirtMemKB'} = $vsz;
+            $psHash{$pid}{'command'} = $command;
+            $psHash{$pid}{'commandLine'} = substr($commandLine,0,3900);
+            $psHash{$pid}{'numDependents'} = 0;
+            $psHash{$pid}{'numAllDependents'} = 0;
+            $psHash{$pid}{'pidOrder'} = $pidOrder;
+        }
+    }
+    undef @psOut;  
+  
+    foreach my $thisPid (keys %psHash) {
+        if ( exists $psHash{$thisPid}{'ppid'} ) {
+            my $ppid = $psHash{$thisPid}{'ppid'};
+            if ( ( exists $psHash{$ppid} ) && ( $thisPid != $ppid ) ) {
+                push(@{$psHash{$ppid}{'depPids'}}, $thisPid);
+                push(@{$psHash{$ppid}{'allDepPids'}}, $thisPid);
+            }
+        }
+    }
+
+    foreach my $thisPid (keys %psHash) {
+        if ( exists $psHash{$thisPid}{'allDepPids'} ) {
+           if ( @{$psHash{$thisPid}{'allDepPids'}} ) {
+                foreach my $depPid ( @{$psHash{$thisPid}{'allDepPids'}} ) {
+                    if ( ( exists $psHash{$depPid} ) && ( exists $psHash{$depPid}{'allDepPids'} ) && ( @{$psHash{$depPid}{'allDepPids'}} ) ) {
+                        push(@{$psHash{$thisPid}{'allDepPids'}}, @{$psHash{$depPid}{'allDepPids'}});
+                    }
+                 }
+            }
+        }
+    }
+
+    foreach my $thisPid (keys %psHash) {
+        my %uniqDepPids = ();
+        if ( ( exists $psHash{$thisPid}{'allDepPids'} ) && ( @{$psHash{$thisPid}{'allDepPids'}} ) ) {
+            my $depPidOrder = 0;
+            foreach my $depPid ( @{$psHash{$thisPid}{'allDepPids'}} ) {
+                if ( exists $psHash{$depPid} ) {
+                    $depPidOrder++;
+                    $uniqDepPids{$depPid} = $depPidOrder;
+                }
+            }
+            my @depPidsOrdered = sort { $uniqDepPids{$a} <=> $uniqDepPids{$b} } keys %uniqDepPids if (keys %uniqDepPids);
+            $psHash{$thisPid}{'allDepPids'} = [@depPidsOrdered] if (@depPidsOrdered);
+            $psHash{$thisPid}{'allDepPidsList'} = join(',', @depPidsOrdered) if (@depPidsOrdered);
+            if (@depPidsOrdered) {
+               $psHash{$thisPid}{'numAllDependents'} = scalar(@depPidsOrdered);
+            }
+            else {
+                $psHash{$thisPid}{'numAllDependents'} = 0;
+            }
+        }
+        if ( ( exists $psHash{$thisPid}{'depPids'} ) && ( @{$psHash{$thisPid}{'depPids'}} ) ) {
+            $psHash{$thisPid}{'depPidsList'} = join(',', @{$psHash{$thisPid}{'depPids'}});
+            $psHash{$thisPid}{'numDependents'} = scalar(@{$psHash{$thisPid}{'depPids'}});
+        }
+    }
+
+    if ( exists $psHash{1} ) {
+        $psHash{1}{'pidOrder'} = 1;
+        my $depPidOrder = 2;
+        foreach my $thisDepPid ( @{$psHash{1}{'allDepPids'}} ) {
+            $psHash{$thisDepPid}{'pidOrder'} = $depPidOrder;
+            $depPidOrder++;
+        }
+    }
+
+    my $numProcesses = 0;
+    foreach my $thisPid (keys %psHash) {
+        my @eachRow;
+        $numProcesses++;
+        push(@eachRow, "pid=${thisPid}");
+        
+        foreach my $prFieldName ('pidOwner', 'pidGroup', 'ppid', 'percentCPUUsed', 'percentMemUsed', 'elapsedTime', 'cumCPUTime', 'prSizeInVirtMemKB', 'numDependents', 'depPidsList', 'numAllDependents', 'allDepPidsList', 'pidOrder', 'command', 'commandLine') {
+            if ( defined $psHash{$thisPid}{$prFieldName} ) {
+                push(@eachRow, "${prFieldName}=".$psHash{$thisPid}{$prFieldName});
+            }
+        }
+        push(@allRows, join('<BDNA,1>', @eachRow));
+    }
+    $BDNA_Results{'UNIXProcessList'} = join('<BDNA,>', @allRows) if (@allRows);
+    $BDNA_Results{'numProcesses'} = $numProcesses;
+    undef %psHash;
+  } else {
+    my ( @allRows );
+    my $numProcesses = 0;
+    foreach my $psLine (@psOut) {
+        chomp($psLine);
+        $psLine =~ s/^\s+//;
+        $psLine =~ s/\s+$//;
+        my ($pid, $ppid, $ruser, $rgroup, $pcpu, $pmem, $etime, $totalExecTime, $vsz, $command, $commandLine, $pcpu_num, $pmem_num, $numDependents, $numAllDependents);
+        if ( $psLine =~ /^(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s+(.+)$/ ) {
+            $pid = 'pid='.$1;
+            $ppid = 'ppid='.$2;
+            $ruser= 'pidOwner='.$3;
+            $rgroup = 'pidGroup='.$4;
+            $pcpu = $5;
+            $pmem = $6;
+            $etime = 'elapsedTime='.$7;
+            $totalExecTime = 'cumCPUTime='.$8;
+            $vsz = 'prSizeInVirtMemKB='.$9;
+            $command = $10;
+            $commandLine = $11;
+            $pidOrder++;
+            
+            if ($pcpu =~ /^(\d*\.?\d*)$/) {
+                $pcpu_num = $1;
+            }
+            if ($pmem =~ /^(\d*\.?\d*)$/) {
+                $pmem_num = $1;
+            }
+            my $percentCPUUsed = 'percentCPUUsed='.$pcpu_num if ( defined $pcpu_num );
+            my $percentMemUsed = 'percentMemUsed='.$pmem_num if ( defined $pmem_num );
+            
+            $command =~ s/<BDNA,>/ /g;
+            $command =~ s/<BDNA,1>/ /g;
+            $commandLine =~ s/<BDNA,>/ /g;
+            $commandLine =~ s/<BDNA,1>/ /g;
+            $command = 'command='.$command;
+            if (length($commandLine > 3900)) {
+                $commandLine = 'commandLine='.substr($commandLine,0,3900);
+            } else {
+                $commandLine = 'commandLine='.$commandLine;
+            }
+            
+            $numDependents = 'numDependents=0';
+            $numAllDependents = 'numAllDependents=0';
+            my $pidOrderStr = 'pidOrder='.$pidOrder;
+            
+            my $thisPsStr = $pid.'<BDNA,1>'.$command.'<BDNA,1>'.$commandLine.'<BDNA,1>'.$ruser.'<BDNA,1>'.$rgroup.'<BDNA,1>'.$ppid.'<BDNA,1>';
+            if (defined $percentCPUUsed) {
+                $thisPsStr .= $percentCPUUsed.'<BDNA,1>';
+            }
+            if (defined $percentMemUsed) {
+                $thisPsStr .= $percentMemUsed.'<BDNA,1>';
+            }
+            $thisPsStr .= $etime.'<BDNA,1>'.$totalExecTime.'<BDNA,1>'.$vsz.'<BDNA,1>'.$numDependents.'<BDNA,1>'.$numAllDependents.'<BDNA,1>'.$pidOrderStr;
+            push(@allRows, $thisPsStr);
+            $numProcesses++;            
+
+        }
+    }
+    undef @psOut;  
+    $BDNA_Results{'UNIXProcessList'} = join('<BDNA,>', @allRows) if (@allRows);
+    $BDNA_Results{'numProcesses'} = $numProcesses;
+    undef @allRows;
+  }
+}
+
+        $BDNA_ErrorCode = 0;
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_MessageBundle = "MessagesBundle";
+        ]]>
+    </scriptTable>
+
+
+    <scriptTable
+        scriptName="SolarisRealTimeScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.software.operatingSystem"
+            attributeName="level2AccessOK" />
+        <![CDATA[
+
+
+
+
+#   find the cpus from vmstat (do it a few times and take the avg.
+#   be sure to exclude the 1st couple sets because they are flaky
+
+        my $cmd = "vmstat 1 15";
+        my @output  = &shellcmd($BDNA_Connection_Info{"HostObject"}, $cmd, "vmstat");
+        my $sum = 0;
+        my $count = 0;
+        shift(@output);
+        shift(@output);
+        shift(@output);
+        for ($x = 0; $x < 5; $x = $x + 1) {
+            $_ = shift(@output);
+            if (/(\D*)(\d+)(\D*)(\d+)(\D*)(\d+)(\D*)$/) {
+                &echo("CPU sys and user: $2 $4");
+                $count = $count + 1;
+                $sum = $sum + $2 + $4;
+            }
+        }
+        if ($count > 0) {
+            my $avg = $sum / $count;
+            &echo("CPU util avg = $avg");
+            $BDNA_Results{"CPUUtilPercent"} = $avg;
+        }
+
+
+#   find total and used memory from sar
+
+        $cmd = "sar -r 2 1";
+        @output  = &shellcmd($BDNA_Connection_Info{"HostObject"}, $cmd, "mem");
+        my ($mfree, $mtotal);
+        while (@output) {
+            $_ = shift(@output);
+            if (/^([\d:]+)(\s+)(\d+)(\s+)(\d+)(\s*)$/) {
+                &echo("Solaris Memory free: $3, Memory Total: $5");
+                &echo("Memory total: $5");
+                my $memoryUtilPercent = ($5 - $3) / $5 * 100.0;
+                $BDNA_Results{"memoryUtilPercent"} = $memoryUtilPercent;
+            }
+        }
+
+        $BDNA_ErrorCode = 0;
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_MessageBundle = "MessagesBundle";
+
+        ]]>
+    </scriptTable>
+
+    <scriptTable
+        scriptName="SolarisDevicesStaticScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.software.operatingSystem"
+            attributeName="level2AccessOK" />
+        <![CDATA[
+
+        my ($resultString,$hddString,$cdromString,$tapeString) = ('','','','');
+
+        # get the telnet connection (set by the connection script)
+        my $host = $BDNA_Connection_Info{"HostObject"};
+     
+        # get hard disk, cdrom and tape drive information from 'iostat -E'
+ 
+        my $iostatCmd = "/usr/bin/iostat -E";
+        my @iostatoutput = &shellcmd($host, $iostatCmd, "iostat");
+
+        my $drivers_regex = '^(sd\d+|ssd\d+|dad\d+|atapi\S*\d+|st\d+)\s*';
+
+        my ($i, $j, $cdromyes);
+
+        #### Find hard disk/cdrom information from device drivers named 'sd' or 'ssd'
+        for ($i=0; $i<=$#iostatoutput; $i++) {
+            chomp($iostatoutput[$i]);
+            my ($hddmfr,$hddmodel,$hddserial) = ('Not Available','Not Available','Not Available');
+            my $hddsize;
+            my ($cdrommfr,$cdrommodel,$cdromserial) = ('Not Available','Not Available','Not Available');
+            ## Look for both SCSI drives (sd) and Fibre Drives (ssd) 
+            if ($iostatoutput[$i] =~ /^(sd|ssd)[0-9]+\s*Soft Errors:/) {
+                # cdromyes=0 means not a cdrom but a hard drive, cdromyes=1 means it's a cdrom
+                $cdromyes=0;
+                for ($j=$i+1; $j<=$#iostatoutput; $j++) {
+                    chomp($iostatoutput[$j]);
+                    if ($iostatoutput[$j] =~ /$drivers_regex/) {
+                        last;
+                    }
+                    elsif ($iostatoutput[$j] =~ /Vendor:\s+(.+)\s+Product:\s+(.*SUN\d+XCD|CD-R.*)\s+Revision:\s+\S+\s+Serial No:\s+(\S*)/) {
+                        $cdrommfr = $1;
+                        $cdrommodel = $2;
+                        $cdromserial = $3;
+                        $cdromyes=1;
+                    }
+                    elsif ($iostatoutput[$j] =~ /Vendor:\s+(.+)\s+Product:\s+(.*)\s+Revision:\s+\S+\s+Serial No:\s+(\S*)/) {
+                        $hddmfr = $1;
+                        $hddmodel = $2;
+                        $hddserial = $3;
+                    }
+                    elsif ($iostatoutput[$j] =~ /RPM: (\d+) Heads: (\d+) Size:.*<(\d+) bytes>/) {
+                        #$hddrpm = $1;
+                        #$hddheads = $2;
+                        $hddsize = $3;
+                    }
+                    elsif ($iostatoutput[$j] =~ /RPM: (\d+) Heads: (\d+) Size:.*<(\d+) bytes>/) {
+                        #$hddrpm = $1;
+                        #$hddheads = $2;
+                        $hddsize = $3;
+                    }
+                    elsif ($iostatoutput[$j] =~ /Size:.*<(\d+) bytes>/) {
+                        $hddsize = $1;
+                    }
+                    elsif ($iostatoutput[$j] =~ /Size:\s+\S+\s+<\-\d+ bytes>/) {
+                        $cdromyes = 1;
+                    }
+                }
+                if ($cdromyes==1) {
+                    $cdromString .= (($cdromString) ? $BDNA_Separator : '')
+                      . join($BDNA_SubSeparator, "manufacturer=$cdrommfr","model=$cdrommodel",
+                             "serialNumber=$cdromserial");
+                }
+                if ($cdromyes==0) {
+                    $hddString .= (($hddString) ? $BDNA_Separator : '')
+                      . join($BDNA_SubSeparator, "manufacturer=$hddmfr","model=$hddmodel",
+                             "serialNumber=$hddserial","capacity=$hddsize");
+                }
+            }
+        }
+ 
+        #### Find hard disk/cdrom information from device drivers named 'dad'
+        for ($i=0; $i<=$#iostatoutput; $i++) {
+            chomp($iostatoutput[$i]);
+            my ($hddmfr,$hddmodel,$hddserial) = ('Not Available','Not Available','Not Available');
+            my $hddsize;
+            my ($cdrommfr,$cdrommodel,$cdromserial) = ('Not Available','Not Available','Not Available');
+            if ($iostatoutput[$i] =~ /dad[0-9]+\s*Soft Errors:/) {
+                for ($j=$i+1; $j<=$#iostatoutput; $j++) {
+                    chomp($iostatoutput[$j]);
+                    if ($iostatoutput[$j] =~ /$drivers_regex/) {
+                        last;
+                    }
+                    elsif ($iostatoutput[$j] =~ /Model:\s+(\S+)[\s\t]+Revision:\s+\S+\s+Serial No:\s+(\S*)/) {
+                        $hddmodel = $1;
+                        $hddserial = $2;
+                    }
+                    elsif ($iostatoutput[$j] =~ /Size:.*<(\d+) bytes>/) {
+                        $hddsize = $1;
+                    }
+                    elsif ($iostatoutput[$j] =~ /RPM: (\d+) Heads: (\d+) Size:.*<(\d+) bytes>/) {
+                        #$hddrpm = $1;
+                        #$hddheads = $2;
+                        $hddsize = $3;
+                    }
+                    elsif ($iostatoutput[$j] =~ /RPM: (\d+) Heads: (\d+) Size:.*<(\d+) bytes>/) {
+                        #$hddrpm = $1;
+                        #$hddheads = $2;
+                        $hddsize = $3;
+                    }
+                }
+                $hddString .= (($hddString eq "") ? "" : $BDNA_Separator)
+                  . "manufacturer=$hddmfr" . $BDNA_SubSeparator . "model=$hddmodel"
+                    . $BDNA_SubSeparator . "serialNumber=$hddserial" .$BDNA_SubSeparator . "capacity=$hddsize";
+            }
+        }
+ 
+        #### Find hard disk/cdrom information from device drivers named 'atapi'
+        # cdromyes=0 means not a cdrom but a hard drive, cdromyes=1 means it's a cdrom
+        for ($i=0; $i<=$#iostatoutput; $i++) {
+            chomp($iostatoutput[$i]);
+            my ($hddmfr,$hddmodel,$hddserial) = ('Not Available','Not Available','Not Available');
+            my $hddsize;
+            my ($cdrommfr,$cdrommodel,$cdromserial) = ('Not Available','Not Available','Not Available');
+            if ($iostatoutput[$i] =~ /atapi\S*[0-9]+\s*Soft Errors:/) {
+                $cdromyes=0;
+                for ($j=$i+1; $j<=$#iostatoutput; $j++) {
+                    chomp($iostatoutput[$j]);
+                    if ($iostatoutput[$j] =~ /$drivers_regex/) {
+                        last;
+                    }
+                    elsif ($iostatoutput[$j] =~ /Vendor:\s+(.+)\s+Product:\s+(.*SUN\d+XCD|CD-R.*)\s+Revision:\s+\S+\s+Serial No:\s+(\S*)/) {
+                        $cdrommfr = $1;
+                        $cdrommodel = $2;
+                        $cdromserial = $3;
+                        $cdromyes=1;
+                    }
+                    elsif ($iostatoutput[$j] =~ /Vendor:\s+(.+)\s+Product:\s+(.*)\s+Revision:\s+\S+\s+Serial No:\s+(\S*)/) {
+                        $hddmfr = $1;
+                        $hddmodel = $2;
+                        $hddserial = $3;
+                    }
+                    elsif ($iostatoutput[$j] =~ /RPM: (\d+) Heads: (\d+) Size:.*<(\d+) bytes>/) {
+                        #$hddrpm = $1;
+                        #$hddheads = $2;
+                        $hddsize = $3;
+                    }
+                    elsif ($iostatoutput[$j] =~ /RPM: (\d+) Heads: (\d+) Size:.*<(\d+) bytes>/) {
+                        #$hddrpm = $1;
+                        #$hddheads = $2;
+                        $hddsize = $3;
+                    }
+                    elsif ($iostatoutput[$j] =~ /Size:.*<(\d+) bytes>/) {
+                        $hddsize = $1;
+                    }
+                    elsif ($iostatoutput[$j] =~ /Size:\s+\S+\s+<\-\d+ bytes>/) {
+                        $cdromyes = 1;
+                    }
+                }
+                if ($cdromyes==1) {
+                    $cdromString .= (($cdromString) ? $BDNA_Separator : '')
+                      . join($BDNA_SubSeparator, "manufacturer=$cdrommfr","model=$cdrommodel",
+                             "serialNumber=$cdromserial");
+   }
+                elsif ($cdromyes==0) {
+                    $hddString .= (($hddString) ? $BDNA_Separator : '')
+                      . "manufacturer=$hddmfr" . $BDNA_SubSeparator . "model=$hddmodel"
+                        . $BDNA_SubSeparator . "serialNumber=$hddserial" .$BDNA_SubSeparator . "capacity=$hddsize";
+                }
+            }
+        }
+ 
+        #### Find tape drive information from device drivers named 'st'
+        for ($i=0; $i<=$#iostatoutput; $i++) {
+            chomp($iostatoutput[$i]);
+            my ($tapemfr,$tapemodel,$tapeserial) = ('Not Available','Not Available','Not Available');
+            my $tapesize;
+            if ($iostatoutput[$i] =~ /st[0-9]+\s*Soft Errors:/) {
+                # &echo("Line output: $iostatoutput[$i]");
+                for ($j=$i+1; $j<=$#iostatoutput; $j++) {
+                    chomp($iostatoutput[$j]);
+                    if ($iostatoutput[$j] =~ /$drivers_regex/) {
+                        last;
+                    }
+                    elsif ($iostatoutput[$j] =~ /Model:\s+(\S+)[\s\t]+Revision:\s+\S+\s+Serial No:\s+(\S*)/) {
+                        $tapemodel = $1;
+                        $tapeserial = $2;
+                    }
+                    elsif ($iostatoutput[$j] =~ /Size:.*<(\d+) bytes>/) {
+                        $tapesize = $1;
+                    }
+                }
+                $tapeString .= (($tapeString eq "") ? "" : $BDNA_Separator)
+                  . join($BDNA_SubSeparator, "manufacturer=$tapemfr","model=$tapemodel",
+                         "serialNumber=$tapeserial","capacity=$tapesize");
+            }
+        }
+        
+        # Trim any leading and trailing whitespace from collected values,
+        # which aren't interesting in this context.
+        1 while ($hddString =~ s/$BDNA_Separator\s+/$BDNA_Separator/);
+        1 while ($hddString =~ s/\s+$BDNA_Separator/$BDNA_Separator/);
+        1 while ($cdromString =~ s/$BDNA_Separator\s+/$BDNA_Separator/);
+        1 while ($cdromString =~ s/\s+$BDNA_Separator/$BDNA_Separator/);
+        1 while ($tapeString =~ s/$BDNA_Separator\s+/$BDNA_Separator/);
+        1 while ($tapeString =~ s/\s+$BDNA_Separator/$BDNA_Separator/);
+
+        # construct the result, which is a list of device values.
+        $BDNA_Results{"hddString"} = $hddString;
+        $BDNA_Results{"cdromString"} = $cdromString;
+        $BDNA_Results{"tapeString"} = $tapeString;
+ 
+        $BDNA_ErrorCode = 0;
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_MessageBundle = "MessagesBundle";
+        ]]>
+    </scriptTable>
+
+    <!-- ............................................................... -->
+    <!-- .......          Solaris  Package Tool Scripts      ........... -->
+    <!-- ............................................................... -->
+    <scriptTable
+        scriptName="SolarisInstalledPackagesStaticScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.software.operatingSystem"
+            attributeName="level2AccessOK" />
+        <![CDATA[
+
+        my $host = $BDNA_Connection_Info{"HostObject"};
+        my $ret = "";
+        my $flag = "";
+
+
+        ## used the IPS pkg command to collect package information
+        my @IpkgList = &shellcmd($host, 'pkg info; echo EXITCODE: $?', "pkg info");
+        if (pop(@IpkgList) =~ m/^EXITCODE: 0$/)
+        {
+          $flag = "IPS";
+          foreach my $package1 (@IpkgList)
+          {
+            chomp($package1);
+            if ($package1 =~ /Name:\s+(.+)$/) { $ret .= $BDNA_Separator. qq(pkgName="$1"); }
+            if ($package1 =~ /Summary:\s+(.+)$/) { $ret .= $BDNA_SubSeparator. qq(name="$1"); }
+            if ($package1 =~ /Version:\s+(.+)$/) { $ret .= $BDNA_SubSeparator. qq(version="$1"); }
+            if ($package1 =~ /Publisher:\s+(.+)$/) { $ret .= $BDNA_SubSeparator. qq(publisher="$1"); }
+            if ($package1 =~ /Packaging Date:\s+(.+)$/) { $ret .= $BDNA_SubSeparator. qq(installDate="$1"); }
+          }
+        }
+        else {
+          $flag = "SVR4";
+        }
+
+
+
+
+      if ($flag =~ m/SVR4/) {
+        my @pkgList = &shellcmd($host, 'pkginfo -l; echo EXITCODE: $?', "pkginfo");
+        if (pop(@pkgList) =~ m/^EXITCODE: 0$/)
+        {
+          foreach my $package (@pkgList)
+          {
+            chomp($package);
+            if ($package =~ /PKGINST:\s+(.+)$/) { $ret .= $BDNA_Separator. qq(pkgName="$1"); }
+            if ($package =~ /NAME:\s+(.+)$/) { $ret .= $BDNA_SubSeparator. qq(name="$1"); }
+            if ($package =~ /VERSION:\s+(.+)$/) { $ret .= $BDNA_SubSeparator. qq(version="$1"); }
+            if ($package =~ /BASEDIR:\s+(.+)$/) { $ret .= $BDNA_SubSeparator. qq(installDirectory="$1"); }
+            if ($package =~ /VENDOR:\s+(.+)$/) { $ret .= $BDNA_SubSeparator. qq(vendor="$1"); }
+            if ($package =~ /INSTDATE:\s+(.+)$/) { $ret .= $BDNA_SubSeparator. qq(installDate="$1"); }
+          }
+        }
+        else {
+          $ret = "Unknown";
+        }
+      }
+
+        #
+        # Return results
+        #
+        $BDNA_ErrorCode = 0;
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_MessageBundle = "MessagesBundle";
+        $BDNA_Results{"installedSoftwareDetails"}= $ret;
+
+        ]]>
+    </scriptTable>
+
+</module>
