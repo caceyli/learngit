@@ -1,5 +1,5 @@
 BUG02559: [Oracle] Oracle LMS Re-Verification: Update LMS reports and 3PTV output with new Oracle LMS scripts v15.1
-Developer--miya
+Developer--miya (2015/04/02)
 
 M       modules/com/bdna/modules/database/UNIXOracleLMS.xml
 M       wincs/Scripts/WindowsOracleInstanceLMSConcurrencyOptionsScript.cs
@@ -18,6 +18,7 @@ M       com/bdna/app/application/OracleDatabases.xml
 M       com/bdna/app/application/OracleLMSPack.xml
 M       modules/com/bdna/modules/database/UNIXOracleLMS.xml
 M       modules/com/bdna/modules/os/Solaris.xml
+M       scripts/OracleLMS/overview.sql
 
 
 BUG02657: WinSIMCardFilePropFootprintStatic collection task results in "Process creation failed"
