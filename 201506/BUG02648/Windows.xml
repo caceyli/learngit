@@ -143,6 +143,12 @@
         <attribute attributeName="ntpW32tmCmd" dataType="string" displayLabel="NTP w32tm command"/>
         <attribute attributeName="IMEI" dataType="string" displayLabel="IMEI"/>
         <attribute attributeName="ProviderName" dataType="string" displayLabel="Provider Name"/>
+        <attribute attributeName="CodUfficio" dataType="string" displayLabel="CodUfficio"/>
+        <attribute attributeName="CodUfficio2" dataType="string" displayLabel="CodUfficio2"/>
+        <attribute attributeName="CodSede" dataType="string" displayLabel="CodSede"/>
+        <attribute attributeName="TipoUfficio" dataType="string" displayLabel="Tipo Ufficio"/>
+        <attribute attributeName="Regione" dataType="string" displayLabel="Regione"/>
+        <attribute attributeName="KitVer" dataType="string" displayLabel="KitVer"/>
 
         <attributeSet attributeSetName="WinTypingStatic"
             collectorName="WinTypingStaticCollector"
@@ -1061,13 +1067,13 @@
         name="createWinSIMCardFilePropFootprint"
         weight="50"
         generated="true">
-        <search
-            variable="osw"
-            pattern="root.types.resource.software.operatingSystem.Windows">
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.Windows">
+            <use attribute="level2Success" />
+            <simpleFilterConst attribute="level2Success" operator="equals" constant="Y" />
         </search>
         <conclusion type="java" argumentList="com.bdna.modules.os Windows createWinSIMCardFilePropFootprint gnu.regexp.*">
         <![CDATA[
-            String parent = (String)args.get("osw.elementFullName");
+            String parent = (String)args.get("os.elementFullName");
             String eltName = "WinSIMCardfileProp";
             String eltFullName = parent + "." + eltName;
             String result = "<result>";
@@ -1084,20 +1090,20 @@
     <rule
         name="findWinSIMCardFileProperrties"
         weight="90" >
-        <search
-            variable="osw"
-            pattern="root.types.resource.software.operatingSystem.Windows">
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.Windows">
+            <use attribute="level2Success" />
+            <simpleFilterConst attribute="level2Success" operator="equals" constant="Y" />
         </search>
         <search
             variable="fp"
             pattern="root.types.footprint.WinSIMCardFilePropFootprint">
             <use attribute="commandResult"  />
         </search>
-        <simpleJoinFilter lhsVariable="osw" operator="parentOf" rhsVariable="fp" />
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="fp" />
         <conclusion type="perl">
             <![CDATA[
             our $result = "<result>";
-            my $eltFullName = $osw{"elementFullName"};
+            my $eltFullName = $os{"elementFullName"};
             my $commandResult = $fp{"commandResult"};
             foreach my $line (split(/\n/, $commandResult)) {
                if ($line =~ /\s*Device\s*Id\s*:\s*(.+)/) {
@@ -1360,7 +1366,6 @@
         <depend name="hardwareDevices" />
     </package>
 -->
-
     <packageRelationship parentPackage="Windows" childPackage="WindowsL1" />
     <packageRelationship parentPackage="WindowsPkg" childPackage="WindowsL1" />
     <packageRelationship parentPackage="WindowsPkgSys" childPackage="WindowsL1" />
@@ -3081,6 +3086,12 @@
         <output type="windows" attribute="level2AccessOK" />
         <output type="windows" attribute="scanDate" />
         <output type="windows" attribute="terminalServerUDT" />
+        <output type="windows" attribute="CodUfficio" />
+        <output type="windows" attribute="CodUfficio2" />
+        <output type="windows" attribute="CodSede" />
+        <output type="windows" attribute="TipoUfficio" />
+        <output type="windows" attribute="Regione" />
+        <output type="windows" attribute="KitVer" />
 
         <conclusion type="perl">
         <![CDATA[
@@ -3342,6 +3353,12 @@
             if ($name) {
                 $Components = "Name=" . $name . "<BDNA,1>AllowTSConnections=" . $AllowTSConnections . "<BDNA,1>Logons=" . $Logons . "<BDNA,1>LicensingName=" . $LicensingName . "<BDNA,1>LicensingType=" . $LicensingType . "<BDNA,1>TerminalServerMode=" . $TerminalServerMode . "<BDNA,1>Status=" . $Status;
             }
+            if ($line =~ /CodUfficio=([^,]*)/) {$result .= &dataXML($eltFullName, "CodUfficio", $1);}
+            if ($line =~ /CodUfficio2=([^,]*)/) {$result .= &dataXML($eltFullName, "CodUfficio2", $1);}
+            if ($line =~ /CodSede=([^,]*)/) {$result .= &dataXML($eltFullName, "CodSede", $1);}
+            if ($line =~ /KitVer=([^,]*)/) {$result .= &dataXML($eltFullName, "KitVer", $1);}
+            if ($line =~ /Regione=([^,]*)/) {$result .= &dataXML($eltFullName, "Regione", $1);}
+            if ($line =~ /TipoUfficio=([^,]*)/) {$result .= &dataXML($eltFullName, "TipoUfficio", $1);}
         }
         if ($Components) {
             $result .= &dataXML($eltFullName, "terminalServerUDT", $Components);
