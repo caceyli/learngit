@@ -1061,13 +1061,13 @@
         name="createWinSIMCardFilePropFootprint"
         weight="50"
         generated="true">
-        <search
-            variable="osw"
-            pattern="root.types.resource.software.operatingSystem.Windows">
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.Windows">
+            <use attribute="level2Success" />
+            <simpleFilterConst attribute="level2Success" operator="equals" constant="Y" />
         </search>
         <conclusion type="java" argumentList="com.bdna.modules.os Windows createWinSIMCardFilePropFootprint gnu.regexp.*">
         <![CDATA[
-            String parent = (String)args.get("osw.elementFullName");
+            String parent = (String)args.get("os.elementFullName");
             String eltName = "WinSIMCardfileProp";
             String eltFullName = parent + "." + eltName;
             String result = "<result>";
@@ -1084,20 +1084,20 @@
     <rule
         name="findWinSIMCardFileProperrties"
         weight="90" >
-        <search
-            variable="osw"
-            pattern="root.types.resource.software.operatingSystem.Windows">
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.Windows">
+            <use attribute="level2Success" />
+            <simpleFilterConst attribute="level2Success" operator="equals" constant="Y" />
         </search>
         <search
             variable="fp"
             pattern="root.types.footprint.WinSIMCardFilePropFootprint">
             <use attribute="commandResult"  />
         </search>
-        <simpleJoinFilter lhsVariable="osw" operator="parentOf" rhsVariable="fp" />
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="fp" />
         <conclusion type="perl">
             <![CDATA[
             our $result = "<result>";
-            my $eltFullName = $osw{"elementFullName"};
+            my $eltFullName = $os{"elementFullName"};
             my $commandResult = $fp{"commandResult"};
             foreach my $line (split(/\n/, $commandResult)) {
                if ($line =~ /\s*Device\s*Id\s*:\s*(.+)/) {
@@ -1360,7 +1360,6 @@
         <depend name="hardwareDevices" />
     </package>
 -->
-
     <packageRelationship parentPackage="Windows" childPackage="WindowsL1" />
     <packageRelationship parentPackage="WindowsPkg" childPackage="WindowsL1" />
     <packageRelationship parentPackage="WindowsPkgSys" childPackage="WindowsL1" />
