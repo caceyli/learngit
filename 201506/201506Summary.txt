@@ -16,12 +16,11 @@ M       wincs/Scripts/WindowsOracleInstanceLMSRawDataOpt5Script.cs
 M       com/bdna/app/application/Base.xml
 M       com/bdna/app/application/OracleDatabases.xml
 M       com/bdna/app/application/OracleLMSPack.xml
-M       modules/com/bdna/modules/database/UNIXOracleLMS.xml
 M       modules/com/bdna/modules/os/Solaris.xml
 M       scripts/OracleLMS/overview.sql
 
 
-BUG02657: WinSIMCardFilePropFootprintStatic collection task results in "Process creation failed"
-Developer--gary (2015/03/23)
+BUG02657/BUG02648: WinSIMCardFilePropFootprintStatic collection task results in "Process creation failed"
+Developer--gary (2015/03/23)(2015/04/20)
 
 M       modules/com/bdna/modules/os/Windows.xml

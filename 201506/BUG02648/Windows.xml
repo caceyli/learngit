@@ -143,6 +143,12 @@
         <attribute attributeName="ntpW32tmCmd" dataType="string" displayLabel="NTP w32tm command"/>
         <attribute attributeName="IMEI" dataType="string" displayLabel="IMEI"/>
         <attribute attributeName="ProviderName" dataType="string" displayLabel="Provider Name"/>
+        <attribute attributeName="CodUfficio" dataType="string" displayLabel="CodUfficio"/>
+        <attribute attributeName="CodUfficio2" dataType="string" displayLabel="CodUfficio2"/>
+        <attribute attributeName="CodSede" dataType="string" displayLabel="CodSede"/>
+        <attribute attributeName="TipoUfficio" dataType="string" displayLabel="Tipo Ufficio"/>
+        <attribute attributeName="Regione" dataType="string" displayLabel="Regione"/>
+        <attribute attributeName="KitVer" dataType="string" displayLabel="KitVer"/>
 
         <attributeSet attributeSetName="WinTypingStatic"
             collectorName="WinTypingStaticCollector"
@@ -3080,6 +3086,12 @@
         <output type="windows" attribute="level2AccessOK" />
         <output type="windows" attribute="scanDate" />
         <output type="windows" attribute="terminalServerUDT" />
+        <output type="windows" attribute="CodUfficio" />
+        <output type="windows" attribute="CodUfficio2" />
+        <output type="windows" attribute="CodSede" />
+        <output type="windows" attribute="TipoUfficio" />
+        <output type="windows" attribute="Regione" />
+        <output type="windows" attribute="KitVer" />
 
         <conclusion type="perl">
         <![CDATA[
@@ -3341,6 +3353,12 @@
             if ($name) {
                 $Components = "Name=" . $name . "<BDNA,1>AllowTSConnections=" . $AllowTSConnections . "<BDNA,1>Logons=" . $Logons . "<BDNA,1>LicensingName=" . $LicensingName . "<BDNA,1>LicensingType=" . $LicensingType . "<BDNA,1>TerminalServerMode=" . $TerminalServerMode . "<BDNA,1>Status=" . $Status;
             }
+            if ($line =~ /CodUfficio=([^,]*)/) {$result .= &dataXML($eltFullName, "CodUfficio", $1);}
+            if ($line =~ /CodUfficio2=([^,]*)/) {$result .= &dataXML($eltFullName, "CodUfficio2", $1);}
+            if ($line =~ /CodSede=([^,]*)/) {$result .= &dataXML($eltFullName, "CodSede", $1);}
+            if ($line =~ /KitVer=([^,]*)/) {$result .= &dataXML($eltFullName, "KitVer", $1);}
+            if ($line =~ /Regione=([^,]*)/) {$result .= &dataXML($eltFullName, "Regione", $1);}
+            if ($line =~ /TipoUfficio=([^,]*)/) {$result .= &dataXML($eltFullName, "TipoUfficio", $1);}
         }
         if ($Components) {
             $result .= &dataXML($eltFullName, "terminalServerUDT", $Components);

@@ -1,0 +1,158 @@
+﻿倒装句用法总结专题 
+英语最基本的语序是主语在前，谓语动词在后。但有时由于句子结构的需要或表示强调，就要采用倒装形式。倒装分为全部倒装和部分倒装，将谓语动词完全移到主语之前称为
+完 全倒装，只将助动词或情态到主语之前称为部分倒装    
+
+一、完全倒装（主谓倒装）是指把谓语全部提到主语的前面。     
+例：In a lecture hall of a university in England sits a professor.    
+
+1.以here, there，now, then引导的句子，要完全倒装。这种句子中的谓语动词通常是不及物动词。  (注意：若代词作主语，只把该副词提前主谓语序不变。)
+  如：Here comes the train! /  There goes the bell! / Here he comes . /  Here it is .  
+
+2.句首以 out , in , up ,away , down 等副词开头，句子要完全倒装。（注意，这时句子的主语也必须是名词。如果是人称代词，也不能使用倒装结构。）          
+  如：Up went the rocket. /Up it went.  
+ 
+3.介词短语作状语在句首，句子要完全倒装。(注意，这时句子的谓语动词通常是不及物动词)。 
+  如：In the front of the lecture hall sat the speaker.  
+ 
+4.表语置于句首，且主语较长或结构较复杂的句子要用全部倒装。 
+  如：Gone are the days when we had nothing to eat.  
+  
+5.so/ neither/ nor 表前面所说的情况也适合于后者，其倒装结构为“so/ neither/ nor+助动词/系动词/情态动词”，这里的主语同前一个句子的主语指的不是同一人或物。  
+  如：She has finished her homework, so has her brother.  She hasn’t gone there, neither/ nor has he.  
+
+二、部分倒装（助动词倒装）是指把谓语的一部分（助动词）提到主语的前面。   
+例： Never in my life have I seen such a thing. 
+
+1.用于疑问句中。
+  如：How did you do that? / Did you see the film yesterday?
+
+2. if 从句中如有 were ( had , should ) , if 省去后，要部分倒装,把were，had，should提到主语前面。
+   如： If you had come yesterday, you would have seen him. ---Had you come yesterday, you would have seen him. 
+
+3.as 引导的让步状语从句，要部分倒装（表语、状语倒装）。有以下几种形式： 
+  1）副词置于句首。 
+  如：Much as I like it (=Although I like it very much), I will not buy it.
+  2）动词置于句首。 
+  如：Wait as you may (= Although you may wait), he will not see you. 
+  3） 形容词或名词置于句首。
+  如：Proud as the nobles are (=Although the nobles are proud), they are afraid to see me. 
+      Child as he is (=Although he is a child), he can tell right from wrong.  
+      注意：如果名词前有形容词修饰时，as引导的倒装句中要保留不定冠词。如： 
+      A bad-tempered man as he is (=Although he is a bad-tempered man), he loves me deeply.  
+
+4.句首为否定词或否定意义的词语时，句子要部分倒装.( not , not only , never , little , seldom , not until, hardly ( scarcely ) , no sooner, not once, at no time,... )  
+  Little do we know about him.  
+  No sooner had he closed his eyes than he fell asleep. 
+  Seldom does he come BACK on Sundays. 
+  Not until he came back did I know about it.  
+  
+5.only 在句首引导状语，或not until 引导的状语在句首，主句要部分倒装。 
+  如：Only then did I realize the importance of English.
+  Only when a child grows up does he understand his parents’ intentions.  
+  但若only修饰的是句子的其它成分，则无需倒装。  如：Only socialism can save China. (only修饰句子的主语，仍用正常语序) 
+
+6.not only ... but also ... 引导两个并列句，前倒后不倒。 
+  如：Not only does he do well in his lessons, but also he often helps others with their lessons. 
+
+7.在以often, well, many a time, now and again等方式或频度副词(短语)开头的句子中,要用部分倒装结构。 
+  如：Many a time has John given me good advice. / Often have we made that test. 
+  
+8. 用于某些表示祝愿的句子里。May you succeed! 
+
+9. so或so引导的短语放在句首,要部分倒装。 
+   So loudly did he speak that even people in the next room could hear him. 
+   so…that结构中的倒装。有时要强调so 所修饰的形容词或副词，常将so连同它所修饰的形容词或副词一起提到句首。这时，主句要用倒装结构。
+   如： He runs so fast that he is far ahead of others.
+        ---So fast does he run that he is far ahead of others. 
+        He is so clever that he can work out all the difficult problems in the book. 
+	--So clever is he that he can work out all the difficult problems in the book.(全部倒装) 
+
+10.状语位于句首表示强调或使句子平衡，或使上下文紧密衔接，句子要部分倒装。
+
+倒装句的用法具体小结（下面的小结与以上的大总结可能有些重复，可是下面都是一些做题常用知识点，希望大家能理解地记忆好，这样的话，对于大家以后解倒装句的题就能很容易。） 
+
+1 . 在以 here , there , in , out , up , down , away , back , now , then 等副词开头的句子里，如果主语是名词，常用全部倒装。  
+    Out rushed the boys . / Then followed three days of heavy rain .  
+    若代词作主语，只把该副词提前主谓语序不变。Here he comes . /  Here it is . 
+
+2 . 当句首状语是表示地点的介词词组时，也常常引起全部倒装。        
+    South of the city lies a big steel factory .  
+
+3 . 以带有否定意义而且修饰全句的词开头的句子，要用“部分倒装”语序 ( 倒装的方法跟变一般疑问句的方法相似 ) 。
+    这类常见词有 never , hardly seldom , not , not only , not until ( 引导从句时，主句“部分倒装” ), little , rarely , no sooner...than , hardly ... when , scarcely...when。
+    如: Never shall I do this again .     
+    其中 no sooner . . . than , hardly . . . when , scarcely . . . when 表示“一...就...”的意思。
+    no sooner , hardly , scarcely 引出的主句要用“部分倒装”形式的过去完成时, than , when 引出的从句用过去时。     
+    如：No sooner had I got home than it began to rain .     
+    如果带有否定意义的词不是修饰全句，只是修饰主语，那么句子的主谓不必倒装。
+    如：Scarcely a sound came from among the crowd .   
+    
+4 . so 修饰形容词或副词，only 修饰副词或状语放在句首时“部分倒装”。      
+    So badly was he injured in the accident that he was sent to the hospital for treatment . /Only in this way can you master English .       
+    如果 only 修饰主语，句子则不倒装。    
+    例如:Only Wang Lin knows this .  
+    
+5. neither , nor 或 no more 放在句首，作“也不”讲时，所引导的句子部分倒装。
+   He can’ t answer the question . Neither can I .   
+   
+6.为了保持句子平衡或为了强调表语或状语，或使上下文紧密衔接时，需倒装。     
+  Gone are the days when we used foreign oil .   
+  
+7.由 as , though ( although ) 引导的表示“虽然”，“尽管”的让步状语从句，用 倒装语序，即把从句中的表语或状语等放在 as 的前面。
+
+1.______can you expect to get a pay rise.（2001北京春季卷）  
+  A. With hard work   B．Although work hard  C．Only with hard work  D．Now that he works hard   
+  
+2.I failed in the final examination last term and only then______the importance of STUDIES.（2004重庆卷） 
+  A. I realized  B. I had realized   C. had I realized  D. did I realize  
+  
+3.I would never come to this restaurant again. The food is terrible.  ----______.  (2004全国卷) 
+  A. Nor am I        B. Neither would I     C. same with me    D. So do I 
+    
+4._____snacks and drinks, but they also brought cards for entertainment when they had a picnic in the forest.（2004上海卷）  
+  A. Not only they brought    B. Not only did they bring    C. Not only brought they    D. Not only they did bring  
+   
+5.____about wild plants that they decided to make a trip to Madagascar for further research.(2005江苏卷)  
+  A. So curious the couple was   B. So curious were the couple   C. How curious the couple were   D. The couple was such curious  
+ 
+6.—David has made great progress recently.  —_____,and _____.    (2005上海卷)  
+  A. So he has; so you have     B. So he has; so have you      C. So has he; so have you     D. So has he; so you have  
+  
+7.Maybe you have been to many COUNTRIES, but nowhere else ____such a beautiful palace.（2004年辽宁卷）   
+  A．can you find   B．you could find  C．you can find   D．could you  find  
+
+8.______, Carolina couldn't get the door OPEN. (05广东卷)    
+  A. Try as she might    B. As she might try      C. She might as try    D. Might she as try  
+  
+9.Never before _______  in greater need of modern public transport than it is today. （2005上海卷） 
+  A. has this city been     B. this city has been C. was this city D. this city was  
+  
+10._____, he talks a lot about his favorite singers after class. （05重庆卷） 
+  A. A quiet student as he may be   B. Quiet student as he may be  C. Be a quiet student as he may   D. Quiet as he may be a student  
+  
+11.In the dark forests ________, some large enough to hold several English towns.（2005辽宁卷） 
+  A．stand many lakes B．lie many lakes  C．many lakes lie  D．many  lakes stand  
+    
+    
+    
+构成
+
+主语和谓语是句子的核心，它们之间有两种语序
+一是主语在谓语之前称为自然语序（Natural ORDER）；
+二是主语在谓语之后则称为倒装语序（Inverted Order）。
+而倒装语序中又有完全倒装（Full Inversion）和部分倒装（Partial Inversion）
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    (key: CDBBB  BAAAB  B) 详细的答案讲解  1.only所修饰的状语(副词、介词短语或状语从句)位于句首时,谓语动词要部分倒装。（1、2题）  2.含有否定意义的副词(not until, never, hardly, seldom, little, not, neither, nor, scarcely等)位于句首时,谓语动词要部分倒装。（7、9） 3. Not only放在句首,从句不倒装,主句倒装。（4题）  4.so位于句首,表示前面的内容也适用于另一人或物时;neither, nor位于句首表示另一人或物也不这样时,谓语动词要用部分倒装。(3,6)  5. so... that...结构中表示程度的副词so位于句首时要用部分倒装。（5题） 6.为了保持句子结构平衡,或为了强调状语或表语,或使上下文紧密衔接时,谓语动词要全部倒装。（11题）  7.as引导让步状语从句时,从句中表语、谓语要倒装,注意:如果从句的表语是可数名词单数,且该名词前又没有形容词修饰时,其名词前不加冠词.（8、10题）
+    
