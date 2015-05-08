@@ -1,7 +1,7 @@
 #open ann existed file, and read its data line by line. 
 #!/usr/bin/perl
 
-open(ouput, "test.txt") or die "Can't open grades: $!\n";
+open(GRADES, "test.txt") or die "Can't open grades: $!\n";
 
 while (chomp($line = <GRADES>)) {
 #      @fields = split (/:/,$line);
