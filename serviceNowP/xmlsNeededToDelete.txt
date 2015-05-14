@@ -1,0 +1,9 @@
+vi $BDNA_HOME/logs/load_sequences.log
+
+/home/bdna/install770/logs/content.log
+
+com.bdna.modules.app.Actuate.eReportingServer
+modules/com/bdna/modules/app/Actuate/eReportingServer.xml
+
+com.bdna.modules.app.Apache.ApacheHTTPServer
+modules/com/bdna/modules/app/Apache/UNIX_ApacheHTTPServer.xml
