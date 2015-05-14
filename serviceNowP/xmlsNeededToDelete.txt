@@ -2,8 +2,19 @@ vi $BDNA_HOME/logs/load_sequences.log
 
 /home/bdna/install770/logs/content.log
 
+Total time: 2 minutes 4 seconds
 com.bdna.modules.app.Actuate.eReportingServer
 modules/com/bdna/modules/app/Actuate/eReportingServer.xml
 
+
+Total time: 2 minutes 2 seconds
 com.bdna.modules.app.Apache.ApacheHTTPServer
 modules/com/bdna/modules/app/Apache/UNIX_ApacheHTTPServer.xml
+
+com.bdna.modules.app.Apache.UNIX_ApacheHTTPServer
+modules/com/bdna/modules/app/Apache/UNIX_ApacheHTTPServer.xml
+
+com.bdna.modules.app.Citrix.CitrixLicensing
+com/bdna/app/application/CitrixApplications.xml
+modules/com/bdna/modules/app/Citrix/CitrixLicensing.xml
+modules/com/bdna/presentationModules/app/Citrix/CitrixLicensing.xml
