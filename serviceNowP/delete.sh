@@ -3,8 +3,8 @@
 foldersInModuleApp="Actuate Adobe Apache Citrix Veritas VMWare WyseTechnology"
 filesInModuleApp="EMCSymAPI.xml UNIXOracleIAS.xml TelelogicDoors.xml TelelogicTau.xml Telelogic.xml"
 filesInModuleAppIBM="Extend_UNIXWebSphereMQ_Server.xml Extend_WebSphereMQ_Server.xml Extend_WindowsWebSphereMQ_Server.xml Rational/ClearDDTS.xml Rational/PureCoverage.xml Rational/Purify.xml Rational/Quantify.xml Rational/Rose.xml"
-foldersInPreModApp="Adobe Apache Ariba BMC Citrix JBoss TrendMicro"
-filesInPreModApp="OracleIAS.xml Veritas_Install_History_UI.xml Veritas_License_UI.xml TrendMicro/OfficeScan_Client_UI.xml IBM/Extend_WebSphereMQ_Server.xml"
+foldersInPreModApp="Adobe Apache Ariba BMC Citrix JBoss TrendMicro VMWare"
+filesInPreModApp="OracleIAS.xml VMWare.xml Veritas_Install_History_UI.xml Veritas_License_UI.xml TrendMicro/OfficeScan_Client_UI.xml IBM/Extend_WebSphereMQ_Server.xml"
 
 currentDir=`pwd`
 
