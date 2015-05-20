@@ -191,6 +191,7 @@ IBM/Rational/UNIXBuildForgeManagementConsole.j4  com/bdna/modules/app/IBM/Ration
 IBM/Rational/UNIXTeamConcertServer.j4 com/bdna/modules/app/IBM/Rational/UNIXTeamConcertServer com.bdna.modules.app.IBM.Rational.UNIXTeamConcertServer
 IBM/Rational/UNIX_ClearQuestMultiSite.j4 com/bdna/modules/app/IBM/Rational/UNIX_ClearQuestMultiSite com.bdna.modules.app.IBM.Rational.UNIX_ClearQuestMultiSite
 IBM/Rational/UNIX_RequirementsComposer_Server.j4 com/bdna/modules/app/IBM/Rational/UNIX_RequirementsComposer_Server com.bdna.modules.app.IBM.Rational.UNIX_RequirementsComposer_Server
+IBM/Rational/WindowsClearQuest.j4 com/bdna/modules/app/IBM/Rational/WindowsClearQuest com.bdna.modules.app.IBM.Rational.WindowsClearQuest
 IBM/Tivoli/BusinessSystemsManager.j4 com/bdna/modules/app/IBM/Tivoli/BusinessSystemsManager com.bdna.modules.app.IBM.Tivoli.BusinessSystemsManager
 IBM/Tivoli/CompositeApplicationManager_for_ResponseTimeTracking.j4 com/bdna/modules/app/IBM/Tivoli/CompositeApplicationManager_for_ResponseTimeTracking com.bdna.modules.app.IBM.Tivoli.CompositeApplicationManager_for_ResponseTimeTracking
 IBM/Tivoli/CompositeApplicationManagerforInternetServiceMonitoring.j4 com/bdna/modules/app/IBM/Tivoli/CompositeApplicationManagerforInternetServiceMonitoring com.bdna.modules.app.IBM.Tivoli.CompositeApplicationManagerforInternetServiceMonitoring
@@ -355,12 +356,22 @@ InternetSecuritySystem/InternetSecuritySystem.j4 com/bdna/modules/app/InternetSe
 InternetSecuritySystem/UNIX_InternetScanner.j4 com/bdna/modules/app/InternetSecuritySystem/UNIX_InternetScanner com.bdna.modules.app.InternetSecuritySystem.UNIX_InternetScanner
 
 #
+# Informix
+#
+Informix/Informix.j4 com/bdna/modules/database/Informix com.bdna.modules.database.Informix
+
+#
 # iplanet
 #
 iplanet/IDAR.jm com/bdna/modules/app/iPlanet/IDAR com.bdna.modules.app.iPlanet.IDAR
 iplanet/iPlanet.jm com/bdna/modules/app/iPlanet com.bdna.modules.app.iPlanet
 iplanet/iplanet_ldap.jm com/bdna/modules/app/iPlanet/iplanet_ldap com.bdna.modules.app.iPlanet.iplanet_ldap
 iplanet/iplanet_web.jm com/bdna/modules/app/iPlanet/iplanet_web com.bdna.modules.app.iPlanet.iplanet_web
+
+#
+# Microsoft
+#
+Microsoft/Microsoft.j4 com/bdna/modules/app/Microsoft com.bdna.modules.app.Microsoft
 
 #
 # MySQL
@@ -377,6 +388,7 @@ Oracle/Access_Manager_on_UNIX.j4 com/bdna/modules/app/Oracle/Access_Manager_on_U
 Oracle/Agile/Agile.j4 com/bdna/modules/app/Oracle/Agile com.bdna.modules.app.Oracle.Agile
 Oracle/Application_Server_Web_Cache_on_UNIX.j4 com/bdna/modules/app/Oracle/Application_Server_Web_Cache_on_UNIX com.bdna.modules.app.Oracle.Application_Server_Web_Cache_on_UNIX
 Oracle/Business_Intelligence_Applications/Business_Intelligence_Applications.j4 com/bdna/modules/app/Oracle/Business_Intelligence_Applications com.bdna.modules.app.Oracle.Business_Intelligence_Applications
+Oracle/Business_Intelligence_Applications/BusinessIntelligenceApplications.j4 com/bdna/modules/app/Oracle/Business_Intelligence_Applications/BusinessIntelligenceApplications com.bdna.modules.app.Oracle.Business_Intelligence_Applications.BusinessIntelligenceApplications
 Oracle/Business_Intelligence_Applications/ContactCenterTelephonyAnalytics.j4 com/bdna/modules/app/Oracle/Business_Intelligence_Applications/ContactCenterTelephonyAnalytics com.bdna.modules.app.Oracle.Business_Intelligence_Applications.ContactCenterTelephonyAnalytics
 Oracle/Business_Intelligence_Applications/PharmaSalesAnalytics.j4 com/bdna/modules/app/Oracle/Business_Intelligence_Applications/PharmaSalesAnalytics com.bdna.modules.app.Oracle.Business_Intelligence_Applications.PharmaSalesAnalytics
 Oracle/Business_Intelligence_Applications/PharmaMarketingAnalytics.j4 com/bdna/modules/app/Oracle/Business_Intelligence_Applications/PharmaMarketingAnalytics com.bdna.modules.app.Oracle.Business_Intelligence_Applications.PharmaMarketingAnalytics
@@ -490,6 +502,7 @@ Oracle/WindowsOracleAuditVaultServer.j4 com/bdna/modules/app/Oracle/WindowsOracl
 Oracle/WindowsOracleBIWarehouseBuilder.j4 com/bdna/modules/app/Oracle/WindowsOracleBIWarehouseBuilder com.bdna.modules.app.Oracle.WindowsOracleBIWarehouseBuilder
 Oracle/WindowsOracleBPELProcessManagerServer.j4 com/bdna/modules/app/Oracle/WindowsOracleBPELProcessManagerServer com.bdna.modules.app.Oracle.WindowsOracleBPELProcessManagerServer
 Oracle/WindowsOracleBusinessIntelligenceBeans.j4 com/bdna/modules/app/Oracle/WindowsOracleBusinessIntelligenceBeans com.bdna.modules.app.Oracle.WindowsOracleBusinessIntelligenceBeans
+Oracle/WindowsOracleBusinessIntelligenceSuite.j4 com/bdna/modules/app/Oracle/WindowsOracleBusinessIntelligenceSuite com.bdna.modules.app.Oracle.WindowsOracleBusinessIntelligenceSuite
 Oracle/WindowsOracleBusinessIntelligenceDiscovererAdministrator.j4 com/bdna/modules/app/Oracle/WindowsOracleBusinessIntelligenceDiscovererAdministrator com.bdna.modules.app.Oracle.WindowsOracleBusinessIntelligenceDiscovererAdministrator
 Oracle/WindowsOracleBusinessIntelligenceDiscovererDesktop.j4 com/bdna/modules/app/Oracle/WindowsOracleBusinessIntelligenceDiscovererDesktop com.bdna.modules.app.Oracle.WindowsOracleBusinessIntelligenceDiscovererDesktop
 Oracle/WindowsOracleBusinessIntelligenceDiscovererEULCommandLineforJava.j4 com/bdna/modules/app/Oracle/WindowsOracleBusinessIntelligenceDiscovererEULCommandLineforJava com.bdna.modules.app.Oracle.WindowsOracleBusinessIntelligenceDiscovererEULCommandLineforJava
