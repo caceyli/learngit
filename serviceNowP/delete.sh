@@ -31,7 +31,6 @@ rm -rf $i;
 echo "$i deleted."
 done
 
-cd $currentDir/modules/com/bdna/presentationModules/app
 for i in $filesInPreModApp;do
 rm -rf $i;
 echo "$i deleted."
