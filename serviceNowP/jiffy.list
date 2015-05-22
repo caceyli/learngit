@@ -617,6 +617,11 @@ Sybase/iAnywhere/UNIX_SQL_Anywhere.j4 com/bdna/modules/app/Sybase/iAnywhere/UNIX
 Sybase/iAnywhere/iAnywhere.j4 com/bdna/modules/app/Sybase/iAnywhere com.bdna.modules.app.Sybase.iAnywhere
 
 #
+# Telelogic
+#
+Telelogic/Telelogic.j4 com/bdna/modules/app/Telelogic com.bdna.modules.app.Telelogic
+
+#
 # Vantive
 #
 Vantive/UNIXVantive.jm com/bdna/modules/app/UNIXVantive com.bdna.modules.app.UNIXVantive
