@@ -103,4 +103,40 @@ main()
 
     
 
-	
+/*list sorted by inserting smaller number*/	
+#include<stdio.h>
+
+void dirInsert(int a[],int n)
+{
+        int i,j;
+        for (i=2;i<=n;i++)
+        {
+                a[0]=a[i];
+                j=i-1;
+                while(a[j]>a[0])
+                {
+                        a[j+1]=a[j];
+                        j--;
+                }
+                a[j+1]=a[0];
+
+
+        }
+}
+
+main()
+{
+    int a[10],n=10,i;
+    printf("please input %d numbers:\n",n);
+    for(i=1;i<=10;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    dirInsert(a,10);
+    for(i=1;i<=10;i++)
+    {
+        printf("%d ",a[i]);
+    }
+}
+
+
