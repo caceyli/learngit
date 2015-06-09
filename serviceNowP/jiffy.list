@@ -444,6 +444,7 @@ Oracle/Secure_Backup_Server_on_UNIX.j4 com/bdna/modules/app/Oracle/Secure_Backup
 Oracle/Siebel/DataQuality.j4 com/bdna/modules/app/Oracle/Siebel/DataQuality com.bdna.modules.app.Oracle.Siebel.DataQuality
 Oracle/Siebel/SiebelApp.j4 com/bdna/modules/app/Oracle/SiebelApp com.bdna.modules.app.Oracle.SiebelApp
 Oracle/Siebel/UNIXSiebelEnterpriseServer.j4 com/bdna/modules/app/Oracle/Siebel/UNIXSiebelEnterpriseServer com.bdna.modules.app.Oracle.Siebel.UNIXSiebelEnterpriseServer
+Oracle/Siebel/UNIXSiebelGatewayServer.j4 com/bdna/modules/app/Oracle/Siebel/UNIXSiebelGatewayServer com.bdna.modules.app.Oracle.Siebel.UNIXSiebelGatewayServer
 Oracle/Siebel/UNIXSiebelWebServerExtensions.j4 com/bdna/modules/app/Oracle/Siebel/UNIXSiebelWebServerExtensions com.bdna.modules.app.Oracle.Siebel.UNIXSiebelWebServerExtensions
 Oracle/Siebel/eaAssist_on_UNIX.j4 com/bdna/modules/app/Oracle/Siebel/eaAssist_on_UNIX com.bdna.modules.app.Oracle.Siebel.eaAssist_on_UNIX
 Oracle/UNIXOracleAdapterforCICS.j4 com/bdna/modules/app/Oracle/UNIXOracleAdapterforCICS com.bdna.modules.app.Oracle.UNIXOracleAdapterforCICS
