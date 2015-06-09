@@ -435,7 +435,7 @@ Oracle/Oracle_Web_Services_Manager.j4 com/bdna/modules/app/Oracle/Oracle_Web_Ser
 Oracle/Retail/Central_Office_on_UNIX.j4 com/bdna/modules/app/Oracle/Retail/Central_Office_on_UNIX com.bdna.modules.app.Oracle.Retail.Central_Office_on_UNIX
 Oracle/Retail/Item_Planning_on_UNIX.j4 com/bdna/modules/app/Oracle/Retail/Item_Planning_on_UNIX com.bdna.modules.app.Oracle.Retail.Item_Planning_on_UNIX
 Oracle/Retail/Mobile_Point_of_Service_on_UNIX.j4 com/bdna/modules/app/Oracle/Retail/Mobile_Point_of_Service_on_UNIX com.bdna.modules.app.Oracle.Retail.Mobile_Point_of_Service_on_UNIX
-Oracle/Retail/Point_of_Service_Client_on_UNIX.j4 com/bdna/modules/app/Oracle/Retail/Point_of_Service_Client_on_UNIX com.bdna.modules.app.Oracle.Retail.Point_of_Service_Client_on_UNIX
+Oracle/Retail/Point_of_Service_Server_on_UNIX.j4 com/bdna/modules/app/Oracle/Retail/Point_of_Service_Server_on_UNIX com.bdna.modules.app.Oracle.Retail.Point_of_Service_Server_on_UNIX
 Oracle/Retail/Predictive_Application_Server_Server_on_UNIX.j4 com/bdna/modules/app/Oracle/Retail/Predictive_Application_Server_Server_on_UNIX com.bdna.modules.app.Oracle.Retail.Predictive_Application_Server_Server_on_UNIX
 Oracle/Retail/Retail.j4 com/bdna/modules/app/Oracle/Retail com.bdna.modules.app.Oracle.Retail
 Oracle/Retail/Retail_Back_Office_on_UNIX.j4 com/bdna/modules/app/Oracle/Retail/Retail_Back_Office_on_UNIX com.bdna.modules.app.Oracle.Retail.Retail_Back_Office_on_UNIX
