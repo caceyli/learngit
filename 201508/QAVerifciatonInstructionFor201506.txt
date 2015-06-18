@@ -1,0 +1,107 @@
+
+ENH10971:[Visa][Sequence-Fingerprint]-  request new fingerprint Chef-agent and chef Server
+
+ENH10976:[Visa][Fingerprint] Add Fingerprint for "Oracle NoSQL Database" product
+
+RFI00768:[tms]Level-1 Untyping
+
+
+
+BUG02559 -- (miya)
+QA Verification: 
+ 
+---------------------
+Note:
+In this release, developer mainly enhance the sequence code according to the changes in LMS_3PTV_change_log_15.1:
+1. update:        Collect three new initialization parameters. The PL/SQL block was rewritten.
+2. new query:     Checking for tables configured to use In-Memory Column Store
+3. new query:     Checking GV$IM_SEGMENTS entries
+4. removed query: Replaced by DVSYS.DBA_DV_REALM query
+5. new query:     New query replacing DBA_DV_REALM, which provided only the count of DV Realms.
+ 
+QA need to validate the above enhancement.
+ 
+----------------------
+Environment:
+(This is the environment we prepared as oracle's requirement in our GuangZhou Office. Three of the following environment is on physical machine. All the result we provided for oracle to validate is based on this environment. So we think it would be more appropriate if QA can also use the following environment to do verification.)
+ 
+Test Case #1 Features(UNIN oracle 11.2)
+IP: 192.168.8.184 (Linux)
+Host Credential: oradv/oradv
+Database Credential: dv184/Simple.0
+ 
+Test Case #2 Features(UNIN oracle 11.2)
+IP: 192.168.8.195 (SOLARIS)
+Host Credential: oracle/bdna202
+Database Credential: system/bdna
+ 
+Test Case #4 Features(UNIX oracle 12c)
+IP: 192.168.8.182 (Linux)
+Host Credential: oratest/oratest
+Database Credential: system/bdnacn
+ 
+Test Case #5 Features: (windows oracle 12c)
+IP: 192.168.8.113 (Windows)
+Host Credential: .\administrator/bdna@20
+Database Credential: system/bdna@pdborcl
+ 
+----------------------
+Verification instruction:
+ 
+1. Install 2015-06 Enterprise Sequence.
+2. Install Oracle LMS license with the command:
+sh $BDNA_HOME/conf/bcp_store/EnterpriseSequence/bin/install_oracle_lms_license.sh ¨Ck db252388113cb95e9741cb55ca57c0193c9d080f0e7b0ccef964226706c05d89f1162d136cab4298
+3. new a scan against the following ips at level 2 & level 3 for Oracle Database:
+ 
+192.168.8.184 (Linux)
+192.168.8.195 (Solaris)
+192.168.8.182 (Linux)
+192.168.8.113 (Windows)
+ 
+(The related credentials are provided in the above 'Environment'.)
+4. refresh the report.
+5. review the LMS_OPTIONS report on UI: Analytics--Oracle Licensing--LMS_OPTIONS.
+6. Validate whether the report contains the changes in LMS_3PTV_change_log_15.1, as can be saw from the screenshot 'lmsOptionsIn15dot1.png'.
+
+
+
+BUG02657/BUG02648 -- (gary)
+QA Verification:
+ 
+----------------------
+Note:
+About this bug, according to developer's research and conclusion, there are 2 kind of "Process Creation Failed" for WinSIMCardFilePropFootprintStatic, one is caused by original sequence code, the other is related with environment.
+The former has been fixed by developer through code enhancement in this release. The latter can't be fixed through code and just can be temporarily avoided by manually changing the environment, which should be a kind of limitation. I have added it to release note for this release.
+Therefore, the code enhancement for this bug just can reduce a certain number of "Process Creation Failed", can't fix all "Process Creation Failed" completely.
+ 
+QA needs to verify the code enhancement.
+ 
+This enhancement requires administrator privilege.
+ 
+In order to make the verification process smoothly, it is advised to do the following step on your bdna server's wincs machine before test:
+Restart the wincs machine and restart the wincs service, making sure it's in stable performance.
+ 
+----------------------
+Verification instruction:
+
+1. do the following 2 test cases:
+ 
+Test case 1: (on one bdna server)
+a. Install old Enterprise sequences (eg: 2015-04 sequence)
+b. new a Windows L2 scan task against a large range ips in US network. (Please use administrator users to do scan)
+ 
+Test case 2: (on the other bdna server)
+a. Install 2015-06 Enterprise sequences.
+b. new a Windows L2 scan task against a large range ips in US network. (Please use administrator users to do scan)
+ 
+(Note: The ip range and credentials used in the above 2 test cases should be the same ones, )
+ 
+2. Compare the result of Test case 1 and Test case 2.
+ 
+----------------------
+Here attached screenshots for my tests' result in the local environment for example: smokeTestFor201504.png, smokeTestFor201506.png, smokeTest201506VS201504.png.
+(From the screenshots, we can see that the number of "Process Creation Failed" for WinSIMCardFilePropFootprintStatic was reduced from 50 to 23)
+ 
+(PS: QA can pay more attention to the multiple "Process Creation Failed" for same ip which occurred in smoke test with old code will obviously be reduced in test with 2015-06 code as the screenshot smokeTest201506VS201504.png showed.)
+
+

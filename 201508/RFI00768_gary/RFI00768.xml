@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+**********************************************************************
+*
+* Copyright (c) 2001-2004 BDNA Corporation.
+* All Rights Reserved
+*
+* ******bDNA CONFIDENTIAL******
+*
+* The following code was developed and is owned by bDNA Corporation.
+* This code is confidential and may contain trade secrets.  The code
+* must not be distributed to any party outside of bDNA Corporation
+* without written permission from bDNA Corporation.  The code may be
+* covered by patents, patents pending, or patents applied for in the
+* US or elsewhere.
+*
+*
+**********************************************************************
+-->
+
+<!DOCTYPE bdna SYSTEM "bdna.dtd">
+
+<module 
+    name="com.bdna.modules.common.RFI00768"
+    displayLabel="Module to some system"
+    requiredPlatformVersion="030300"     
+    version="1" 
+    lastCompatibleVersion="1">
+
+    <moduleDependency parentModuleName="com.bdna.modules.common.Discovery" parentModuleVersion="1" />
+
+    <!--  a default network/zone/iprange configuration -->
+
+    <!-- bDNA network discovery config -->
+    <element
+        elementName="network_System"
+        elementTypePath="root.types.resource.network"
+        parentPath="root.$bdna.NS_GLOBAL"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.CLE1" childPath="root.$bdna.NS_GLOBAL.network_System" />
+    <!-- For network calculated attributes -->
+    <container parentPath="root.$bdna.bdnaCLE" childPath="root.$bdna.NS_GLOBAL.network_System" />
+    <data elementPath="root.$bdna.NS_GLOBAL.network_System" attributeName="name">Network System</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.network_System" attributeName="IPRangeSize">256</data>
+
+    <element
+        elementName="zone_bDNA_dummy"
+        elementTypePath="root.types.collectionZone"
+        parentPath="root.$bdna.NS_GLOBAL.network_System"
+        isTemplate="false">
+    </element>
+    <data elementPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy" attributeName="hostIPAddress">192.168.4.111</data>
+    <element
+        elementName="range_dummy"
+        elementTypePath="root.types.IPRange"
+        parentPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy"
+        isTemplate="false">
+    </element>
+    <data elementPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy.range_dummy" attributeName="scannableIPs">192.168.4.111-124</data>
+
+    <!-- Dummy IP Address -->
+    <element
+        elementName="internetAddress_192_168_4_112"
+        elementTypePath="root.types.internetAddress"
+        parentPath="root.$bdna.NS_GLOBAL"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112" />
+    <container parentPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy.range_dummy" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112" />
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112" attributeName="hostName">192.168.4.112</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112" attributeName="domainName">bdnacorp.com</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112" attributeName="address">192.168.4.112</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112" attributeName="name"><![CDATA[IP Address 192.168.4.112]]></data>
+
+    <!-- Dummy interesting ports -->
+    <element
+        elementName="port_80_tcp"
+        elementTypePath="root.types.resource.port.interestingPort"
+        parentPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112.port_80_tcp" />
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112.port_80_tcp" attributeName="name">Port 80 (tcp, http) on 192.168.4.112</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112.port_80_tcp" attributeName="portNumber">80</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112.port_80_tcp" attributeName="service">http</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112.port_80_tcp" attributeName="protocol">tcp</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112.port_80_tcp" attributeName="traceScript">http</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_112.port_80_tcp" attributeName="trace">Test Page for the Apache HTTP Server on SLES Expanded Support Platform</data>
+
+    <!-- Dummy IP Address -->
+    <element
+        elementName="internetAddress_192_168_4_113"
+        elementTypePath="root.types.internetAddress"
+        parentPath="root.$bdna.NS_GLOBAL"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113" />
+    <container parentPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy.range_dummy" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113" />
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113" attributeName="hostName">192.168.4.113</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113" attributeName="domainName">bdnacorp.com</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113" attributeName="address">192.168.4.113</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113" attributeName="name"><![CDATA[IP Address 192.168.4.113]]></data>
+
+    <!-- Dummy interesting ports -->
+    <element
+        elementName="port_80_tcp"
+        elementTypePath="root.types.resource.port.interestingPort"
+        parentPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113.port_80_tcp" />
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113.port_80_tcp" attributeName="name">Port 80 (tcp, http) on 192.168.4.113</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113.port_80_tcp" attributeName="portNumber">80</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113.port_80_tcp" attributeName="service">http</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113.port_80_tcp" attributeName="protocol">tcp</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113.port_80_tcp" attributeName="traceScript">http</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_113.port_80_tcp" attributeName="trace">Test Page for the Apache HTTP Server on SLES Expanded Support Platform</data>
+
+    <!-- Dummy IP Address -->
+    <element
+        elementName="internetAddress_192_168_4_114"
+        elementTypePath="root.types.internetAddress"
+        parentPath="root.$bdna.NS_GLOBAL"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114" />
+    <container parentPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy.range_dummy" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114" />
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114" attributeName="hostName">192.168.4.114</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114" attributeName="domainName">bdnacorp.com</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114" attributeName="address">192.168.4.114</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114" attributeName="name"><![CDATA[IP Address 192.168.4.114]]></data>
+
+    <!-- Dummy interesting ports -->
+    <element
+        elementName="port_80_tcp"
+        elementTypePath="root.types.resource.port.interestingPort"
+        parentPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114.port_80_tcp" />
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114.port_80_tcp" attributeName="name">Port 80 (tcp, http) on 192.168.4.114</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114.port_80_tcp" attributeName="portNumber">80</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114.port_80_tcp" attributeName="service">http</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114.port_80_tcp" attributeName="protocol">tcp</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114.port_80_tcp" attributeName="traceScript">http</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_114.port_80_tcp" attributeName="trace">Test Page for the Apache HTTP Server on Red Hat Enterprise Linux</data>
+
+    <!-- Dummy IP Address -->
+    <element
+        elementName="internetAddress_192_168_4_115"
+        elementTypePath="root.types.internetAddress"
+        parentPath="root.$bdna.NS_GLOBAL"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115" />
+    <container parentPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy.range_dummy" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115" />
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115" attributeName="hostName">192.168.4.115</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115" attributeName="domainName">bdnacorp.com</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115" attributeName="address">192.168.4.115</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115" attributeName="name"><![CDATA[IP Address 192.168.4.115]]></data>
+
+    <!-- Dummy interesting ports -->
+    <element
+        elementName="port_80_tcp"
+        elementTypePath="root.types.resource.port.interestingPort"
+        parentPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115.port_80_tcp" />
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115.port_80_tcp" attributeName="name">Port 80 (tcp, http) on 192.168.4.115</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115.port_80_tcp" attributeName="portNumber">80</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115.port_80_tcp" attributeName="service">http</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115.port_80_tcp" attributeName="protocol">tcp</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115.port_80_tcp" attributeName="traceScript">http</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_115.port_80_tcp" attributeName="trace">Test Page for the Apache HTTP Server on Red Hat Enterprise Linux</data>
+
+    <!-- Dummy IP Address -->
+    <element
+        elementName="internetAddress_192_168_4_116"
+        elementTypePath="root.types.internetAddress"
+        parentPath="root.$bdna.NS_GLOBAL"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116" />
+    <container parentPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy.range_dummy" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116" />
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116" attributeName="hostName">192.168.4.116</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116" attributeName="domainName">bdnacorp.com</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116" attributeName="address">192.168.4.116</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116" attributeName="name"><![CDATA[IP Address 192.168.4.116]]></data>
+
+    <!-- Dummy interesting ports -->
+    <element
+        elementName="port_80_tcp"
+        elementTypePath="root.types.resource.port.interestingPort"
+        parentPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116.port_80_tcp" />
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116.port_80_tcp" attributeName="name">Port 80 (tcp, http) on 192.168.4.116</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116.port_80_tcp" attributeName="portNumber">80</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116.port_80_tcp" attributeName="service">http</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116.port_80_tcp" attributeName="protocol">tcp</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116.port_80_tcp" attributeName="traceScript">http</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_116.port_80_tcp" attributeName="trace">Server: Apache/2.2.12 (Linux/SUSE)</data>
+
+    <!-- Dummy IP Address -->
+    <element
+        elementName="internetAddress_192_168_4_117"
+        elementTypePath="root.types.internetAddress"
+        parentPath="root.$bdna.NS_GLOBAL"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117" />
+    <container parentPath="root.$bdna.NS_GLOBAL.network_System.zone_bDNA_dummy.range_dummy" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117" />
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117" attributeName="hostName">192.168.4.117</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117" attributeName="domainName">bdnacorp.com</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117" attributeName="address">192.168.4.117</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117" attributeName="name"><![CDATA[IP Address 192.168.4.117]]></data>
+
+    <!-- Dummy interesting ports -->
+    <element
+        elementName="port_80_tcp"
+        elementTypePath="root.types.resource.port.interestingPort"
+        parentPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117.port_80_tcp" />
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117.port_80_tcp" attributeName="name">Port 80 (tcp, http) on 192.168.4.117</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117.port_80_tcp" attributeName="portNumber">80</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117.port_80_tcp" attributeName="service">http</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117.port_80_tcp" attributeName="protocol">tcp</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117.port_80_tcp" attributeName="traceScript">http</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_117.port_80_tcp" attributeName="trace">Server: Apache/2.2.3 (Linux/SUSE)</data>
+
+</module>
