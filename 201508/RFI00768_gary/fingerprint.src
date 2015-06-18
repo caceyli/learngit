@@ -4694,6 +4694,9 @@ PORT $$$ root.types.resource.software.operatingSystem.mainframe.OS_390 $$$ IBM F
 PORT $$$ root.types.resource.software.operatingSystem.UNIX.AIX $$$ ^220 .* ESMTP Sendmail AIX[45][.][0-9] $$$ smtp $$$ 77
 PORT $$$ root.types.resource.software.operatingSystem.UNIX.AIX $$$ Server:.*\(AIX $$$ http $$$ PORT_CONFIDENCE
 PORT $$$ root.types.resource.software.operatingSystem.UNIX.Linux $$$ Server:.* Apache\/[0-9.]+ \(Red Hat $$$ http $$$ PORT_CONFIDENCE
+PORT $$$ root.types.resource.software.operatingSystem.UNIX.Linux $$$ Server:.* Apache\/[0-9.]+ \(Linux $$$ http $$$ PORT_CONFIDENCE
+PORT $$$ root.types.resource.software.operatingSystem.UNIX.Linux $$$ Server on SLES $$$ http $$$ PORT_CONFIDENCE
+PORT $$$ root.types.resource.software.operatingSystem.UNIX.Linux $$$ Server on Red Hat $$$ http $$$ PORT_CONFIDENCE
 PORT $$$ root.types.resource.software.operatingSystem.UNIX.Solaris $$$ ^220 .* ESMTP Sendmail \S+[+]Sun\/ $$$ smtp $$$ 77
 PORT $$$ root.types.resource.software.operatingSystem.UNIX.Solaris $$$ ^220 .* FTP server \(SunOS (5\.\S+)\) ready\. $$$ ftp $$$ PORT_CONFIDENCE $$$ version
 PORT $$$ root.types.resource.software.operatingSystem.UNIX.Tru64 $$$ ^220 .* FTP server \(Digital UNIX Version ([1-9]+.[0-9]+)\) ready\. $$$ ftp $$$ PORT_CONFIDENCE $$$ version
