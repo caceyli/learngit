@@ -40,7 +40,7 @@ Start to load Discovered Data in Staging CDB:
 
 2. load data.
    a. cd to /home/prod/backup/loadDiscoverData
-   b. execute command: sh Smoke_test_data.sh -m "vivi_liu@bdna.com,MiyaChen@bdna.com,GaryZhou@bdna.com,caceyli@bdna.com"
+   b. execute command: sh Smoke_test_data.sh -m "LijunHuang@bdna.com,MiyaChen@bdna.com,GaryZhou@bdna.com,caceyli@bdna.com"
    c. after finished, check logs:
       /home/prod/backup/smoketest/20150331/Report_Type_Statistics_After_Upload.txt
       /home/prod/backup/smoketest/20150331/Report_New_Discovered_Data_Count.txt
