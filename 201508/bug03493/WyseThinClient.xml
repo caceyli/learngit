@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+**********************************************************************
+*
+* Copyright (c) 2007-2008 BDNA Corporation.
+* All Rights Reserved. BDNA products and services are protected
+* by the following U.S. patent: #6,988,134. BDNA is trademark of
+* BDNA Corporation.
+*
+* ******BDNA CONFIDENTIAL******
+*
+* The following code was developed and is owned by BDNA Corporation.
+* This code is confidential and may contain trade secrets.  The code
+* must not be distributed to any party outside of BDNA Corporation
+* without written permission from BDNA Corporation.  The code may be
+* covered by patents, patents pending, or patents applied for in the
+* US or elsewhere.
+*
+**********************************************************************
+-->
+<!DOCTYPE bdna SYSTEM "bdna.dtd">
+
+<!-- ............................................................... -->
+<!-- .......            Wyse TC fingerprints             ........... -->
+<!-- ............................................................... -->
+<module
+    name="com.bdna.modules.os.WyseThinClient"
+    displayLabel="Wyse Thin Client"
+    requiredPlatformVersion="030300"
+    version="1"
+    lastCompatibleVersion="1">
+
+    <moduleDependency
+        parentModuleName="com.bdna.modules.os.Embedded" parentModuleVersion="1" />
+    <moduleDependency
+        parentModuleName="com.bdna.modules.os.Linux" parentModuleVersion="1" />
+    <moduleDependency
+        parentModuleName="com.bdna.modules.os.WindowsCE" parentModuleVersion="1" />
+
+    <!-- IP based OS fingerprint -->
+    <target type="root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient" />
+    <target type="root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCEThinClient" />
+
+    <!-- ............................................................... -->
+    <!-- .......        Wyse TC type declarations            ........... -->
+    <!-- ............................................................... -->
+
+    <element
+        elementName="WyseLinuxThinClient"
+        elementTypePath="root.types.resource.software.operatingSystem.embedded.terminal"
+        icon="ico_terminal.xsl"
+        displayLabel="Wyse Linux Thin Client"
+        isTemplate="true">
+
+        <attribute attributeName="currentFirmwareVersion" dataType="string" displayLabel="Current Firmware Version" />
+        <attribute attributeName="currentBuildNumber" dataType="string" displayLabel="Current Build Number" />
+        <attribute attributeName="customField1" dataType="string" displayLabel="Custom Field 1" />
+        <attribute attributeName="customField2" dataType="string" displayLabel="Custom Field 2" />
+        <attribute attributeName="customField3" dataType="string" displayLabel="Custom Field 3" />
+        <attribute attributeName="wyseNics" dataType="udt" displayLabel="NICs"><![CDATA[WyseLinuxNics]]></attribute>
+
+        <attributeSet attributeSetName="WyseLinuxTCStaticCred"
+            collectorName="WyseLinuxTCStaticCredCollector"
+            collectionInterval="-1"
+            displayLabel="Wyse Linux Thin Client Static (SNMP credentials needed)">
+            <attributeSetEntry attributeName="serialNumber" />
+            <attributeSetEntry attributeName="totalMemory" />
+            <attributeSetEntry attributeName="hardware" />
+            <attributeSetEntry attributeName="kernelVersion" />
+            <attributeSetEntry attributeName="currentFirmwareVersion" />
+            <attributeSetEntry attributeName="currentBuildNumber" />
+            <attributeSetEntry attributeName="customField1" />
+            <attributeSetEntry attributeName="customField2" />
+            <attributeSetEntry attributeName="customField3" />
+            <attributeSetEntry attributeName="wyseNics" />
+            <attributeSetEntry attributeName="level2AccessOK" />
+        </attributeSet>
+        <attributeSet attributeSetName="WyseLinuxTCStaticNoCred"
+            collectorName="WyseLinuxTCStaticNoCredCollector"
+            collectionInterval="-1"
+            displayLabel="Wyse Linux Thin Client Static (no SNMP credentials needed)">
+            <attributeSetEntry attributeName="serialNumber" />
+            <attributeSetEntry attributeName="totalMemory" />
+            <attributeSetEntry attributeName="hardware" />
+            <attributeSetEntry attributeName="kernelVersion" />
+            <attributeSetEntry attributeName="currentFirmwareVersion" />
+            <attributeSetEntry attributeName="currentBuildNumber" />
+            <attributeSetEntry attributeName="customField1" />
+            <attributeSetEntry attributeName="customField2" />
+            <attributeSetEntry attributeName="customField3" />
+            <attributeSetEntry attributeName="wyseNics" />
+            <attributeSetEntry attributeName="level2AccessOK" />
+        </attributeSet>
+    </element>
+
+    <element
+        elementName="WyseWindowsCETCThinClient"
+        elementTypePath="root.types.resource.software.operatingSystem.embedded.terminal"
+        icon="ico_terminal.xsl"
+        displayLabel="Wyse Windows CE Thin Client"
+        isTemplate="true">
+
+        <attribute attributeName="currentFirmwareVersion" dataType="string" displayLabel="Current Firmware Version" />
+        <attribute attributeName="currentBuildNumber" dataType="string" displayLabel="Current Build Number" />
+        <attribute attributeName="customField1" dataType="string" displayLabel="Custom Field 1" />
+        <attribute attributeName="customField2" dataType="string" displayLabel="Custom Field 2" />
+        <attribute attributeName="customField3" dataType="string" displayLabel="Custom Field 3" />
+        <attribute attributeName="wyseNics" dataType="udt" displayLabel="NICs"><![CDATA[WyseWindowsCENics]]></attribute>
+
+        <attributeSet attributeSetName="WyseWindowsCETCStaticCred"
+            collectorName="WyseWindowsCETCStaticCredCollector"
+            collectionInterval="-1"
+            displayLabel="Wyse Windows CE Thin Client Static (SNMP credentials needed)">
+            <attributeSetEntry attributeName="serialNumber" />
+            <attributeSetEntry attributeName="totalMemory" />
+            <attributeSetEntry attributeName="hardware" />
+            <attributeSetEntry attributeName="kernelVersion" />
+            <attributeSetEntry attributeName="currentFirmwareVersion" />
+            <attributeSetEntry attributeName="currentBuildNumber" />
+            <attributeSetEntry attributeName="customField1" />
+            <attributeSetEntry attributeName="customField2" />
+            <attributeSetEntry attributeName="customField3" />
+            <attributeSetEntry attributeName="wyseNics" />
+            <attributeSetEntry attributeName="level2AccessOK" />
+        </attributeSet>
+        <attributeSet attributeSetName="WyseWindowsCETCStaticNoCred"
+            collectorName="WyseWindowsCETCStaticNoCredCollector"
+            collectionInterval="-1"
+            displayLabel="Wyse Windows CE Thin Client Static (no SNMP credentials needed)">
+            <attributeSetEntry attributeName="serialNumber" />
+            <attributeSetEntry attributeName="totalMemory" />
+            <attributeSetEntry attributeName="hardware" />
+            <attributeSetEntry attributeName="kernelVersion" />
+            <attributeSetEntry attributeName="currentFirmwareVersion" />
+            <attributeSetEntry attributeName="currentBuildNumber" />
+            <attributeSetEntry attributeName="customField1" />
+            <attributeSetEntry attributeName="customField2" />
+            <attributeSetEntry attributeName="customField3" />
+            <attributeSetEntry attributeName="wyseNics" />
+            <attributeSetEntry attributeName="level2AccessOK" />
+        </attributeSet>
+    </element>
+
+    <element
+        elementName="WyseTerminal"
+        elementTypePath="root.types.resource.software.operatingSystem.embedded.terminal"
+        icon="ico_terminal.xsl"
+        displayLabel="Wyse Terminal"
+        isTemplate="true">
+    </element>
+
+    <!-- ............................................................... -->
+    <!-- .......        Wyse TC typing rules                 ........... -->
+    <!-- ............................................................... -->
+
+    <rule
+        name="FindLinuxTCFromMACAddress"
+        weight="81">
+        <search variable="ip" pattern="root.types.internetAddress">
+            <use attribute="MACAddress" />
+            <simpleFilterConst attribute="MACAddress" operator="matches"
+                constant="^00:80:64:" />
+        </search>
+        <search variable="host" pattern="root.types.resource.host">
+            <use attribute="name" />
+            <use attribute="hostName" />
+        </search>
+        <search variable="linux" pattern="root.types.resource.software.operatingSystem.UNIX.Linux" sticky="true">
+            <use attribute="idString" sticky="false" />
+        </search>
+        <simpleJoinFilter lhsVariable="ip" operator="parentOf" rhsVariable="host" />
+        <simpleJoinFilter lhsVariable="host" operator="parentOf" rhsVariable="linux" />
+
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient" attribute="name" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient" attribute="hostName" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient" attribute="identificationMethod" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient" attribute="identificationConfidence" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient" attribute="originalConfidence" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient" attribute="deviceType" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient" attribute="idString" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient" attribute="level1AccessOK" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient" attribute="manufacturer" />
+        <output parentType="host" childType="root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient" />
+
+        <conclusion type="java" argumentList="com.bdna.modules.os WyseThinClient FindLinuxTCFromMACAddress">
+        <![CDATA[
+            String parent = (String) args.get("host.elementFullName");
+            String name = (String) args.get("host.name");
+            String hostName = (String) args.get("host.hostName");
+            String idString = (String) args.get("linux.idString");
+
+            String macAddress = (String) args.get("ip.MACAddress");
+            idString = macAddress + " " + idString;
+
+            String type = "root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient";
+            String eltName = "WyseLinuxThinClient";
+            String deviceType = "device.system";
+            String eltFullName = parent + "." + eltName;
+            
+            String result = "<result>";
+            result = result +
+                elementXML(eltName, type, parent) +
+                dataXML(eltFullName, "name", name) +
+                dataXML(eltFullName, "hostName", hostName) +
+                dataXML(eltFullName, "identificationMethod", "MAC Address") +
+                dataXML(eltFullName, "identificationConfidence", "81") +
+                dataXML(eltFullName, "originalConfidence", "81") +
+                dataXML(eltFullName, "deviceType", deviceType) +
+                dataXML(eltFullName, "idString", shorten(idString, NameConstants.MAX_OS_TYPE_LENGTH)) +
+                dataXML(eltFullName, "manufacturer", "Wyse Technology") +
+                dataXML(eltFullName, "level1AccessOK", "1"); 
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+
+    <rule
+        name="FindWindowsCETCFromMACAddress"
+        weight="81">
+        <search variable="ip" pattern="root.types.internetAddress">
+            <use attribute="MACAddress" />
+            <simpleFilterConst attribute="MACAddress" operator="matches"
+                constant="^00:80:64:" />
+        </search>
+        <search variable="host" pattern="root.types.resource.host">
+            <use attribute="name" />
+            <use attribute="hostName" />
+        </search>
+        <search variable="wince" pattern="root.types.resource.software.operatingSystem.embedded.WindowsCE" sticky="true">
+            <use attribute="idString" sticky="false" />
+        </search>
+        <simpleJoinFilter lhsVariable="ip" operator="parentOf" rhsVariable="host" />
+        <simpleJoinFilter lhsVariable="host" operator="parentOf" rhsVariable="wince" />
+
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCEThinClient" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCEThinClient" attribute="name" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCEThinClient" attribute="hostName" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCEThinClient" attribute="identificationMethod" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCEThinClient" attribute="identificationConfidence" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCEThinClient" attribute="originalConfidence" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCEThinClient" attribute="deviceType" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCEThinClient" attribute="idString" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCEThinClient" attribute="level1AccessOK" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCEThinClient" attribute="manufacturer" />
+        <output parentType="host" childType="root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCEThinClient" />
+
+        <conclusion type="java" argumentList="com.bdna.modules.os WyseThinClient FindWindowsCETCFromMACAddress">
+        <![CDATA[
+            String parent = (String) args.get("host.elementFullName");
+            String name = (String) args.get("host.name");
+            String hostName = (String) args.get("host.hostName");
+            String idString = (String) args.get("wince.idString");
+
+            String macAddress = (String) args.get("ip.MACAddress");
+            idString = macAddress + " " + idString;
+
+            String type = "root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCEThinClient";
+            String eltName = "WyseWindowsCEThinClient";
+            String deviceType = "device.system";
+            String eltFullName = parent + "." + eltName;
+            
+            String result = "<result>";
+            result = result +
+                elementXML(eltName, type, parent) +
+                dataXML(eltFullName, "name", name) +
+                dataXML(eltFullName, "hostName", hostName) +
+                dataXML(eltFullName, "identificationMethod", "MAC Address") +
+                dataXML(eltFullName, "identificationConfidence", "81") +
+                dataXML(eltFullName, "originalConfidence", "81") +
+                dataXML(eltFullName, "deviceType", deviceType) +
+                dataXML(eltFullName, "idString", shorten(idString, NameConstants.MAX_OS_TYPE_LENGTH)) +
+                dataXML(eltFullName, "manufacturer", "Wyse Technology") +
+                dataXML(eltFullName, "level1AccessOK", "1"); 
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="FindWyseTerminalFromMACAddress"
+        weight="79">
+        <search variable="ip" pattern="root.types.internetAddress">
+            <use attribute="MACAddress" />
+            <simpleFilterConst attribute="MACAddress" operator="matches"
+                constant="^00:80:64:" />
+        </search>
+        <search variable="host" pattern="root.types.resource.host">
+            <use attribute="name" />
+            <use attribute="hostName" />
+        </search>
+        <simpleJoinFilter lhsVariable="ip" operator="parentOf" rhsVariable="host" />
+
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseTerminal" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseTerminal" attribute="name" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseTerminal" attribute="hostName" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseTerminal" attribute="identificationMethod" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseTerminal" attribute="identificationConfidence" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseTerminal" attribute="originalConfidence" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseTerminal" attribute="deviceType" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseTerminal" attribute="idString" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseTerminal" attribute="level1AccessOK" />
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseTerminal" attribute="manufacturer" />
+        <output parentType="host" childType="root.types.resource.software.operatingSystem.embedded.terminal.WyseTerminal" />
+
+        <conclusion type="perl">
+        <![CDATA[
+            my $parent = $host{"elementFullName"};
+            my $name = $host{"name"};
+            my $hostName = $host{"hostName"};
+            my $macAddress = $ip{"MACAddress"};
+            my $idString = $macAddress;
+
+            my $type = "root.types.resource.software.operatingSystem.embedded.terminal.WyseTerminal";
+            my $eltName = "WyseTerminal";
+            my $deviceType = "device.system";
+            my $eltFullName = "$parent.$eltName";
+            
+            $result = "<result>";
+            $result .= &elementXML($eltName, $type, $parent) .
+                &dataXML($eltFullName, "name", $name) .
+                &dataXML($eltFullName, "hostName", $hostName) .
+                &dataXML($eltFullName, "identificationMethod", "MAC Address") .
+                &dataXML($eltFullName, "identificationConfidence", 79) .
+                &dataXML($eltFullName, "originalConfidence", 79) .
+                &dataXML($eltFullName, "deviceType", $deviceType) .
+                &dataXML($eltFullName, "idString", $idString) .
+                &dataXML($eltFullName, "manufacturer", "Wyse Technology") .
+                &dataXML($eltFullName, "level1AccessOK", 1); 
+            $result .= "</result>";
+        ]]>
+        </conclusion>
+    </rule>
+
+    <!-- Populate level2Success = "Y" if hardware is not null -->
+    <rule
+        name="populateWyseLinuxThinClientLevel2Success"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient" >
+            <use attribute="hardware" />
+        </search>
+
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseLinuxThinClient" attribute="level2Success" />
+        <conclusion type="java" argumentList="com.bdna.modules.os WyseThinClient populateWyseLinuxThinClientLevel2Success gnu.regexp.*">
+        <![CDATA[
+            String result = "<result>";
+            String eltFullName = (String)args.get("os.elementFullName");
+            result += dataXML(eltFullName, "level2Success", "Y");
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+
+    <!-- Populate level2Success = "Y" if hardware is not null -->
+    <rule
+        name="populateWyseWindowsCETCThinClientLevel2Success"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCETCThinClient" >
+            <use attribute="hardware" />
+        </search>
+
+        <output type="root.types.resource.software.operatingSystem.embedded.terminal.WyseWindowsCETCThinClient" attribute="level2Success" />
+        <conclusion type="java" argumentList="com.bdna.modules.os WyseThinClient populateWyseWindowsCETCThinClientLevel2Success gnu.regexp.*">
+        <![CDATA[
+            String result = "<result>";
+            String eltFullName = (String)args.get("os.elementFullName");
+            result += dataXML(eltFullName, "level2Success", "Y");
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+
+    <!-- ............................................................... -->
+    <!-- .......        Wyse TC SNMP packaging               ........... -->
+    <!-- ............................................................... -->
+
+    <packageAttributeSet packageName="hardwareDevices" attributeSetName="WyseLinuxTCStaticCred"/>
+    <packageAttributeSet packageName="hardwareDevices" attributeSetName="WyseLinuxTCStaticNoCred"/>
+    <packageAttributeSet packageName="hardwareDevices" attributeSetName="WyseWindowsCETCStaticCred"/>
+    <packageAttributeSet packageName="hardwareDevices" attributeSetName="WyseWindowsCETCStaticNoCred"/>
+
+    <!-- ............................................................... -->
+    <!-- .......        Wyse TC SNMP L2 collectors           ........... -->
+    <!-- ............................................................... -->
+
+    <collector
+        collectorName="WyseLinuxTCStaticCredCollector"
+        weight="220"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.snmp"
+        collectionScriptName="WyseTCStaticScript">
+        <collectionParams typeElementFullName="root.types.internetAddress" attributeName="address" />
+    </collector>
+
+    <collector
+        collectorName="WyseLinuxTCStaticNoCredCollector"
+        weight="210"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.localHostConnection"
+        collectionScriptName="WyseTCStaticScript">
+        <collectionParams typeElementFullName="root.types.internetAddress" attributeName="address" />
+    </collector>
+
+    <collector
+        collectorName="WyseWindowsCETCStaticCredCollector"
+        weight="220"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.snmp"
+        collectionScriptName="WyseTCStaticScript">
+        <collectionParams typeElementFullName="root.types.internetAddress" attributeName="address" />
+    </collector>
+
+    <collector
+        collectorName="WyseWindowsCETCStaticNoCredCollector"
+        weight="210"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.localHostConnection"
+        collectionScriptName="WyseTCStaticScript">
+        <collectionParams typeElementFullName="root.types.internetAddress" attributeName="address" />
+    </collector>
+
+    <!-- ............................................................... -->
+    <!-- .......        Wyse TC SNMP L2 scripts              ........... -->
+    <!-- ............................................................... -->
+        
+    <scriptTable
+        scriptName="WyseTCStaticScript"
+        scriptVersion="1.0">
+        <![CDATA[
+
+        my $host = $BDNA_Connection_Info{"SNMP_session_address"} || $BDNA_Params{"root.types.internetAddress:address"};
+        my $port = $BDNA_Connection_Info{"SNMP_session_port"} || "161";
+        my $community = $BDNA_Connection_Info{"SNMP_session_community"} || "public";
+
+        my $privateMIBDir = join($BDNA_Params{"file.separator"}, $BDNA_Params{"bdna.home"}, "nih", "SNMP", "MIBs");
+        my $mibdir = "${privateMIBDir}/Wyse:/usr/share/snmp/mibs";
+
+        if (!defined($host) || !defined($port) || !defined($community)) {
+            $BDNA_ErrorCode = 0;
+            $BDNA_ResultCode = "com.bdna.cle.scripts.invalidParams";
+            $BDNA_MessageBundle = "MessagesBundle";
+            &echo("Connection not established because of invalid parameters: host='$host', port='$port' and community=__SNMP_COMMUNITY_STRING_NOT_LOGGED__.");
+        } else {
+            my $snmp_options;
+            my $snmpwalk_options;
+            
+            my $securityLevel = $BDNA_Connection_Info{"SNMP_session_securitylevel"};
+            if(defined($securityLevel) && $securityLevel ne "") {
+                my $snmp_options_part = $BDNA_Connection_Info{"SNMP_session_options"};
+                $snmp_options = "-M $mibdir -v 3 -Oq -Ov $snmp_options_part";
+                $snmpwalk_options = "-M $mibdir -v 3 -Oq $snmp_options_part";
+            } else {
+                $snmp_options = "-M $mibdir -v 2c -Oq -Ov -c '$community'";
+                $snmpwalk_options = "-M $mibdir -v 2c -Oq -c '$community'";
+            }
+
+            #my $snmp_options = "-M $mibdir -v 2c -Oq -Ov -c '$community'";
+            #my $snmpwalk_options = "-M $mibdir -v 2c -Oq -c '$community'";
+
+            my %attributes = (
+                'serialNumber' => 'WYSE-MIB::wbt5DeviceSerialNumber.0',
+
+                # We're just fetching the first RamTable entry. We should probably iterate through them and check RamType instead.
+                # The value fetched should already be in bytes.
+                'totalMemory' => 'WYSE-MIB::wbt5RamSize.1',
+
+                # wbt5CurHWPlatform, wbt5CurVersion, and wbt5CurBuildNum are all taken from the first Wbt5CurInfoEntry
+                # Not sure what other entries in the table might contain
+                'hardware' => 'WYSE-MIB::wbt5CurHWPlatform.1',
+                'currentFirmwareVersion' => 'WYSE-MIB::wbt5CurVersion.1',
+                'currentBuildNumber' => 'WYSE-MIB::wbt5CurBuildNum.1',
+
+                'customField1' => 'WYSE-MIB::wbt5CustomField1.0',
+                'customField2' => 'WYSE-MIB::wbt5CustomField2.0',
+                'customField3' => 'WYSE-MIB::wbt5CustomField3.0' );
+
+            for (keys(%attributes)) {
+                my @snmpOut = `snmpget -m ALL $snmp_options $host:$port $attributes{$_}`;
+                #my $snmpStr = shift(@snmpOut);
+                #my $snmpStr = join("", map(chomp, @snmpOut));
+                my $snmpStr = join("", @snmpOut);
+                $snmpStr =~ s/$\///g;
+                $snmpStr =~ s/^\"//;
+                $snmpStr =~ s/\"$//;
+                &echo("SNMP result for $_: $snmpStr");
+                next if ($? or $snmpStr =~ /(Error in packet)|(No Such)/ or !$snmpStr);
+                $BDNA_Results{$_} = $snmpStr;
+            }
+
+            if (exists $BDNA_Results{'hardware'} && ($community ne 'public' || (defined($securityLevel) && $securityLevel ne ""))) {
+                $BDNA_Results{"level2AccessOK"} = 1;
+            }
+
+            # wbt5CurOS is taken from the first Wbt5CurInfoEntry too
+            # OS
+            my @osInfo = `snmpget -m ALL $snmp_options $host:$port WYSE-MIB::wbt5CurOS.1`;
+            my $osStr = join("", @osInfo);
+            $osStr =~ s/$\///g;
+            &echo("OS: $osStr");
+            if ($osStr =~ /Linux-([\d\.]+)/) {
+                $BDNA_Results{'kernelVersion'} = $1;
+            }
+
+            # NICs information
+
+            # Collect IF-MIB information to reconcile the MAC addresses with Wyse network entries
+            my %macAddresses;
+
+            my @ipMibAddrs = `snmpwalk -m ALL $snmpwalk_options $host:$port IP-MIB::ipAdEntIfIndex`;
+            for (@ipMibAddrs) {
+                chomp;
+                if (/ipAdEntIfIndex\.(\d+\.\d+\.\d+\.\d+) (\d+)/) {
+                    my $ip = $1;
+                    my $ifIndex = $2;
+                    &echo("IP at index $ifIndex: $ip");
+
+                    my @ifPhysAddress = `snmpget -m ALL $snmp_options $host:$port IF-MIB::ifPhysAddress.$ifIndex`;
+                    my $macStr = shift(@ifPhysAddress);
+                    chomp($macStr);
+                    $macStr =~ s/\"//g;
+                    next if ($? or $macStr =~ /(Error in packet)|(No Such)/ or !$macStr);
+                    $macStr = join(':', split(" ", $macStr));
+                    &echo("Physical Address: $macStr");
+                    $macAddresses{$ip} = $macStr;
+                }
+            }
+
+            # Number of network table entries
+            my @numNetworksInfo = `snmpget -m ALL $snmp_options $host:$port WYSE-MIB::wbt5NetworkNum.0`;
+            my $numNetworks = shift(@numNetworksInfo);
+            chomp($numNetworks);
+            $numNetworks =~ s/^\"//;
+            &echo("Number of Networks: $numNetworks");
+            $numNetworks = 0 if ($? or $numNetworks =~ /(Error in packet)|(No Such)/);
+
+            my @networks;
+            for my $net (1..$numNetworks) {
+                my %networkFields = (
+                    'IPAddress' => 'wbt5NetworkAddress',
+                    # 'MACAddress' => '',
+                    'SubnetMask' => 'wbt5SubnetMask',
+                    'Gateway' => 'wbt5Gateway',
+                    'DHCPEnabled' => 'wbt5DHCPEnable',
+                    'DefaultDomain' => 'wbt5defaultDomain',
+                    'DNSEnabled' => 'wbt5dnsEnable',
+                    'PrimaryDNSServer' => 'wbt5primaryDNSserverIPaddress',
+                    'SecondaryDNSServer' => 'wbt5secondaryDNSserverIPaddress',
+                    'WINSEnabled' => 'wbt5winsEnable',
+                    'PrimaryWINSServer' => 'wbt5primaryWINSserverIPaddress',
+                    'SecondaryWINSServer' => 'wbt5secondaryWINSserverIPaddress' );
+
+                my @networkEntry;
+                push(@networkEntry, "Name=$net");
+                for (keys(%networkFields)) {
+                    my @info = `snmpget -m ALL $snmp_options $host:$port WYSE-MIB::$networkFields{$_}.$net`;
+                    my $infoStr = shift(@info);
+                    chomp($infoStr);
+                    $infoStr =~ s/^\"//;
+                    &echo("Network $net $_: $infoStr");
+                    next if ($? or $infoStr =~ /(Error in packet)|(No Such Object)/ or !$infoStr);
+                    push(@networkEntry, "$_=$infoStr");
+
+                    if ($_ eq 'IPAddress') {
+                        push(@networkEntry, "MACAddress=$macAddresses{$infoStr}") if exists($macAddresses{$infoStr});
+                    }
+                }
+                push(@networks, join($BDNA_SubSeparator, @networkEntry));
+            }
+
+            $BDNA_Results{'wyseNics'} = join($BDNA_Separator, @networks) if @networks;
+
+            $BDNA_ErrorCode = 0;
+            $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+            $BDNA_MessageBundle = "MessagesBundle";
+        }
+
+        ]]>
+    </scriptTable>
+
+</module>
