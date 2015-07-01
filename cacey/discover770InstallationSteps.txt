@@ -1,4 +1,4 @@
-oracle 11.2.0.2.0 and discover 770 instsallation
+oracle 11.2.0.2.0 and discover 770 instsallation 2015/07/01
 
 1. prepare:
 a. VM IP: 192.168.9.102
