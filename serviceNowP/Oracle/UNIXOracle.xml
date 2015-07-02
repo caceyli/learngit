@@ -8,8 +8,7 @@
 * BDNA Corporation.
 *
 * ******BDNA CONFIDENTIAL******
-*
-* The following code was developed and is owned by BDNA Corporation.
+** The following code was developed and is owned by BDNA Corporation.
 * This code is confidential and may contain trade secrets.  The code
 * must not be distributed to any party outside of BDNA Corporation
 * without written permission from BDNA Corporation.  The code may be
@@ -20,19 +19,1157 @@
 -->
 <!DOCTYPE bdna SYSTEM "bdna.dtd">
 
+<!-- ............................................................... -->
+<!-- .......   Platform-dependent Oracle fingerprints (UNIX)    .... -->
+<!-- ............................................................... -->
 <module 
-    name="com.bdna.presentationModules.database.UNIXOracle" 
-    displayLabel="Presentation Properties for BDNA Attributes"
+    name="com.bdna.modules.database.UNIXOracle" 
+    displayLabel="Oracle Database on UNIX"
     requiredPlatformVersion="030300"      
     version="1" 
     lastCompatibleVersion="1">
+
+    <moduleDependency
+        parentModuleName="com.bdna.modules.os.UNIX" parentModuleVersion="1" />
+    <moduleDependency
+        parentModuleName="com.bdna.modules.database.Oracle" parentModuleVersion="1" />
+
+    <!-- ............................................................... -->
+    <!-- .......        Declare interesting patterns             ....... -->
+    <!-- ............................................................... -->
+
+    <element elementName="com_bdna_modules_database_UNIXOracle"
+        elementTypePath="root.types.moduleConfig.singleModuleConfig"
+        isTemplate="false"
+        parentPath="root.$bdna.globalModuleConfig" >
+    </element>
+    <data elementPath="root.$bdna.globalModuleConfig.com_bdna_modules_database_UNIXOracle"
+        attributeName="applicationFootprintTag">UO</data>
+    <data elementPath="root.$bdna.globalModuleConfig.com_bdna_modules_database_UNIXOracle"
+        attributeName="filePatternList"><![CDATA[/bin/lsnrctl<BDNA,>/bin/sqlplus]]></data>
+    <data elementPath="root.$bdna.globalModuleConfig.com_bdna_modules_database_UNIXOracle"
+        attributeName="processPatternList"><![CDATA[ora_lgwr_]]></data>
+
+    <!-- ............................................................... -->
+    <!-- .......        AttributeSet Packages                ........... -->
+    <!-- ............................................................... -->
+
+    <package name="UNIXOracle" displayLabel="Oracle Databases On UNIX">
+        <depend name="IPAddresses" />
+        <depend name="hardwareDevices" />
+        <depend name="operatingSystems" />
+    </package>
+
+    <packageRelationship parentPackage="databases" childPackage="UNIXOracle" />
+
+    <!-- ............................................................... -->
+    <!-- .......        Oracle/UNIX type declarations            ....... -->
+    <!-- ............................................................... -->
+
+    <!-- generic Oracle -->
+    <element
+        elementName="UNIXOracleFootprint"
+        elementTypePath="root.types.footprint.OracleFootprint"
+        displayLabel="Oracle Footprint on UNIX"
+        isTemplate="true" >
+        <attributeSet attributeSetName="UNIXOracleFootprintStatic"
+                      collectorName="UNIXOracleFootprintStaticCollector"
+                      maxScriptRunTime="7200000"
+                      collectionInterval="-1"
+                      displayLabel="UNIX Oracle Footprint Static">
+            <attributeSetEntry attributeName="OracleHomes" />
+        </attributeSet>
+        <attributeSet attributeSetName="UNIXOracleFootprintDynamic"
+                      collectorName="UNIXOracleFootprintDynamicCollector"
+                      collectionInterval="-1"
+                      displayLabel="UNIX Oracle Footprint Dynamic">
+            <attributeSetEntry attributeName="runningInstances" />
+        </attributeSet>
+    </element>
+
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXOracleFootprintStatic"/>
+    <packageAttributeSet packageName="Oracle" attributeSetName="UNIXOracleFootprintStatic"/>
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXOracleFootprintDynamic"/>
+    <packageAttributeSet packageName="Oracle" attributeSetName="UNIXOracleFootprintDynamic"/>
     
-    <moduleDependency parentModuleName="com.bdna.modules.database.UNIXOracle" parentModuleVersion="1" />
+    <packageAttributeSet packageName="UNIXOracle" attributeSetName="UNIXOracleFootprintStatic"/>
+    <packageAttributeSet packageName="UNIXOracle" attributeSetName="UNIXOracleFootprintDynamic"/>
+    <element
+        elementName="UNIXOracleInitFile"
+        elementTypePath="root.types.resource.file.OracleInitFile"
+        displayLabel="Oracle Init Files on UNIX"
+        isTemplate="true">
+<!--
+        <attributeSet attributeSetName="UNIXOracleInitFileStatic"
+                      collectorName="UNIXOracleInitFileStaticCollector"
+                      collectionInterval="-1"
+                      displayLabel="UNIX Oracle InitFile Static">
+            <attributeSetEntry attributeName="databaseDomain" />
+            <attributeSetEntry attributeName="databaseName" />
+            <attributeSetEntry attributeName="instanceName" />
+            <attributeSetEntry attributeName="serviceNames" />
+        </attributeSet>
+-->
+      <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
     
-    <typeElement typeElementName="root.types.resource.software.installation.OracleInstallation.UNIXOracleInstallation">
-        <attrUIProp attributeName="validatedInstances" showInListView="1"  isDisplayable="0"/>
-        <attrUIProp attributeName="listenerServices" showInListView="1"  isDisplayable="1"/>
-        <attrUIProp attributeName="OracleInitFiles" showInListView="1"  isDisplayable="1"/>
-        <attrUIProp attributeName="OracleHome" showInListView="1"  isDisplayable="1"/>
-    </typeElement>
+<!--    <packageAttributeSet packageName="Oracle" attributeSetName="UNIXOracleInitFileStatic"/> -->
+    
+    <element
+        elementName="UNIXOracleListenerService"
+        elementTypePath="root.types.resource.software.networkService.OracleListenerService"
+        displayLabel="Oracle Listener on UNIX"
+        isTemplate="true">
+        <attributeSet attributeSetName="UNIXOracleListenerStatic"
+                      collectorName="UNIXOracleListenerStaticCollector"
+                      collectionInterval="-1"
+                      displayLabel="UNIX Oracle Listener Static">
+            <attributeSetEntry attributeName="parameterFilePath" />
+            <attributeSetEntry attributeName="listenerAddress" />
+            <attributeSetEntry attributeName="isRunning" />
+            <attributeSetEntry attributeName="port" />
+            <attributeSetEntry attributeName="associateInstances" />
+         </attributeSet>
+         <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXOracleListenerStatic"/>
+    <packageAttributeSet packageName="Oracle" attributeSetName="UNIXOracleListenerStatic"/>
+    <packageAttributeSet packageName="UNIXOracle" attributeSetName="UNIXOracleListenerStatic"/>
+    
+    <element
+        elementName="UNIXOracleInstance"
+        elementTypePath="root.types.resource.applicationObject.server.database.OracleInstance"
+        displayLabel="Oracle Instance on UNIX"
+        isTemplate="true">
+       <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="UNIXOracleService"
+        elementTypePath="root.types.resource.applicationObject.OracleService"
+        displayLabel="Oracle Services on UNIX"
+        isTemplate="true">
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+    
+    <!--
+      In order to add attribute sets at L3, this element is also defined
+      in UNIXOracleL3.xml. The two definitions should be kept in sync
+    -->
+    <element
+        elementName="UNIXOracle"
+        elementTypePath="root.types.resource.software.database.Oracle"
+        displayLabel="Oracle on UNIX"
+        isTemplate="true">
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="UNIXOracleSchema"
+        elementTypePath="root.types.resource.applicationObject.database.OracleSchema"
+        displayLabel="Oracle Schemas on UNIX"
+        isTemplate="true">
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="UNIXOracleTablespace"
+        elementTypePath="root.types.resource.storageAllocation.database.OracleTablespace"
+        displayLabel="Oracle Tablespace on UNIX"
+        isTemplate="true">
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="UNIXOracleInstallation"
+        elementTypePath="root.types.resource.software.installation.OracleInstallation"
+        displayLabel="Oracle Installation on UNIX"
+        isTemplate="true">
+        <attributeSet attributeSetName="UNIXOracleInstallationStatic"
+                      collectorName="UNIXOracleInstallationStaticCollector"
+                      collectionInterval="-1"
+                      displayLabel="UNIX Oracle Installation Static">
+            <attributeSetEntry attributeName="uniqueIdentifier" />
+        </attributeSet>
+        <attributeSet attributeSetName="UNIXOracleInstallationDynamic"
+                      collectorName="UNIXOracleInstallationDynamicCollector"
+                      maxScriptRunTime="7200000"
+                      collectionInterval="-1"
+                      displayLabel="UNIX Oracle Installation Dynamic">
+            <attributeSetEntry attributeName="OracleInitFiles" />
+            <attributeSetEntry attributeName="listenerServices" />
+            <attributeSetEntry attributeName="listenerNames" />
+            <attributeSetEntry attributeName="validatedInstances" />
+        </attributeSet>
+    </element>
+
+    
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXOracleInstallationStatic"/>
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXOracleInstallationDynamic"/>
+    <packageAttributeSet packageName="Oracle" attributeSetName="UNIXOracleInstallationStatic"/>
+    <packageAttributeSet packageName="Oracle" attributeSetName="UNIXOracleInstallationDynamic"/>
+    <packageAttributeSet packageName="UNIXOracle" attributeSetName="UNIXOracleInstallationStatic"/>
+    <packageAttributeSet packageName="UNIXOracle" attributeSetName="UNIXOracleInstallationDynamic"/>
+
+
+    <!-- ............................................................... -->
+    <!-- .......       UNIX Oracle fingerprint rules         ........... -->
+    <!-- ............................................................... -->
+
+    <!-- Creates an oracle footprint element under all unix'es -->
+    <rule
+        name="createUNIXOracleFootprintStatic"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX">
+            <use attribute="applicationFootprintTags"  visibleOnly="false" />
+            <simpleFilterConst attribute="applicationFootprintTags" operator="contains" constant=",UO," />
+        </search>
+        <output type="root.types.footprint.OracleFootprint.UNIXOracleFootprint"/>    
+        <output parentType="os" childType="root.types.footprint.OracleFootprint.UNIXOracleFootprint" />                   
+        <output type="root.types.footprint.OracleFootprint.UNIXOracleFootprint" attribute="signatureFiles" />        
+        <output type="root.types.footprint.OracleFootprint.UNIXOracleFootprint" attribute="systemType" />          
+        <conclusion type="perl">
+            <![CDATA[
+            our (%os);
+            my $parent = $os{"elementFullName"};
+            my $type = "root.types.footprint.OracleFootprint.UNIXOracleFootprint";
+            my $eltName = "OracleFootprint";
+            my $eltFullName = "$parent.$eltName";
+            $result =
+                "<result>" .
+                &elementXML($eltName, $type, $parent) .
+                &dataXML($eltFullName, "signatureFiles", "/bin/lsnrctl<BDNA,>/bin/sqlplus") .
+                &dataXML($eltFullName, "systemType", "UNIX") .                
+                "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="createUNIXOracleFootprintDynamic"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX" >
+            <use attribute="applicationProcessFootprintTags"  visibleOnly="false" />
+            <simpleFilterConst attribute="applicationProcessFootprintTags" operator="contains" constant="UO" />
+        </search>
+        <output type="root.types.footprint.OracleFootprint.UNIXOracleFootprint"/>
+        <output parentType="os" childType="root.types.footprint.OracleFootprint.UNIXOracleFootprint" />
+        <output type="root.types.footprint.OracleFootprint.UNIXOracleFootprint" attribute="systemType" />
+        <conclusion type="perl">
+            <![CDATA[
+            our (%os);
+            my $parent = $os{"elementFullName"};
+            my $type = "root.types.footprint.OracleFootprint.UNIXOracleFootprint";
+            my $eltName = "OracleFootprint";
+            my $eltFullName = "$parent.$eltName";
+            $result =
+                "<result>" .
+                &elementXML($eltName, $type, $parent) .
+                &dataXML($eltFullName, "systemType", "UNIX") .
+                "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+        
+
+    <!-- ............................................................... -->
+    <!-- .......            Unix Oracle Collectors           ........... -->
+    <!-- ............................................................... -->
+
+    <collector
+        collectorName="UNIXOracleFootprintStaticCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXOracleFootprintStaticScript">
+        <scriptRef name="UNIXOracleFootprintStaticScript" scriptType="collection" seqNum="1" />
+    </collector>
+
+    <collector
+        collectorName="UNIXOracleFootprintDynamicCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXOracleFootprintDynamicScript">
+    </collector>
+
+<!--
+    <collector
+        collectorName="UNIXOracleInitFileStaticCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXOracleInitFileStaticScript">
+        <collectionParams typeElementFullName="root.types.resource.file.OracleInitFile.UNIXOracleInitFile"
+                          attributeName="path" />
+    </collector>
+-->
+
+    <collector
+        collectorName="UNIXOracleListenerStaticCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXOracleListenerStaticScript">
+        <collectionParams typeElementFullName="root.types.resource.software.installation.OracleInstallation.UNIXOracleInstallation"
+                          attributeName="OracleHome" />
+        <collectionParams typeElementFullName="root.types.resource.software.networkService.OracleListenerService.UNIXOracleListenerService"
+                          attributeName="name" />
+    </collector>
+
+    <collector
+        collectorName="UNIXOracleInstallationDynamicCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXOracleInstallationDynamicScript">
+        <scriptRef name="UNIXOracleInstallationDynamicScript" scriptType="collection" seqNum="1" />
+    </collector>
+
+    <collector
+        collectorName="UNIXOracleInstallationStaticCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXOracleInstallationStaticScript">
+        <collectionParams typeElementFullName="root.types.resource.software.installation.OracleInstallation.UNIXOracleInstallation"
+                          attributeName="OracleHome" />
+    </collector>
+
+    <!-- ............................................................... -->
+    <!-- .......            UNIX Oracle collection scripts   ........... -->
+    <!-- ............................................................... -->
+
+    <scriptTable
+        scriptName="UNIXOracleFootprintStaticScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="true"  isOptional="false"
+          argNamePattern="%efnname%:%atr%"
+          efnSource="root.$bdna.globalModuleConfig" 
+          attributeName="filePatternList" />
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="%efntype%:%atr%"
+          efnSource="root.types.footprint.OracleFootprint.UNIXOracleFootprint" 
+          attributeName="signatureFiles" />
+        <scriptArg isGlobal="true"  isOptional="true"
+          argNamePattern="%efnname%:%atr%"
+          efnSource="root.$bdna.globalModuleConfig.ModularCollectionOutOfSystemFind"
+          attributeName="ModularCollection::outOfSystemFindFilePath" />
+        <![CDATA[
+
+        my ($host, @output, @sigFiles, $sigFileString, %sigPath, %homeDir, $sigFile);
+
+# get the telnet connection (set by the connection script)
+        $host = $BDNA_Connection_Info{"HostObject"};
+
+# get the signature files (set by fingerprint)
+        $sigFileString = $BDNA_Params{"root.types.footprint.OracleFootprint.UNIXOracleFootprint:signatureFiles"};
+        @sigFiles = split(/$BDNA_Separator/, $sigFileString);
+
+# initialize the working variables
+        %sigPath = ();
+        %homeDir = ();
+
+# formulate a list of regular expressions from the signature file list
+        my $sigPatterns;
+        $sigPatterns = "";
+
+        foreach my $sigFile (@sigFiles) {
+            if ($sigPatterns) {
+                $sigPatterns = $sigPatterns . "|" . $sigFile . "\$";
+            } else {
+                $sigPatterns = $sigFile . "\$";
+            }
+        }
+
+#
+#
+# issue the find/grep command to locate directories with signature files
+#
+        my ($cmd, $one);
+
+
+        &echo("Doing cachedFind for directory root for pattern: $sigPatterns");
+        @output = cachedFind($host, 7*24*3600, $BDNA_Params{'root.$bdna.globalModuleConfig:filePatternList'}, "/", $sigPatterns, $BDNA_Params{'root.$bdna.globalModuleConfig.ModularCollectionOutOfSystemFind:ModularCollection::outOfSystemFindFilePath'}, 0);
+
+        while (@output) {
+            $one = shift(@output);
+            chomp($one);
+
+            &echo("considering $one for a Oracle home directory...");
+
+# records what home directory candidate contains what signature files
+            $sigPath{$one} = 1;
+
+# extract the home directory by removing the signature file suffix
+            $_ = $one;
+
+            foreach my $sigFile (@sigFiles) {
+                if(/(.*)$sigFile/) {
+                    $homeDir{"$1"} = 1;
+                }
+            }
+        }
+
+
+# extract additional Oracle home directories from /oratab
+# format is: $ORACLE_SID:$ORACLE_HOME:<N|Y>...
+
+        $cmd = 'cat /etc/oratab /var/opt/oracle/oratab 2> /dev/null';
+        @output = &shellcmd($host, $cmd, "oratab");
+
+        while (@output) {
+            $_ = shift(@output);
+            if (/^([^#:]*):([^:]*):[NYny]/) {
+                &echo("found Oracle home directory from /etc/oratab: $2, SID $1...");
+                $homeDir{"$2"} = 1;
+            }
+        }
+
+        my (@resultDir, $sigFileNotFound);
+        @resultDir = ();
+
+        foreach my $dir (keys(%homeDir)) {
+            $sigFileNotFound = 0;
+            foreach my $sig (@sigFiles) {
+                 if(!defined($sigPath{$dir.$sig})) {
+                    $sigFileNotFound = 1;
+                    last;
+                }
+            }
+            if(!$sigFileNotFound) {
+                push(@resultDir, $dir);
+            }
+        }
+
+#
+# look for listen processes and guess Oracle homes from there
+#
+        @output = &UNIXps($host, "tnslsnr");
+        while (@output) {
+            $_ = shift(@output);
+            chomp($_);
+            if (/ (\S*)\/bin\/tnslsnr/) {
+                my $dir = $1;
+                &echo("Locating Oracle home from tnslsnr: $dir");
+                push(@resultDir, $dir);
+            }
+        }
+
+# construct the result, which is a list of pairs of (<home dir>, <version>)
+        my ($resultString, $hdir);
+        $resultString = "";
+
+        &echo("Oracle home dir list: @resultDir");
+        foreach my $dir (@resultDir) {
+
+# svrmgrl exists before 9i, and will tell us a version number.
+# But its version number doesn't always give the same major version
+# number that people think of when they think Oracle database numbers,
+# so we need to do some re-mapping.
+
+            $cmd = join("\n",
+                        "export ORACLE_HOME",
+                        "export LD_LIBRARY_PATH",
+                        "ORACLE_HOME='$dir'",
+                        "LD_LIBRARY_PATH='$dir/lib'",
+                        "'$dir/bin/svrmgrl' '-?' < /dev/null");
+            @output = &shellcmd($host, $cmd, "svrmgrl_version");
+
+            my $version = 0;
+            my $verString = "";
+            my %remapMajorVersion = ("2" => "7",
+                                     "3" => "8");
+            foreach (@output) {
+                if (/Release (\d+)\.(\d+)\.(\d+)\.(\d+)\.(\d+)/) {
+                    if (defined($remapMajorVersion{$1})) {
+                        &echo("Remapped svrmgrl-reported major version " .
+                              "from '$1' to '$remapMajorVersion{$1}'.");
+                        $verString = "$remapMajorVersion{$1}.$2.$3";
+                    } else {
+                        $verString = "$1.$2.$3";
+                    }
+                    last;
+                }
+            }
+
+            if ($verString eq "") {
+# OK, svrmgrl didn't work.  (Is this 9i? 9i doesn't provide svrmgrl.)
+# Try sqlplus -V (which doesn't work before 9i....)
+                $cmd = join("\n",
+                            "export ORACLE_HOME",
+                            "export LD_LIBRARY_PATH",
+                            "ORACLE_HOME='$dir'",
+                            "LD_LIBRARY_PATH='$dir/lib'",
+                            "'$dir/bin/sqlplus' -V < /dev/null");
+                @output = &shellcmd($host, $cmd, "sqlplus_version");
+
+                foreach (@output) {
+                    if (/Release (\d+)\.(\d+)\.(\d+)\.(\d+)\.(\d+)/) {
+                        $verString = "$1.$2.$3";
+                        last;
+                    }
+                }
+            }
+
+            if ($verString eq "") {
+
+# if  sqlplus -V doesn't work,
+# try to cat version from $dir/sqlplus/doc/README.htm.
+                $cmd = join("\n",
+                            "export ORACLE_HOME",
+                            "export LD_LIBRARY_PATH",
+                            "ORACLE_HOME='$dir'",
+                            "cat '$dir/sqlplus/doc/README.htm' < /dev/null");
+                @output = &shellcmd($host, $cmd, "sqlplus_readme_version");
+
+                foreach (@output) {
+                    if (/SQL\*Plus:?\s*Release.*?\s(\d+)\.(\d+)\.(\d+)/) {
+                        $verString = "$1.$2.$3";
+                        last;
+                    } 
+                    if (/SQL\*Plus:?\s*Release.*?\s(\d+)\.(\d+)/) {
+                        $verString = "$1.$2";
+                        last;
+                    } 
+                }
+            }
+
+# try to cat XML_INV_LOC from $dir/inventory/ContentsXML/comps.xml.
+                my $invLoc = ""; 
+                my $cmdComp = join("\n",
+                            "export ORACLE_HOME",
+                            "export LD_LIBRARY_PATH",
+                            "ORACLE_HOME='$dir'",
+                            "cat '$dir/inventory/ContentsXML/comps.xml' < /dev/null");
+                my @outputComp = &shellcmd($host, $cmdComp, "context_LOC");
+
+                foreach (@outputComp) {
+                    if (/NAME=\"oracle.server\"[^<]+XML_INV_LOC=\"([^\"]*)\/\"/) {
+                        $invLoc = $1;
+                        last;
+                    }
+                }
+
+# try to cat edition from $dir/inventory/ContentsXML/comps.xml.
+            my $cmdCon = join("\n",
+                            "export ORACLE_HOME",
+                            "export LD_LIBRARY_PATH",
+                            "ORACLE_HOME='$dir'",
+                            "cat '$dir/inventory/ContentsXML/comps.xml' < /dev/null");
+            my @outputCon = &shellcmd($host, $cmdCon, "context_Edition");
+            my $edtionString = "";
+            foreach (@outputCon) {
+                    if (/INST_TYPE NAME=\"(EE|SE)\"/) {
+                        $edtionString = "$1";
+                        if ($edtionString eq "EE") {
+                            $edtionString = "Enterprise";
+                        }
+                        if ($edtionString eq "SE") {
+                            $edtionString = "Standard";
+                        }
+                        last;
+                    }
+            }
+            if ($edtionString eq "") {
+    # try to cat edition from $dir/inventory/$invLoc/context.xml.
+                $cmdCon = join("\n",
+                                "export ORACLE_HOME",
+                                "export LD_LIBRARY_PATH",
+                                "ORACLE_HOME='$dir'",
+                                "cat '$dir/inventory/$invLoc/context.xml' < /dev/null");
+                @outputCon = &shellcmd($host, $cmdCon, "context_Edition");
+                foreach (@outputCon) {
+                        if (/NAME=\"s_serverInstallType\"[^<]+VAL=\"([^\"]*)\"/) {
+                            $edtionString = "$1";
+                            if ($edtionString eq "EE") {
+                                $edtionString = "Enterprise";
+                            }
+                            if ($edtionString eq "SE") {
+                                $edtionString = "Standard";
+                            }
+                            last;
+                        }
+                }
+            }            
+            &echo("ERROR!  Unable to determine Oracle edition for XML_INV_LOC $invLoc.")
+                if ($edtionString eq "");
+            &echo("ERROR!  Unable to determine Oracle version for OracleHome $dir.")
+                if ($verString eq "");
+
+            $hdir = "$verString$BDNA_Separator$dir$BDNA_Separator$edtionString";
+
+            &echo("Oracle home dir: $hdir");
+
+            if($resultString) {
+                $resultString .= $BDNA_Separator . $hdir;
+            }
+            else {
+                $resultString = $hdir;
+            }
+        }
+        $BDNA_Results{"OracleHomes"} = $resultString;
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_ErrorCode = 0;
+        $BDNA_MessageBundle = "MessagesBundle";
+
+        ]]>
+    </scriptTable>
+
+    <scriptTable
+        scriptName="UNIXOracleFootprintDynamicScript"
+        scriptVersion="1.0">
+        <![CDATA[
+
+        my ($host, @output, $resultString);
+
+# get the telnet connection (set by the connection script)
+        $host = $BDNA_Connection_Info{"HostObject"};
+
+        @output = &UNIXps($host, "ora_lgwr");
+        my @sids = ();
+        $resultString = "";
+        while (@output) {
+            $_ = shift(@output);
+            chomp($_);
+            if (/ora_lgwr_(.*)$/) {
+            my $sid = $1;
+                $sid =~ s/\s+//g;
+                &echo("oracle SID: $sid");
+                if($resultString) {
+                    $resultString .= $BDNA_Separator . $sid;
+                }
+                else {
+                    $resultString = $sid;
+                }
+            }
+        }
+        if (length($resultString) <=0) {
+            $resultString = '<BDNA,>';
+        }
+
+        $BDNA_Results{"runningInstances"} = $resultString;
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_ErrorCode = 0;
+        $BDNA_MessageBundle = "MessagesBundle";
+        ]]>
+    </scriptTable>
+
+<!--
+    <scriptTable
+        scriptName="UNIXOracleInitFileStaticScript"
+        scriptVersion="1.0">
+        <![CDATA[
+# get the telnet connection (set by the connection script)
+        my $host = $BDNA_Connection_Info{"HostObject"};
+
+        my $initFile = $BDNA_Params{"root.types.resource.file.OracleInitFile.UNIXOracleInitFile:path"};
+        my $db = &getTargetProperty($host, $initFile, "db_name");
+        my $inst = &getTargetProperty($host, $initFile, "instance_name");
+        my $domain = &getTargetProperty($host, $initFile, "db_domain");
+        my $services = &getTargetProperty($host, $initFile, "service_names");
+
+        &echo("Oracle init file has $db, $inst, $domain, $services");
+
+        $BDNA_Results{"databaseDomain"} = $domain;
+        $BDNA_Results{"databaseName"} = $db;
+        $BDNA_Results{"instanceName"} = $inst;
+        $BDNA_Results{"serviceNames"} = $services;
+
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_ErrorCode = 0;
+        $BDNA_MessageBundle = "MessagesBundle";
+        ]]>
+    </scriptTable>
+-->
+
+    <scriptTable
+        scriptName="UNIXOracleListenerStaticScript"
+        scriptVersion="1.0">
+        <![CDATA[
+
+# get the telnet connection (set by the connection script)
+        my $host = $BDNA_Connection_Info{"HostObject"};
+
+        my $home = $BDNA_Params{"root.types.resource.software.installation.OracleInstallation.UNIXOracleInstallation:OracleHome"};
+        my $listener = $BDNA_Params{"root.types.resource.software.networkService.OracleListenerService.UNIXOracleListenerService:name"};
+
+#
+# use lsnrctl to extract information about the listener
+#
+        my $cmd = join("\n",
+                       "export ORACLE_HOME",
+                       "export LD_LIBRARY_PATH",
+                       "ORACLE_HOME='$home'",
+                       "LD_LIBRARY_PATH='$home/lib'",
+                       "'$home/bin/lsnrctl' status $listener < /dev/null");
+        my @output = &shellcmd($host, $cmd, "lsnrctl");
+
+        my ($addr, $paramFile,$port,$instances);
+        while (@output) {
+
+            $_ = shift(@output);
+            if (/Connecting to (.*)$/) {
+# the listener endpoint used for this command (better than nothing at all)
+                &echo($1);
+                $addr = $1;
+            } elsif (/Listener Parameter File(\s*)(.*)$/) {
+                &echo($2);
+                $paramFile = $2;
+            } elsif (/Listening Endpoints Summary/) {
+# enumeration of all listener endpoints, pick any one that's not EXTPROC
+# the line after this block of addresses should be the service summary
+# heading, which can be discarded
+                while (@output) {
+                    $_ = shift(@output);
+                    if (/(\(DESCRIPTION=\(ADDRESS=.*$)/) {
+                        if (!/KEY=EXTPROC/) {
+                            &echo(uc($1));
+                            $addr = uc($1);
+                        }
+                    }
+                    if (/Instance \"(.*)\", status .*, has .* handler/) {
+                        my $instance = $1;
+                        if ($instances) {
+                            if ($instances !~ /\s*$instance\s*/) {
+                                $instances .= " ".$instance;
+                            }
+                        }
+                        else {
+                            $instances = $instance;
+                        }
+                    }
+                }
+            }
+            if (/Instance \"(.*)\", status .*, has .* handler/) {
+                my $instance = $1;
+                if ($instances) {
+                    if ($instances !~ /\s*$instance\s*/) {
+                        $instances .= " ".$instance;
+                    }
+                }
+                else {
+                    $instances = $instance;
+                }
+            }
+        }
+
+        &echo("listener: $listener, addr: $addr, param: $paramFile,instances: $instances");
+
+        my $isRunning = "False";
+        @output = &UNIXps($host, "tnslsnr");
+        while (@output) {
+            $_ = shift(@output);
+            chomp($_);
+            if (/ (\S*)\/bin\/tnslsnr\s+(\S*)/) {
+                my $dir = $1;
+                my $runningListener = $2;
+                if ($dir eq $home && $runningListener eq $listener) {
+                    $isRunning = "True";
+                }
+            }
+        }
+
+        if ($addr =~ /PORT=(\d+)/) {
+            $port = $1;
+        }
+
+        $BDNA_Results{"listenerAddress"} = $addr;
+        $BDNA_Results{"parameterFilePath"} = $paramFile;
+        $BDNA_Results{"isRunning"} = $isRunning;
+        $BDNA_Results{"port"} = $port;
+        $BDNA_Results{"associateInstances"} = $instances;
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_ErrorCode = 0;
+        $BDNA_MessageBundle = "MessagesBundle";
+
+        ]]>
+    </scriptTable>
+
+    <scriptTable
+        scriptName="UNIXOracleInstallationStaticScript"
+        scriptVersion="1.0">
+        <![CDATA[
+
+        my $host = $BDNA_Connection_Info{"HostObject"};
+        my $home = $BDNA_Params{"root.types.resource.software.installation.OracleInstallation.UNIXOracleInstallation:OracleHome"};
+        my ($hosttype, $dev_name, $inode_num, $df_cmd) = ();
+
+        #
+        # Use different df command for different OS type
+        #
+        my @hosttypeArray = &shellcmd($host, 'uname', 'uname');
+        if (@hosttypeArray) {
+            chomp(@hosttypeArray); 
+            $hosttype = $hosttypeArray[0];
+        }
+        
+        &echo('<'. $hosttype .'>');
+        if ($hosttype =~ /SunOS|AIX|Linux|OSF1|IRIX|IRIX64/) {
+            &echo("hosttype is $hosttype");
+            $df_cmd = "df -k $home | awk '{print \$1}'";           
+        }
+        elsif ($hosttype =~ /HP-UX/) {
+            $df_cmd = "bdf $home | awk '{print \$1}'";
+        }
+        else {
+            &echo("HOSTTYPE is not known supported type.");
+        }
+
+        #
+        #retrieve file system name from df command.
+        #
+        if ($df_cmd) {
+            my @output = &shellcmd($host, $df_cmd, 'df_k');
+            shift(@output) if ((scalar @output >= 0) && ($output[0] =~ m/^Filesystem/));
+            if (scalar @output > 0){
+                my $temp = $output[0];
+                chomp($temp); $temp =~ s/^\s+//; $temp =~ s/\s+$//;
+                if (!($temp =~ /\(|\)/)) {
+                    # ensure parsed value is file path or some network file path.
+                    if ($temp =~ /^\S+:\/\S*$/ || $temp =~ /^\/\S*/) {
+                        $dev_name = $temp;
+                    }
+                }
+                $dev_name =~ s/[\/\.\\\:]/_/g;
+            }
+        }
+
+        #
+        #retrieve inode number
+        #
+        my $cmd = "echo `ls -Lid $home` __BDNA_RESULT__";
+        my @output = &shellcmd($host, $cmd, "inode");
+
+        while (@output) {
+            $_ = shift(@output);
+            if (/(\d+) $home __BDNA_RESULT__/) {
+                if ($dev_name) {
+                    $BDNA_Results{"uniqueIdentifier"} = $1.$dev_name;
+                } else {
+                    $BDNA_Results{"uniqueIdentifier"} = $1;
+                }
+            }
+        }
+        if ($BDNA_Results{"uniqueIdentifier"}) {
+            $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        } else {
+            $BDNA_ResultCode = "com.bdna.cle.scripts.noData";
+        }
+        $BDNA_MessageBundle = "MessagesBundle";
+        $BDNA_ErrorCode = 0;
+
+        ]]>
+    </scriptTable>
+
+    <scriptTable
+        scriptName="UNIXOracleInstallationDynamicScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="true"  isOptional="false"
+          argNamePattern="%efnname%:%atr%"
+          efnSource="root.$bdna.globalModuleConfig" 
+          attributeName="filePatternList" />
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="%efntype%:%atr%"
+          efnSource="root.types.resource.software.installation.OracleInstallation.UNIXOracleInstallation" 
+          attributeName="OracleHome" />
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="%efntype%:%atr%"
+          efnSource="root.types.footprint.OracleFootprint.UNIXOracleFootprint" 
+          attributeName="runningInstances" />
+        <scriptArg isGlobal="true"  isOptional="true"
+          argNamePattern="%efnname%:%atr%"
+          efnSource="root.$bdna.globalModuleConfig.ModularCollectionOutOfSystemFind"
+          attributeName="ModularCollection::outOfSystemFindFilePath" />
+        <![CDATA[
+        my ($host, @output, $resultString, $home, @sids, $cmd0, $cmd);
+
+# get the telnet connection (set by the connection script)
+        $host = $BDNA_Connection_Info{"HostObject"};
+        $home = $BDNA_Params{"root.types.resource.software.installation.OracleInstallation.UNIXOracleInstallation:OracleHome"};
+
+#
+# Validate instances by trying a connection with a dummy user
+#
+        my @invalidated_sids;
+        my @validated_sids; 
+        my $validateFlag = 0;
+
+        if ($BDNA_Params{"root.types.footprint.OracleFootprint.UNIXOracleFootprint:runningInstances"} ne '<BDNA,>') {
+            @sids = split(/$BDNA_Separator/, $BDNA_Params{"root.types.footprint.OracleFootprint.UNIXOracleFootprint:runningInstances"});        
+            foreach my $sid (@sids) {
+                $validateFlag = 0;
+                $sid =~ s/\s+//g;
+                &echo("Considering Oracle instance $sid");
+                $cmd0 = join("\n",
+                            "PATH=$home/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin",
+                            "export ORAENV_ASK",
+                            "export ORACLE_SID",
+                            "ORAENV_ASK=NO",
+                            "ORACLE_SID=$sid",
+                            ". $home/bin/oraenv");
+
+                &echo("Trying to validate $sid for $home using oraenv.");
+                $cmd = join("\n",
+                            $cmd0,
+                            "'$home/bin/sqlplus' BDNA_VALIDATE/BDNA_WRONG_PASSWORD < /dev/null");
+
+                @output = &shellcmd($host, $cmd, "validate_instance");
+
+                foreach my $line (@output) {
+                    # Example messages:
+                    # ORA-01017: invalid username/password; logon denied
+                    # ORA-04031: unable to allocate 16108 bytes of shared memory...
+                    # ORA-28000: the account is locked....
+
+                    if ($line =~ m/\bORA-(01017|04031|28000):/)
+                    {
+                        &echo("Validated Oracle instance $sid for $home using oraenv.");
+                        push(@validated_sids, $sid); 
+                        $validateFlag = 1;
+                    } 
+                }
+              #for BUG27992---set TWO_TASK
+                if (!$validateFlag) {
+                    $cmdSet = join("\n",
+                            "PATH=$home/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin",
+                            "export ORAENV_ASK",
+                            "export ORACLE_SID",
+                            "export TWO_TASK",
+                            "ORAENV_ASK=NO",
+                            "ORACLE_SID=$sid",
+                            "TWO_TASK=$sid",
+                            ". $home/bin/oraenv");
+
+                    &echo("After Set TWO_TASK,Trying to validate $sid for $home using oraenv.");
+                    $cmdExecute = join("\n",
+                                $cmdSet,
+                                "'$home/bin/sqlplus' BDNA_VALIDATE/BDNA_WRONG_PASSWORD < /dev/null");
+
+                    @outputExecute = &shellcmd($host, $cmdExecute, "validate_instance");
+
+                    foreach my $line (@outputExecute) {
+                        # Example messages:
+                        # ORA-01017: invalid username/password; logon denied
+                        # ORA-04031: unable to allocate 16108 bytes of shared memory...
+                        # ORA-28000: the account is locked....
+
+                        if ($line =~ m/\bORA-(01017|04031|28000):/)
+                        {
+                            &echo("After Set TWO_TASK,Validated Oracle instance $sid for $home using oraenv.");
+                            push(@validated_sids, $sid);
+                            $validateFlag = 1;
+                        }
+                    }
+                }
+                if (!$validateFlag) {
+                    $cmd = "";
+                    &echo("Trying to validate $sid for $home using oraenv and localhost...");                  
+                    $cmd = join("\n",
+                            $cmd0,
+                            "'$home/bin/sqlplus' BDNA_VALIDATE/BDNA_WRONG_PASSWORD\@localhost/$sid < /dev/null");
+
+                    @output = &shellcmd($host, $cmd, "validate_instance");
+
+                    foreach my $line (@output) {
+                        # Example messages:
+                        # ORA-01017: invalid username/password; logon denied
+                        # ORA-04031: unable to allocate 16108 bytes of shared memory...
+                        # ORA-28000: the account is locked....
+                        if ($line =~ m/\bORA-(01017|04031|28000):/)
+                        {
+                            &echo("Validated Oracle instance $sid for $home using oraenv. and localhost...");
+                            push(@validated_sids, $sid);
+                            $validateFlag = 1;
+                        }
+                    }
+
+                    if (!$validateFlag) {
+                        push(@invalidated_sids, $sid);
+                    }
+                }
+            }
+
+# Now try validating the remaining Oracle instance using earlier approach
+
+            foreach my $sid (@invalidated_sids) {
+                $validateFlag = 0;
+                $sid =~ s/\s+//g;
+                &echo("Considering Oracle instance $sid");
+                $cmd0 = join("\n",
+                            "export ORACLE_HOME",
+                            "export ORACLE_SID",
+                            "export LD_LIBRARY_PATH",
+                            "ORACLE_HOME='$home'",
+                            "ORACLE_SID='$sid'",
+                            "LD_LIBRARY_PATH='$home/lib'");
+
+                &echo("Trying to validate $sid for $home using oracle home.");
+                $cmd = join("\n",
+                            $cmd0,
+                            "'$home/bin/sqlplus' BDNA_VALIDATE/BDNA_WRONG_PASSWORD < /dev/null");
+
+                @output = &shellcmd($host, $cmd, "validate_instance");
+                foreach my $line (@output) {
+                    # Example messages:
+                    # ORA-01017: invalid username/password; logon denied
+                    # ORA-04031: unable to allocate 16108 bytes of shared memory...
+                    # ORA-28000: the account is locked....
+
+                    if ($line =~ m/\bORA-(01017|04031|28000):/)
+                    {
+                        &echo("Validated Oracle instance $sid for $home.");
+                        push(@validated_sids, $sid);
+                        $validateFlag = 1;
+                    }
+                }
+
+                if (!$validateFlag) {
+                    $cmd = "";
+                    &echo("Trying to validate $sid for $home using oracle home and localhost...");
+                    $cmd = join("\n",
+                            $cmd0,
+                            "'$home/bin/sqlplus' BDNA_VALIDATE/BDNA_WRONG_PASSWORD\@localhost/$sid < /dev/null");
+
+                    @output = &shellcmd($host, $cmd, "validate_instance");
+
+                    foreach my $line (@output) {
+                        # Example messages:
+                        # ORA-01017: invalid username/password; logon denied
+                        # ORA-04031: unable to allocate 16108 bytes of shared memory...
+                        # ORA-28000: the account is locked....
+                        if ($line =~ m/\bORA-(01017|04031|28000):/)
+                        {
+                            &echo("Validated Oracle instance $sid for $home using localhost...");
+                            push(@validated_sids, $sid);
+                            $validateFlag = 1;
+                        }
+                    }
+                }
+            }
+
+            my @re_validated_sids;
+            my $dbs_files_cmd = join("\n",
+                                                    "cd $home/dbs",
+                                                    "ls -l | awk '{print \$9}'");
+             &echo ("Command to be executed is <$dbs_files_cmd>.");
+            my @dbs_files_output = &shellcmd($host, $dbs_files_cmd);
+            chomp(@dbs_files_output);
+            &echo("Belowing is Re-validate instances for ORACLE_HOME ".$home);
+            foreach my $validated_sid (@validated_sids) {
+                foreach my $dbs_line (@dbs_files_output) {
+                   if ($dbs_line =~ m/^lk\Q$validated_sid\E$/i) {ls -
+                        push(@re_validated_sids, $validated_sid);
+                        &echo("Instances $validated_sid belong to ORACLE_HOME $home by file: lk<oracle_sid>");
+                        last;
+                    } elsif ($dbs_line =~ m/^hc_\Q$validated_sid\E\.dat$/i) {
+                        push(@re_validated_sids, $validated_sid);
+                        &echo("Instances $validated_sid belong to ORACLE_HOME $home by file: hc_<oracle_sid>.data");
+                        last;
+                    } elsif ($dbs_line =~ m/^spfile\Q$validated_sid\E\.ora$/i) {
+                        push(@re_validated_sids, $validated_sid);
+                        &echo("Instances $validated_sid belong to ORACLE_HOME $home by file :spfile<oracle_sid>.ora");
+                        last;
+                    }
+                }
+            }
+# Set a default value if there are no validated instances.  This marker
+# will be used for de-dupping.
+            $BDNA_Results{"validatedInstances"} = join($BDNA_Separator, @re_validated_sids) || $BDNA_Separator;
+        } else {
+            $BDNA_Results{"validatedInstances"} = '<BDNA,>';
+        }
+
+#
+# Find all the init files under the oracle home directory
+#
+
+        &echo("Doing cachedFind for directory $home for pattern: init.*ora");
+        @output = cachedFind($host, 7*24*3600, $BDNA_Params{'root.$bdna.globalModuleConfig:filePatternList'}, $home, 'init.*ora', $BDNA_Params{'root.$bdna.globalModuleConfig.ModularCollectionOutOfSystemFind:ModularCollection::outOfSystemFindFilePath'}, 0);
+
+        $resultString = "";
+        while (@output) {
+            $_ = shift(@output);
+            chomp($_);
+            if (/^\//) {
+                my $file = $_;
+                my $dbname = &getTargetProperty($host, $file, "db_name");
+                if ($dbname) {
+                    &echo("found Oracle init file: $file, db_name = $dbname");
+                    if ($resultString) {
+                        $resultString .= $BDNA_Separator . $file;
+                    }
+                    else {
+                        $resultString = $file;
+                    }
+                }
+            }
+        }
+        $BDNA_Results{"OracleInitFiles"} = $resultString;
+
+#
+# use lsnrctl to figure out the listener/service pairs
+#
+        $cmd = join("\n",
+                    "export ORACLE_HOME",
+                    "export LD_LIBRARY_PATH",
+                    "ORACLE_HOME='$home'",
+                    "LD_LIBRARY_PATH='$home/lib'",
+                    "'$home/bin/lsnrctl' status");
+        @output = &shellcmd($host, $cmd, "lsnrctl_status");
+
+        my ($addr, $listener, $service);
+        $resultString = "";
+        my $matched = "";
+        while (@output) {
+            $_ = shift(@output);
+            if (/Connecting to (.*)$/) {
+                &echo($1);
+                $addr = $1;
+        } elsif (/Listener Parameter File\s*($home.*)/) {
+# the listner parameter file must match the installation directory
+                &echo("listener $1 matches $home");
+                $matched = "TRUE";
+            } elsif (/Alias(\W*)(\w*)$/) {
+                &echo($2);
+                $listener = $2;
+            } elsif ($matched && /(\w*)(\W*)has(.*)service handler/) {
+# Oracle 8i output (no clear distinction between instances and services)
+                $service = $1;
+                &echo("listener: $listener, service: $service");
+                my $pair = $listener . $BDNA_Separator . $service;
+                if($resultString) {
+                    $resultString .= $BDNA_Separator . $pair;
+                }
+                else {
+                    $resultString = $pair;
+                }
+            } elsif ($matched && /Instance \"(.*)\", status .*, has .* handler/) {
+# Oracle 9i output (services have their own entries, to be consistent with 8i, we get the instances instead of the services)
+                $service = $1;
+                &echo("listener: $listener, service: $service");
+                my $pair = $listener . $BDNA_Separator . $service;
+                if($resultString) {
+                    $resultString .= $BDNA_Separator . $pair;
+                }
+                else {
+                    $resultString = $pair;
+                }
+            }
+        }
+        $BDNA_Results{"listenerServices"} = $resultString;
+
+        $cmd = "cat $home/network/admin/listener.ora";
+        @output = &shellcmd($host, $cmd, "listener.ora");
+        my $listenerNames;
+        while (@output) {
+            $_ = shift(@output);
+            if (/^(\w+)\s+=/) {
+                if(!/ADR_BASE|SID_LIST/) {
+                    if($listenerNames) {
+                        $listenerNames .= $BDNA_Separator . $1;
+                    }
+                    else {
+                        $listenerNames = $1;
+                    }
+                }
+            }
+        }
+        $BDNA_Results{"listenerNames"} = $listenerNames;
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_ErrorCode = 0;
+        $BDNA_MessageBundle = "MessagesBundle";
+        ]]>
+    </scriptTable>
+
 </module>
