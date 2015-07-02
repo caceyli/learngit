@@ -2,21 +2,23 @@ ENH10971:[Visa][Sequence-Fingerprint]-  request new fingerprint Chef-agent and c
 
 ENH10976:[Visa][Fingerprint] Add Fingerprint for "Oracle NoSQL Database" product -- gary
 QA verification: 
-
+-------------------------------------
 Result can be validated by doing a Level 2 scan against 10.10.11.94 (linux)
 and 10.10.10.52 (linux). 
 
 IP address: 10.10.11.94 (vm104rh.bdnacorp.com), 10.10.10.52 (vmlinuxbit02.bdnacorp.com) 
 Credential: root/bdna 
+-------------------------------------
 
 (Attached screenshots for scan results: screenshotForOracleNoSQLDatabaseCommunity.png, screenshotForOracleNoSQLDatabaseEnterprise.png.)
-
+--------------------------------------
 
 RFI00768/BUG03649:[tms]Level-1 Untyping -- gary
 QA Verification: 
-
+--------------------------------------
 Test Environment: 
 test module "RFI00768.xml" 
+--------------------------------------
 
 Test Case 1 -- reproduce the issue: 
 1. Install old Enterprise sequences. (eg: 2015-06 sequences) 
@@ -31,7 +33,7 @@ automatically created on UI)
 5. After scan finished, refresh the report. 
 6. Review the report for All Operating Systems as the screenshot
 'screenshotForUnTypedLinux.png' showed. 
-
+--------------------------------------
 
 Test Case 2 -- Validate the code enhancement on 2015-08 content release. 
 1. Install 2015-08 Enterprise sequences. 
@@ -44,20 +46,22 @@ c. buildPresRls
 automatically created on UI) 
 4. Open the UI, new a a level 1 scan against the network 'Network System'. 
 5. After scan finished, refresh the report. 
-6. Review the report for All Operating Systems as the screenshot
-'screenshotForTypedLinux.png' showed. 
+6. Review the report for All Operating Systems as the screenshot 'screenshotForTypedLinux.png' showed. 
+--------------------------------------
 
 (attached screenshots screenshotForUnTypedLinux.png, screenshotForTypedLinux.png and test module 'RFI00768.xml' )
+--------------------------------------
 
 BUG03493: [Brinks ][Level 2 Scan]Unable to Level-2 Scan WYSE Model CX0 Thin Clients -- miya
 QA Verification: 
-
+--------------------------------------
 Test Environment: 
 test module 'testModuleForBUG03493.xml'
 snmp credential: 161/public
 
 Notes:
 Please separately do this verification test.
+--------------------------------------
 
 Test Case 1 -- reproduce the issue: 
 1. Install old Enterprise sequences. (eg: 201506 sequences) 
@@ -72,9 +76,8 @@ automatically created on UI)
 4. Open the UI, new a a level 2 scan against the network 'BUG03493 network'
 with snmp credential (161/public).
 5. After scan finished, refresh the report.
-6. Review the report for All Operating Systems as the screenshot
-'screenshotForWyseThinClientLevel2N.png' showed: level 2 scan failed.
-
+6. Review the report for All Operating Systems as the screenshot 'screenshotForWyseThinClientLevel2N.png' showed: level 2 scan failed.
+--------------------------------------
 
 Test Case 2 -- Validate the code enhancement on 2015-08 content release. 
 1. Install 2015-08 Enterprise sequences.
@@ -89,10 +92,10 @@ automatically created on UI)
 4. Open the UI, new a a level 2 scan against the network 'BUG03493 network'
 with snmp credential (161/public).
 5. After scan finished, refresh the report.
-6. Review the report for All Operating Systems as the screenshot
-'screenshotForWyseThinClientLevel2Y.png' showed: level 2 scan succeeded.
+6. Review the report for All Operating Systems as the screenshot 'screenshotForWyseThinClientLevel2Y.png' showed: level 2 scan succeeded.
+--------------------------------------
 
 (attached screenshots 'screenshotForWyseThinClientLevel2N.png', 'screenshotForWyseThinClientLevel2Y.png' and module 'testModuleForBUG03493.xml' ) 
-
+--------------------------------------
 
 
