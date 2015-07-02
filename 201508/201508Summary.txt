@@ -1,6 +1,14 @@
-
 ENH10971:[Visa][Sequence-Fingerprint]-  request new fingerprint Chef-agent and chef Server
+simple fingerprint with package information.
 
-ENH10976:[Visa][Fingerprint] Add Fingerprint for "Oracle NoSQL Database" product
+ENH10976:[Visa][Fingerprint] Add Fingerprint for "Oracle NoSQL Database" product -- gary
+M     com/bdna/fingerprintTool/jiffy.list
+M     content/manifests/EnterpriseSequenceManifest.xml
+M     content/manifests/OracleSoftwareManifest.xml
+A     com/bdna/fingerprintTool/templates/jiffy/Oracle/UNIX_NoSQL_Database.j4
 
-RFI00768/BUG03649:[tms]Level-1 Untyping
+RFI00768/BUG03649:[tms]Level-1 Untyping -- gary
+M     com/bdna/fingerprintTool/templates/fingerprint.src
+
+BUG03493: [Brinks ][Level 2 Scan]Unable to Level-2 Scan WYSE Model CX0 Thin Clients -- miya
+M     modules/com/bdna/modules/os/WyseThinClient.xml
