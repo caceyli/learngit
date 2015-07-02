@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+**********************************************************************
+*
+* Copyright (c) 2001-2004 BDNA Corporation.
+* All Rights Reserved
+*
+* ******bDNA CONFIDENTIAL******
+*
+* The following code was developed and is owned by bDNA Corporation.
+* This code is confidential and may contain trade secrets.  The code
+* must not be distributed to any party outside of bDNA Corporation
+* without written permission from bDNA Corporation.  The code may be
+* covered by patents, patents pending, or patents applied for in the
+* US or elsewhere.
+*
+*
+**********************************************************************
+-->
+
+<!DOCTYPE bdna SYSTEM "bdna.dtd">
+
+<module 
+    name="com.bdna.modules.common.testForBUG03493"
+    displayLabel="Module to some system"
+    requiredPlatformVersion="030300"     
+    version="1" 
+    lastCompatibleVersion="1">
+
+    <moduleDependency parentModuleName="com.bdna.modules.common.Discovery" parentModuleVersion="1" />
+
+    <!--  a default network/zone/iprange configuration -->
+
+    <!-- bDNA network discovery config -->
+    <element
+        elementName="BUG03493"
+        elementTypePath="root.types.resource.network"
+        parentPath="root.$bdna.NS_GLOBAL"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.CLE1" childPath="root.$bdna.NS_GLOBAL.BUG03493" />
+    <!-- For network calculated attributes -->
+    <container parentPath="root.$bdna.bdnaCLE" childPath="root.$bdna.NS_GLOBAL.BUG03493" />
+    <data elementPath="root.$bdna.NS_GLOBAL.BUG03493" attributeName="name">BUG03493</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.BUG03493" attributeName="IPRangeSize">256</data>
+
+    <element
+        elementName="zone_bDNA_dummy"
+        elementTypePath="root.types.collectionZone"
+        parentPath="root.$bdna.NS_GLOBAL.BUG03493"
+        isTemplate="false">
+    </element>
+    <data elementPath="root.$bdna.NS_GLOBAL.BUG03493.zone_bDNA_dummy" attributeName="hostIPAddress">192.168.8.152</data>
+    <element
+        elementName="range_dummy"
+        elementTypePath="root.types.IPRange"
+        parentPath="root.$bdna.NS_GLOBAL.BUG03493.zone_bDNA_dummy"
+        isTemplate="false">
+    </element>
+    <data elementPath="root.$bdna.NS_GLOBAL.BUG03493.zone_bDNA_dummy.range_dummy" attributeName="scannableIPs">192.168.8.151-153</data>
+
+    <!-- Dummy IP Address -->
+
+    <!-- Dummy IP Address -->
+    <element
+        elementName="internetAddress_192_168_8_152"
+        elementTypePath="root.types.internetAddress"
+        parentPath="root.$bdna.NS_GLOBAL"
+        isTemplate="false">
+    </element>
+    <container parentPath="root.$bdna.NS_GLOBAL.BUG03493.zone_bDNA_dummy" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_8_152" />
+    <container parentPath="root.$bdna.NS_GLOBAL.BUG03493.zone_bDNA_dummy.range_dummy" childPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_8_152" />
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_8_152" attributeName="hostName">192.168.8.152</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_8_152" attributeName="domainName">bdnacorp.com</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_8_152" attributeName="address">192.168.8.152</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_8_152" attributeName="MACAddress">00:80:64::90</data>
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_8_152" attributeName="name"><![CDATA[IP Address 192.168.8.152]]></data>
+
+</module>
