@@ -387,6 +387,7 @@
         <fingerprint moduleName="com.bdna.modules.app.Oracle.UNIX_Identity_Manager_Remote_Manager" />
         <fingerprint moduleName="com.bdna.modules.app.Oracle.UNIX_JDK" />
         <fingerprint moduleName="com.bdna.modules.app.Oracle.UNIX_JRE" />
+        <fingerprint moduleName="com.bdna.modules.app.Oracle.UNIX_NoSQL_Database" />
         <fingerprint moduleName="com.bdna.modules.app.Oracle.UNIX_OpsCenterAgent" />
         <fingerprint moduleName="com.bdna.modules.app.Oracle.UNIX_OpsCenterEnterpriseController" />
         <fingerprint moduleName="com.bdna.modules.app.Oracle.UNIX_OpsCenterProxyController" />
