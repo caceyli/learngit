@@ -13,7 +13,7 @@
     <block
         blockName="AppConsole"
         id="1"
-        contentBuildVersion="1">
+        contentBuildVersion="4702">
         <module moduleName="com.bdna.modules.appmeta.AppConsole" />
         <report moduleName="com.bdna.modules.appmeta.Folders" />
     </block>
@@ -21,7 +21,7 @@
     <block
         blockName="WidgetLibrary"
         id="2"
-        contentBuildVersion="1">
+        contentBuildVersion="4702">
         <module moduleName="com.bdna.modules.appmeta.HTMLEngineWidgetLibrary" />
         <module moduleName="com.bdna.modules.appmeta.SwingEngineWidgetLibrary" />
         <module moduleName="com.bdna.modules.appmeta.WidgetLibrary" />
@@ -30,13 +30,13 @@
     <block
         blockName="NetCharts"
         id="3"
-        contentBuildVersion="1">
+        contentBuildVersion="4702">
     </block>
 
     <block
         blockName="PresentationBase"
         id="401"
-        contentBuildVersion="1">
+        contentBuildVersion="4702">
         <fingerprint moduleName="com.bdna.presentationModules.common.Base" />
         <fingerprint moduleName="com.bdna.presentationModules.common.Connection" />
         <fingerprint moduleName="com.bdna.presentationModules.common.DiscoveryBase" />
@@ -63,7 +63,7 @@
     <block
         blockName="ContentBaseline"
         id="1001"
-        contentBuildVersion="1">
+        contentBuildVersion="4702">
         <fingerprint moduleName="com.bdna.modules.app.ActiveDirectory" />
         <fingerprint moduleName="com.bdna.modules.app.NetworkServices" />
         <fingerprint moduleName="com.bdna.modules.common.Base" />
@@ -469,7 +469,7 @@
     <block
         blockName="ContentFullPack"
         id="2000"
-        contentBuildVersion="1">
+        contentBuildVersion="4702">
         <fingerprint moduleName="com.bdna.modules.app._1E.SMSDependency" />
         <fingerprint moduleName="com.bdna.modules.app._1E.SMSNomadBranch" />
         <fingerprint moduleName="com.bdna.modules.app._1E" />
@@ -3653,6 +3653,7 @@
         <fingerprint moduleName="com.bdna.modules.app.Oracle.UNIX_Identity_Manager_Remote_Manager" />
         <fingerprint moduleName="com.bdna.modules.app.Oracle.UNIX_JDK" />
         <fingerprint moduleName="com.bdna.modules.app.Oracle.UNIX_JRE" />
+        <fingerprint moduleName="com.bdna.modules.app.Oracle.UNIX_NoSQL_Database" />
         <fingerprint moduleName="com.bdna.modules.app.Oracle.UNIX_OpsCenterAgent" />
         <fingerprint moduleName="com.bdna.modules.app.Oracle.UNIX_OpsCenterEnterpriseController" />
         <fingerprint moduleName="com.bdna.modules.app.Oracle.UNIX_OpsCenterProxyController" />

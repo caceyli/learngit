@@ -4381,6 +4381,7 @@ Oracle/UNIX_DataServiceIntegrator.j4 com/bdna/modules/app/Oracle/UNIX_DataServic
 Oracle/UNIX_Identity_Manager_Remote_Manager.j4 com/bdna/modules/app/Oracle/UNIX_Identity_Manager_Remote_Manager com.bdna.modules.app.Oracle.UNIX_Identity_Manager_Remote_Manager
 Oracle/UNIX_JDK.j4 com/bdna/modules/app/Oracle/UNIX_JDK com.bdna.modules.app.Oracle.UNIX_JDK
 Oracle/UNIX_JRE.j4 com/bdna/modules/app/Oracle/UNIX_JRE com.bdna.modules.app.Oracle.UNIX_JRE
+Oracle/UNIX_NoSQL_Database.j4 com/bdna/modules/app/Oracle/UNIX_NoSQL_Database com.bdna.modules.app.Oracle.UNIX_NoSQL_Database
 Oracle/UNIX_OpsCenterAgent.j4 com/bdna/modules/app/Oracle/UNIX_OpsCenterAgent com.bdna.modules.app.Oracle.UNIX_OpsCenterAgent
 Oracle/UNIX_OpsCenterEnterpriseController.j4 com/bdna/modules/app/Oracle/UNIX_OpsCenterEnterpriseController com.bdna.modules.app.Oracle.UNIX_OpsCenterEnterpriseController
 Oracle/UNIX_OpsCenterProxyController.j4 com/bdna/modules/app/Oracle/UNIX_OpsCenterProxyController com.bdna.modules.app.Oracle.UNIX_OpsCenterProxyController
