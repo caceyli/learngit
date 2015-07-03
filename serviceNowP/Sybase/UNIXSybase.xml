@@ -1,0 +1,1199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+**********************************************************************
+*
+* Copyright (c) 2007-2008 BDNA Corporation.
+* All Rights Reserved. BDNA products and services are protected
+* by the following U.S. patent: #6,988,134. BDNA is trademark of
+* BDNA Corporation.
+*
+* ******BDNA CONFIDENTIAL******
+*
+* The following code was developed and is owned by BDNA Corporation.
+* This code is confidential and may contain trade secrets.  The code
+* must not be distributed to any party outside of BDNA Corporation
+* without written permission from BDNA Corporation.  The code may be
+* covered by patents, patents pending, or patents applied for in the
+* US or elsewhere.
+*
+**********************************************************************
+-->
+<!DOCTYPE bdna SYSTEM "bdna.dtd">
+
+<!-- ............................................................... -->
+<!-- ..     Platform-dependent Sybase fingerprints (UNIX) .......... -->
+<!-- ............................................................... -->
+<module name="com.bdna.modules.database.UNIXSybase" version="1" lastCompatibleVersion="1">
+
+    <moduleDependency
+        parentModuleName="com.bdna.modules.os.UNIX" parentModuleVersion="1" />
+    <moduleDependency
+        parentModuleName="com.bdna.modules.database.Sybase" parentModuleVersion="1" />
+
+    <!-- Host based Sybase fingerprint -->
+    <target type="root.types.resource.software.database.Sybase" />
+
+    <!-- ............................................................... -->
+    <!-- .......        Declare interesting patterns             ....... -->
+    <!-- ............................................................... -->
+
+    <element elementName="com_bdna_modules_database_UNIXSybase"
+        elementTypePath="root.types.moduleConfig.singleModuleConfig"
+        isTemplate="false"
+        parentPath="root.$bdna.globalModuleConfig" >
+    </element>
+    <data elementPath="root.$bdna.globalModuleConfig.com_bdna_modules_database_UNIXSybase"
+        attributeName="applicationFootprintTag">US</data>
+    <data elementPath="root.$bdna.globalModuleConfig.com_bdna_modules_database_UNIXSybase"
+        attributeName="filePatternList"><![CDATA[/bin/dataserver<BDNA,>/bin/xpserver<BDNA,>/install/startserver<BDNA,>/dataserver<BDNA,>/isql]]></data>
+
+    <!-- ............................................................... -->
+    <!-- .......        AttributeSet Packages                ........... -->
+    <!-- ............................................................... -->
+
+    <package name="UNIXSybase" displayLabel="Sybase Databases On UNIX">
+        <depend name="IPAddresses" />
+        <depend name="hardwareDevices" />
+        <depend name="operatingSystems" />
+    </package>
+
+    <packageRelationship parentPackage="databases" childPackage="UNIXSybase" />
+
+    <!-- ............................................................... -->
+    <!-- .......        Sybase/UNIX type declarations        ........... -->
+    <!-- ............................................................... -->
+
+    <!-- generic Sybase -->
+    <element
+        elementName="UNIXSybaseFootprint"
+        elementTypePath="root.types.footprint.SybaseFootprint"
+        displayLabel="Sybase Footprint on UNIX"
+        isTemplate="true" >
+        <attributeSet attributeSetName="UNIXSybaseFootprintStatic"
+                      collectorName="UNIXSybaseFootprintStaticCollector"
+                      collectionInterval="-1"
+                      displayLabel="UNIX Sybase Footprint Static">
+            <attributeSetEntry attributeName="SybaseHomes" />
+        </attributeSet>
+        <attributeSet attributeSetName="UNIXSybaseFootprintDynamic"
+                      collectorName="UNIXSybaseFootprintDynamicCollector"
+                      collectionInterval="-1"
+                      displayLabel="UNIX Sybase Footprint Dynamic">
+            <attributeSetEntry attributeName="SybaseDataServerProcesses" />
+        </attributeSet>
+    </element>
+    
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXSybaseFootprintStatic"/>
+    <packageAttributeSet packageName="UNIXL2" attributeSetName="UNIXSybaseFootprintStatic"/>
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXSybaseFootprintDynamic"/>
+    <packageAttributeSet packageName="UNIXL2" attributeSetName="UNIXSybaseFootprintDynamic"/>
+    <packageAttributeSet packageName="Sybase" attributeSetName="UNIXSybaseFootprintStatic"/>
+    <packageAttributeSet packageName="Sybase" attributeSetName="UNIXSybaseFootprintDynamic"/>
+
+    <packageAttributeSet packageName="UNIXSybase" attributeSetName="UNIXSybaseFootprintStatic"/>
+    <packageAttributeSet packageName="UNIXSybase" attributeSetName="UNIXSybaseFootprintDynamic"/>
+
+    <element
+       elementName="UNIXSybaseInstallation"
+       elementTypePath="root.types.resource.software.installation.SybaseInstallation"
+       displayLabel="Sybase Installation on UNIX"
+       isTemplate="true" >
+       <attribute attributeName="InstancesInSybase" dataType="text" displayLabel="Sybase Instances Information" />
+       <attributeSet attributeSetName="UNIXSybaseInstallationDynamic"
+                     collectorName="UNIXSybaseInstallationDynamicCollector"
+                     collectionInterval="-1"
+                     displayLabel="UNIX Sybase Installation Dynamic">
+            <attributeSetEntry attributeName="SybaseInterfaceFile" />
+       </attributeSet>
+        <attributeSet attributeSetName="UNIXSybaseInstallationInstances"
+                      collectorName="UNIXSybaseInstallationInstancesCollector"
+                      collectionInterval="-1"
+                      displayLabel="UNIX Sybase Installation Instances">
+            <attributeSetEntry attributeName="InstancesInSybase" />
+        </attributeSet>
+    </element>
+
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXSybaseInstallationDynamic"/>
+    <packageAttributeSet packageName="UNIXL2" attributeSetName="UNIXSybaseInstallationDynamic"/>
+    <packageAttributeSet packageName="Sybase" attributeSetName="UNIXSybaseInstallationDynamic"/>
+    <packageAttributeSet packageName="UNIXSybase" attributeSetName="UNIXSybaseInstallationDynamic"/>
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXSybaseInstallationInstances"/>
+     <packageAttributeSet packageName="UNIXL2" attributeSetName="UNIXSybaseInstallationInstances"/>
+    <packageAttributeSet packageName="UNIXSybase" attributeSetName="UNIXSybaseInstallationInstances"/>
+    <packageAttributeSet packageName="Sybase" attributeSetName="UNIXSybaseInstallationInstances"/>
+    <element
+       elementName="UNIXSybase"
+       elementTypePath="root.types.resource.software.database.Sybase"
+       displayLabel="Sybase on UNIX"
+       isTemplate="true" >
+    </element>
+
+    <element
+       elementName="UNIXSybaseServer"
+       elementTypePath="root.types.resource.applicationObject.server.database.SybaseServer"
+       displayLabel="Sybase Server on UNIX"
+       isTemplate="true" >
+       <attributeSet attributeSetName="UNIXSybaseServerRealTime"
+                     collectorName="UNIXSybaseServerRealTimeCollector"
+                     collectionInterval="-1"
+                     displayLabel="UNIX Sybase Server RealTime">
+           <attributeSetEntry attributeName="numSessions" />
+       </attributeSet>
+       <attributeSet attributeSetName="UNIXSybaseServerDynamic"
+                     collectorName="UNIXSybaseServerDynamicCollector"
+                     collectionInterval="-1"
+                     displayLabel="UNIX Sybase Server Dynamic">
+           <attributeSetEntry attributeName="version" />
+           <attributeSetEntry attributeName="Databases" />
+           <attributeSetEntry attributeName="Devices" />
+       </attributeSet>
+    </element>
+    
+    <packageAttributeSet packageName="Sybase" attributeSetName="UNIXSybaseServerRealTime"/>
+    <packageAttributeSet packageName="Sybase" attributeSetName="UNIXSybaseServerDynamic"/>
+
+    <packageAttributeSet packageName="UNIXSybase" attributeSetName="UNIXSybaseServerRealTime"/>
+    <packageAttributeSet packageName="UNIXSybase" attributeSetName="UNIXSybaseServerDynamic"/>
+    <element
+       elementName="UNIXSybaseDevice"
+       elementTypePath="root.types.resource.storageAllocation.database.SybaseDevice"
+       displayLabel="Sybase Device on UNIX"
+       isTemplate="true" >
+    </element>
+
+    <element
+       elementName="UNIXSybaseDatabase"
+       elementTypePath="root.types.resource.applicationObject.database.SybaseDatabase"
+       displayLabel="Sybase Database on UNIX"
+       isTemplate="true" >
+       <attributeSet attributeSetName="UNIXSybaseDatabaseDynamic"
+                     collectorName="UNIXSybaseDatabaseDynamicCollector"
+                     collectionInterval="-1"
+                     displayLabel="UNIX Sybase Database Dynamic">
+           <attributeSetEntry attributeName="totalBytesUsed" />
+       </attributeSet>
+    </element>
+   
+    <element elementName="UNIXSybase"
+         parentPath="root.$bdna.uiResourceToCredentialFolder"
+         elementTypePath="root.types.internal.folder.uiResourceToCredentialFolder.uiResourceToCredentialDetails"
+         displayLabel="Instance of Bucketing Details of type root.types.internal.folder.uiResourceToCredentialFolder.uiResourceToCredentialDetails"
+         isTemplate="false" />
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXSybase"
+      attributeName="packageNames"><![CDATA[UNIXSybase]]></data>
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXSybase"
+      attributeName="taskType"><![CDATA[Inventory]]></data>
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXSybase"
+      attributeName="uiDisplayOrder"><![CDATA[10]]></data>
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXSybase"
+      attributeName="uiResourceDisplayLabel"><![CDATA[Sybase Database Server (UNIX)]]></data>
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXSybase"
+      attributeName="collectionLevel"><![CDATA[3]]></data>
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXSybase"
+      attributeName="connMethodNames"><![CDATA[root.types.collection.connectionMethod.perl.databaseConnection.SybaseConnection]]></data>
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXSybase"
+      attributeName="connMethodDependency"><![CDATA[root.types.collection.connectionMethod.perl.databaseConnection.SybaseConnection<BDNA,1>root.types.collection.connectionMethod.perl.shellConnection.ssh.sshWithKey.sshWithGenerationalOpenSSHKey<BDNA,>root.types.collection.connectionMethod.perl.databaseConnection.SybaseConnection<BDNA,1>root.types.collection.connectionMethod.perl.shellConnection.ssh]]></data>
+ 
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXSybase"
+      attributeName="testableConns"><![CDATA[root.types.collection.connectionMethod.perl.databaseConnection.SybaseConnection<BDNA,1>No]]></data>
+
+    <packageAttributeSet packageName="Sybase" attributeSetName="UNIXSybaseDatabaseDynamic"/>
+    <packageAttributeSet packageName="UNIXSybase" attributeSetName="UNIXSybaseDatabaseDynamic"/>
+
+
+<!-- permanent links first -->
+    <relationship parentType="root.types.resource.software.operatingSystem.UNIX" childType="root.types.footprint.SybaseFootprint.UNIXSybaseFootprint" />
+
+    <relationship parentType="root.types.footprint.SybaseFootprint.UNIXSybaseFootprint" childType="root.types.resource.software.installation.SybaseInstallation.UNIXSybaseInstallation" />
+    <relationship parentType="root.types.footprint.SybaseFootprint.UNIXSybaseFootprint" childType="root.types.resource.software.database.Sybase.UNIXSybase" />
+    <relationship parentType="root.types.footprint.SybaseFootprint.UNIXSybaseFootprint" childType="root.types.resource.applicationObject.server.database.SybaseServer.UNIXSybaseServer" />
+    <relationship parentType="root.types.resource.software.database.Sybase.UNIXSybase" childType="root.types.resource.applicationObject.database.SybaseDatabase.UNIXSybaseDatabase" />
+    <relationship parentType="root.types.resource.software.database.Sybase.UNIXSybase" childType="root.types.resource.storageAllocation.database.SybaseDevice.UNIXSybaseDevice" />
+
+    <!-- logical relationships for navigation or data collection -->
+    <relationship parentType="root.types.resource.software.operatingSystem.UNIX" childType="root.types.resource.software.installation.SybaseInstallation.UNIXSybaseInstallation" />
+    <relationship parentType="root.types.resource.software.operatingSystem.UNIX" childType="root.types.resource.software.database.Sybase.UNIXSybase" />
+
+    <relationship parentType="root.types.resource.software.installation.SybaseInstallation.UNIXSybaseInstallation" childType="root.types.resource.applicationObject.server.database.SybaseServer.UNIXSybaseServer" />
+    <!-- sybase : sybase server (1->many for SMP systems -->
+    <relationship parentType="root.types.resource.software.database.Sybase.UNIXSybase" childType="root.types.resource.applicationObject.server.database.SybaseServer.UNIXSybaseServer" />
+
+    <relationship parentType="root.types.resource.applicationObject.server.database.SybaseServer.UNIXSybaseServer" childType="root.types.resource.applicationObject.database.SybaseDatabase.UNIXSybaseDatabase" />
+    <relationship parentType="root.types.resource.applicationObject.server.database.SybaseServer.UNIXSybaseServer" childType="root.types.resource.storageAllocation.database.SybaseDevice.UNIXSybaseDevice" />
+
+    <relationship 
+        parentType="root.types.resource.software.installation.SybaseInstallation.UNIXSybaseInstallation"
+        childType="root.types.resource.software.database.Sybase.UNIXSybase"
+    />
+
+
+    <rule
+        name="createUNIXSybaseFootprint"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX"
+                target="root.types.resource.software.database.Sybase">
+            <use attribute="applicationFootprintTags"  visibleOnly="false" />
+            <simpleFilterConst attribute="applicationFootprintTags" operator="contains" constant=",US," />
+        </search>
+        <conclusion type="perl">
+            <![CDATA[
+            our (%os);
+            my $parent = $os{"elementFullName"};
+            my $eltName = "UNIXSybaseFootprint";
+            my $eltFullName = "$parent.$eltName";
+            $result =
+                "<result>" .
+                &elementXML(
+                    $eltName,
+                    "root.types.footprint.SybaseFootprint.UNIXSybaseFootprint",
+                    $parent) .
+                &dataXML(
+                    $eltFullName,
+                    "signatureFiles",
+                    "/bin/dataserver<BDNA,>/bin/xpserver<BDNA,>/install/startserver") .
+                "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name = "findSybaseInstallationFromFootprint"
+        weight = "90" >
+        <search variable="fp" pattern="root.types.footprint.SybaseFootprint.UNIXSybaseFootprint" >
+            <use attribute="SybaseHomes" />
+        </search>
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX"/>
+
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="fp" />
+        <conclusion type="perl">
+
+            <![CDATA[
+            our (%fp, %os);
+            my $parent = $fp{"elementFullName"};
+            my $osParent = $os{"elementFullName"};
+            our $result = "<result>";
+            my @sybHomes = split(/<BDNA,>/, $fp{"SybaseHomes"});
+
+            for (my $i = 0; $i <= $#sybHomes; $i = $i + 3) {
+
+                my $version = $sybHomes[$i + 1];
+                my $path = $sybHomes[$i + 2];
+                my $name = "Sybase Adaptive Server Enterprise(ASE)";
+
+                my $type = "root.types.resource.software.installation.SybaseInstallation.UNIXSybaseInstallation";
+                my $eltName = "UNIXSybaseInstallation${version}_$path";
+                $eltName =~ s/\//_/g;
+                $eltName =~ s/\./_/g;
+                my $eltFullName = "$parent.$eltName";
+                $result .=
+                    &elementXML($eltName, $type, $parent) .
+                       &containerXML($osParent, $eltFullName) .
+                           &dataXML($eltFullName, "name", $name) .
+                           &dataXML($eltFullName, "ISQLExecutable", $sybHomes[$i]) .
+                           &dataXML($eltFullName, "version", $version) .
+                           &dataXML($eltFullName, "SybaseHome", $path);
+            }
+            $result .= "</result>";
+            ]]>
+       </conclusion>
+    </rule>
+
+    <!-- Rule to create Sybase Installation element from processes -->
+    <rule
+        name = "SybaseInstallationFromSybaseProcesses"
+        weight = "90" >
+
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX"/>
+
+        <search variable="fp" pattern="root.types.footprint.SybaseFootprint.UNIXSybaseFootprint" >
+             <use attribute="SybaseDataServerProcesses" dataType="text" />
+        </search>
+
+        <search variable="inst"
+                pattern="root.types.resource.software.installation.SybaseInstallation.UNIXSybaseInstallation" >
+                <use attribute="version" />
+                <use attribute="SybaseHome" />
+        </search>
+
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="fp" />
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="inst" />
+        <conclusion type="perl">
+
+            <![CDATA[
+            our (%fp, %inst);
+            my $parent = $fp{"elementFullName"};
+            my $instParent = $inst{"elementFullName"};
+            our $result = "<result>";
+             
+            my $version = $inst{"version"};
+            my $path = $inst{"SybaseHome"};
+
+            my $eltName = "UNIXSybaseInstallation${version}_$path";
+            $eltName =~ s/\//_/g;
+            $eltName =~ s/\./_/g;
+            my $eltFullName = "$parent.$eltName";
+
+            my @sybProcesses = split(/<BDNA,>/, $fp{"SybaseDataServerProcesses"});
+            my $server_string = "";
+            for (my $i = 0; $i <= $#sybProcesses; $i++) {
+                $_ = $sybProcesses[$i];
+                my @words = split(' ');
+
+                my @command_words = @words[7..$#words];
+
+                if (!(/dataserver/, $command_words[0])) {
+                    next;
+                }
+
+                my @master_device = grep (/^-d/, @command_words);
+
+                if ($#master_device != 0) {
+                    next;
+                }
+
+                my @server_name = grep (/^-s/, @command_words);
+
+                my @server_name = grep (/^-s/, @command_words);
+                if ($#server_name == 0) {
+                    @chars = split(//, $server_name[0]);
+                    $server_string = join('',@chars[2..$#chars]);
+                } else {
+                    $server_string = "";
+                }
+            }
+
+            $result .= &dataXML($eltFullName, "ServerName", $server_string);
+            
+            $result .= "</result>";
+            ]]>
+       </conclusion>
+    </rule>
+
+    <rule
+        name = "findSybaseDataServersFromFootprint"
+        weight = "90" >
+       <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX"/>
+        <search variable="fp" pattern="root.types.footprint.SybaseFootprint.UNIXSybaseFootprint" >
+             <use attribute="SybaseDataServerProcesses" dataType="text" />
+        </search>
+        <search variable="inst"
+                pattern="root.types.resource.software.installation.SybaseInstallation.UNIXSybaseInstallation" >
+                <use attribute="InstancesInSybase" />
+        </search>
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="fp" />
+        <simpleJoinFilter lhsVariable="fp" operator="parentOf" rhsVariable="inst" />
+        <conclusion type="perl">
+
+            <![CDATA[
+
+            our (%fp);
+            my $parent = $fp{"elementFullName"};
+            my $osparent = $os{"elementFullName"};
+            my $instParent = $inst{"elementFullName"};
+            my $instancesInSybase = $inst{"InstancesInSybase"};
+            our $result = "<result>";
+            my @sybProcesses = split(/<BDNA,>/, $fp{"SybaseDataServerProcesses"});
+            my $type = "root.types.resource.applicationObject.server.database.SybaseServer.UNIXSybaseServer";
+            
+            my @instancesInfo = split("<BDNA,>", $instancesInSybase);
+            for (my $i = 0; $i <= $#sybProcesses; $i++) {
+                
+                $_ = $sybProcesses[$i];
+                my @words = split(' ');
+                my @command_words = @words[7..$#words];
+
+                if (!(/dataserver/, $command_words[0])) {
+                    next;
+                }
+                
+                my @master_device = grep (/^-d/, @command_words);
+
+                if ($#master_device != 0) {
+                    next;
+                }
+
+                my @chars = split(//, $master_device[0]);
+                $_ = join('',@chars[2..$#chars]);
+                my $md_string_path = $_;
+                s/\//_/g;
+                s/\./_/g;
+                my $md_string = $_;
+                my @server_name = grep (/^-s/, @command_words);
+                
+                my $empPath = $command_words[0];
+                $empPath =~ s/\/bin\/dataserver//g;
+
+                my ($server_string);
+                if ($#server_name == 0) {
+                    @chars = split(//, $server_name[0]);
+                    $server_string = join('',@chars[2..$#chars]);
+                } else {
+                    $server_string = "";
+                }
+                foreach my $_line (@instancesInfo) {
+                    if ($server_string =~ /^$_line$/i) {
+                        my $eltName = "SybaseServer_" . "$server_string"  . "$md_string";
+                        my $eltFullName = "$parent.$eltName";
+                        $result .= &elementXML($eltName, $type, $parent) .
+                        &dataXML($eltFullName, "name", $server_string) .
+                        &dataXML($eltFullName, "MasterDevice", $md_string_path) .
+                        &dataXML($eltFullName, "Alias", $server_string) .
+                        &dataXML($eltFullName, "Executable", $command_words[0]) .
+                        &containerXML($instParent, $eltFullName);
+                    }
+                }
+
+            }
+            $result .= "</result>";
+
+            ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name = "createSybaseFromServer"
+        weight = "90">
+        <search variable = "server"
+                pattern="root.types.resource.applicationObject.server.database.SybaseServer.UNIXSybaseServer" >
+                <use attribute="version" />
+                <use attribute="MasterDevice" />
+        </search>
+
+        <search variable="fp" pattern="root.types.footprint.SybaseFootprint.UNIXSybaseFootprint">  
+               <use attribute="SybaseDataServerProcesses" dataType="text" />
+        </search>
+
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX" />
+        <simpleJoinFilter lhsVariable="fp" operator="parentOf" rhsVariable="server" />
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="fp" />
+        <conclusion type="perl">
+
+        <![CDATA[
+        our (%server, %fp, %os);
+        my $parent= $fp{"elementFullName"};
+        my $osParent = $os{"elementFullName"};
+        our $result = "<result>";
+        $_ = $server{"MasterDevice"};
+
+        s/\//_/g;
+        s/\./_/g;
+
+        my $eltName = "SYBASE" . $_;
+        my $eltFullName = "$parent.$eltName";
+        my $server_child = $server{"elementFullName"};
+
+
+        my @sybProcesses = split(/<BDNA,>/, $fp{"SybaseDataServerProcesses"});
+        my $server_string = "";
+        for (my $i = 0; $i <= $#sybProcesses; $i++) {
+               $_ = $sybProcesses[$i];
+               my @words = split(' ');
+
+               my @command_words = @words[7..$#words];
+
+               if (!(/dataserver/, $command_words[0])) {
+                   next;
+               }
+
+               my @server_name = grep (/^-s/, @command_words);
+               if ($server_name[0]) {
+                   @chars = split(//, $server_name[0]);
+                   $server_string = join('',@chars[2..$#chars]);
+               }
+        }
+
+        my $name = "";
+        if($server_string) {
+            $name = "Sybase on $server_string"; 
+        } else {
+            $name = "Sybase"; 
+        }
+
+        $result .= &elementXML($eltName, "root.types.resource.software.database.Sybase.UNIXSybase", $parent) .
+                            &dataXML($eltFullName, "name", $name) .
+                            &dataXML($eltFullName, "version",  $server{"version"}) .
+                            &containerXML($osParent, $eltFullName) .
+                            &containerXML($eltFullName, $server_child);
+        $result .= "</result>";
+        ]]>
+
+        </conclusion>
+    </rule>
+
+    <rule
+        name = "createSybaseDeviceFromServer"
+        weight = "90">
+        <search variable = "server"
+                pattern="root.types.resource.applicationObject.server.database.SybaseServer.UNIXSybaseServer" >
+                <use attribute="Devices" />
+        </search>
+        <search variable="sybase" pattern="root.types.resource.software.database.Sybase.UNIXSybase" />
+        <simpleJoinFilter lhsVariable="sybase" operator="parentOf" rhsVariable="server" />
+        <conclusion type="perl">
+            <![CDATA[
+            our (%server, %sybase);
+            my $parent = $sybase{"elementFullName"};
+            my $serverParent = $server{"elementFullName"};
+            my @devices = split(/<BDNA,>/, $server{"Devices"});
+            our $result = "<result>";
+            for (my $i = 0; $i <= $#devices; ++ $i)
+            {
+                my $device = $devices[$i];
+                $_ = $device;
+                s/\./_/g;
+                $device = $_;
+                my $eltName = "SybaseDevice_$device";
+                my $eltFullName = "$parent.$eltName";
+                $result .=
+                    &elementXML(
+                        $eltName,
+                        "root.types.resource.storageAllocation.database.SybaseDevice.UNIXSybaseDevice",
+                        $parent) .
+                    &dataXML($eltFullName, "name", $device) .
+                    &containerXML($serverParent, $eltFullName);
+            };
+            $result .= "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name = "createSybaseDatabaseFromServer"
+        weight = "90">
+        <search variable = "server"
+                pattern="root.types.resource.applicationObject.server.database.SybaseServer.UNIXSybaseServer" >
+                <use attribute="Databases" />
+        </search>
+        <search variable="sybase" pattern="root.types.resource.software.database.Sybase.UNIXSybase" />
+        <simpleJoinFilter lhsVariable="sybase" operator="parentOf" rhsVariable="server" />
+        <conclusion type="perl">
+            <![CDATA[
+            our (%server, %sybase);
+            my $parent = $sybase{"elementFullName"};
+            my $serverParent = $server{"elementFullName"};
+            my @databases = split(/<BDNA,>/, $server{"Databases"});
+            our $result = "<result>";
+            for (my $i = 0; $i <= $#databases; ++ $i)
+            {
+                my $database = $databases[$i];
+                $_ = $database;
+                s/\./_/g;
+                $database = $_;
+                my $eltName = "SybaseDatabase_$database";
+                my $eltFullName = "$parent.$eltName";
+                $result .=
+                    &elementXML(
+                        $eltName,
+                        "root.types.resource.applicationObject.database.SybaseDatabase.UNIXSybaseDatabase",
+                        $parent) .
+                    &dataXML($eltFullName, "name", $database) .
+                    &containerXML($serverParent, $eltFullName);
+            };
+            $result .= "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name = "matchDataServerToInstallation"
+        weight = "90" >
+        <search variable="install"
+                 pattern="root.types.resource.software.installation.SybaseInstallation.UNIXSybaseInstallation" >
+                 <use attribute="SybaseInterfaceFile" />
+                 <use attribute="SybaseHome" />
+                 <use attribute="version" />
+                 <use attribute="ISQLExecutable" />
+        </search>
+        <search variable="server"
+                pattern="root.types.resource.applicationObject.server.database.SybaseServer.UNIXSybaseServer" >
+                <use attribute="Executable" />
+                <use attribute="Alias" />
+        </search>
+        <search variable="fp"
+                pattern="root.types.footprint.SybaseFootprint.UNIXSybaseFootprint" >
+        </search>
+        <simpleJoinFilter lhsVariable="fp" operator="parentOf" rhsVariable="install" />
+        <simpleJoinFilter lhsVariable="fp" operator="parentOf" rhsVariable="server" />
+        <conclusion type="perl">
+
+             <![CDATA[
+             our (%install, %server, %fp);
+             our $result = "<result>";
+
+             $_ = $server{"Executable"};
+             my $sybaseHome = $install{"SybaseHome"};
+             if (/^$sybaseHome/) {
+                 my $p = $install{"elementFullName"};
+                 my $c = $server{"elementFullName"};
+                 $result .=  &containerXML($p, $c) .
+                                      &dataXML($c, "version", $install{"version"}) .
+                                      &dataXML($c, "ISQLExecutable", $install{"ISQLExecutable"});
+
+                 my @interface_listing = split(/<BDNA,>/, $install{"SybaseInterfaceFile"});
+                 my $server_name = $server{"Alias"};
+                 my ($ports);
+                 for (my $j = 0; $j < $#interface_listing; $j = $j + 3) {
+                     if ($server_name eq $interface_listing[$j]) {
+                         if ($ports) {
+                             $ports = $ports . "<BDNA,>" . $interface_listing[$j + 2];
+                         } else {
+                                 $ports = $interface_listing[$j + 2];
+                         }
+                     }
+                }
+                $result .= &dataXML($c, "Ports", $ports);
+             }
+             $result .= "</result>";
+             ]]>
+
+        </conclusion>
+    </rule>
+
+    <collector
+        collectorName="UNIXSybaseFootprintStaticCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXSybaseFootprintStaticScript">
+        <scriptRef name="UNIXSybaseFootprintStaticScript" scriptType="collection" seqNum="1" />
+    </collector>
+
+    <collector
+        collectorName="UNIXSybaseFootprintDynamicCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXSybaseFootprintDynamicScript">
+    </collector>
+
+    <collector
+        collectorName="UNIXSybaseInstallationDynamicCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXSybaseInstallationDynamicScript">
+        <collectionParams typeElementFullName="root.types.resource.software.installation.SybaseInstallation.UNIXSybaseInstallation"
+                          attributeName="SybaseHome" />
+    </collector>
+
+    <collector
+        collectorName="UNIXSybaseInstallationInstancesCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXSybaseInstallationInstancesScript">
+        <collectionParams typeElementFullName="root.types.resource.software.installation.SybaseInstallation.UNIXSybaseInstallation"
+                          attributeName="SybaseHome" />
+    </collector>
+
+    <collector
+        collectorName="UNIXSybaseServerRealTimeCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.databaseConnection.SybaseConnection.SybaseSAConnection"
+        collectionScriptName="UNIXSybaseServerRealTimeScript">
+    </collector>
+
+    <collector
+        collectorName="UNIXSybaseServerDynamicCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.databaseConnection.SybaseConnection.SybaseSAConnection"
+        collectionScriptName="UNIXSybaseServerDynamicScript">
+    </collector>
+
+    <collector
+        collectorName="UNIXSybaseDatabaseDynamicCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.databaseConnection.SybaseConnection.SybaseSAConnection"
+        collectionScriptName="UNIXSybaseDatabaseDynamicScript">
+        <collectionParams typeElementFullName="root.types.resource.applicationObject.database.SybaseDatabase.UNIXSybaseDatabase"
+                          attributeName="name" />
+    </collector>
+
+    
+    <!-- ............................................................... -->
+    <!-- .......        Sybase connection scripts            ........... -->
+    <!-- ............................................................... -->
+
+    <!-- Moved from Sybase.xml to UNIXSybase.xml -->        
+    <connScriptBundle connMethodEFN="root.types.collection.connectionMethod.perl.databaseConnection.SybaseConnection.SybaseSAConnection">
+        <scriptRef name="SybaseSSHSetup" scriptType="connection" seqNum="1" />
+    </connScriptBundle>
+
+    <connScriptBundle connMethodEFN="root.types.collection.connectionMethod.perl.databaseConnection.SybaseConnection.SybaseSAConnection.sshWithGenerationalOpenSSHKey">
+        <scriptRef name="SybaseSSHSetup" scriptType="connection" seqNum="1" />
+    </connScriptBundle>
+
+    <scriptTable
+        scriptName="SybaseSSHSetup"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="%atr%"
+          efnSource="root.types.internetAddress"
+          attributeName="address" />
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="sybServer"
+          efnSource="root.types.resource.applicationObject.server.database.SybaseServer.UNIXSybaseServer"
+          attributeName="Alias" />
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="%atr%"
+          efnSource="root.types.resource.applicationObject.server.database.SybaseServer.UNIXSybaseServer"
+          attributeName="ISQLExecutable" />
+
+        <![CDATA[
+        if ( $BDNA_Params{"ConnectType"} eq "Connect" ) {
+            &echo("Connection method script SybaseSSHSetup:");
+
+            $BDNA_Connection_Info{"sybUser"} = $BDNA_Params{"sybUser"};
+            $BDNA_Connection_Info{"sybPassword"}  = $BDNA_Params{"sybPassword"};
+            $BDNA_Connection_Info{"sybServer"} = $BDNA_Params{"sybServer"};
+            $BDNA_Connection_Info{"ISQLExecutable"} = $BDNA_Params{"ISQLExecutable"};
+
+            &sshConnect();
+        }
+        elsif ( $BDNA_Params{"ConnectType"} eq "Disconnect" ) {
+            &sshDisconnect();
+            delete $BDNA_Connection_Info{"sybUser"};
+            delete $BDNA_Connection_Info{"sybPassword"};
+            delete $BDNA_Connection_Info{"sybServer"};
+            delete $BDNA_Connection_Info{"ISQLExecutable"};
+
+            $BDNA_ErrorCode  = 0;
+            $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        }
+        else {
+            $BDNA_ErrorCode  = 1;
+            $BDNA_ResultCode = "Bad Script ConnectType '" . $BDNA_Params{"ConnectType"} . "'";
+        }
+        ]]>
+    </scriptTable>
+
+    <scriptTable
+        scriptName="SybaseTELNETSetup"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="%atr%"
+          efnSource="root.types.internetAddress"
+          attributeName="address" />
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="sybServer"
+          efnSource="root.types.resource.applicationObject.server.database.SybaseServer.UNIXSybaseServer"
+          attributeName="Alias" />
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="%atr%"
+          efnSource="root.types.resource.applicationObject.server.database.SybaseServer.UNIXSybaseServer"
+          attributeName="ISQLExecutable" />
+
+        <![CDATA[
+        if ( $BDNA_Params{"ConnectType"} eq "Connect" ) {
+            &telnetConnect();
+
+            $BDNA_Connection_Info{"sybUser"} = $BDNA_Params{"sybUser"};
+            $BDNA_Connection_Info{"sybPassword"}  = $BDNA_Params{"sybPassword"};
+            $BDNA_Connection_Info{"sybServer"} = $BDNA_Params{"sybServer"};
+            $BDNA_Connection_Info{"ISQLExecutable"} = $BDNA_Params{"ISQLExecutable"};
+
+        } elsif ( $BDNA_Params{"ConnectType"} eq "Disconnect" ) {
+
+            &telnetDisconnect();
+
+            delete $BDNA_Connection_Info{"sybUser"};
+            delete $BDNA_Connection_Info{"sybPassword"};
+            delete $BDNA_Connection_Info{"sybServer"};
+            delete $BDNA_Connection_Info{"ISQLExecutable"};
+
+            $BDNA_ErrorCode  = 0;
+            $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        }
+        else {
+            $BDNA_ErrorCode  = 1;
+            $BDNA_ResultCode = "Bad Script ConnectType '" . $BDNA_Params{"ConnectType"} . "'";
+        }
+        ]]>
+    </scriptTable>
+
+
+    <!-- ............................................................... -->
+    <!-- .......            UNIX Sybase collection scripts   ........... -->
+    <!-- ............................................................... -->
+
+    <scriptTable
+        scriptName="UNIXSybaseInstallationDynamicScript"
+        scriptVersion="1.0">
+        <![CDATA[
+            my ($host, $sybHome, $cmd, $result_string);
+            my (@output, $master, $protocol, $duh, $port, $server_name);
+
+            $host = $BDNA_Connection_Info{"HostObject"};
+            $sybHome = $BDNA_Params{"root.types.resource.software.installation.SybaseInstallation.UNIXSybaseInstallation:SybaseHome"};
+            $cmd = "cat " . $sybHome . "/interfaces";
+
+            @output = &shellcmd($host, $cmd, "intf");
+            $result_string = "";
+
+            while (@output) {
+
+               $_ = shift(@output);
+               if (!(/\t/)) {
+                  $server_name = $_;
+                  chomp($server_name);
+               } else {
+
+                   if (/master/) {
+                       ($master, $protocol, $duh, $host, $port) = split(' ');
+                       my $new_element = $server_name . $BDNA_Separator . $protocol . $BDNA_Separator . $port;
+                       if ($result_string) {
+                           $result_string = $result_string . $BDNA_Separator . $new_element;
+                       } else {
+                           $result_string = $new_element;
+                       }
+                   }
+               }
+           }
+
+            $BDNA_Results{"SybaseInterfaceFile"} = $result_string;
+            $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+            $BDNA_ErrorCode = 0;
+            $BDNA_MessageBundle = "MessagesBundle";
+
+        ]]>
+    </scriptTable>
+
+
+    <scriptTable
+        scriptName="UNIXSybaseInstallationInstancesScript"
+        scriptVersion="1.0">
+        <![CDATA[
+            my $host = $BDNA_Connection_Info{"HostObject"};
+            my $sybHome = $BDNA_Params{"root.types.resource.software.installation.SybaseInstallation.UNIXSybaseInstallation:SybaseHome"};
+            my %_env = ();
+            my @_instancesInfo = &_j4_executeCommand($host, {%_env}, $sybHome, "ls -dl *.cfg", "true");
+            my $result_string = "";
+            foreach my $_line (@_instancesInfo) {
+                if ($_line =~ /([\S]*)\.cfg/) {
+                    $result_string = $result_string.$1."<BDNA,>";
+                }
+            }
+            $BDNA_Results{"InstancesInSybase"} = $result_string;
+            $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+            $BDNA_ErrorCode = 0;
+            $BDNA_MessageBundle = "MessagesBundle";
+
+        ]]>
+    </scriptTable>
+
+
+    <scriptTable
+        scriptName="UNIXSybaseFootprintStaticScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="true"  isOptional="false"
+          argNamePattern="%efnname%:%atr%"
+          efnSource="root.$bdna.globalModuleConfig" 
+          attributeName="filePatternList" />
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="%efntype%:%atr%"
+          efnSource="root.types.footprint.SybaseFootprint.UNIXSybaseFootprint" 
+          attributeName="signatureFiles" />
+        <scriptArg isGlobal="true"  isOptional="true"
+          argNamePattern="%efnname%:%atr%"
+          efnSource="root.$bdna.globalModuleConfig.ModularCollectionOutOfSystemFind"
+          attributeName="ModularCollection::outOfSystemFindFilePath" />
+        <![CDATA[
+        my ($host, @output, @sigFiles, $sigFileString, %sigPath, %homeDir, $sigFile);
+
+# get the telnet connection (set by the connection script)
+        $host = $BDNA_Connection_Info{"HostObject"};
+
+        $sigFileString = $BDNA_Params{"root.types.footprint.SybaseFootprint.UNIXSybaseFootprint:signatureFiles"};
+        &echo("sigFileString is $sigFileString");
+        @sigFiles = split(/$BDNA_Separator/, $sigFileString);
+
+# initialize the working variables
+        %sigPath = ();
+        %homeDir = ();
+
+# formulate a list of regular expressions from the signature file list
+        my $sigPatterns;
+        $sigPatterns = "";
+
+        foreach $sigFile (@sigFiles) {
+            if ($sigPatterns) {
+                $sigPatterns = $sigPatterns . "|" . $sigFile . "\$";
+            } else {
+                $sigPatterns = $sigFile . "\$";
+            }
+        }
+
+#
+# issue the find/grep command to locate directories with signature files
+#
+        my ($cmd, $one);
+
+        &echo("Doing cachedFind for directory root for pattern: $sigPatterns");
+        @output = cachedFind($host, 7*24*3600, $BDNA_Params{'root.$bdna.globalModuleConfig:filePatternList'}, "/", $sigPatterns, $BDNA_Params{'root.$bdna.globalModuleConfig.ModularCollectionOutOfSystemFind:ModularCollection::outOfSystemFindFilePath'});
+
+        while (@output) {
+            $one = shift(@output);
+            chomp($one);
+
+            &echo("considering $one for a Sybase home directory...");
+
+# records what home directory candidate contains what signature files
+            $sigPath{$one} = 1;
+
+# extract the home directory by removing the signature file suffix
+            $_ = $one;
+
+            foreach $sigFile (@sigFiles) {
+                if(/(.*)$sigFile/) {
+                    $homeDir{"$1"} = 1;
+                }
+            }
+        }
+
+        my (@resultDir, $sigFileNotFound);
+        @resultDir = ();
+
+        foreach my $dir (keys(%homeDir)) {
+            $sigFileNotFound = 0;
+            foreach my $sig (@sigFiles) {
+                 if (!defined($sigPath{$dir . $sig})) {
+                    $sigFileNotFound = 1;
+                    last;
+                }
+            }
+            if (!$sigFileNotFound) {
+                push(@resultDir, $dir);
+            }
+        }
+
+# construct the result, which is a list of pairs of (<home dir>, <version>)
+        my ($resultString, $hdir);
+        $resultString = "";
+
+        &echo("Sybase home dir list: @resultDir");
+
+        foreach my $dir (@resultDir) {
+
+# 12.5 has an ASE directory under the sybase home directory. 
+# remove the ASE and work with that.
+
+            $_ = $dir;
+
+            if (/ASE/) {
+                my @removeASE = split(/\//, $_);
+
+                if ($removeASE[$#removeASE] eq 'ASE') {
+# remove '/ASE' from the name!
+                    $dir = substr($dir, 0, length($dir) - 4);
+                }
+            }
+
+            my $executable;
+
+            &echo("Doing cachedFind for directory $dir for pattern: " . '/dataserver$');
+            @output = cachedFind($host, 7*24*3600, $BDNA_Params{'root.$bdna.globalModuleConfig:filePatternList'}, $dir, '/dataserver$', $BDNA_Params{'root.$bdna.globalModuleConfig.ModularCollectionOutOfSystemFind:ModularCollection::outOfSystemFindFilePath'});
+
+            foreach (@output) {
+                if (/dataserver$/) {
+                    $executable = $_;
+                    chomp($executable);
+                }
+            }
+
+            if (!$executable) {
+# reject a directory that doesn't contain dataserver.
+                next;
+
+            }
+# find the location of the isql executable
+
+            my $isqlExecutable;
+            &echo("Doing cachedFind for directory $dir for pattern: " . '/isql$');
+            @output = cachedFind($host, 7*24*3600, $BDNA_Params{'root.$bdna.globalModuleConfig:filePatternList'}, $dir, '/isql$', $BDNA_Params{'root.$bdna.globalModuleConfig.ModularCollectionOutOfSystemFind:ModularCollection::outOfSystemFindFilePath'});
+
+            foreach (@output) {
+                if (/isql$/) {
+                    $isqlExecutable = $_;
+                    chomp($isqlExecutable);
+                    last;
+                }
+            }
+
+            if (!$isqlExecutable) {
+                #next;
+                $isqlExecutable = "";
+            }
+            $cmd = "$executable -v | head -1";
+
+            @output = &shellcmd($host, $cmd, "isql");
+
+            &echo("Sybase version command output: $output[0]");
+# output of dataserver -v output seems to be
+# Adaptive Server Enterprise/12.5/SWR 9617 GA/P/Linux Intel/Linux 2.2.14-5.0smp i6
+
+# split on whitespace and forward slash "/"
+            my @output_words = split(/[ \/]/, $output[0]);
+            my $version = $output_words[3];
+
+            $hdir = "$isqlExecutable$BDNA_Separator$version$BDNA_Separator$dir";
+
+            if ($resultString) {
+                $resultString .= $BDNA_Separator . $hdir;
+            }
+            else {
+                $resultString = $hdir;
+            }
+        }
+
+        $BDNA_Results{"SybaseHomes"} = $resultString;
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_ErrorCode = 0;
+        $BDNA_MessageBundle = "MessagesBundle";
+        ]]>
+    </scriptTable>
+
+    <scriptTable
+        scriptName="UNIXSybaseFootprintDynamicScript"
+        scriptVersion="1.0">
+        <![CDATA[
+        my $resultString;
+        my @output;
+        my $host;
+
+        $host = $BDNA_Connection_Info{"HostObject"};
+        @output = &UNIXps($host, "dataserver");
+        $resultString = "";
+
+        while (@output) {
+            $_ = shift(@output);
+            &echo("PS $_ EOL");
+            chomp();
+            &echo("chomp(PS) $_ EOL");
+            if (/dataserver.* -s/) {
+                if ($resultString) {
+                    $resultString .= $BDNA_Separator . $_;
+                } else {
+                    $resultString = $_;
+                }
+            }
+        }
+
+       &echo("Processes found: $resultString");
+       $BDNA_Results{"SybaseDataServerProcesses"} = $resultString;
+       $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+       $BDNA_ErrorCode = 0;
+       $BDNA_MessageBundle = "MessagesBundle";
+        ]]>
+    </scriptTable>
+
+    <scriptTable
+        scriptName="UNIXSybaseServerRealTimeScript"
+        scriptVersion="1.0">
+
+        <![CDATA[
+
+        my $query = "select '<BDNA>' + convert(varchar, count(*)) + '<BDNA>' from sysprocesses where suid != 0";
+        my $host = $BDNA_Connection_Info{"HostObject"};
+        my @output = &execSybaseSQL($host, $query, "proc");
+        my $numSessions;
+
+        while (@output) {
+            $_ = shift(@output);
+            if (/\s*<BDNA>(\d+)<BDNA>/) {
+                $numSessions = $1;
+            }
+        }
+
+        &echo("numSessions: $numSessions");
+        $BDNA_Results{"numSessions"} = $numSessions;
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_ErrorCode = 0;
+        ]]>
+
+     </scriptTable>
+
+     <scriptTable
+        scriptName="UNIXSybaseServerDynamicScript"
+        scriptVersion="1.0">
+        <![CDATA[
+        my $host = $BDNA_Connection_Info{"HostObject"};
+        my ($db, $dev);
+
+        my @output = &execSybaseSQL($host, "select '<BDNA>' + name + '<BDNA>' from sysdatabases", "db");
+
+        $db = "";
+        while (@output) {
+            $_ = shift(@output);
+            if (/(\s*)<BDNA>(.+)<BDNA>/) {
+                if ($db) {
+                    $db = $db . "<BDNA,>" . $2;
+                } else {
+                    $db = $2;
+                }
+            }
+        }
+
+        @output = &execSybaseSQL($host, "select '<BDNA>' + name + '<BDNA>' from sysdevices", "dev");
+        $dev = "";
+
+        while (@output) {
+            $_ = shift(@output);
+            if (/(\s*)<BDNA>(.+)<BDNA>/) {
+                if ($dev) {
+                    $dev = $dev . "<BDNA,>" . $2;
+                } else {
+                    $dev = $2;
+                }
+            }
+        }
+ 
+        ## collecting version data from remote SQL (isql) utility ##
+
+        @output = &execSybaseSQL($host, 'select @@version', "ver");
+        $ver = "";
+
+        while (@output) {
+            $_ = shift(@output);
+            if (/\/([\d\.]+)\//) {
+                $ver = $1;
+            }
+        }
+
+        $BDNA_Results{"version"} = $ver;
+        $BDNA_Results{"Databases"} = $db;
+        $BDNA_Results{"Devices"} = $dev;
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_ErrorCode = 0;
+        $BDNA_MessageBundle = "MessagesBundle";
+
+        ]]>
+    </scriptTable>
+
+    <scriptTable
+        scriptName="UNIXSybaseDatabaseDynamicScript"
+        scriptVersion="1.0">
+        <![CDATA[
+
+        my $host = $BDNA_Connection_Info{"HostObject"};
+        my $db = $BDNA_Params{"root.types.resource.applicationObject.database.SybaseDatabase.UNIXSybaseDatabase:name"};
+        my $size = "";
+
+        my @output = &execSybaseSQL($host, "sp_databases", "dbsize");
+        &echo($db);
+        while (@output) {
+            $_ = shift(@output);
+            if (/^(\s*)$db(\s*)(\d*)(\D*)/) {
+                $size = $3 * 1024;
+                &echo("sp_database returns $_, SIZE = $size bytes");
+            }
+        }
+
+        $BDNA_MessageBundle = "MessagesBundle";
+        $BDNA_ErrorCode = 0;
+        if ($size) {
+            $BDNA_Results{"totalBytesUsed"} = $size;
+            $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        } else {
+            $BDNA_ResultCode = "com.bdna.cle.scripts.noData";
+        }
+
+        ]]>
+    </scriptTable>
+
+</module>

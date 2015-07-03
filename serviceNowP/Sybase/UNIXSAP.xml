@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+**********************************************************************
+*
+* Copyright (c) 2007-2008 BDNA Corporation.
+* All Rights Reserved. BDNA products and services are protected
+* by the following U.S. patent: #6,988,134. BDNA is trademark of
+* BDNA Corporation.
+*
+ * ******BDNA CONFIDENTIAL******
+*
+* The following code was developed and is owned by BDNA Corporation.
+* This code is confidential and may contain trade secrets.  The code
+* must not be distributed to any party outside of BDNA Corporation
+* without written permission from BDNA Corporation.  The code may be
+* covered by patents, patents pending, or patents applied for in the
+* US or elsewhere.
+*
+**********************************************************************
+-->
+<!DOCTYPE bdna SYSTEM "bdna.dtd">
+
+<module 
+    name="com.bdna.modules.app.SAP.UNIXSAP" 
+    displayLabel="SAP on UNIX"
+    requiredPlatformVersion="030300"      
+    version="1" 
+    lastCompatibleVersion="1">
+
+    <moduleDependency
+        parentModuleName="com.bdna.modules.os.UNIX" parentModuleVersion="1" />        
+    <moduleDependency
+        parentModuleName="com.bdna.modules.app.SAP" parentModuleVersion="2" />
+
+    <!-- ............................................................... -->
+    <!-- .......        SAP type declarations                ........... -->
+    <!-- ............................................................... -->
+
+    <element
+        elementName="UNIXSAPFootprint"
+        elementTypePath="root.types.footprint.SAPFootprint"
+        displayLabel="SAP Footprint on UNIX"
+        isTemplate="true" >        
+        <attributeSet attributeSetName="UNIXSAPFootprintStatic"
+                      collectorName="UNIXSAPFootprintStaticCollector"
+                      collectionInterval="-1"
+                      maxScriptRunTime="7200000"
+                      displayLabel="UNIX SAP Footprint Static">
+            <attributeSetEntry attributeName="installDirs" /> 
+        </attributeSet>		            
+        <attributeSet attributeSetName="UNIXSAPFootprintDynamic"
+                      collectorName="UNIXSAPFootprintDynamicCollector"
+                      collectionInterval="-1"
+                      maxScriptRunTime="7200000"
+                      displayLabel="UNIX SAP Footprint Dynamic">
+            <attributeSetEntry attributeName="runningInstances" />        
+        </attributeSet>        
+    </element>
+    
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXSAPFootprintStatic"/>
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXSAPFootprintDynamic"/>
+    <packageAttributeSet packageName="SAP" attributeSetName="UNIXSAPFootprintStatic"/>
+    <packageAttributeSet packageName="SAP" attributeSetName="UNIXSAPFootprintDynamic"/>
+
+    <element
+        elementName="UNIXSAPInstallation"
+        elementTypePath="root.types.resource.software.installation.SAP.SAPInstallation"
+        displayLabel="SAP Installations on UNIX"
+        isTemplate="true">
+
+        <attributeSet attributeSetName="UNIXSAPInstallationDynamic"
+                      collectorName="UNIXSAPInstallationDynamicCollector"
+                      collectionInterval="-1"
+                      maxScriptRunTime="7200000"
+                      displayLabel="UNIX SAP Installation Dynamic">
+            <attributeSetEntry attributeName="kernelVersion" />        
+            <attributeSetEntry attributeName="R3transPatches" />                
+            <attributeSetEntry attributeName="TPPatches"/>                        
+            <attributeSetEntry attributeName="licenseServerHost"/>
+            <attributeSetEntry attributeName="databaseType"/>
+            <attributeSetEntry attributeName="databaseServerHost"/>    
+            <attributeSetEntry attributeName="databaseSchema"/>
+            <attributeSetEntry attributeName="globalSID"/>       	    
+        </attributeSet>         
+    </element>
+    
+    <element
+        elementName="UNIXSAPInstance"
+        elementTypePath="root.types.resource.applicationObject.server.SAPInstance"
+        displayLabel="SAP Server Instances on UNIX"
+        isTemplate="true">
+    </element>
+
+    <element
+        elementName="UNIXSAPDatabase"
+        elementTypePath="root.types.resource.applicationObject.database.SAPDatabase"
+        displayLabel="SAP Database Repositories on UNIX"
+        isTemplate="true">
+    </element>
+
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXSAPInstallationDynamic"/>
+
+    <package name="UNIX_SAP" displayLabel="SAP on UNIX" >
+            <depend name="IPAddresses"  />
+            <depend name="hardwareDevices"  />
+            <depend name="operatingSystems"  />
+    </package>
+    <packageRelationship parentPackage="SAP" childPackage="UNIX_SAP"  />
+    <packageRelationship parentPackage="business" childPackage="UNIX_SAP"  />
+    <packageAttributeSet packageName="UNIX_SAP" attributeSetName="UNIXSAPInstallationDynamic"/>
+
+    <!-- ............................................................... -->
+    <!-- .......        Declare interesting patterns             ....... -->
+    <!-- ............................................................... -->
+    <element elementName="com_bdna_modules_app_UNIXSAP"
+        elementTypePath="root.types.moduleConfig.singleModuleConfig"
+        isTemplate="false"
+        parentPath="root.$bdna.globalModuleConfig" >
+    </element>
+    <data elementPath="root.$bdna.globalModuleConfig.com_bdna_modules_app_UNIXSAP"
+        attributeName="applicationFootprintTag">SAP</data>
+    <data elementPath="root.$bdna.globalModuleConfig.com_bdna_modules_app_UNIXSAP"
+        attributeName="filePatternList"><![CDATA[/SYS/exe/run/R3trans<BDNA,>/SYS/exe/run/saplicense]]></data>
+    <data elementPath="root.$bdna.globalModuleConfig.com_bdna_modules_app_UNIXSAP"
+        attributeName="processPatternList"><![CDATA[sapstart]]></data>
+
+    <!-- ............................................................... -->
+    <!-- .......        SAP fingerprint rules                ........... -->
+    <!-- ............................................................... -->        
+
+    <!-- Creates an oracle footprint element under all unix'es -->
+    <rule
+        name="createUNIXSAPFootprint"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX" >
+            <use attribute="applicationFootprintTags"  visibleOnly="false" />
+            <simpleFilterConst attribute="applicationFootprintTags" operator="contains" constant=",SAP," />
+        </search>
+        <output type="root.types.footprint.SAPFootprint.UNIXSAPFootprint"/>    
+        <output parentType="os" childType="root.types.footprint.SAPFootprint.UNIXSAPFootprint" />                   
+        <output type="root.types.footprint.SAPFootprint.UNIXSAPFootprint" attribute="signatureFiles" />        
+        <output type="root.types.footprint.SAPFootprint.UNIXSAPFootprint" attribute="systemType" />        
+        <conclusion type="perl">
+            <![CDATA[
+            my $parent = $os{"elementFullName"};
+            my $type = "root.types.footprint.SAPFootprint.UNIXSAPFootprint";
+            my $eltName = "SAPFootprint";
+            my $eltFullName = "$parent.$eltName";
+            $result =
+                "<result>" .
+                &elementXML($eltName, $type, $parent) .
+                &dataXML($eltFullName, "signatureFiles", "/SYS/exe/run/R3trans<BDNA,>/SYS/exe/run/saplicense") .
+                &dataXML($eltFullName, "systemType", "UNIX") .                
+                "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+
+    <!-- Create SAP footprint from process -->
+    <rule
+        name="createUNIXSAPFootprintFromProcess"
+        weight="90" >
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX" >
+            <use attribute="applicationProcessFootprintTags"  visibleOnly="false" />
+            <simpleFilterConst attribute="applicationProcessFootprintTags" operator="contains" constant=",SAP," />
+        </search>
+        <output type="root.types.footprint.SAPFootprint.UNIXSAPFootprint"/>
+        <output parentType="os" childType="root.types.footprint.SAPFootprint.UNIXSAPFootprint" />
+        <output type="root.types.footprint.SAPFootprint.UNIXSAPFootprint" attribute="signatureFiles" />
+        <output type="root.types.footprint.SAPFootprint.UNIXSAPFootprint" attribute="systemType" />
+        <conclusion type="perl">
+            <![CDATA[
+            my $parent = $os{"elementFullName"};
+            my $type = "root.types.footprint.SAPFootprint.UNIXSAPFootprint";
+            my $eltName = "SAPFootprint";
+            my $eltFullName = "$parent.$eltName";
+            $result =
+                "<result>" .
+                &elementXML($eltName, $type, $parent) .
+                &dataXML($eltFullName, "signatureFiles", "/SYS/exe/run/R3trans<BDNA,>/SYS/exe/run/saplicense") .
+                &dataXML($eltFullName, "systemType", "UNIX") .
+                "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="findUNIXSAPInstanceFromFootprint"
+        weight="90" >
+        <search variable="fp" pattern="root.types.footprint.SAPFootprint" >
+            <use attribute="runningInstances" />
+            <use attribute="systemType" />
+        </search>
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX" />
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="fp"/>
+        <output type="root.types.resource.applicationObject.server.SAPInstance.UNIXSAPInstance"/>
+        <output parentType="os" childType="root.types.resource.applicationObject.server.SAPInstance.UNIXSAPInstance"/>
+        <output type="root.types.resource.applicationObject.server.SAPInstance.UNIXSAPInstance" attribute="name" />
+        <output type="root.types.resource.applicationObject.server.SAPInstance.UNIXSAPInstance" attribute="installDirectory" />
+        <output type="root.types.resource.applicationObject.server.SAPInstance.UNIXSAPInstance" attribute="SID" />
+        <output type="root.types.resource.applicationObject.server.SAPInstance.UNIXSAPInstance" attribute="systemNumber" />
+        <output type="root.types.resource.applicationObject.server.SAPInstance.UNIXSAPInstance" attribute="startupProfile" />
+        <conclusion type="perl">
+        <![CDATA[
+            our $result = "<result>";
+            my $parent = $fp{"elementFullName"};
+            my $osParent = $os{"elementFullName"};
+            my $stype = $fp{"systemType"};
+            my ($eltName, $eltFullName) = ("UNIXSAPInstance", '', '');
+            $eltFullName = "$parent.$eltName";
+            my @instances = split(/$BDNA_SubSeparator/, $fp{"runningInstances"});
+
+
+            foreach my $inst (@instances) {
+               my ($instance, $sid, $num) = ("", "", "");
+               if ($inst =~ /instance="(.+?)"/) {
+                   $instance = $1;
+               }
+               if ($inst =~ /SID="(.+?)"/) {
+                   $sid = $1;
+               }
+               if ($inst =~ /sysNum="(.+?)"/) {
+                   $num = $1;
+               }
+               if ($instance && $sid && num) {
+                  $eltName = "UNIXSAPInstance_" . $instance . "_" . $sid . "_" . $num;
+                  $eltName =~ s/\W/_/g;
+                  $eltFullName = "$parent.$eltName";
+
+                  $resultString .=
+                      &elementXML($eltName,"root.types.resource.applicationObject.server.SAPInstance.UNIXSAPInstance" , $parent);
+                  $resultString .= &containerXML($osParent, $eltFullName);
+
+                  my @props = split(/$BDNA_Sub2Separator/, $inst);
+                  foreach my $prop (@props) {
+                      if ($prop =~ /instance="(.+?)"/) { $resultString .= &dataXML($eltFullName, "name", $1); }
+                      if ($prop =~ /SID="(.+?)"/) { $resultString .= &dataXML($eltFullName, "SID", $1); }
+                      if ($prop =~ /sysNum="(.+?)"/) { $resultString .= &dataXML($eltFullName, "systemNumber", $1); }
+                      if ($prop =~ /installDir="(.+?)"/) { $resultString .= &dataXML($eltFullName, "installDirectory", $1); }
+                      if ($prop =~ /profile"(.+?)"/) { $resultString .= &dataXML($eltFullName, "startupProfile", $1); }
+                  }
+                  $result .= $resultString;
+               }
+            }
+            $result .= "</result>";
+        ]]>
+        </conclusion>
+    </rule>
+
+    <!-- Creates SAP installation elements based on collected value of UNIX SAPInstallations -->
+    <rule name="findSAPInstallationFromFootprint" weight="90">
+        <search pattern="root.types.footprint.SAPFootprint" variable="fp">
+            <use attribute="installDirs"/>
+            <use attribute="systemType"/>
+        </search>
+        <search pattern="root.types.resource.software.operatingSystem" variable="os"/>
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="fp"/>
+        <output includeSubtype="true" type="root.types.resource.software.installation.SAP.SAPInstallation"/>
+        <output childType="root.types.resource.software.installation.SAP.SAPInstallation" includeSubtype="true" parentType="os"/>
+        <output childType="root.types.resource.software.installation.SAP.SAPInstallation" includeSubtype="true" parentType="fp"/>
+        <output attribute="name" includeSubtype="true" type="root.types.resource.software.installation.SAP.SAPInstallation"/>
+        <output attribute="installDir" includeSubtype="true" type="root.types.resource.software.installation.SAP.SAPInstallation"/>
+        <output attribute="SID" includeSubtype="true" type="root.types.resource.software.installation.SAP.SAPInstallation"/>
+        <conclusion type="perl">
+            <![CDATA[
+            my $parent = $fp{"elementFullName"};
+            my $osParent = $os{"elementFullName"};
+            my $stype = $fp{"systemType"};
+
+            $result = "<result>";
+            my @dirs = split(/<BDNA,>/, $fp{"installDirs"});
+            for ($i = 0; $i <= $#dirs; $i = $i + 2)
+            {
+                my $path = $dirs[$i];
+                my $sid = $dirs[$i + 1];
+                my $type = "root.types.resource.software.installation.SAP.SAPInstallation." . $stype . "SAPInstallation";
+                my $eltName = $stype . 'SAPInstallation_' . $path;
+                $eltName =~ s/\./_/g;
+                my $eltFullName = "$parent.$eltName";
+                $result .=
+                        &elementXML($eltName, $type, $parent) .
+                        &containerXML($osParent, $eltFullName) .
+                        &dataXML($eltFullName, "name", "SAPInstallation") .
+                        &dataXML($eltFullName, "SID", $sid) .
+                        &dataXML($eltFullName, "installDirectory", $path);
+            };
+            $result .= "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+    <!-- Create containment relationship between SAP Instance and SAP Installation -->
+    <rule
+        name="findUNIXSAPInstallationForUNIXSAPInstance"
+        weight="90" >
+        <search variable="instance" pattern="root.types.resource.applicationObject.server.SAPInstance.UNIXSAPInstance">
+            <use attribute="installDirectory"/>
+        </search>
+        <search variable="install" pattern="root.types.resource.software.installation.SAP.SAPInstallation.UNIXSAPInstallation">
+            <use attribute="installDirectory"/>
+        </search>
+        <search variable="os" pattern="root.types.resource.software.operatingSystem.UNIX" />
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="instance" />
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="install" />
+        <output parentType="install" childType="instance" />
+        <conclusion type="perl">
+            <![CDATA[
+            my $parent = $fp{"elementFullName"};
+            $result = "<result>";
+            if ($instance{"installDirectory"} eq $install{"installDirectory"}) {
+                $result .= &containerXML($install{"elementFullName"}, $instance{"elementFullName"});
+            }
+            $result .= "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+    <!-- ............................................................... -->
+    <!-- .......        UNIX SAP collectors                  ........... -->
+    <!-- ............................................................... -->
+
+    <collector
+        collectorName="UNIXSAPFootprintStaticCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXSAPFootprintStaticScript">
+        <scriptRef name="UNIXSAPFootprintStaticScript" scriptType="collection" seqNum="1" />
+    </collector>
+
+    <collector
+        collectorName="UNIXSAPFootprintDynamicCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXSAPFootprintDynamicScript">
+        <collectionParams typeElementFullName="root.types.footprint.SAPFootprint.UNIXSAPFootprint"
+                          attributeName="installDirs" />
+    </collector>
+
+    <collector
+        collectorName="UNIXSAPInstallationDynamicCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="UNIXSAPInstallationDynamicScript">
+        <collectionParams typeElementFullName="root.types.resource.software.installation.SAP.SAPInstallation.UNIXSAPInstallation"
+                          attributeName="installDirectory" />
+        <collectionParams typeElementFullName="root.types.resource.software.installation.SAP.SAPInstallation.UNIXSAPInstallation"
+                          attributeName="SID" />
+    </collector>        
+
+    <!-- ............................................................... -->
+    <!-- .......       UNIX SAP collection scripts           ........... -->
+    <!-- ............................................................... -->
+
+    <scriptTable
+        scriptName="UNIXSAPFootprintStaticScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="true"  isOptional="false"
+          argNamePattern="%efnname%:%atr%"
+          efnSource="root.$bdna.globalModuleConfig" 
+          attributeName="filePatternList" />
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="%efntype%:%atr%"
+          efnSource="root.types.footprint.SAPFootprint.UNIXSAPFootprint" 
+          attributeName="signatureFiles" />
+        <scriptArg isGlobal="true"  isOptional="true"
+          argNamePattern="%efnname%:%atr%"
+          efnSource="root.$bdna.globalModuleConfig.ModularCollectionOutOfSystemFind"
+          attributeName="ModularCollection::outOfSystemFindFilePath" />
+        <![CDATA[
+        my (@output, @sigFiles, $sigFileString, %sigPath, %homeDir, $sigFile);
+
+        # get the telnet connection (set by the connection script)
+        my $host = $BDNA_Connection_Info{"HostObject"};
+
+        # get the signature files (set by fingerprint)
+        $sigFileString = $BDNA_Params{"root.types.footprint.SAPFootprint.UNIXSAPFootprint:signatureFiles"};
+        @sigFiles = split(/$BDNA_Separator/, $sigFileString);
+
+        # initialize the working variables
+
+        %sigPath = ();
+        %homeDir = ();
+
+        # formulate a list of regular expressions from the signature file list
+        my $sigPatterns;
+        $sigPatterns = "";
+
+        foreach $sigFile (@sigFiles) {
+            if ($sigPatterns) {
+                $sigPatterns = $sigPatterns . "|" . $sigFile . "\$";
+            } else {
+                $sigPatterns = $sigFile . "\$";
+            }
+        }
+        # issue the find/grep command to locate directories with signature files
+
+        my ($cmd, $one);
+
+        &echo("Doing cachedFind for directory root for pattern: $sigPatterns");
+        @output = cachedFind($host, 7*24*3600, $BDNA_Params{'root.$bdna.globalModuleConfig:filePatternList'}, "/", $sigPatterns, $BDNA_Params{'root.$bdna.globalModuleConfig.ModularCollectionOutOfSystemFind:ModularCollection::outOfSystemFindFilePath'});
+
+        while (@output) {
+            $one = shift(@output);
+            chomp($one);
+
+            &echo("considering $one for a SAP home directory...");
+
+            # what home directory candidate contains what signature files
+            $sigPath{$one} = 1;
+
+            # extract the home directory by removing the signature file suffix
+            $_ = $one;
+
+            foreach $sigFile (@sigFiles) {
+                if(/(.*)$sigFile/) {
+                    $homeDir{"$1"} = 1;
+                }
+            }
+        }
+
+        my (@resultDir, @sigFileNotFound);
+        @resultDir = ();
+
+        foreach my $dir (keys(%homeDir)) {
+            my $sigFileNotFound = 0;
+            foreach my $sig (@sigFiles) {
+                 if(!defined($sigPath{$dir.$sig})) {
+                    $sigFileNotFound = 1;
+                    last;
+                }
+            }
+            if(!$sigFileNotFound) {
+                push(@resultDir, $dir);
+            }
+        }
+
+        # use process info to find SAP installations
+        @output = &UNIXps($host, "sap");
+        while (@output) {
+            $_ = shift(@output);
+            chomp($_);
+            if (/sapstart.*\s*pf=(\S+)\/SYS\/profile\//) {
+                push(@resultDir, $1);
+            } elsif (/dw.sap.*\spf=(\S+)\/SYS\/profile\//) {
+                push(@resultDir, $1);
+            }
+        }        
+
+        # construct the result, which is a list of pairs of (<home dir>, <SID>)
+        &echo("SAP home dir list: @resultDir");
+        my $finalString = "";    
+        my %seen;
+        foreach $dir (@resultDir) {
+            if (!$seen{$dir}) {
+                $seen{$dir} = "seen";
+                $dir =~ /^.*\/([^\/]*)$/;
+                if ($finalString) {
+                    $finalString .= $BDNA_Separator;
+                }
+                $finalString .= $dir . $BDNA_Separator . $1;
+            }
+        }
+        if ($finalString) {
+            $BDNA_Results{"installDirs"} = $finalString;
+            $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        } else {
+            $BDNA_ResultCode = "com.bdna.cle.scripts.noData";    	
+        }
+        $BDNA_ErrorCode = 0;
+        $BDNA_MessageBundle = "MessagesBundle";
+
+        ]]>
+    </scriptTable>        
+
+    <scriptTable
+        scriptName="UNIXSAPFootprintDynamicScript"
+        scriptVersion="1.0">
+        <![CDATA[
+
+# collect running instances
+
+        my $host = $BDNA_Connection_Info{"HostObject"};
+        my @output = &UNIXps($host, "sap");
+
+        my (%instances, %profiles, %sysNums, %sids, %sysNums, %installDirs) = ();
+        my $resultString = "";
+        while (@output) {
+            my $ps = shift(@output);
+            chomp($ps);
+            my ($instance, $id, $sid, $sysNum, $installDir, $profilePath) = ("", "", "", "", "");
+
+            if ($ps =~ /(\S+)\/exe.*\/sapstart.*\s*pf=(\S+\/profile\/START_(\w+)_(\w+))/) {
+                $installDir = $1;
+                $profilePath = $2;
+                $id = $3;
+                $instance = $4;
+            } elsif ($ps =~ /dw.sap(\w+)_(\w+) pf=(\S+\/profile\/\w+_\w+_(\w+))/) {
+                $sid = $1;
+                $id = $2;
+                $instance = $4;
+                $profilePath = $3;
+            }
+
+            if ($id =~ /(\d+)/) {
+                $sysNum = $1;
+            }
+
+            if ($id) {
+                #&echo("ID: $id, SID: $sid, Instance: $instance, SysNumber: $sysNum, InstallDir: $installDir, Profile: $profilePath");
+                if ($instance && !$instances{$id}) {
+                    $instances{$id} = $instance;
+                }
+                if ($sysNum && !$sysNums{$id}) {
+                    $sysNums{$id} = $sysNum;
+                }
+                if ($profilePath && !$profiles{$id}) {
+                    $profiles{$id} = $profilePath;
+                }
+                if ($installDir && !$sid && $instance ne 'localhost') {
+                    if ($installDir =~ /\/usr\/sap\/(\w+)(\/.+)?/) {
+                        $sid = $1;
+                    }
+                }
+                if ($sid && !$sids{$id}) {
+                    $sids{$id} = $sid;
+                }
+                if ($installDir && !$installDirs{$id}) {
+                    $installDirs{$id} = $installDir;
+                }
+            }
+        }
+        foreach my $svr (keys(%instances)) {
+            if ($instances{$svr} ne "localhost") {
+                if($resultString) {
+                    $resultString .= $BDNA_SubSeparator;
+                }
+                $resultString .= 'instance="'.$instances{$svr}.'"' . $BDNA_Sub2Separator .
+                                 'SID="'.$sids{$svr}.'"' . $BDNA_Sub2Separator .
+                                 'sysNum="'.$sysNums{$svr}.'"' .$BDNA_Sub2Separator .
+                                 'installDir="'.$installDirs{$svr}.'"' .$BDNA_Sub2Separator .
+                                 'profile="'.$profiles{$svr}.'"';
+            }
+        }
+        if ($resultString) {
+            $BDNA_Results{"runningInstances"} = $resultString;
+            $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        } else {
+            $BDNA_ResultCode = "com.bdna.cle.scripts.noData";    	
+        }
+        $BDNA_ErrorCode = 0;
+        $BDNA_MessageBundle = "MessagesBundle";
+        ]]>
+    </scriptTable>        
+
+    <scriptTable
+        scriptName="UNIXSAPInstallationDynamicScript"
+        scriptVersion="1.0">
+        <![CDATA[
+
+# extract license host and database info from the config file
+        my $dir = $BDNA_Params{"root.types.resource.software.installation.SAP.SAPInstallation.UNIXSAPInstallation:installDirectory"};
+        my $sid = $BDNA_Params{"root.types.resource.software.installation.SAP.SAPInstallation.UNIXSAPInstallation:SID"};
+        my $configFilePath = "$dir/SYS/profile/DEFAULT.PFL";
+        my $cmd = "cat $configFilePath";
+        my @lines = &shellcmd($BDNA_Connection_Info{"HostObject"},$cmd, "sapconf");
+        foreach $line (@lines) {
+            if ($line =~ /^[^#]*\s*rdisp\/mshost\s*=\s*(\w+)(\s*)$/i) {
+                $BDNA_Results{"licenseServerHost"} = $1;
+                $BDNA_Results{"globalSID"} = $sid . '@' . $BDNA_Results{"licenseServerHost"};
+            } elsif ($line =~ /^[^#]*\s*dbms\/type\s*=\s*(\w+)(\s*)$/i) {
+                $BDNA_Results{"databaseType"} = $1;
+            } elsif ($line =~ /^[^#]*\s*dbtype\s*=\s*(\w+)(\s*)$/i) {
+                $BDNA_Results{"databaseType"} = $1;
+            } elsif ($line =~ /^[^#]*\s*sapdbhost\s*=\s*(\w+)(\s*)$/i) {
+                $BDNA_Results{"databaseServerHost"} = $1;
+            } elsif ($line =~ /^[^#]*\/dbhost\s*=\s*(\w+)(\s*)$/i) {
+                $BDNA_Results{"databaseServerHost"} = $1;
+            } elsif ($line =~ /^[^#]*\/dbname\s*=\s*(\w+)(\s*)$/i) {
+                $BDNA_Results{"databaseSchema"} = $1;
+            }
+        }
+
+# extract kernel version from saplicense
+        $cmd = join("\n", "export LIBPATH=$dir/SYS/exe/run",
+                          "$dir/SYS/exe/run/saplicense -version");
+        my @lines = &shellcmd($BDNA_Connection_Info{"HostObject"},$cmd, "sapver");       
+        foreach $line (@lines) {
+            if ($line =~ /kernel release\s*(\w+)\s*$/i) {
+                $BDNA_Results{"kernelVersion"} = $1;
+            } elsif ($line =~ /SAP release:\s*(\w+)/i) {
+                $BDNA_Results{"kernelVersion"} = $1;
+            } elsif ($line =~ /patch number\s*(\w+)\s*$/i) {
+                $BDNA_Result{"patchNumber"} = $1;
+            }
+        }
+        if (!($BDNA_Results{"kernelVersion"} || $BDNA_Result{"patchNumber"})) {
+            $cmd = join("\n", "export LIBPATH=$dir/SYS/exe",
+                              "$dir/SYS/exe/saplicense -version");
+            my @lines = &shellcmd($BDNA_Connection_Info{"HostObject"},$cmd, "sapver");
+            foreach $line (@lines) {
+                if ($line =~ /kernel release\s*(\w+)\s*$/i) {
+                    $BDNA_Results{"kernelVersion"} = $1;
+                } elsif ($line =~ /SAP release:\s*(\w+)/i) {
+                    $BDNA_Results{"kernelVersion"} = $1;
+                } elsif ($line =~ /patch number\s*(\w+)\s*$/i) {
+                    $BDNA_Result{"patchNumber"} = $1;
+                }
+            }
+        }
+
+# extract kernel and patch information for R3tran
+        $cmd = join("\n", "export LIBPATH=$dir/SYS/exe/run",
+                          "$dir/SYS/exe/run/R3trans -V ");
+        my @lines = &shellcmd($BDNA_Connection_Info{"HostObject"},$cmd, "sapver");
+        my $start = 0;
+        foreach $line (@lines) {
+            if (!$BDNA_Results{"kernelVersion"} && $line =~ /kernel release\s*(\w+)\s*$/i) {
+                $BDNA_Results{"kernelVersion"} = $1;
+            } elsif (!$BDNA_Results{"kernelVersion"} && $line =~ /This is.*R3trans.*release\s*(\w+)/i) {
+                $BDNA_Results{"kernelVersion"} = $1;
+            } elsif ($line =~ /R3trans patch information/i) {
+                $start = 1;
+            } elsif (($start == 1) &&
+                     ($line =~ /^\(.*\).*$/)) {
+                $BDNA_Results{"R3transPatches"} .= $line . $BDNA_Separator;
+            } elsif (! $line) {
+                $start = 0;
+            }
+        }
+        if (!$BDNA_Results{"R3transPatches"}) {
+            $cmd = join("\n", "export LIBPATH=$dir/SYS/exe",
+                              "$dir/SYS/exe/R3trans -V ");
+            @lines = &shellcmd($BDNA_Connection_Info{"HostObject"},$cmd, "sapver");
+            $start = 0;
+            foreach $line (@lines) {
+                if (!$BDNA_Results{"kernelVersion"} && $line =~ /kernel release\s*(\w+)\s*$/i) {
+                    $BDNA_Results{"kernelVersion"} = $1;
+                } elsif (!$BDNA_Results{"kernelVersion"} && $line =~ /This is.*R3trans.*release\s*(\w+)/i) {
+                    $BDNA_Results{"kernelVersion"} = $1;
+                } elsif ($line =~ /R3trans patch information/i) {
+                    $start = 1;
+                } elsif (($start == 1) &&
+                         ($line =~ /^\(.*\).*$/)) {
+                    $BDNA_Results{"R3transPatches"} .= $line . $BDNA_Separator;
+                } elsif (! $line) {
+                    $start = 0;
+                }
+            }
+        }
+
+# extract patch information for tp
+        $cmd = join("\n", "export LIBPATH=$dir/SYS/exe/run",
+                          "$dir/SYS/exe/run/tp -V ");
+        my @lines = &shellcmd($BDNA_Connection_Info{"HostObject"},$cmd, "sapver");
+        my $start = 0;
+        foreach $line (@lines) {
+            if ($line =~ /tp patch information/i) {
+                $start = 1;
+            } elsif (($start == 1) &&
+                     ($line =~ /^\(.*\).*$/)) {
+                $BDNA_Results{"TPPatches"} .= $line . $BDNA_Separator;
+            } elsif (! $line) {
+                $start = 0;
+            }
+        }
+
+        if (!$BDNA_Results{"TPPatches"}) {
+            $cmd = join("\n", "export LIBPATH=$dir/SYS/exe",
+                              "$dir/SYS/exe/tp -V ");
+            @lines = &shellcmd($BDNA_Connection_Info{"HostObject"},$cmd, "sapver");
+            $start = 0;
+            foreach $line (@lines) {
+                if ($line =~ /tp patch information/i) {
+                    $start = 1;
+                } elsif (($start == 1) &&
+                         ($line =~ /^\(.*\).*$/)) {
+                    $BDNA_Results{"TPPatches"} .= $line . $BDNA_Separator;
+                } elsif (! $line) {
+                    $start = 0;
+                }
+            }
+        }   
+
+        if ($BDNA_Results{"licenseServerHost"} || $BDNA_Results{"databaseType"}  ||
+            $BDNA_Results{"databaseServerHost"} || $BDNA_Results{"kernelVersion"} ||
+            $BDNA_Results{"R3transPatches"} || $BDNA_Results{"TPPatches"}) {
+            $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        } else {
+            $BDNA_ResultCode = "com.bdna.cle.scripts.noData";    	
+        }
+        $BDNA_ErrorCode = 0;
+        $BDNA_MessageBundle = "MessagesBundle";            
+
+        ]]>
+    </scriptTable>        
+
+
+</module>
