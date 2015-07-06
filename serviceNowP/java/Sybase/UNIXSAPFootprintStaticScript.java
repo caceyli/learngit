@@ -77,39 +77,28 @@ public class UNIXSAPFootprintStaticScript {
         
         while(iterDir.hasNext()){
         	String sigFileNotFound="0";
-        	//Iterator<?> iterSig = sigPath.entrySet().iterator();
         	Map.Entry entryDir = (Map.Entry) iterDir.next();
             Object keyDir = entryDir.getKey();  
             System.out.println("keyDir     :" + keyDir);         
-            //Object val = entry.getValue();
-            //while(iterSig.hasNext()){
-                //Map.Entry entrySig = (Map.Entry) iterSig.next();
-                //Object keySig = entrySig.getKey();               
-                for (int i = 0; i < sigFiles.length; i++) {                	              	  
-                    String sigFullPath = keyDir + sigFiles[i];
-                    //if (!keySig.equals(sigFullPath)) {
-                      //  sigFileNotFound = "1";
-                       //break;
-                     //}                    
-                    //if (keySig.equals(sigFullPath) && sigPath.size() == sigFiles.length) {
-                    if (sigPath.get(sigFullPath)!=null)	{
-                        sigFileNotFound = "1";
-                        System.out.println("sigPath:" + sigPath.get(sigFullPath));
-                        System.out.println("sigFileNotFound:" + sigFileNotFound);
-                        System.out.println("sigFullPath:" + sigFullPath);
-                       // System.out.println("keySig     :" + keySig);
-                        break;
-                    }
-                }
-            //}
+            // Object val = entry.getValue();
+          
+            for (int i = 0; i < sigFiles.length; i++) {                	              	  
+                 String sigFullPath = keyDir + sigFiles[i];
+                 if (sigPath.get(sigFullPath)==null)	{
+                     sigFileNotFound = "1";
+                     break;
+                 }
+            }
               
-            if (!sigFileNotFound.equals("0")) {
+            if (!sigFileNotFound.equals("1")) {
                 resultDir.add((String) keyDir);
                 System.out.println("resultDir:" + keyDir);
                
-             }
+            }
         }
 
+        // construct the result, which is a list of pairs of (<home dir>, <SID>)
+        // &echo("SAP home dir list: @resultDir");
         
         
         		
