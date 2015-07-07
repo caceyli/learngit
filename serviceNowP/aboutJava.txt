@@ -1,0 +1,17 @@
+(define a hasmap)
+Map<String,String> BDNA_Results = new HashMap<String, String>();
+
+(add key and value to the hash)
+BDNA_Results.put("licenseServerHost", licenseServerHostM.group(1));
+
+(gett the value for specific key)
+String value = BDNA_Results.get("licenseServerHost")
+
+(output a hashmap one by one)		
+Iterator<?> iterResult = BDNA_Results.entrySet().iterator(); //to the head point
+while(iterResult.hasNext()){ //if the present port hash has next
+     Map.Entry entryResult = (Map.Entry) iterResult.next(); //to the present point and try to get the key and value
+     Object keyResult = entryResult.getKey();  // get the 
+     Object valueResult =  entryResult.getValue();  //test
+     System.out.println(keyResult + ":" + valueResult);  //test            
+}//test
