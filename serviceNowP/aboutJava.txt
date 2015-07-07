@@ -15,3 +15,9 @@ while(iterResult.hasNext()){ //if the present port hash has next
      Object valueResult =  entryResult.getValue();  //test
      System.out.println(keyResult + ":" + valueResult);  //test            
 }//test
+
+(the following is to define whether 'line' is an empty string)
+if (line!= null && line.equals(""))
+
+(null means not existed, "" means one existed empty string)
+if (BDNA_Results.get("licenseServerHost"==null)
