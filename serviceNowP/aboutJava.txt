@@ -21,3 +21,14 @@ if (line!= null && line.equals(""))
 
 (null means not existed, "" means one existed empty string)
 if (BDNA_Results.get("licenseServerHost"==null)
+
+(replace all \r|\n with "")
+one = one.replaceAll("\r|\n", "");
+
+(pattern/match)
+Pattern p1 = Pattern.compile("^\\(.*\\).*$", Pattern.CASE_INSENSITIVE);
+Matcher m1 = p1.matcher(line);
+if (m1.find（））｛info = matcher.group(1);｝
+
+
+
