@@ -1,0 +1,194 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9F6C1AC9-97B3-4064-A466-D20C8718FDC0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>bdna.Scripts</RootNamespace>
+    <AssemblyName>Scripts</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>http://localhost/Scripts/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BBMSSQLDbConnectionScript.cs" />
+    <Compile Include="BlackBerryHandheldL3MSSQLDatabaseScript.cs" />
+    <Compile Include="BlackBerryUserConfigStatsL3MSSQLDatabaseScript.cs" />
+    <Compile Include="CitrixLicensingFileContentScript.cs" />
+    <Compile Include="ConnIISScript.cs" />
+    <Compile Include="ConnWincsScript.cs" />
+    <Compile Include="ConnWincsRemoteExecScript.cs" />
+    <Compile Include="DataEntryValidateExecFileScript.cs" />
+    <Compile Include="ESXWebServicesConnectionScript.cs" />
+    <Compile Include="InstallServiceSUScript.cs" />
+    <Compile Include="Extend_IBM_WindowsWebSphereMQ_Server_QueueManagerStatic_script.cs" />
+    <Compile Include="FSecureAVDetailsScript.cs" />
+    <Compile Include="InternetExplorerStaticScript.cs" />
+    <Compile Include="IsDirectoryExistsScript.cs" />
+    <Compile Include="MicrosoftIISwebSiteConfigInfoScript.cs" />
+    <Compile Include="MSOfficeStaticScript.cs" />
+    <Compile Include="MSOutlookExpressStaticScript.cs" />
+    <Compile Include="MSSQLDatabaseScript.cs" />
+    <Compile Include="MSSQLDbConnectionScript.cs" />
+    <Compile Include="MSSQLL3DetailsScript.cs" />
+    <Compile Include="MSSQLServerBaseInstallationScript.cs" />
+    <Compile Include="MSVirtualServerVMConfigFileContentScript.cs" />
+    <Compile Include="MSVirtualServerVMsFromShortcutPathScript.cs" />
+    <Compile Include="ODBCDriversCollectionScript.cs" />
+    <Compile Include="PotentialWindowsTypingStaticScript.cs" />
+    <Compile Include="PowerSettingsCollectionScript.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoveWindowsProfileScript.cs" />
+    <Compile Include="ReplayScript.cs" />
+    <Compile Include="RSOPPropertiesScript.cs" />
+    <Compile Include="SAPClientInfoScript.cs" />
+    <Compile Include="SAPDatabaseInfoScript.cs" />
+    <Compile Include="SAPGuiConnectionScript.cs" />
+    <Compile Include="SAPL3DetailsScript.cs" />
+    <Compile Include="SAPServerComponentsInfoScript.cs" />
+    <Compile Include="SoftwareUsageScript.cs" />
+    <Compile Include="StartServiceSUScript.cs" />
+    <Compile Include="StopServiceSUScript.cs" />
+    <Compile Include="UninstallServiceSUScript.cs" />
+    <Compile Include="VMwareConfigFileDynamicScript.cs" />
+    <Compile Include="VMwareESXHostDataScript.cs" />
+    <Compile Include="VMwareESXVMsDataScript.cs" />
+    <Compile Include="VMwareRegistryRunningInstanceRealTimeScript.cs" />
+    <Compile Include="VMwareVMLSConfigFileContentScript.cs" />
+    <Compile Include="VMwareVMXConfigFileContentScript.cs" />
+    <Compile Include="WDMOnMSSQLDeviceDetailsStaticScript.cs" />
+    <Compile Include="WinAppStaticScript.cs" />
+    <Compile Include="WindowsOracleAppConfigFootprintStaticScript.cs" />
+    <Compile Include="WindowsOracleFootprintDynamicScript.cs" />
+    <Compile Include="WindowsOracleInstallationDynamicScript.cs" />
+    <Compile Include="WindowsOracleInstallationEditionScript.cs" />
+    <Compile Include="WindowsOracleInstallationRealTimeScript.cs" />
+    <Compile Include="WindowsOracleInstanceDBOptionsStaticScript.cs" />
+    <Compile Include="WindowsOracleInstanceDynamicScript.cs" />
+    <Compile Include="WindowsOracleInstanceLMSConcurrencyOptionsScript.cs" />
+    <Compile Include="WindowsOracleInstanceLMSOptions2StaticScript.cs" />
+    <Compile Include="WindowsOracleInstanceLMSOptions3StaticScript.cs" />
+    <Compile Include="WindowsOracleInstanceLMSOptions4StaticScript.cs" />
+    <Compile Include="WindowsOracleInstanceLMSOptions5StaticScript.cs" />
+    <Compile Include="WindowsOracleInstanceLMSOptions6StaticScript.cs" />
+    <Compile Include="WindowsOracleInstanceLMSOptions7StaticScript.cs" />
+    <Compile Include="WindowsOracleInstanceLMSOptionsStaticScript.cs" />
+    <Compile Include="WindowsOracleInstanceLMSRawDataDetailsScript.cs" />
+    <Compile Include="WindowsOracleInstanceLMSRawDataOpt1aScript.cs" />
+    <Compile Include="WindowsOracleInstanceLMSRawDataOpt1bScript.cs" />
+    <Compile Include="WindowsOracleInstanceLMSRawDataOpt1cScript.cs" />
+    <Compile Include="WindowsOracleInstanceLMSRawDataOpt2Script.cs" />
+    <Compile Include="WindowsOracleInstanceLMSRawDataOpt3Script.cs" />
+    <Compile Include="WindowsOracleInstanceLMSRawDataOpt4Script.cs" />
+    <Compile Include="WindowsOracleInstanceLMSRawDataOpt5Script.cs" />
+    <Compile Include="WindowsOracleInstanceRealTimeScript.cs" />
+    <Compile Include="WindowsOracleInstanceStaticScript.cs" />
+    <Compile Include="WindowsOracleListenerStaticScript.cs" />
+    <Compile Include="WindowsOracleListenerNamesScript.cs" />
+    <Compile Include="WindowsOracleRemoteExecConnectionScript.cs" />
+    <Compile Include="WindowsRemoteCommandExecutionScript.cs" />
+    <Compile Include="WindowsSiebelServerDataCollectionScript.cs" />
+    <Compile Include="WindowsSiebelSvrRemoteExecConnScript.cs" />
+    <Compile Include="WindowsWASGetFileScript.cs" />
+    <Compile Include="WindowsWASGetServersScript.cs" />
+    <Compile Include="WindowsWASHostsLookupScript.cs" />
+    <Compile Include="WindowsWASIsInstanceRunningScript.cs" />
+    <Compile Include="WindowsWASNodeandCoreGroupScript.cs" />
+    <Compile Include="WindowsWASParseServerIndexScript.cs" />
+    <Compile Include="WindowsWASProfileFootprintScript.cs" />
+    <Compile Include="WinFileContentScript.cs" />
+    <Compile Include="WinFileInfoScript.cs" />
+    <Compile Include="WinFilePropertiesScript.cs" />
+    <Compile Include="WinFileSearchScript.cs" />
+    <Compile Include="WinRegScript.cs" />
+    <Compile Include="WinStaticScript.cs" />
+    <Compile Include="WinTypingStaticScript.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SAPGuiScripting\SAPGuiScripting.vbproj">
+      <Project>{944673F7-D729-4927-BA00-AF9F182F1C37}</Project>
+      <Name>SAPGuiScripting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ScriptLib\ScriptLib.csproj">
+      <Project>{1B829249-23F5-454D-99B9-0783DBCB02EB}</Project>
+      <Name>ScriptLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{59CD50E7-9E27-4D64-88D5-8EDA7DF79ACE}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VMwareWSLib\VMwareWSLib.csproj">
+      <Project>{B2328A27-13DC-446A-A696-3D4DC6E30D52}</Project>
+      <Name>VMwareWSLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
