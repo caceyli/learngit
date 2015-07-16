@@ -405,7 +405,7 @@ END;
 declare
  stmt varchar2(255);
 BEGIN
- stmt:='GRANT SELECT ON GV$IM_SEGMENTS to &&schema';
+ stmt:='GRANT SELECT ON GV_$IM_SEGMENTS to &&schema';
  execute immediate stmt;
 EXCEPTION
  WHEN OTHERS THEN
