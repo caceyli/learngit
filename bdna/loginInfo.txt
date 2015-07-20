@@ -64,6 +64,12 @@ a. Login: bdna/bdna
 2. To setup your mid-server, use credential: bdna_mid/bdna_mid
 
 
+Oracle Login:
+user/email: cacey/bdnacn.com
+password:   Simple01
+
+
+
 
 
 
