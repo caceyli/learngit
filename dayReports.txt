@@ -1,0 +1,23 @@
+2015/07/20
+1. lms script tests:
+a. installed a new oracle 12c for windows one 8.148.
+b. used 2 user to do scan against 8.148, and compared the result.
+
+2. service now fp conversation exercise.
+
+
+2015/07/21
+1. downloaded latest version of oracle 12c for UNIX.
+2. did a new fact base to verify developer's new modification for makeData Script for BUG03507.
+a. installed a new fact base with latest Enterprise which includes miya's new modification, import customer's collection store.
+b. compared the old result and latest result, the result is normal.
+3. dealt with BUG02559.
+a. discussed with miya.
+b. replied on BUG02559.
+
+
+
+
+
+
+
