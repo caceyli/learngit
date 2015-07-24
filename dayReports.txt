@@ -36,11 +36,12 @@ Weekly_Report20150724
   b. dowloaded and installed a latest version oracle 12c for linux on 9.105.
   c. used 2 user to do scan against 8.148/9.105, and compared the result.
   d. take screenshots for tests result.
+  e. updated README-Instructions.txt and pakaged the hotfix.
 2. service now fp conversation exercie.
 3. dealt with BUG02559.
   a. discussed with miya.
   b. replied on BUG02559.
-4.did a ew fact base to verify developer's new modification for makeData Script for BUG03507.
+4.did a new factbase to verify developer's new modification for makeData Script for BUG03507.
   a. installed a new fact base with latest Enterprise which includes miya's new modification, import customer's collection store.
   b. compared the old result and latest result, the result is not as expected, reported it to miya.
 5. checked in hotfix for ENH10974, colsed ENH10974 and finished QA Verification instruction.
