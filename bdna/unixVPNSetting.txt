@@ -1,0 +1,32 @@
+ppp-2.4.5-5.el6.x86_64.rpm
+make 
+make intall
+vi /etc/ppp/options
+name pptpd
+lock
+auth
+refuse-eap
+refuse-chap
+refuse-mschap
+nobsdcomp
+nodeflate
+require-mppe-128
+
+pptpsetup -create vpn -server 12.54.125.134 -username CaceyLi -password anDb327 -encrypt -start
+
+cat /etc/ppp/chap-secrets
+
+route add -host 12.54.125.134 gw 192.168.8.2
+route del -net 0.0.0.0
+route add default ppp0
+
+
+
+
+[root@VMDC8123 pptp-1.8.0]# sudo pptpsetup --create bdnavpn --server 12.54.125.134 --username CaceyLi --password anDb327 --encrypt --start
+Using interface ppp0
+Connect: ppp0 <--> /dev/pts/2
+CHAP authentication succeeded
+MPPE 128-bit stateless compression enabled
+local  IP address 10.10.3.36
+remote IP address 10.10.3.46
