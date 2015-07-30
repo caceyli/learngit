@@ -1,4 +1,7 @@
-ppp-2.4.5-5.el6.x86_64.rpm
+rpm -ivh ppp-2.4.5-5.el6.x86_64.rpm
+pptp-1.8.0.tar
+tar -xf pptp-1.8.0.tar
+cd pptp-1.8.0
 make 
 make intall
 vi /etc/ppp/options
@@ -19,7 +22,6 @@ cat /etc/ppp/chap-secrets
 route add -host 12.54.125.134 gw 192.168.8.2
 route del -net 0.0.0.0
 route add default ppp0
-
 
 
 
