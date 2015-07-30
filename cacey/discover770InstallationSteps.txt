@@ -111,7 +111,7 @@ k. setup oracle invirenment parameters:
    export ORACLE_SID=ora11g
    export LD_LIBRARY_PATH=$ORACLE_HOME/lib
    export PATH=$PATH:$ORACLE_HOME/bin
-   export DISPLAY=<Cygwin_Host>:0.0
+   export DISPLAY=<Cygwin_Host>:0.0  (sometimes probably DISPLAY=<Cygwin_Host>:3)
 l. login vnc :192.168.9.102: 2 (as oracle user)
    xhost +
    cd /oracle/database
@@ -216,6 +216,7 @@ Discover 7.7 Production Machine Setup (http://wiki.bdnacorp.com/index.php/Discov
        (SID = ora11g)
      )
    )
+   (Notes: only if tnsping svr1018 OK, installation is finished, even though sqlplus system/bdna connection failed.)
 4. Install RPMs from the EssentialRPMs.tar.gz
 6. Install Perl RPMs from EssentialPerlRPMs.tar.gz
 9. Install RPMs for 32 bit application support from Essential32bit.tar.gz
@@ -240,7 +241,7 @@ Discover 7.7 Production Machine Setup (http://wiki.bdnacorp.com/index.php/Discov
    bdna    ALL=NOPASSWD: ALL
    oracle  ALL=NOPASSWD: ALL
 10. Add the local hostname and ip address to /etc/hosts
-   192.168.9.102    VMST9102   VMST9102.BDNACN.COM
+    192.168.9.102    VMST9102   VMST9102.BDNACN.COM
 
 
 Discover 7.7 Development Machine Setup (http://wiki.bdnacorp.com/index.php/Discover_7.7_Development_Machine_Setup)
