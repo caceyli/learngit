@@ -1,0 +1,9 @@
+#sh $BDNA_HOME/bin/runjava.sh com.bdna.agenda.BulkCommon BulkTask4 <CredentialDefinitionsFile>
+
+task_type	packages	locations	start_scan	stop_scan	shifts	scan_interval	credentials	scan_name	scan_desc	priority
+
+
+############################
+# Level 1 Only Task
+############################
+Inventory	Basic Scan - Level 1 (no credentials required)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once		Scan Task All Level1		Normal Scan

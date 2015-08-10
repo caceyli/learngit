@@ -1,0 +1,10 @@
+Parent Type	Parent Key Value	Parent Key Column	Child Type	Child Key Value	Child Key Column	Add/Delete	Namespace
+root.types.resource.logicalset.project	Project All		root.types.resource.network	192_168_8_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	192_168_9_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	192_168_10_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	10_10_2_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	10_10_4_30	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	10_10_1_128	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	10_10_11_94	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	192_168_1_111	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	192_168_1_44	name	A	NS_GLOBAL
