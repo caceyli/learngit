@@ -1,0 +1,4 @@
+IP	Networks	Namespace
+10.10.1.68		Global Namespace
+10.10.18.61		Global Namespace
+10.10.18.62		Global Namespace

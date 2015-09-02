@@ -1,0 +1,14 @@
+Add/Delete	Network Name	Zone (IP)	CLE	Namespace	PerlCS	Overlaps
+A	10_10_10_x	10.10.10.0/24	Default collection engine	Global Namespace
+A	10_10_11_x	10.10.11.0/24	Default collection engine	Global Namespace
+A	10_10_12_69	10.10.12.69	Default collection engine	Global Namespace
+A	10_10_13_x	10.10.13.0/24	Default collection engine	Global Namespace
+A	10_10_18_x	10.10.18.0/24	Default collection engine	Global Namespace
+A	10_10_1_x	10.10.1.0/24	Default collection engine	Global Namespace
+A	10_10_2_x	10.10.2.0/24	Default collection engine	Global Namespace
+A	10_10_3_0-10_10_4_255	10.10.3.0-10.10.4.255	Default collection engine	Global Namespace
+A	192_168_1_x	192.168.1.0/24	Default collection engine	Global Namespace
+A	192_168_2_x	192.168.2.0/24	Default collection engine	Global Namespace
+A	192_168_3_x	192.168.3.0/24	Default collection engine	Global Namespace
+A	192_168_4_x	192.168.4.0/24	Default collection engine	Global Namespace
+A	192_168_8_x	192.168.8.0/24	Default collection engine	Global Namespace

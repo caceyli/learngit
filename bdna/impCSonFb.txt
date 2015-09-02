@@ -1,0 +1,34 @@
+#!/usr/bin/expect -f
+set schema "vm017rh"
+set passwd "bdna"
+set syspwd "bdna"
+set installHome "xxxxx"
+set seq [lindex $argv 0]
+set upseq [lindex $argv 1]
+set dbserv "xxxx"
+set timeout -1
+
+spawn sudo ssh -D 22 bdna@192.168.9.107
+expect {
+        "(yes/no)?" {send "yes\r"; exp_continue}
+        "password:" {send "bdna\r"}
+       }
+expect "\\$"
+send "sh bdna.sh\r"
+expect "\>"
+send "impcoll -n bdnacs201502 /home/bdna/automation/installer/March.2015.ScanDump.bdnacs\r"
+expect "\>"
+send "mkinv -m USER bdnainv201502 \"inventory for bdnacs201502\"\r"
+expect "\>"
+send "addcolltoinv bdnacs201502 bdnainv201502\r"
+expect "Continue (y/n)*"
+send "y\r"
+expect "\>"
+send "refreshanalytics -y -a\r"
+expect "\>"
+send "refreshpub -y -a\r"
+expect "\>"
+send "exit\r"
+expect "\\$"
+send "exit\r"
+interact

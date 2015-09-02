@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+**********************************************************************
+*
+* Copyright (c) 2007-2008 BDNA Corporation.
+* All Rights Reserved. BDNA products and services are protected
+* by the following U.S. patent: #6,988,134. BDNA is trademark of
+* BDNA Corporation.
+*
+* ******BDNA CONFIDENTIAL******
+*
+* The following code was developed and is owned by BDNA Corporation.
+* This code is confidential and may contain trade secrets.  The code
+* must not be distributed to any party outside of BDNA Corporation
+* without written permission from BDNA Corporation.  The code may be
+* covered by patents, patents pending, or patents applied for in the
+* US or elsewhere.
+*
+**********************************************************************
+-->
+<!DOCTYPE bdna SYSTEM "bdna.dtd">
+
+<module 
+    name="com.bdna.modules.app.BEA.WindowsWebLogic"
+    displayLabel = "Oracle WebLogic Server on Windows"
+    version="1" 
+    lastCompatibleVersion="1">
+
+    <moduleDependency 
+        parentModuleName="com.bdna.modules.os.Windows" parentModuleVersion="1" />
+    <moduleDependency
+        parentModuleName="com.bdna.modules.app.BEA" parentModuleVersion="1" />
+
+    <!-- ............................................................... -->
+    <!-- .......    Oracle BEA WebLogic type declarations    ........... -->
+    <!-- ............................................................... -->
+
+    <element
+        elementName="WindowsWebLogicInstallation"
+        elementTypePath="root.types.resource.software.installation.WebLogicInstallation"
+        displayLabel="Oracle BEA WebLogic Installation on Windows"
+        isTemplate="true">
+        <attribute attributeName="registryXMLFilePath" dataType="string" displayLabel="BEA registry file path" />
+        <attribute attributeName="licenseFilePath" dataType="string" displayLabel="BEA license file path" />
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="WindowsWebLogicASInstance"
+        elementTypePath="root.types.resource.applicationObject.server.ApplicationServer.WebLogicASInstance"
+        displayLabel="Oracle BEA WebLogic Server Instances on Windows"
+        isTemplate="true">
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element 
+        elementName="WindowsWebLogicFootprint"
+        elementTypePath="root.types.footprint"
+        displayLabel="Footprint for WindowsWebLogic on Windows"
+        isTemplate="true">
+        <attribute attributeName="homes" dataType="string" isList="false" displayLabel="BEA Homes" />
+        <attributeSet 
+            attributeSetName="WindowsWebLogicFootprintStatic"
+            displayLabel="Windows WebLogic Footprint Static"
+            collectorName="WindowsWebLogicFootprintStaticCollector"
+            maxScriptRunTime="1800000"
+            collectionInterval="2592000">
+            <attributeSetEntry attributeName="registryData" />
+        </attributeSet>
+    </element>
+
+    <element
+        elementName="WindowsWebLogicFileContentFootprint"
+        elementTypePath="root.types.footprint"
+        displayLabel="WindowsWebLogicFileContentFootprint"
+        isTemplate="true">
+        <attributeSet
+            attributeSetName="WindowsWebLogicFileContentFootprintStatic"
+            displayLabel="WindowsWebLogicFileContentFootprintStatic"
+            collectorName="WindowsWebLogicFileContentFootprintStatic_collector"
+            maxScriptRunTime="1800000"
+            collectionInterval="7200000">
+        <attributeSetEntry attributeName="fileContent" />
+        </attributeSet>
+    </element>
+
+    <packageAttributeSet packageName="BEA" attributeSetName="WindowsWebLogicFootprintStatic"  />
+    <packageAttributeSet packageName="Windows" attributeSetName="WindowsWebLogicFootprintStatic"  />
+    <packageAttributeSet packageName="Windows" attributeSetName="WindowsWebLogicFileContentFootprintStatic"  />
+    <packageAttributeSet packageName="BEA" attributeSetName="WindowsWebLogicFileContentFootprintStatic"  />
+
+    <!-- ............................................................... -->
+    <!-- .......        Type Relationship                        ....... -->
+    <!-- ............................................................... -->
+    <relationship 
+        parentType="root.types.resource.software.operatingSystem.Windows"
+        childType="root.types.footprint.WindowsWebLogicFootprint"
+    />
+
+    <relationship 
+        parentType="root.types.footprint.WindowsWebLogicFootprint"
+        childType="root.types.resource.software.installation.WebLogicInstallation.WindowsWebLogicInstallation"
+    />
+
+    <relationship
+        parentType="root.types.resource.software.operatingSystem.Windows"
+        childType="root.types.resource.software.installation.WebLogicInstallation.WindowsWebLogicInstallation"
+    />
+
+    <relationship 
+        parentType="root.types.footprint.WindowsWebLogicFootprint"
+        childType="root.types.resource.applicationObject.server.ApplicationServer.WebLogicASInstance.WindowsWebLogicASInstance"
+    />
+
+    <relationship
+        parentType="root.types.resource.software.operatingSystem.Windows"
+        childType="root.types.footprint.WindowsWebLogicFileContentFootprint"
+    />
+
+    <relationship
+        parentType="root.types.resource.software.installation.WebLogicInstallation.WindowsWebLogicInstallation"
+        childType="root.types.footprint.WindowsWebLogicFileContentFootprint"
+    />
+
+    <!-- ............................................................... -->
+    <!-- .......   Windows BEA WebLogic fingerprint rules    ........... -->
+    <!-- ............................................................... -->
+
+    <rule 
+        name="createWindowsBEAWebLogicInstallationFromOperatingSystem"
+        weight="50">
+        <search
+            variable="fp"
+            pattern="root.types.footprint.WindowsWebLogicFootprint">
+        </search>
+        <search 
+            variable="Windows"
+            pattern="root.types.resource.software.operatingSystem.Windows">
+            <use attribute="installedSoftwareDetails"  />
+        </search>
+        <simpleJoinFilter lhsVariable="Windows" operator="parentOf" rhsVariable="fp" />
+        <conclusion type="java" argumentList="com.bdna.modules.app.BEA WindowsWebLogic createWindowsBEAWebLogicInstallationFromOperatingSystem  gnu.regexp.*">
+        <![CDATA[
+            String parent = (String)args.get("fp.elementFullName");
+            String eltFullName;
+            HashSet eCreated = new HashSet();
+            String _Windows_installedSoftwareDetails = (String)args.get("Windows.installedSoftwareDetails");
+            String result = "<result>";
+            RE _exName = new RE("(BEA Products|Oracle WebLogic|Oracle Fusion Middleware|BEA WebLogic Platform)");
+            RE _exVersion = new RE("(\\d[\\d\\.]+)");
+            ArrayList _addRemoveEntries = _j4_getAddRemoveRegistry(_Windows_installedSoftwareDetails, _exName);
+            for (Iterator _uqj4_1 = _addRemoveEntries.iterator(); _uqj4_1.hasNext(); ) {
+                HashMap _reg = (HashMap)_uqj4_1.next();
+                String _entryName = _j4_registryGetEntryName(_reg);
+                String _version = _j4_registryGetValue(_reg, "DisplayVersion");
+                if (! (_j4_defined(_version))&&_j4_regexpIsMatch(_entryName, _exVersion)) {
+                    _version = _j4_regexpFirstMatchSubMatch(_entryName, _exVersion, new Double(0));
+                }
+
+                String _uninstallDir = _j4_registryGetValue(_reg, "UninstallString");
+                RE _notInuninstallDirExp = new RE("(wlpgwi\\d*\\\\uninstall\\\\uninstall.cmd)");
+
+                String _installDirectory = _j4_registryGetValue(_reg, "InstallLocation");
+                RE _exInstallDir = new RE("\"?(.+)\\\\weblogic\\d*\\\\uninstall\\\\uninstall.cmd");
+                if (! (_j4_defined(_installDirectory)) && _j4_defined(_uninstallDir) ) {
+                    _installDirectory = _j4_regexpFirstMatchSubMatch(_uninstallDir, _exInstallDir, new Double(0));
+                }
+                RE _exInstallDir1 = new RE("\"?(.+)\\\\wlserver\\S+\\\\uninstall\\\\uninstall.cmd");
+                if (! (_j4_defined(_installDirectory)) && _j4_defined(_uninstallDir) ) {
+                    _installDirectory = _j4_regexpFirstMatchSubMatch(_uninstallDir, _exInstallDir1, new Double(0));
+                }
+                RE _exInstallDir2 = new RE("uninstall.dir=(.+)\\\\weblogic[\\d\\.]*\\\\uninstall");
+                if (! (_j4_defined(_installDirectory)) && _j4_defined(_uninstallDir) ) {
+                    _installDirectory = _j4_regexpFirstMatchSubMatch(_uninstallDir, _exInstallDir2, new Double(0));
+                }
+
+                String _registryFilePath = ""; 
+                String _licenseFilePath = ""; 
+                if( _j4_defined(_installDirectory) ) {
+                    _registryFilePath = _installDirectory + "\\registry.xml";
+                    _licenseFilePath = _installDirectory + "\\license.bea";
+                }
+
+                
+                String eltName = "WindowsBEAWebLogicInstallation" + _j4_createElementName(_entryName);
+                eltFullName = parent + "." + eltName;
+                if (!eCreated.contains(eltFullName) && _j4_defined(_installDirectory)) {
+                    eCreated.add(eltFullName);
+                    result += elementXML(eltName, "root.types.resource.software.installation.WebLogicInstallation.WindowsWebLogicInstallation", parent);
+                    result += _j4_dataXML(eltFullName, "name",_entryName);
+                    result += _j4_dataXML(eltFullName, "installDirectory", _installDirectory);
+                    result += _j4_dataXML(eltFullName, "installDate", _j4_registryGetValue(_reg, "InstallDate"));
+                    result += _j4_dataXML(eltFullName, "version", _version);
+                    result += _j4_dataXML(eltFullName, "GUID", _j4_registryGetGUID(_reg));
+                    result += _j4_dataXML(eltFullName, "registryXMLFilePath", _registryFilePath);
+                    result += _j4_dataXML(eltFullName, "licenseFilePath", _licenseFilePath);
+                    result += containerXML((String)args.get("Windows.elementFullName"), eltFullName);
+                }
+
+            }
+
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule 
+        name="createWindowsWebLogicFootprint"
+        weight="50">
+        <search 
+            variable="os"
+            pattern="root.types.resource.software.operatingSystem.Windows">
+            <use attribute="installedSoftware"  />
+        </search>
+        <output type="root.types.footprint.WindowsWebLogicFootprint" />
+        <output type="root.types.footprint.WindowsWebLogicFootprint" attribute="registryKey" />
+        <output type="root.types.footprint.WindowsWebLogicFootprint" attribute="registryRoot" />
+        <output type="root.types.footprint.WindowsWebLogicFootprint" attribute="name" />
+        <conclusion type="perl">
+        <![CDATA[
+            our (%os,  $result);
+            my $typeString = $os{"installedSoftware"}; 
+            my @lines = split(/$BDNA_Separator/,$typeString);
+            my $installed= "";
+        
+            foreach my $line (@lines) {
+                if ($line =~ /(BEA|WebLogic)/) {
+                    $installed=1;
+                }
+            }
+
+            my $parent = $os{"elementFullName"};
+            my $eltName = "WindowsBEAWebLogicFootprint";
+            my $eltFullName = "$parent.$eltName";
+            if ($installed) {
+                $result =
+                    "<result>" .
+                    &elementXML($eltName, "root.types.footprint.WindowsWebLogicFootprint", $parent) .
+                    &dataXML($eltFullName, "name", "WindowsBEAWebLogicFootprint") .
+                    &dataXML($eltFullName, "registryRoot", "HKEY_LOCAL_MACHINE") .
+                    &dataXML($eltFullName, "registryKey",  "SOFTWARE\\BEA Systems") .
+                "</result>";
+            }
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="createWindowsWebLogicFileContentFootprint"
+        weight="50"
+        generated="true">
+        <search
+            variable="inst"
+            pattern="root.types.resource.software.installation.WebLogicInstallation.WindowsWebLogicInstallation">
+            <use attribute="registryXMLFilePath"  />
+        </search>
+        <conclusion type="java" argumentList="com.bdna.modules.app.BEA WindowsWebLogic createWindowsWebLogicFileContentFootprint  gnu.regexp.*">
+        <![CDATA[
+            String parent = (String)args.get("inst.elementFullName");
+            String eltFullName = parent + "." + "fileContent";
+
+            String result = "<result>";
+            String command = (String)args.get("inst.registryXMLFilePath");
+            result += elementXML("fileContent", "root.types.footprint.WindowsWebLogicFileContentFootprint", parent);
+            result += _j4_dataXML(eltFullName, "name", "Footprint to collect WindowsWebLogic server file content");
+            result += _j4_dataXML(eltFullName, "filePath", command);
+            result += _j4_dataXML(eltFullName, "fileCommand", "fileContent");
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="findWindowsWebLogicEngineInformationFromFileContent"
+        weight="90" >
+        <search
+            variable="inst"
+            pattern="root.types.resource.software.installation.WebLogicInstallation.WindowsWebLogicInstallation">
+        </search>
+        <search
+            variable="fp"
+            pattern="root.types.footprint.WindowsWebLogicFileContentFootprint">
+            <use attribute="fileContent"  />
+        </search>
+        <simpleJoinFilter lhsVariable="inst" operator="parentOf" rhsVariable="fp" />
+        <conclusion type="perl">
+            <![CDATA[
+            use XML::XPath;
+            our $result = "<result>";
+            my $eltFullName = $inst{"elementFullName"};
+            my $fileContent = $fp{"fileContent"};
+            $fileContent =~ s/\>\r\n/\>/g;
+            $fileContent =~ s/\"\r\n/\" /g;
+
+            if ($fileContent =~ /\<bea-product-information.*?(\<host.*\<\/host\>).*?<\/bea-product-information\>/) {
+               $result .= &dataXML($eltFullName, "version", "testing");
+                my $hostString = $1;
+                my $wlHostsTree = XML::XPath->new(xml => $hostString);
+                my $wlHosts = $wlHostsTree->find('/host');
+                foreach my $wlHost ($wlHosts->get_nodelist()) {
+                    my $hostHome = $wlHost->getAttribute('home');
+                    my $hostName = $wlHost->getAttribute('name');
+                    if ($hostHome == $installDirectory) {
+                        my $products = $wlHost->find('product');
+                        foreach my $product ($products->get_nodelist()) {
+                            my $prodName = $product->getAttribute('name');
+                            if ($prodName =~ /WebLogic Platform/) {
+                                my $releaseTag = (($product->find('release'))->get_nodelist())[0];
+
+                                $result .= &dataXML($eltFullName, "version", $releaseTag->getAttribute('level'));
+                                $result .= &dataXML($eltFullName, "servicePackVersion", $releaseTag->getAttribute('ServicePackLevel'));
+                                $result .= &dataXML($eltFullName, "patchVersion", $releaseTag->getAttribute('PatchLevel'));
+                                $result .= &dataXML($eltFullName, "installDate", $releaseTag->getAttribute('InstallTime'));
+                                $result .= &dataXML($eltFullName, "javaHome", $releaseTag->getAttribute('JavaHome'));
+                                $result .= &dataXML($eltFullName, "javaVersion", $releaseTag->getAttribute('JavaVersion'));
+                                $result .= &dataXML($eltFullName, "javaVendor", $releaseTag->getAttribute('JavaVendor'));
+
+                                my $componentsTree = $releaseTag->find('component');
+                                my $components = '';
+                                foreach my $comp ($componentsTree->get_nodelist()) {
+                                    my $compName = $comp->getAttribute('name');
+                                    if ($compName && (length($compName)>0)) {
+                                        if ($components) {
+                                            $components .= $BDNA_SubSeparator;
+                                        }
+                                        $components .= 'name="' .$compName .'"';
+
+                                        my $compVersion = $comp->getAttribute('version');
+                                        $components .= $BDNA_Sub2Separator. 'version="' .$compVersion .'"';
+
+                                        my $compDir = $comp->getAttribute('InstallDir');
+                                        $components .= $BDNA_Sub2Separator. 'installDir="'.$compDir .'"';
+
+                                        my $subCompList = "";
+                                        my $subComps = $comp->find('component');
+                                        foreach my $subComp ($subComps->get_nodelist()) {
+                                            my $subCompName = $subComp->getAttribute('name');
+                                            if ($subCompName && (length($subCompName)> 0)) {
+                                                if ($subCompList) {
+                                                    $subCompList .= ", ";
+                                                }
+                                                $subCompList .= $subCompName;
+                                            }
+                                        }
+                                        $components .= $BDNA_Sub2Separator. 'subComponents="' . $subCompList .'"';
+                                    }
+                                }
+                                $result .= &dataXML($eltFullName, "components", $components);
+                            }
+                        }
+                    }
+                }
+            }
+            $result .= &dataXML($eltFullName, "registry_xml", $fileContent);
+            $result .= "</result>";
+            ]]>
+        </conclusion>
+    </rule>
+
+    <!-- ............................................................... -->
+    <!-- .......        Collector                                ....... -->
+    <!-- ............................................................... -->
+    <collector 
+        collectorName="WindowsWebLogicFootprintStaticCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WinRegScript">
+        <collectionParams 
+            typeElementFullName="root.types.footprint.WindowsWebLogicFootprint"
+            attributeName="registryRoot">
+        </collectionParams>
+        <collectionParams 
+            typeElementFullName="root.types.footprint.WindowsWebLogicFootprint"
+            attributeName="registryKey">
+        </collectionParams>
+        <scriptRef name="WinRegScript" scriptType="collection" seqNum="1"  />
+    </collector>
+
+    <collector
+        collectorName="WindowsWebLogicFileContentFootprintStatic_collector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WinFilePropertiesScript">
+        <collectionParams
+            typeElementFullName="root.types.footprint.WindowsWebLogicFileContentFootprint"
+            attributeName="filePath">
+        </collectionParams>
+        <collectionParams
+            typeElementFullName="root.types.footprint.WindowsWebLogicFileContentFootprint"
+            attributeName="fileCommand">
+        </collectionParams>
+        <scriptRef name="WinFilePropertiesScript" scriptType="collection" seqNum="1"  />
+    </collector>
+
+</module>
+
+

@@ -1,0 +1,638 @@
+--
+-- Do not run this SQL script directly; it is intended to be invoked
+-- by Create_Credential_YesOracleLMS.sql.
+--
+
+----------------------------------------------------------------------
+
+undefine storage_clause
+col storage_clause new_value storage_clause
+
+--
+-- determine which tablespace(s) to use in the storage clause
+--
+select decode(max(scheme),
+		3, 'default tablespace USERS temporary tablespace TEMP',
+		2, 'default tablespace USER temporary tablespace TEMPORARY',
+		1, 'default tablespace SYSTEM')
+       storage_clause
+from
+(
+select 3 scheme from dual
+where exists (select 1 from dba_tablespaces where tablespace_name = 'USERS') and
+	exists (select 1 from dba_tablespaces where tablespace_name = 'TEMP')
+union
+select 2 scheme from dual
+where exists (select 1 from dba_tablespaces where tablespace_name = 'USER') and
+	exists (select 1 from dba_tablespaces where tablespace_name = 'TEMPORARY')
+union
+select 1 scheme from dual
+) scheme
+;
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='drop user &&schema cascade';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,1918)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+create user &&schema identified by &&passwd;
+alter user &&schema &&storage_clause;
+
+grant create session to &&schema;
+
+grant select on v_$parameter to &&schema;
+grant select on v_$session to &&schema;
+grant select on v_$open_cursor to &&schema;
+grant select on v_$license to &&schema;
+grant select on v_$instance to &&schema;
+grant select on v_$option to &&schema;
+grant select on v_$database to &&schema;
+
+grant select on dba_data_files to &&schema;
+grant select on dba_segments to &&schema;
+grant select on dba_tablespaces to &&schema;
+grant select on dba_tab_partitions to &&schema;
+
+-- create or replace view bdna_dba_users_view as select username, user_id, default_tablespace, temporary_tablespace, created, profile from sys.dba_users;
+-- create synonym &&schema..bdna_dba_users_view for bdna_dba_users_view;
+-- grant select on bdna_dba_users_view to &&schema;
+
+-- For bootstraping the Oracle Applications Level 3 discovery
+grant select on dba_tables to &&schema;
+
+----------------------------------------------------------------------
+
+SELECT 'Giving the &&schema user additional appropriate ORACLE resources' "Note:" from SYS.DUAL;
+
+GRANT CONNECT,RESOURCE to &&schema;
+GRANT CREATE DATABASE LINK to &&schema;
+
+GRANT UNLIMITED TABLESPACE to &&schema;
+
+GRANT SELECT ON dba_users to &&schema;
+
+GRANT SELECT ON V_$VERSION TO &&schema;
+
+GRANT SELECT ON V_$OPTION TO &&schema;
+
+SELECT 'Granting SELECT on ORACLE SYS Dynamic Tables' "Note:" from SYS.DUAL;
+
+-- CREATE OR REPLACE VIEW AUDIT_DBA_USERS AS
+-- SELECT
+--    USERNAME,
+--    USER_ID,
+--    DEFAULT_TABLESPACE,
+--    TEMPORARY_TABLESPACE,
+--    CREATED,
+--    PROFILE,
+--    EXPIRY_DATE
+-- FROM SYS.DBA_USERS;
+
+-- GRANT SELECT ON AUDIT_DBA_USERS TO &&schema;
+
+GRANT SELECT ON V_$SESSION TO &&schema;
+
+GRANT SELECT ON V_$LICENSE TO &&schema;
+
+GRANT SELECT ON V_$PARAMETER TO &&schema;
+
+GRANT SELECT ON DBA_FEATURE_USAGE_STATISTICS TO &&schema;
+
+GRANT SELECT ON SYS.DBA_SEGMENTS TO &&schema;
+
+GRANT SELECT ON SYS.REGISTRY$HISTORY TO &&schema;
+
+GRANT SELECT ON V_$DATABASE TO &&schema;
+
+GRANT SELECT ON V_$INSTANCE TO &&schema;
+
+SELECT 'Granting SELECT for DB OPTIONS USAGE specific query' "Note:" from SYS.DUAL;
+PROMPT IF THE TABLE DOES NOT EXIST (ORA-00942) ...THEN THE OPTION DOES NOT EXIST
+
+GRANT SELECT ON GV_$INSTANCE to &&schema;
+
+GRANT SELECT ON GV_$PARAMETER to &&schema;
+
+GRANT SELECT ON DBA_TABLES to &&schema;
+
+GRANT SELECT ON DBA_TAB_PARTITIONS to &&schema;
+
+GRANT SELECT ON DBA_TAB_SUBPARTITIONS to &&schema;
+
+GRANT SELECT ON DBA_AWS to &&schema;
+
+GRANT SELECT ON DBA_LOBS to &&schema;
+
+GRANT SELECT ON DBA_LOB_PARTITIONS to &&schema;
+
+GRANT SELECT ON DBA_LOB_SUBPARTITIONS to &&schema;
+
+GRANT SELECT ON DBA_OBJECTS to &&schema;
+
+GRANT SELECT ON DBA_INDEXES to &&schema;
+
+GRANT SELECT ON DBA_RECYCLEBIN to &&schema;
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON MDSYS.SDO_GEOM_METADATA_TABLE to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON ODM_MINING_TASK to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON ODM_DOCUMENT to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON ODM_RECORD to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON dmsys.dm$object to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON dmsys.dm$model to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON dmsys.dm$p_model to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON DVSYS.DBA_DV_REALM to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON LBACSYS.LBAC$POLT to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON OLAPSYS.DBA$OLAP_CUBES to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+GRANT SELECT ON DBA_REGISTRY to &&schema;
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON SYSMAN.MGMT_LICENSE_DEFINITIONS to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON SYSMAN.MGMT_LICENSE_CONFIRMATION to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON SYSMAN.MGMT_TARGETS to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON SYSMAN.MGMT_ADMIN_LICENSES to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON SYSMAN.MGMT_LICENSES to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON SYSMAN.MGMT_TARGET_TYPES to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON SYSMAN.MGMT_LICENSED_TARGETS to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON GV_$IM_SEGMENTS to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON INMEMORY_ENABLED_TABLES to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+GRANT SELECT ON V_$SESSION_CONNECT_INFO TO &&schema;
+
+GRANT SELECT ON DBA_ENCRYPTED_COLUMNS TO &&schema;
+
+GRANT SELECT ON DBA_TABLESPACES TO &&schema;
+
+GRANT SELECT ON DBA_SQL_PROFILES to &&schema;
+
+GRANT SELECT ON V_$BLOCK_CHANGE_TRACKING to &&schema;
+
+GRANT SELECT ON V_$CONTAINERS to &&schema;
+
+GRANT SELECT ON DBA_CUBES to &&schema;
+
+GRANT SELECT ON DBA_SQLSET_REFERENCES to &&schema;
+
+GRANT SELECT ON DBA_SQLSET to &&schema;
+
+GRANT SELECT ON DBA_MINING_MODELS to &&schema;
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON DM$MODEL to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON DBA$OLAP_CUBES to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON DBA_ADVISOR_TASKS to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON SYSMAN.mgmt_fu_registrations to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON SYSMAN.mgmt_fu_statistics to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON SYSMAN.mgmt_targets to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON SYSMAN.mgmt_fu_license_map to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON MGMT$TARGET to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON MGMT_INV_COMPONENT to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON MGMT_VERSIONS to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+declare
+ stmt varchar2(255);
+BEGIN
+ stmt:='GRANT SELECT ON SYS.MODEL$ to &&schema';
+ execute immediate stmt;
+EXCEPTION
+ WHEN OTHERS THEN
+   IF INSTR(SQLERRM,942)>1 THEN
+      NULL;
+   ELSE
+      RAISE;
+   END IF;
+END;
+/
+
+GRANT SELECT ON DBA_CPU_USAGE_STATISTICS to &&schema;
+
+GRANT SELECT ON V_$ARCHIVE_DEST_STATUS to &&schema;
+
+SET LINES 300 PAGES 0
+SET FEEDBACK OFF
+
+SPOOL DYNAMIC.SQL
+SELECT DISTINCT
+       'GRANT SELECT ON',
+       a.owner || '.' || a.table_name,
+       'TO',
+       '&&schema',
+       ';'
+  from dba_tab_columns a
+  where a.table_name like 'CMPINSTALLATION_V'
+    and a.owner in (select b.owner from dba_tables b where b.table_name = 'CMPSYSCLASSES')
+  order by 2
+;
+SPOOL OFF

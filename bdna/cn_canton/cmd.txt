@@ -1,0 +1,5 @@
+sh $BDNA_HOME/bin/runjava.sh com.bdna.pl.util.BulkLoader -i:4 -f:<cnnetworkDefinitionsFile>
+sh $BDNA_HOME/bin/runjava.sh com.bdna.pl.util.BulkLoader -i:5 -f:<cnexclusionsDefinitionsFile>
+sh $BDNA_HOME/bin/runjava.sh com.bdna.pl.util.BulkLoader -i:3 -f:<cngroupsDefinitionsFile>
+sh $BDNA_HOME/bin/runjava.sh com.bdna.agenda.BulkCommon BulkCred4 <cnCredentialDefinitionsFile>
+sh $BDNA_HOME/bin/runjava.sh com.bdna.agenda.BulkCommon BulkTask4 <TaskDefinitionFile>

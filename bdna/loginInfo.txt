@@ -58,6 +58,21 @@ GZ VPN:
 mygithup: (caceyli/Simple.0)
 git clone git@github.com:caceyli/learngit.git
 
+ServiceNow discovery:
+1. Service-now Test Instance: http://bdnaintegration.service-now.com
+a. Login: bdna/bdna
+2. To setup your mid-server, use credential: bdna_mid/bdna_mid
+
+
+Oracle Login:
+user/email: cacey/bdnacn.com
+password:   Simple01
+
+
+JBoss Login
+cacey@bdnacn.com
+simple01
+
 
 
 

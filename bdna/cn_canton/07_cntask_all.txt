@@ -1,0 +1,125 @@
+# sh $BDNA_HOME/bin/runjava.sh com.bdna.agenda.BulkCommon BulkTask4 <TaskDefinitionFile> <BulkOutputFileDir>
+# sh $BDNA_HOME/bdna.sh
+# module -i <BulkOutputFileDir>/BulkTask4_<timestamp>.xml
+#
+# task_type : One of the predefined maintainence task names or Inventory
+# packages : '*' for all packages defined for the task, or packageName[<BDNA,>packageName]* for all packages to include
+# locations: locElemFullName[<BDNA,>locElemFullName]* for all locations associated with task
+# start_scan, stop_scan, shifts, scan_interval: same as normal bulk task
+# credentials: <empty> if no credentials required by packages selected,
+#              Single credentials defined as:
+#                credElemType<BDNA,1>credNameLvl2
+#                credElemType<BDNA,1>credNameLvl2<BDNA,1>credNameLvl2
+#              Or multiple credententials as required by packages as:
+#                <singleCred>[<BDNA,>singleCred]*
+# scan_name: Name of scan task
+# scan_desc: Description of scan task
+task_type	packages	locations	start_scan	stop_scan	shifts	scan_interval	credentials	scan_name	scan_desc	priority
+
+
+
+############################
+# Blackberry L3 Task
+############################
+#Inventory	BlackBerry Server (Windows)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	<BDNA,>BlackBerryEnterpriseServerMSSQLConnection<BDNA,1>blackberry-good<BDNA,>BlackBerryEnterpriseServerMSSQLConnection<BDNA,1>blackberry-bad	Scan Test - Blackberry L3	Scan Test - Blackberry L3	Priority Scan
+
+############################
+# ALOM L2 Task
+############################
+Inventory	Solaris Chasis ALOM	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	alom<BDNA,1>aloms1<BDNA,>alom<BDNA,1>aloms2<BDNA,>alom<BDNA,1>aloms3<BDNA,>alom<BDNA,1>aloms4	Scan Test - ALOM L2	Scan Test - ALOM L2	Priority Scan
+
+############################
+# ELOM L2 Task
+############################
+Inventory	Solaris Chasis ELOM	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	elom<BDNA,1>eloms	Scan Test - ELOM L2	Scan Test - ELOM L2	Priority Scan
+
+############################
+# ILOM L2 Task
+############################
+Inventory	Solaris Chasis ILOM	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	ilom<BDNA,1>iloms	Scan Test - ILOM L2	Scan Test - ILOM L2	Priority Scan
+
+############################
+# IBM DB2 L3 Task
+############################
+Inventory	IBM DB2 Database Server (UNIX)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	DB2Connection<BDNA,1>unix_db2_inst1	Scan Test - IBM DB2 L3	Scan Test - IBM DB2 L3	Priority Scan
+
+############################
+# ESX L2 Task
+############################
+Inventory	VMware ESX	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	esx<BDNA,1>ESX1<BDNA,>esx<BDNA,1>ESX2<BDNA,>esx<BDNA,1>ESX3	Scan Test - ESX L2	Scan Test - ESX L2	Priority Scan
+
+############################
+# Informix L3 Task
+############################
+Inventory	Informix Database Server (UNIX)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	InformixDBAccessConnection<BDNA,1>unix_root	Scan Test - Informix L3	Scan Test - Informix L3	Priority Scan
+
+############################
+# Level 1 Only Task
+############################
+Inventory	Basic Scan - Level 1 (no credentials required)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once		Scan Task All Level1		Normal Scan
+
+############################
+# MacOS L2 Task
+############################
+Inventory	Mac OS	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	sshForMac<BDNA,1>MacOS-good<BDNA,>sshForMac<BDNA,1>MacOS-MeMaccn	Scan Test - MacOS L2	Scan Test - MacOS L2	Priority Scan
+
+############################################
+# SQL Server Task
+############################################
+Inventory	Microsoft SQL Server (Windows)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	MSSQLServerConnection<BDNA,1>mssql-gary1<BDNA,>MSSQLServerConnection<BDNA,1>mssql-gary2<BDNA,>MSSQLServerConnection<BDNA,1>mssql-como1<BDNA,>MSSQLServerConnection<BDNA,1>mssql-hua1<BDNA,>MSSQLServerConnection<BDNA,1>mssql-hua2<BDNA,>MSSQLServerConnection<BDNA,1>mssql-test1<BDNA,>MSSQLServerConnection<BDNA,1>mssql-test2	Scan Test - Microsoft SQL Server	Scan Test - Microsoft SQL Server	Normal Scan
+
+############################
+# Oracle Applications L3 Task
+############################
+Inventory	Oracle Applications (UNIX)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	OracleAppConnection<BDNA,1>unix_root<BDNA,1>orapp-system<BDNA,>OracleAppConnection<BDNA,1>unix_root<BDNA,1>orapp-oracle<BDNA,>OracleAppConnection<BDNA,1>unix_root<BDNA,1>orapp-sys<BDNA,>OracleAppConnection<BDNA,1>unix_root<BDNA,1>orapp-sys2<BDNA,>OracleAppConnection<BDNA,1>unix_root<BDNA,1>orapp-system2<BDNA,>OracleAppConnection<BDNA,1>unix_bdna<BDNA,1>orapp-sys<BDNA,>OracleAppConnection<BDNA,1>unix_bdna<BDNA,1>orapp-system<BDNA,>OracleAppConnection<BDNA,1>unix_bdnacorp<BDNA,1>orapp-system<BDNA,>OracleAppConnection<BDNA,1>unix_bdnacorp<BDNA,1>orapp-sys2<BDNA,>OracleAppConnection<BDNA,1>unix_bdnacorp<BDNA,1>orapp-system2<BDNA,>OracleAppConnection<BDNA,1>unix_bdnacorp<BDNA,1>orapp-sys<BDNA,>OracleAppConnection<BDNA,1>unix_cluser<BDNA,1>orapp-sys<BDNA,>OracleAppConnection<BDNA,1>unix_cluser<BDNA,1>orapp-sys2<BDNA,>OracleAppConnection<BDNA,1>unix_cluser<BDNA,1>orapp-system2<BDNA,>OracleAppConnection<BDNA,1>unix_cluser<BDNA,1>orapp-system<BDNA,>OracleAppConnection<BDNA,1>unix_root1<BDNA,1>orapp-system<BDNA,>OracleAppConnection<BDNA,1>unix_root1<BDNA,1>orapp-sys<BDNA,>OracleAppConnection<BDNA,1>unix_root1<BDNA,1>orapp-system2<BDNA,>OracleAppConnection<BDNA,1>unix_root1<BDNA,1>orapp-sys2	Scan Test - Oracle Applications L3	Scan Test - Oracle Applications L3	Priority Scan
+
+############################
+# SAP L3 Task
+############################
+Inventory	SAP Solution Manager	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	SAPSolManConnection<BDNA,1>sapL3-bad	Scan Test - SAP L3	Scan Test - SAP L3	Priority Scan
+
+############################
+# SNMP L2 Task
+############################
+Inventory	SNMP	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	snmp<BDNA,1>snmp-good<BDNA,>snmp<BDNA,1>snmp-bad1<BDNA,>snmp<BDNA,1>snmp-bad2<BDNA,>snmp<BDNA,1>snmp-bad3	Scan Test - SNMP L2	Scan Test - SNMP L2	Priority Scan
+
+############################
+# Sybase L3 Task
+############################
+Inventory	Sybase Database Server (UNIX)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	SybaseConnection<BDNA,1>unix_root<BDNA,1>unixSyb-bdnabdna<BDNA,>SybaseConnection<BDNA,1>unix_root<BDNA,1>unixSyb-bdna<BDNA,>SybaseConnection<BDNA,1>unix_root<BDNA,1>unixSyb-manager<BDNA,>SybaseConnection<BDNA,1>unix_root4<BDNA,1>unixSyb-bdnabdna<BDNA,>SybaseConnection<BDNA,1>unix_root4<BDNA,1>unixSyb-bdna<BDNA,>SybaseConnection<BDNA,1>unix_root4<BDNA,1>unixSyb-manager<BDNA,>SybaseConnection<BDNA,1>unix_root6<BDNA,1>unixSyb-bdnabdna<BDNA,>SybaseConnection<BDNA,1>unix_root6<BDNA,1>unixSyb-bdna<BDNA,>SybaseConnection<BDNA,1>unix_root6<BDNA,1>unixSyb-manager<BDNA,>SybaseConnection<BDNA,1>unix_bituser<BDNA,1>unixSyb-bdnabdna<BDNA,>SybaseConnection<BDNA,1>unix_bituser<BDNA,1>unixSyb-bdna<BDNA,>SybaseConnection<BDNA,1>unix_bituser<BDNA,1>unixSyb-manager	Scan Test - Sybase L3	Scan Test - Sybase L3	Priority Scan
+
+############################
+# UNIX L2 Task
+############################
+Inventory	UNIX	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	ssh<BDNA,1>unix_cluser<BDNA,>ssh<BDNA,1>unix_bituser<BDNA,>ssh<BDNA,1>unix_bdnacorp<BDNA,>ssh<BDNA,1>unix_bdna<BDNA,>ssh<BDNA,1>unix_root<BDNA,>ssh<BDNA,1>unix_root1<BDNA,>ssh<BDNA,1>unix_root2<BDNA,>ssh<BDNA,1>unix_root3<BDNA,>ssh<BDNA,1>unix_root4<BDNA,>ssh<BDNA,1>unix_root5<BDNA,>ssh<BDNA,1>unix_root6<BDNA,>ssh<BDNA,1>unix_center	Scan Test - UNIX L2	Scan Test - UNIX L2	Priority Scan
+
+############################
+# Unix Oracle L3 Task
+############################
+Inventory	Oracle Database Server (UNIX)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	OracleConnection<BDNA,1>unix_root<BDNA,1>unixOra-manager<BDNA,>OracleConnection<BDNA,1>unix_root<BDNA,1>unixOra-bdna<BDNA,>OracleConnection<BDNA,1>unix_root<BDNA,1>unixOra-bdnabdna<BDNA,>OracleConnection<BDNA,1>unix_root<BDNA,1>unixOra-cluser<BDNA,>OracleConnection<BDNA,1>unix_root4<BDNA,1>unixOra-manager<BDNA,>OracleConnection<BDNA,1>unix_root4<BDNA,1>unixOra-bdna<BDNA,>OracleConnection<BDNA,1>unix_root4<BDNA,1>unixOra-bdnabdna<BDNA,>OracleConnection<BDNA,1>unix_root4<BDNA,1>unixOra-cluser<BDNA,>OracleConnection<BDNA,1>unix_root5<BDNA,1>unixOra-manager<BDNA,>OracleConnection<BDNA,1>unix_root5<BDNA,1>unixOra-bdna<BDNA,>OracleConnection<BDNA,1>unix_root5<BDNA,1>unixOra-bdnabdna<BDNA,>OracleConnection<BDNA,1>unix_root5<BDNA,1>unixOra-cluser	Scan Test - Unix Oracle L3	Scan Test - Unix Oracle L3	Priority Scan
+
+############################
+# WebLogic L3 Task
+############################
+Inventory	WebLogic Administration Server (UNIX)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	UNIXWebLogicL3Connection<BDNA,1>unix_root<BDNA,1>unix_weblogic_7001<BDNA,>UNIXWebLogicL3Connection<BDNA,1>unix_root6<BDNA,1>unix_weblogic_7001<BDNA,>UNIXWebLogicL3Connection<BDNA,1>unix_root<BDNA,1>unix_weblogic_7101<BDNA,>UNIXWebLogicL3Connection<BDNA,1>unix_root6<BDNA,1>unix_weblogic_7101	Scan Test - WebLogic L3	Scan Test - WebLogic L3	Priority Scan
+
+############################
+# WebSphere L3 Task
+############################
+Inventory	WebSphere Application Server (UNIX)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	UNIXWASConnection<BDNA,1>unix_root<BDNA,1>unix_was<BDNA,>UNIXWASConnection<BDNA,1>unix_root<BDNA,1>unix_was_root	Scan Test - WebSphere L3	Scan Test - WebSphere L3	Priority Scan
+
+############################
+# Windows L2 Task
+############################
+Inventory	Windows	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	defaultwincs<BDNA,1>win_cluser_cluser<BDNA,>defaultwincs<BDNA,1>win_cluser_fpuser<BDNA,>defaultwincs<BDNA,1>win_bituser_bitpw<BDNA,>defaultwincs<BDNA,1>win_admin_bdnaFP<BDNA,>defaultwincs<BDNA,1>win_bdnacorp_bdna<BDNA,>defaultwincs<BDNA,1>win_local_cluser<BDNA,>defaultwincs<BDNA,1>win_local_bdna<BDNA,>defaultwincs<BDNA,1>win_local_administrator_bdna<BDNA,>defaultwincs<BDNA,1>win_local_administrator_cluser<BDNA,>defaultwincs<BDNA,1>win_local_administrator_bdna202<BDNA,>defaultwincs<BDNA,1>win_local_administrator_bdna2202<BDNA,>defaultwincs<BDNA,1>win_local_administrator_bdnacorp<BDNA,>defaultwincs<BDNA,1>win_blackfire_administrator_bdnacn<BDNA,>defaultwincs<BDNA,1>win_sc_administrator_Simple0<BDNA,>defaultwincs<BDNA,1>win_sccmmp_administrator_Simple0<BDNA,>defaultwincs<BDNA,1>win_administrator_Simple0<BDNA,>defaultwincs<BDNA,1>win_administrator_n1md@345	Scan Test - Windows L2	Scan Test - Windows L2	Priority Scan
+
+############################
+# Windows Oracle L3 Task
+############################
+Inventory	Oracle Database Server (Windows)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	winOracleConnection<BDNA,1>win_local_administrator_bdna<BDNA,1>winOra-system3<BDNA,>winOracleConnection<BDNA,1>win_local_administrator_bdna<BDNA,1>winOra-system4<BDNA,>winOracleConnection<BDNA,1>win_local_administrator_bdna<BDNA,1>winOra-system5<BDNA,>winOracleConnection<BDNA,1>win_local_administrator_bdna202<BDNA,1>winOra-system<BDNA,>winOracleConnection<BDNA,1>win_local_administrator_bdna202<BDNA,1>winOra-sys<BDNA,>winOracleConnection<BDNA,1>win_local_administrator_bdna202<BDNA,1>winOra-system2<BDNA,>winOracleConnection<BDNA,1>win_local_administrator_bdna202<BDNA,1>winOra-sys2<BDNA,>winOracleConnection<BDNA,1>win_local_administrator_bdna202<BDNA,1>winOra-oracle<BDNA,>winOracleConnection<BDNA,1>win_local_administrator_bdna202<BDNA,1>winOra-oracle2<BDNA,>winOracleConnection<BDNA,1>win_cluser_cluser<BDNA,1>winOra-system<BDNA,>winOracleConnection<BDNA,1>win_cluser_cluser<BDNA,1>winOra-sys<BDNA,>winOracleConnection<BDNA,1>win_cluser_cluser<BDNA,1>winOra-system2<BDNA,>winOracleConnection<BDNA,1>win_cluser_cluser<BDNA,1>winOra-sys2<BDNA,>winOracleConnection<BDNA,1>win_cluser_cluser<BDNA,1>winOra-oracle<BDNA,>winOracleConnection<BDNA,1>win_cluser_cluser<BDNA,1>winOra-oracle2<BDNA,>winOracleConnection<BDNA,1>win_bituser_bitpw<BDNA,1>winOra-system<BDNA,>winOracleConnection<BDNA,1>win_bituser_bitpw<BDNA,1>winOra-sys<BDNA,>winOracleConnection<BDNA,1>win_bituser_bitpw<BDNA,1>winOra-system2<BDNA,>winOracleConnection<BDNA,1>win_bituser_bitpw<BDNA,1>winOra-sys2<BDNA,>winOracleConnection<BDNA,1>win_bituser_bitpw<BDNA,1>winOra-oracle<BDNA,>winOracleConnection<BDNA,1>win_bituser_bitpw<BDNA,1>winOra-oracle2<BDNA,>winOracleConnection<BDNA,1>win_local_cluser<BDNA,1>winOra-system<BDNA,>winOracleConnection<BDNA,1>win_local_cluser<BDNA,1>winOra-sys<BDNA,>winOracleConnection<BDNA,1>win_local_cluser<BDNA,1>winOra-system2<BDNA,>winOracleConnection<BDNA,1>win_local_cluser<BDNA,1>winOra-sys2<BDNA,>winOracleConnection<BDNA,1>win_local_cluser<BDNA,1>winOra-oracle<BDNA,>winOracleConnection<BDNA,1>win_local_cluser<BDNA,1>winOra-oracle2<BDNA,>winOracleConnection<BDNA,1>win_local_administrator_bdna<BDNA,1>winOra-system<BDNA,>winOracleConnection<BDNA,1>win_local_administrator_bdna<BDNA,1>winOra-sys<BDNA,>winOracleConnection<BDNA,1>win_local_administrator_bdna<BDNA,1>winOra-system2<BDNA,>winOracleConnection<BDNA,1>win_local_administrator_bdna<BDNA,1>winOra-sys2<BDNA,>winOracleConnection<BDNA,1>win_local_administrator_bdna<BDNA,1>winOra-oracle<BDNA,>winOracleConnection<BDNA,1>win_local_administrator_bdna<BDNA,1>winOra-oracle2	Scan Test - Windows Oracle L3	Scan Test - Windows Oracle L3	Priority Scan
+
+
+
+
+
+
