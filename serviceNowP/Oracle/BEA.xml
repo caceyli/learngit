@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+**********************************************************************
+*
+* Copyright (c) 2007-2008 BDNA Corporation.
+* All Rights Reserved. BDNA products and services are protected
+* by the following U.S. patent: #6,988,134. BDNA is trademark of
+* BDNA Corporation.
+*
+* ******BDNA CONFIDENTIAL******
+*
+* The following code was developed and is owned by BDNA Corporation.
+* This code is confidential and may contain trade secrets.  The code
+* must not be distributed to any party outside of BDNA Corporation
+* without written permission from BDNA Corporation.  The code may be
+* covered by patents, patents pending, or patents applied for in the
+* US or elsewhere.
+*
+**********************************************************************
+-->
+<!DOCTYPE bdna SYSTEM "bdna.dtd">
+
+<module
+    name="com.bdna.modules.app.BEA"
+    displayLabel="BEA Software"
+    requiredPlatformVersion="030300"
+    version="1"
+    lastCompatibleVersion="1">
+
+    <moduleDependency
+        parentModuleName="com.bdna.modules.common.Base" parentModuleVersion="1" />
+    <moduleDependency
+        parentModuleName="com.bdna.modules.common.ADMTypesAndAttrsDef" parentModuleVersion="1" />
+
+
+    <!-- ............................................................... -->
+    <!-- .......    Oracle WebLogic type declarations    ........... -->
+    <!-- ............................................................... -->
+
+    <package name="BEA" displayLabel="BEA" />
+    <packageRelationship parentPackage="business" childPackage="BEA"  />
+
+    <element
+        elementName="WebLogicFootprint"
+        elementTypePath="root.types.footprint"
+        displayLabel="Oracle BEA WebLogic Footprint"
+        isTemplate="true">
+    </element>
+
+    <element
+        elementName="WebLogicInstallation"
+        elementTypePath="root.types.resource.software.installation"
+        displayLabel="Oracle WebLogic Installation"
+        isTemplate="true">
+        <attribute attributeName="platformDir" dataType="string" displayLabel="Platform Install Directory"/>
+        <attribute attributeName="servicePackVersion" dataType="string" displayLabel="Service Pack Level"/>
+        <attribute attributeName="patchVersion" dataType="string" displayLabel="Patch Level"/>
+        <attribute attributeName="javaHome" dataType="string" displayLabel="Java Home Directory"/>
+        <attribute attributeName="javaVersion" dataType="string" displayLabel="Java Version"/>
+        <attribute attributeName="javaVendor" dataType="string" displayLabel="Java Vendor" />
+        <attribute attributeName="components" dataType="udt" displayLabel="Components"><![CDATA[WebLogicComponents]]></attribute>
+        <attribute attributeName="licenseDetails" dataType="udt" displayLabel="Licenses"><![CDATA[WebLogicLicenses]]></attribute>
+
+        <attribute attributeName="registry_xml" dataType="text" displayLabel="BEA registry file (RAW Data)"/>
+        <attribute attributeName="license_xml"  dataType="text" displayLabel="BEA license file (RAW Data)"/>
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="UNIXWebLogicInstallation"
+        elementTypePath="root.types.resource.software.installation.WebLogicInstallation"
+        displayLabel="Oracle BEA WebLogic Installation on UNIX"
+        isTemplate="true">
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="WindowsWebLogicInstallation"
+        elementTypePath="root.types.resource.software.installation.WebLogicInstallation"
+        displayLabel="Oracle BEA WebLogic Installation on Windows"
+        isTemplate="true">
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="WebLogicASInstance"
+        elementTypePath="root.types.resource.applicationObject.server.ApplicationServer"
+        displayLabel="Oracle BEA WebLogic Instance"
+        isTemplate="true">
+        <attribute attributeName="listenAddress" dataType="string" displayLabel="Internal listen address attribute" />
+        <attribute attributeName="WLS_DomainName" dataType="string" displayLabel="Domain to which the WebLogic Sever belongs"/>
+        <attribute attributeName="servicePackVersion" dataType="string" displayLabel="Service Pack Level"/>
+        <attribute attributeName="patchVersion" dataType="string" displayLabel="Patch Level"/>
+        <attribute attributeName="adminSvrAddress" dataType="string" displayLabel="Admin Server Address"/>
+        <attribute attributeName="isAdminSvr" dataType="string" displayLabel="Is Admin Server?" />
+        <attribute attributeName="platformDir" dataType="string" displayLabel="Platform Install Directory"/>
+        <attribute attributeName="installDirectory" dataType="string" displayLabel="Install Directory"/>
+        <attribute attributeName="integrationDir" dataType="string" displayLabel="Integration Server Directory"/>
+        <attribute attributeName="securityPolicy" dataType="string" displayLabel="Security Policy"/>
+        <attribute attributeName="memoryAllocated" dataType="string" displayLabel="Memory Allocated" />
+        <attribute attributeName="sslEnabled" dataType="string" displayLabel="Is SSL Enabled?" />
+        <attribute attributeName="sslPort" dataType="string" displayLabel="SSL Port" />
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element elementName="WebLogicDomain"
+        elementTypePath="root.types.resource.AppServerLogicalGroup"
+        displayLabel="WebLogic Domain"
+        icon="ico_group.xsl"
+        isTemplate="true" >
+        <attribute attributeName="WL_DomainName" dataType="string" displayLabel="Domain Name"/>
+        <attribute attributeName="domainVersion" dataType="string" displayLabel="Domain Version"/>
+    </element>
+
+    <element elementName="WebLogicCluster"
+        elementTypePath="root.types.resource.applicationObject.cluster.AppServerCluster"
+        displayLabel="WebLogic Application Server Cluster"
+        icon="ico_group.xsl"
+        isTemplate="true" >
+        <attribute attributeName="multicastAddress" dataType="string" displayLabel="Multicast Address"/>
+        <attribute attributeName="frontendHost" dataType="string" displayLabel="Frontend Host"/>
+        <attribute attributeName="frontendHttpPort" dataType="string" displayLabel="Frontend HTTP Port"/>
+    </element>
+
+    <element elementName="WebLogicEAR"
+        elementTypePath="root.types.resource.applicationObject.distributedApplication.EAR"
+        displayLabel="Enterprise Application"
+        icon="ico_sw_generic.xsl"
+        isTemplate="true" >
+        <!-- attribute attributeName="app_Name" dataType="string" displayLabel="Distributed Application name" -->
+        <attribute attributeName="sourcePath" dataType="string" displayLabel="Source Path"/>
+        <attribute attributeName="securityDDModel" dataType="string" displayLabel="Security Deployment Descriptor Model"/>
+    </element>
+
+    <element elementName="WebLogicWAR"
+        elementTypePath="root.types.resource.applicationObject.distributedApplication.WAR"
+        displayLabel="Web Application"
+        icon="ico_sw_generic.xsl"
+        isTemplate="true" >
+        <attribute attributeName="sourcePath" dataType="string" displayLabel="Source Path"/>
+        <attribute attributeName="securityDDModel" dataType="string" displayLabel="Security Deployment Descriptor Model"/>
+    </element>
+
+    <element
+        elementName="WebLogicPlatform"
+        elementTypePath="root.types.resource.software.installation"
+        displayLabel="Oracle WebLogic Platform"
+        isTemplate="true">
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="WebLogicServer"
+        elementTypePath="root.types.resource.software.installation"
+        displayLabel="Oracle WebLogic Platform"
+        isTemplate="true">
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="WebLogicPortal"
+        elementTypePath="root.types.resource.software.installation"
+        displayLabel="Oracle WebLogic Portal"
+        isTemplate="true">
+        <attribute attributeName="servicePackVersion" dataType="string" displayLabel="Service Pack Level"/>
+        <attribute attributeName="patchVersion" dataType="string" displayLabel="Patch Level"/>
+        <attribute attributeName="javaHome" dataType="string" displayLabel="Java Home Directory"/>
+        <attribute attributeName="javaVersion" dataType="string" displayLabel="Java Version"/>
+        <attribute attributeName="javaVendor" dataType="string" displayLabel="Java Vendor" />
+        <attribute attributeName="components" dataType="udt" displayLabel="Components"><![CDATA[WebLogicPortalComponents]]></attribute>
+        <attribute attributeName="registry_xml" dataType="text" displayLabel="BEA registry file (RAW Data)"/>
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="UNIXWebLogicPortal"
+        elementTypePath="root.types.resource.software.installation.WebLogicPortal"
+        displayLabel="Oracle WebLogic Portal on UNIX"
+        isTemplate="true">
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="WindowsWebLogicPortal"
+        elementTypePath="root.types.resource.software.installation.WebLogicPortal"
+        displayLabel="Oracle WebLogic Portal on Windows"
+        isTemplate="true">
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="WebLogicWorkshop"
+        elementTypePath="root.types.resource.software.installation"
+        displayLabel="Oracle WebLogic Workshop"
+        isTemplate="true">
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <element
+        elementName="WebLogicIntegration"
+        elementTypePath="root.types.resource.software.installation"
+        displayLabel="Oracle WebLogic Integration"
+        isTemplate="true">
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+    <!-- ............................................................... -->
+    <!-- .......        Type Relationship                        ....... -->
+    <!-- ............................................................... -->
+
+    <relationship parentType="root.types.resource.software.operatingSystem"
+                  childType="root.types.footprint.WebLogicFootprint"
+    />
+    <relationship parentType="root.types.footprint.WebLogicFootprint"
+                  childType="root.types.resource.software.installation.WebLogicInstallation"
+    />
+    <relationship parentType="root.types.resource.software.operatingSystem"
+                  childType="root.types.resource.software.installation.WebLogicInstallation"
+    />
+    <relationship parentType="root.types.footprint.WebLogicFootprint"
+                  childType="root.types.resource.software.installation.WebLogicPlatform"
+    />
+    <relationship parentType="root.types.resource.software.operatingSystem"
+                  childType="root.types.resource.software.installation.WebLogicPlatform"
+    />
+    <relationship parentType="root.types.footprint.WebLogicFootprint"
+                  childType="root.types.resource.software.installation.WebLogicServer"
+    />
+    <relationship parentType="root.types.resource.software.operatingSystem"
+                  childType="root.types.resource.software.installation.WebLogicServer"
+    />
+    <relationship parentType="root.types.footprint.WebLogicFootprint"
+                  childType="root.types.resource.software.installation.WebLogicPortal"
+    />
+    <relationship parentType="root.types.footprint.WebLogicFootprint"
+                  childType="root.types.resource.software.installation.WebLogicPortal.WindowsWebLogicPortal"
+    />
+    <relationship parentType="root.types.footprint.WebLogicFootprint"
+                  childType="root.types.resource.software.installation.WebLogicPortal.UNIXWebLogicPortal"
+    />
+    <relationship parentType="root.types.resource.software.installation.WebLogicInstallation"
+                  childType="root.types.resource.software.installation.WebLogicPortal"
+    />
+    <relationship parentType="root.types.resource.software.installation.WebLogicInstallation.WindowsWebLogicInstallation"
+                  childType="root.types.resource.software.installation.WebLogicPortal.WindowsWebLogicPortal"
+    />
+    <relationship parentType="root.types.resource.software.installation.WebLogicInstallation.UNIXWebLogicInstallation"
+                  childType="root.types.resource.software.installation.WebLogicPortal.UNIXWebLogicPortal"
+    />
+    <relationship parentType="root.types.resource.software.operatingSystem"
+                  childType="root.types.resource.software.installation.WebLogicPortal"
+    />
+    <relationship parentType="root.types.resource.software.operatingSystem.Windows"
+                  childType="root.types.resource.software.installation.WebLogicPortal.WindowsWebLogicPortal"
+    />
+    <relationship parentType="root.types.resource.software.operatingSystem.UNIX"
+                  childType="root.types.resource.software.installation.WebLogicPortal.UNIXWebLogicPortal"
+    />
+    <relationship parentType="root.types.footprint.WebLogicFootprint"
+                  childType="root.types.resource.software.installation.WebLogicWorkshop"
+    />
+    <relationship parentType="root.types.resource.software.operatingSystem"
+                  childType="root.types.resource.software.installation.WebLogicWorkshop"
+    />
+    <relationship parentType="root.types.footprint.WebLogicFootprint"
+                  childType="root.types.resource.software.installation.WebLogicIntegration"
+    />
+    <relationship parentType="root.types.resource.software.operatingSystem"
+                  childType="root.types.resource.software.installation.WebLogicIntegration"
+    />
+    <relationship parentType="root.types.footprint.WebLogicFootprint"
+                  childType="root.types.resource.applicationObject.server.ApplicationServer.WebLogicASInstance"
+    />
+    <relationship parentType="root.types.resource.software.installation.WebLogicInstallation"
+                  childType="root.types.resource.applicationObject.server.ApplicationServer.WebLogicASInstance"
+    />
+    <relationship parentType="root.types.resource.software.operatingSystem"
+                  childType="root.types.resource.applicationObject.server.ApplicationServer.WebLogicASInstance"
+    />
+    <relationship parentType="root.types.resource.AppServerLogicalGroup.WebLogicDomain"
+                  childType="root.types.resource.applicationObject.server.ApplicationServer.WebLogicASInstance"
+    />
+    <relationship parentType="root.types.resource.applicationObject.cluster.AppServerCluster.WebLogicCluster"
+                  childType="root.types.resource.applicationObject.server.ApplicationServer.WebLogicASInstance"
+    />
+    <relationship parentType="root.types.resource.AppServerLogicalGroup.WebLogicDomain"
+                  childType="root.types.resource.applicationObject.cluster.AppServerCluster.WebLogicCluster" 
+    />
+    <relationship parentType="root.types.resource.software.operatingSystem"
+                  childType="root.types.resource.applicationObject.distributedApplication.EAR.WebLogicEAR"
+    />
+    <relationship parentType="root.types.resource.AppServerLogicalGroup.WebLogicDomain"
+                  childType="root.types.resource.applicationObject.distributedApplication.EAR.WebLogicEAR"
+    />
+    <relationship parentType="root.types.resource.applicationObject.cluster.AppServerCluster.WebLogicCluster"
+                  childType="root.types.resource.applicationObject.distributedApplication.EAR.WebLogicEAR"
+    />
+    <relationship parentType="root.types.resource.applicationObject.server.ApplicationServer.WebLogicASInstance"
+                  childType="root.types.resource.applicationObject.distributedApplication.EAR.WebLogicEAR"
+    />
+    <relationship parentType="root.types.resource.software.operatingSystem"
+                  childType="root.types.resource.applicationObject.distributedApplication.WAR.WebLogicWAR"
+    />
+    <relationship parentType="root.types.resource.AppServerLogicalGroup.WebLogicDomain"
+                  childType="root.types.resource.applicationObject.distributedApplication.WAR.WebLogicWAR"
+    />
+    <relationship parentType="root.types.resource.applicationObject.cluster.AppServerCluster.WebLogicCluster"
+                  childType="root.types.resource.applicationObject.distributedApplication.WAR.WebLogicWAR" 
+    />
+    <relationship parentType="root.types.resource.applicationObject.server.ApplicationServer.WebLogicASInstance"
+                  childType="root.types.resource.applicationObject.distributedApplication.WAR.WebLogicWAR"
+    />
+
+
+
+    <!-- ............................................................... -->
+    <!-- .......   BEA WebLogic fingerprint rules            ........... -->
+    <!-- ............................................................... -->
+    <rule
+        name="FindWebLogicInstallationAttributes"
+        weight="50">
+        <search variable="os" pattern="root.types.resource.software.operatingSystem" />
+        <search variable="inst" pattern="root.types.resource.software.installation.WebLogicInstallation">
+            <use attribute="registry_xml" />
+        </search>
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="inst"    />
+        <output includeSubtype="true" type="root.types.resource.software.installation.WebLogicInstallation" attribute="version" />
+        <output includeSubtype="true" type="root.types.resource.software.installation.WebLogicInstallation" attribute="servicePackVersion" />
+        <output includeSubtype="true" type="root.types.resource.software.installation.WebLogicInstallation" attribute="patchVersion" />
+        <output includeSubtype="true" type="root.types.resource.software.installation.WebLogicInstallation" attribute="installDate" />
+        <output includeSubtype="true" type="root.types.resource.software.installation.WebLogicInstallation" attribute="platformDir" />
+        <output includeSubtype="true" type="root.types.resource.software.installation.WebLogicInstallation" attribute="javaHome" />
+        <output includeSubtype="true" type="root.types.resource.software.installation.WebLogicInstallation" attribute="javaVersion" />
+        <output includeSubtype="true" type="root.types.resource.software.installation.WebLogicInstallation" attribute="javaVendor" />
+        <output includeSubtype="true" type="root.types.resource.software.installation.WebLogicInstallation" attribute="components" />
+        <conclusion type="perl">
+        <![CDATA[
+        use XML::XPath;
+        our (%inst, %os);
+        our $result = "<result> ";
+        my $eltFullName = $inst{"elementFullName"};
+        my $registry_xml = $inst{"registry_xml"};
+
+        if ($registry_xml =~ /\<bea-product-information.*?(\<host.*\<\/host\>).*?<\/bea-product-information\>/) {
+            my $hostString = $1;
+            $hostString =~ s/$BDNA_Separator/\n/g;
+
+            my $wlHostsTree = XML::XPath->new(xml => $hostString);
+            my $wlHosts = $wlHostsTree->find('/host');
+            foreach my $wlHost ($wlHosts->get_nodelist()) {
+                my $hostHome = $wlHost->getAttribute('home');
+                my $hostName = $wlHost->getAttribute('name');
+                &echo('WebLogic Registry hostName: <'.$hostName.'>, hostHome: <'.$hostHome.'>');
+                if ($hostHome == $installDirectory) {
+                    my $products = $wlHost->find('product');
+                    foreach my $product ($products->get_nodelist()) {
+                        my $prodName = $product->getAttribute('name');
+                        if ($prodName =~ /WebLogic Platform/) {
+                            my $releaseTag = (($product->find('release'))->get_nodelist())[0];
+
+                            $result .= &dataXML($eltFullName, "version", $releaseTag->getAttribute('level'));
+                            $result .= &dataXML($eltFullName, "servicePackVersion", $releaseTag->getAttribute('ServicePackLevel'));
+                            $result .= &dataXML($eltFullName, "patchVersion", $releaseTag->getAttribute('PatchLevel'));
+                            #$result .= &dataXML($eltFullName, "installStatus", $releaseTag->getAttribute('Status'));
+                            &echo("installed status $releaseTag->getAttribute('Status').");
+                            $result .= &dataXML($eltFullName, "installDate", $releaseTag->getAttribute('InstallTime'));
+                            $result .= &dataXML($eltFullName, "javaHome", $releaseTag->getAttribute('JavaHome'));
+                            $result .= &dataXML($eltFullName, "javaVersion", $releaseTag->getAttribute('JavaVersion'));
+                            $result .= &dataXML($eltFullName, "javaVendor", $releaseTag->getAttribute('JavaVendor'));
+
+                            my $componentsTree = $releaseTag->find('component');
+                            my $components = '';
+                            foreach my $comp ($componentsTree->get_nodelist()) {
+                                my $compName = $comp->getAttribute('name');
+                                if ($compName && (length($compName)>0)) {
+                                    if ($components) {
+                                        $components .= $BDNA_SubSeparator;
+                                    }
+                                    $components .= 'name="' .$compName .'"';
+
+                                    my $compVersion = $comp->getAttribute('version');
+                                    $components .= $BDNA_Sub2Separator. 'version="' .$compVersion .'"';
+
+                                    my $compDir = $comp->getAttribute('InstallDir');
+                                    $components .= $BDNA_Sub2Separator. 'installDir="'.$compDir .'"';
+
+                                    my $subCompList = "";
+                                    my $subComps = $comp->find('component');
+                                    foreach my $subComp ($subComps->get_nodelist()) {
+                                        my $subCompName = $subComp->getAttribute('name');
+                                        if ($subCompName && (length($subCompName)> 0)) {
+                                            if ($subCompList) {
+                                                $subCompList .= ", ";
+                                            }
+                                            $subCompList .= $subCompName;
+                                        }
+                                    }
+                                    $components .= $BDNA_Sub2Separator. 'subComponents="' . $subCompList .'"';
+                                }
+                            }
+                            $result .= &dataXML($eltFullName, "components", $components);
+                        }
+                    }
+                }
+            }
+        }
+        $result .= "</result>";
+        ]]>
+        </conclusion>
+     </rule>
+
+    <rule
+        name="createUNIXWebLogicPortalFromFile"
+        weight="50">
+        <search variable="os" pattern="root.types.resource.software.operatingSystem" />
+        <search variable="inst" pattern="root.types.resource.software.installation.WebLogicInstallation.UNIXWebLogicInstallation">
+            <use attribute="registry_xml" />
+            <use attribute="installDirectory" />
+        </search>
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="inst"    />
+        <conclusion type="perl">
+        <![CDATA[
+        use XML::XPath;
+        our (%inst, %os);
+        our $result = "<result> ";
+        my $parent = $inst{"elementFullName"};
+        my $registry_xml = $inst{"registry_xml"};
+        my $installDirectory = $inst{"installDirectory"};
+        my $eltName = "UNIXWebLogicPortal";
+        my $eltFullName = "$parent.$eltName";
+
+        if ($registry_xml =~ /\<bea-product-information.*?(\<host.*\<\/host\>).*?<\/bea-product-information\>/) {
+            my $hostString = $1;
+            $hostString =~ s/$BDNA_Separator/\n/g;
+
+            my $wlHostsTree = XML::XPath->new(xml => $hostString);
+            my $wlHosts = $wlHostsTree->find('/host');
+            foreach my $wlHost ($wlHosts->get_nodelist()) {
+                my $hostHome = $wlHost->getAttribute('home');
+                my $hostName = $wlHost->getAttribute('name');
+                &echo('WebLogic Registry hostName: <'.$hostName.'>, hostHome: <'.$hostHome.'>');
+                if ($hostHome == $installDirectory) {
+                    my $products = $wlHost->find('product');
+                    foreach my $product ($products->get_nodelist()) {
+                        my $prodName = $product->getAttribute('name');
+                        if ($prodName =~ /WebLogic Portal/) {
+                            &echo("WebLogic Portal found");
+                            $result .= &elementXML($eltName,"root.types.resource.software.installation.WebLogicPortal.UNIXWebLogicPortal",$parent);
+                            $result .= &dataXML($eltFullName, "name", "Oracle WebLogic Portal");
+                            my $releaseTag = (($product->find('release'))->get_nodelist())[0];
+                            $result .= &dataXML($eltFullName, "version", $releaseTag->getAttribute('level'));
+                            $result .= &dataXML($eltFullName, "servicePackVersion", $releaseTag->getAttribute('ServicePackLevel'));
+                            $result .= &dataXML($eltFullName, "patchVersion", $releaseTag->getAttribute('PatchLevel'));
+                            #$result .= &dataXML($eltFullName, "installStatus", $releaseTag->getAttribute('Status'));
+                            &echo("installed status $releaseTag->getAttribute('Status').");
+                            $result .= &dataXML($eltFullName, "installDate", $releaseTag->getAttribute('InstallTime'));
+                            $result .= &dataXML($eltFullName, "installDirectory", $releaseTag->getAttribute('InstallDir'));
+                            $result .= &dataXML($eltFullName, "javaHome", $releaseTag->getAttribute('JavaHome'));
+                            $result .= &dataXML($eltFullName, "javaVersion", $releaseTag->getAttribute('JavaVersion'));
+                            $result .= &dataXML($eltFullName, "javaVendor", $releaseTag->getAttribute('JavaVendor'));
+
+                            my $componentsTree = $releaseTag->find('component');
+                            my $components = '';
+                            foreach my $comp ($componentsTree->get_nodelist()) {
+                                my $compName = $comp->getAttribute('name');
+                                if ($compName && (length($compName)>0)) {
+                                    if ($components) {
+                                        $components .= $BDNA_SubSeparator;
+                                    }
+                                    $components .= 'name="' .$compName .'"';
+
+                                    my $compVersion = $comp->getAttribute('version');
+                                    $components .= $BDNA_Sub2Separator. 'version="' .$compVersion .'"';
+
+                                    my $compDir = $comp->getAttribute('InstallDir');
+                                    $components .= $BDNA_Sub2Separator. 'installDir="'.$compDir .'"';
+
+                                    my $subCompList = "";
+                                    my $subComps = $comp->find('component');
+                                    foreach my $subComp ($subComps->get_nodelist()) {
+                                        my $subCompName = $subComp->getAttribute('name');
+                                        if ($subCompName && (length($subCompName)> 0)) {
+                                            if ($subCompList) {
+                                                $subCompList .= ", ";
+                                            }
+                                            $subCompList .= $subCompName;
+                                        }
+                                    }
+                                    $components .= $BDNA_Sub2Separator. 'subComponents="' . $subCompList .'"';
+                                }
+                            }
+                            $result .= &dataXML($eltFullName, "components", $components);
+                        }
+                    }
+                }
+            }
+        }
+        $result .= "</result>";
+        ]]>
+        </conclusion>
+     </rule>
+
+    <rule
+        name="createWindowsWebLogicPortalFromFile"
+        weight="50">
+        <search variable="os" pattern="root.types.resource.software.operatingSystem" />
+        <search variable="inst" pattern="root.types.resource.software.installation.WebLogicInstallation.WindowsWebLogicInstallation">
+            <use attribute="registry_xml" />
+            <use attribute="installDirectory" />
+        </search>
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="inst"    />
+        <conclusion type="perl">
+        <![CDATA[
+        use XML::XPath;
+        our (%inst, %os);
+        our $result = "<result> ";
+        my $parent = $inst{"elementFullName"};
+        my $registry_xml = $inst{"registry_xml"};
+        my $installDirectory = $inst{"installDirectory"};
+        my $eltName = "WindowsWebLogicPortal";
+        my $eltFullName = "$parent.$eltName";
+
+        if ($registry_xml =~ /\<bea-product-information.*?(\<host.*\<\/host\>).*?<\/bea-product-information\>/) {
+            my $hostString = $1;
+            $hostString =~ s/$BDNA_Separator/\n/g;
+
+            my $wlHostsTree = XML::XPath->new(xml => $hostString);
+            my $wlHosts = $wlHostsTree->find('/host');
+            foreach my $wlHost ($wlHosts->get_nodelist()) {
+                my $hostHome = $wlHost->getAttribute('home');
+                my $hostName = $wlHost->getAttribute('name');
+                &echo('WebLogic Registry hostName: <'.$hostName.'>, hostHome: <'.$hostHome.'>');
+                if ($hostHome == $installDirectory) {
+                    my $products = $wlHost->find('product');
+                    foreach my $product ($products->get_nodelist()) {
+                        my $prodName = $product->getAttribute('name');
+                        if ($prodName =~ /WebLogic Portal/) {
+                            &echo("WebLogic Portal found");
+                            $result .= &elementXML($eltName,"root.types.resource.software.installation.WebLogicPortal.WindowsWebLogicPortal",$parent);
+                            $result .= &dataXML($eltFullName, "name", "Oracle WebLogic Portal");
+                            my $releaseTag = (($product->find('release'))->get_nodelist())[0];
+                            $result .= &dataXML($eltFullName, "version", $releaseTag->getAttribute('level'));
+                            $result .= &dataXML($eltFullName, "servicePackVersion", $releaseTag->getAttribute('ServicePackLevel'));
+                            $result .= &dataXML($eltFullName, "patchVersion", $releaseTag->getAttribute('PatchLevel'));
+                            #$result .= &dataXML($eltFullName, "installStatus", $releaseTag->getAttribute('Status'));
+                            &echo("installed status $releaseTag->getAttribute('Status').");
+                            $result .= &dataXML($eltFullName, "installDate", $releaseTag->getAttribute('InstallTime'));
+                            $result .= &dataXML($eltFullName, "installDirectory", $releaseTag->getAttribute('InstallDir'));
+                            $result .= &dataXML($eltFullName, "javaHome", $releaseTag->getAttribute('JavaHome'));
+                            $result .= &dataXML($eltFullName, "javaVersion", $releaseTag->getAttribute('JavaVersion'));
+                            $result .= &dataXML($eltFullName, "javaVendor", $releaseTag->getAttribute('JavaVendor'));
+
+                            my $componentsTree = $releaseTag->find('component');
+                            my $components = '';
+                            foreach my $comp ($componentsTree->get_nodelist()) {
+                                my $compName = $comp->getAttribute('name');
+                                if ($compName && (length($compName)>0)) {
+                                    if ($components) {
+                                        $components .= $BDNA_SubSeparator;
+                                    }
+                                    $components .= 'name="' .$compName .'"';
+
+                                    my $compVersion = $comp->getAttribute('version');
+                                    $components .= $BDNA_Sub2Separator. 'version="' .$compVersion .'"';
+
+                                    my $compDir = $comp->getAttribute('InstallDir');
+                                    $components .= $BDNA_Sub2Separator. 'installDir="'.$compDir .'"';
+
+                                    my $subCompList = "";
+                                    my $subComps = $comp->find('component');
+                                    foreach my $subComp ($subComps->get_nodelist()) {
+                                        my $subCompName = $subComp->getAttribute('name');
+                                        if ($subCompName && (length($subCompName)> 0)) {
+                                            if ($subCompList) {
+                                                $subCompList .= ", ";
+                                            }
+                                            $subCompList .= $subCompName;
+                                        }
+                                    }
+                                    $components .= $BDNA_Sub2Separator. 'subComponents="' . $subCompList .'"';
+                                }
+                            }
+                            $result .= &dataXML($eltFullName, "components", $components);
+                        }
+                    }
+                }
+            }
+        }
+        $result .= "</result>";
+        ]]>
+        </conclusion>
+     </rule>
+
+    <rule
+        name="FindWebLogicInstallationLicense"
+        weight="50">
+        <search variable="os" pattern="root.types.resource.software.operatingSystem" />
+        <search variable="inst" pattern="root.types.resource.software.installation.WebLogicInstallation">
+            <use attribute="registry_xml" />
+            <use attribute="license_xml" />
+        </search>
+        <simpleJoinFilter lhsVariable="os" operator="parentOf" rhsVariable="inst" />
+        <output includeSubtype="true" type="root.types.resource.software.installation.WebLogicInstallation" attribute="licenseDetails" />
+        <conclusion type="perl">
+        <![CDATA[
+        use XML::XPath;
+        our (%inst, %os);
+        our $result = "<result> ";
+        my $eltFullName = $inst{"elementFullName"};
+        my $registry_xml = $inst{"registry_xml"};
+        my $license_xml = $inst{"license_xml"};
+
+        if ($registry_xml =~ /\<bea-product-information .*?(\<host.*\<\/host\>).*?<\/bea-product-information\>/) {
+            my $hostString = $1;
+            $hostString =~ s/$BDNA_Separator/\n/g;
+
+            my $wlHostsTree = XML::XPath->new(xml => $hostString);
+            my $wlHosts = $wlHostsTree->find('/host');
+            foreach my $wlHost ($wlHosts->get_nodelist()) {
+                my $hostHome = $wlHost->getAttribute('home');
+                my $hostName = $wlHost->getAttribute('name');
+                &echo('WebLogic Registry hostName: <'.$hostName.'>, hostHome: <'.$hostHome.'>');
+                if ($hostHome == $installDirectory) {
+                    my $products = $wlHost->find('product');
+                    foreach my $product ($products->get_nodelist()) {
+                        my $prodName = $product->getAttribute('name');
+                        if ($prodName =~ /WebLogic Platform/) {
+                            if ($license_xml =~ /(\<bea\-licenses.*\<\/bea\-licenses\>)/) {
+                                my $licenseString = $1;
+                                $licenseString =~ s/$BDNA_Separator/\n/g;
+                                my $beaLicenses = XML::XPath->new(xml => $licenseString);
+                                my $licenseGroup = $beaLicenses->find('/bea-licenses/license-group');
+                                my $licenseDetails = '';
+                                foreach my $licenseGroup ($licenseGroup->get_nodelist()) {
+                                    my $productName = $licenseGroup->getAttribute('product');
+                                    my $release = $licenseGroup->getAttribute('release');
+                                    &echo("Product Name=<".$productName.">, release=<".$release.">\n");
+                                    if ($productName eq 'WebLogic Platform') {
+                                        my @licenses = ($licenseGroup->find('license'))->get_nodelist();
+                                        foreach my $license (@licenses) {
+                                            my $name = $license->getAttribute('component');
+                                            if ($name) {
+                                                if (length($licenseDetails) > 0) {
+                                                    $licenseDetails .= $BDNA_SubSeparator;
+                                                }
+                                                $licenseDetails .= 'name="'. $name . '"';
+                                                my $cpu = $license->getAttribute('numCPUS');
+                                                if (length($cpu) <= 0) {
+                                                    $cpu = $license->getAttribute('cpus');
+                                                }
+                                                $licenseDetails .= ($BDNA_Sub2Separator.'license_cpu="'. $cpu . '"');
+                                                $licenseDetails .= ($BDNA_Sub2Separator.'license_Expiration="'. $license->getAttribute('expiration') . '"');
+                                                $licenseDetails .= ($BDNA_Sub2Separator.'license_ip="'. $license->getAttribute('ip') . '"');
+                                                $licenseDetails .= ($BDNA_Sub2Separator.'licensee="'. $license->getAttribute('licensee') . '"');
+                                                $licenseDetails .= ($BDNA_Sub2Separator.'license_serial="'. $license->getAttribute('serial') . '"');
+                                                my $licenseType = $license->getAttribute('license_type');
+                                                if (length($licenseType) <= 0) {
+                                                    $licenseType = $license->getAttribute('type');
+                                                }
+                                                $licenseDetails .= ($BDNA_Sub2Separator.'license_type="'. $licenseType . '"');
+                                                $licenseDetails .= ($BDNA_Sub2Separator.'license_units="'. $license->getAttribute('units') . '"');
+                                                $licenseDetails .= ($BDNA_Sub2Separator.'license_cluster="'. $license->getAttribute('cluster'). '"');
+                                            }
+                                        }
+                                    }
+                                }
+                                if (length($licenseDetails) > 0) {
+                                    $result .= &dataXML($eltFullName, "licenseDetails", $licenseDetails);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        $result .= "</result>";
+        ]]>
+        </conclusion>
+     </rule>
+
+
+
+
+    <!-- rule
+        name="isBEARunning"
+        weight="50">
+        <search variable="os" pattern="root.types.resource.software.operatingSystem" />
+        <search variable="fp" pattern="root.types.footprint" >
+            <use attribute="processes" />
+        </search>
+        <search variable="bea" pattern="root.types.resource.software.middleware.BEA">
+            <use attribute="installDirectory" />
+        </search>
+        <simpleJoinFilter lhsVariable="os"     operator="parentOf" rhsVariable="fp" />
+        <simpleJoinFilter lhsVariable="fp"     operator="parentOf" rhsVariable="bea" />
+        <output includeSubtype="true" type="root.types.resource.software.middleware.BEA" attribute="isRunning" />
+        <conclusion type="perl">
+        <![CDATA[
+            my @processes = split(/$BDNA_Separator/, $fp{"processes"});
+            our $result = "<result>";
+            my $installDirectory = $bea{"installDirectory"};
+
+            for (my $i = 0; $i <= $#processes; $i += 4) {
+                my $process_cmd = @processes[$i + 3];
+                if (!($process_cmd =~ /weblogic.Server$/)) {
+                    next;
+                }
+
+                if ($process_cmd =~ /.*java\s+.*-Djava\.security\.policy=$installDirectory\/server\/lib\/weblogic\.policy/) {
+                    $result .= &dataXML($bea{"elementFullName"}, "isRunning", "true");
+                    last;
+                }
+
+                if ($process_cmd =~ /.*java\s+.*-Djava\.security\.policy=$installDirectory\/lib\/weblogic\.policy/) {
+                    $result .= &dataXML($bea{"elementFullName"}, "isRunning", "true");
+                    last;
+                }
+
+
+                if ($process_cmd =~ /.*java\s+.*-classpath.*$installDirectory\/server\/lib\/weblogic\.jar/) {
+                    $result .= &dataXML($bea{"elementFullName"}, "isRunning", "true");
+                    last;
+                }
+
+                if ($process_cmd =~ /.*java\s+.*-classpath.*$installDirectory\/lib\/weblogic\.jar/) {
+                    $result .= &dataXML($bea{"elementFullName"}, "isRunning", "true");
+                    last;
+                }
+            }
+            $result .= "</result>";
+        ]]>
+        </conclusion>
+     </rule>
+     -->
+</module>

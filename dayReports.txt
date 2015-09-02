@@ -1,0 +1,54 @@
+2015/07/20
+1. lms script tests:
+a. installed a new oracle 12c for windows one 8.148.
+b. used 2 user to do scan against 8.148, and compared the result.
+
+2. service now fp conversation exercise.
+
+
+2015/07/21
+1. downloaded latest version of oracle 12c for UNIX.
+2. did a ew fact base to verify developer's new modification for makeData Script for BUG03507.
+a. installed a new fact base with latest Enterprise which includes miya's new modification, import customer's collection store.
+b. compared the old result and latest result, the result is not as expected, reported it to miya.
+3. dealt with BUG02559.
+a. discussed with miya.
+b. replied on BUG02559.
+
+
+2015/07/22
+1. installed linux oracle 12.1.0.2.
+2. verified ENH10974 with Discover 761 and 770. All result is normal.
+
+2015/07/23.
+1. Packaged hotfix for ENH10974 for Alex's review.
+2. service Now fp exercise.
+ 
+2015/07/24
+1. took screenshots from tests' result for ENH10974.
+2. checked in hotfix for ENH10974, colsed ENH10974 and finished QA Verification instruction.
+3. started to do lms option configuration.
+
+Weekly_Report20150724
+
+1. lms script tests (verification for ENH10974 with Discover 761 and 770):
+  a. installed a new oracle 12c for windows one 8.148.
+  b. dowloaded and installed a latest version oracle 12c for linux on 9.105.
+  c. used 2 user to do scan against 8.148/9.105, and compared the result.
+  d. take screenshots for tests result.
+  e. updated README-Instructions.txt and pakaged the hotfix.
+2. service now fp conversation exercie.
+3. dealt with BUG02559.
+  a. discussed with miya.
+  b. replied on BUG02559.
+4.did a new factbase to verify developer's new modification for makeData Script for BUG03507.
+  a. installed a new fact base with latest Enterprise which includes miya's new modification, import customer's collection store.
+  b. compared the old result and latest result, the result is not as expected, reported it to miya.
+5. checked in hotfix for ENH10974, colsed ENH10974 and finished QA Verification instruction.
+6. started to do lms option configuration.
+
+
+
+
+
+

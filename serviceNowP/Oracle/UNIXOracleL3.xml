@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+**********************************************************************
+*
+* Copyright (c) 2007-2008 BDNA Corporation.
+* All Rights Reserved. BDNA products and services are protected
+* by the following U.S. patent: #6,988,134. BDNA is trademark of
+* BDNA Corporation.
+*
+* ******BDNA CONFIDENTIAL******
+** The following code was developed and is owned by BDNA Corporation.
+* This code is confidential and may contain trade secrets.  The code
+* must not be distributed to any party outside of BDNA Corporation
+* without written permission from BDNA Corporation.  The code may be
+* covered by patents, patents pending, or patents applied for in the
+* US or elsewhere.
+*
+**********************************************************************
+-->
+<!DOCTYPE bdna SYSTEM "bdna.dtd">
+
+<!-- ............................................................... -->
+<!-- .......   Platform-dependent Oracle fingerprints (UNIX)    .... -->
+<!-- ............................................................... -->
+<module 
+    name="com.bdna.modules.database.UNIXOracleL3"
+    displayLabel="Oracle Database on UNIX L3 collection"
+    requiredPlatformVersion="030300"      
+    version="1" 
+    lastCompatibleVersion="1">
+
+    <moduleDependency
+        parentModuleName="com.bdna.modules.database.UNIXOracle" parentModuleVersion="1" />
+
+    <moduleDependency
+        parentModuleName="com.bdna.modules.os.Linux" parentModuleVersion="1" />
+
+
+    <!-- ............................................................... -->
+    <!-- .......             UNIX Oracle Types               ........... -->
+    <!-- ............................................................... -->
+
+    <!--
+      In order to add attribute sets at L3, this element is also defined
+      in UNIXOracle.xml. The two definitions should be kept in sync
+    -->
+    <element
+        elementName="UNIXOracleInstance"
+        elementTypePath="root.types.resource.applicationObject.server.database.OracleInstance"
+        displayLabel="Oracle Instance on UNIX"
+        isTemplate="true">
+
+        <attributeSet attributeSetName="UNIXOracleInstanceStatic"
+                      collectorName="UNIXOracleInstanceStaticCollector"
+                      collectionInterval="-1"
+                      displayLabel="UNIX Oracle Instance Static">
+            <attributeSetEntry attributeName="databaseDomain" />
+            <attributeSetEntry attributeName="databaseName" />
+            <attributeSetEntry attributeName="dbRole" />
+            <attributeSetEntry attributeName="serviceName" />
+            <attributeSetEntry attributeName="version" />
+            <attributeSetEntry attributeName="compatibleVersion" />
+            <attributeSetEntry attributeName="edition" />            
+            <attributeSetEntry attributeName="RACEnabled" />
+            <attributeSetEntry attributeName="PartitioningEnabled" />
+            <attributeSetEntry attributeName="PartitioningApplied" />
+            <attributeSetEntry attributeName="clusterDatabaseInstances" />
+            <attributeSetEntry attributeName="instanceNumber" />
+            <attributeSetEntry attributeName="partitionedSchemas" />
+            <attributeSetEntry attributeName="startDate" />
+            <attributeSetEntry attributeName="upTime" />
+        </attributeSet>
+
+        <attributeSet attributeSetName="UNIXOracleInstanceDynamic"
+                      collectorName="UNIXOracleInstanceDynamicCollector"
+                      collectionInterval="-1"
+                      displayLabel="UNIX Oracle Instance Dynamic">
+            <attributeSetEntry attributeName="schemas" />
+            <attributeSetEntry attributeName="tablespaces" />
+        </attributeSet>
+
+        <attributeSet attributeSetName="UNIXOracleInstanceRealTime"
+                      collectorName="UNIXOracleInstanceRealTimeCollector"
+                      collectionInterval="-1"
+                      displayLabel="UNIX Oracle Instance RealTime">
+            <attributeSetEntry attributeName="numSessions" />
+            <attributeSetEntry attributeName="openCursors" />
+            <attributeSetEntry attributeName="totalBytesUsed" />
+            <attributeSetEntry attributeName="totalBytesAllocated" />
+            <attributeSetEntry attributeName="sessionsHighWaterMark" />
+            <attributeSetEntry attributeName="tablespaceSizes" />
+            <attributeSetEntry attributeName="schemaSizes" />
+        </attributeSet>
+        <attrSysDefValue attributeName="manufacturer">Oracle Corporation</attrSysDefValue>
+    </element>
+
+
+    <!-- ............................................................... -->
+    <!-- .......           Oracle package setup              ........... -->
+    <!-- ............................................................... -->
+
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXOracleInstanceStatic"/>
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXOracleInstanceDynamic"/>
+    <packageAttributeSet packageName="UNIX" attributeSetName="UNIXOracleInstanceRealTime"/>
+
+    <packageAttributeSet packageName="Oracle" attributeSetName="UNIXOracleInstanceStatic"/>
+    <packageAttributeSet packageName="Oracle" attributeSetName="UNIXOracleInstanceDynamic"/>
+    <packageAttributeSet packageName="Oracle" attributeSetName="UNIXOracleInstanceRealTime"/>
+
+    <packageAttributeSet packageName="UNIXOracle" attributeSetName="UNIXOracleInstanceStatic"/>
+    <packageAttributeSet packageName="UNIXOracle" attributeSetName="UNIXOracleInstanceDynamic"/>
+    <packageAttributeSet packageName="UNIXOracle" attributeSetName="UNIXOracleInstanceRealTime"/>
+
+
+    <!-- ............................................................... -->
+    <!-- .......        Oracle connection methods            ........... -->
+    <!-- ............................................................... -->
+
+    <element
+        elementName="OracleConnection"
+        elementTypePath="root.types.collection.connectionMethod.perl.databaseConnection"
+        displayLabel="UNIX Oracle Connection"
+        icon="ico_cn_db.xsl"
+        isTemplate="true" collectionLevel="3">
+
+        <!-- Oracle log in credential -->
+        <attribute attributeName="schemaName" dataType="string" displayLabel="Schema Name" />
+        <attribute attributeName="schemaPassword" dataType="string" displayLabel="Schema Password" isEncrypted="true"/>
+        <attribute attributeName="OSAuthentication" dataType="number" displayLabel="Try OS-user database authentication" />
+        <attribute attributeName="useSchemaName" dataType="number" displayLabel="The schema name is real" />
+        <attribute attributeName="useSchemaPassword" dataType="number" displayLabel="The schema password is real" />
+
+        <!--attribute attributeName="usePassword" dataType="number" displayLabel="Use password if OpenSSH private key fails" /-->
+        <attribute attributeName="privateKey" dataType="string" displayLabel="OpenSSH Private Key" isEncrypted="true" />
+     </element>
+
+    <!-- for UNIX oracle connections. Introduced in 4.0  -->
+    <element
+        elementName="unixOracleConn"
+        elementTypePath="root.types.collection.connectionMethod.perl.databaseConnection.OracleConnection"
+        parentPath="root.$bdna.CLE1"
+        isTemplate="false" />
+    <data elementPath="root.$bdna.CLE1.unixOracleConn" attributeName="scriptTable">OracleSSHSetup</data>
+    <data elementPath="root.$bdna.CLE1.unixOracleConn" attributeName="agentType">perl</data>
+
+    <!-- Make default attribute for OS authentication separate from dba or oraapp attribute defaults -->
+    <!-- element
+        elementName="dbaOSAuthentication"
+        elementTypePath="root.types.collection.connectionMethod.perl.databaseConnection.OracleConnection"
+        parentPath="root.$bdna.CLE1"
+        isTemplate="false" / -->
+    <!--data elementPath="root.$bdna.CLE1.dbaOSAuthentication" attributeName="OSAuthentication">1</data-->
+
+    <element
+        elementName="dbaPrivateKey"
+        elementTypePath="root.types.collection.connectionMethod.perl.databaseConnection.OracleConnection"
+        parentPath="root.$bdna.CLE1"
+        isTemplate="false" />
+    <data elementPath="root.$bdna.CLE1.dbaPrivateKey" attributeName="privateKey">NO_PRIVATE_KEY_SPECIFIED</data>
+
+
+    <!-- ............................................................... -->
+    <!-- .......           Credential UI setup               ........... -->
+    <!-- ............................................................... -->
+
+    <element elementName="UNIXOracle"
+         parentPath="root.$bdna.uiResourceToCredentialFolder"
+         elementTypePath="root.types.internal.folder.uiResourceToCredentialFolder.uiResourceToCredentialDetails"
+         displayLabel="Instance of Bucketing Details of type root.types.internal.folder.uiResourceToCredentialFolder.uiResourceToCredentialDetails"
+         isTemplate="false" />
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXOracle"
+      attributeName="packageNames"><![CDATA[UNIXOracle]]></data>
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXOracle"
+      attributeName="taskType"><![CDATA[Inventory]]></data>
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXOracle"
+      attributeName="uiDisplayOrder"><![CDATA[4]]></data>
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXOracle"
+      attributeName="uiResourceDisplayLabel"><![CDATA[Oracle Database Server (UNIX)]]></data>
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXOracle"
+      attributeName="collectionLevel"><![CDATA[3]]></data>
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXOracle"
+      attributeName="connMethodNames"><![CDATA[root.types.collection.connectionMethod.perl.databaseConnection.OracleConnection]]></data>
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXOracle"
+      attributeName="connMethodDependency"><![CDATA[root.types.collection.connectionMethod.perl.databaseConnection.OracleConnection<BDNA,1>root.types.collection.connectionMethod.perl.shellConnection.telnet<BDNA,>root.types.collection.connectionMethod.perl.databaseConnection.OracleConnection<BDNA,1>root.types.collection.connectionMethod.perl.shellConnection.ssh<BDNA,>root.types.collection.connectionMethod.perl.databaseConnection.OracleConnection<BDNA,1>root.types.collection.connectionMethod.perl.shellConnection.ssh.sshWithKey<BDNA,>root.types.collection.connectionMethod.perl.databaseConnection.OracleConnection<BDNA,1>root.types.collection.connectionMethod.perl.shellConnection.ssh.sshWithKey.sshWithGenerationalOpenSSHKey]]></data>
+
+    <data elementPath="root.$bdna.uiResourceToCredentialFolder.UNIXOracle"
+      attributeName="testableConns"><![CDATA[root.types.collection.connectionMethod.perl.databaseConnection.OracleConnection<BDNA,1>No]]></data>
+
+
+    <!-- ............................................................... -->
+    <!-- ..... Adding sudo privilege for Linux because it is needed for           ........... -->
+    <!-- ............................................................... -->
+
+    <!--
+    <data attributeName="LinuxStaticScript::sudoScan"
+          elementPath="root.$bdna.globalModuleConfig.com_bdna_modules_os_Linux"><![CDATA[0]]></data>
+
+    -->
+
+    <!-- ............................................................... -->
+    <!-- .......            Unix Oracle Collectors           ........... -->
+    <!-- ............................................................... -->
+
+    <collector
+        collectorName="UNIXOracleInstanceStaticCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.databaseConnection.OracleConnection"
+        collectionScriptName="UNIXOracleInstanceStaticScript">
+    </collector>
+
+    <collector
+        collectorName="UNIXOracleInstanceDynamicCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.databaseConnection.OracleConnection"
+        collectionScriptName="UNIXOracleInstanceDynamicScript">
+    </collector>
+
+    <collector
+        collectorName="UNIXOracleInstanceRealTimeCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.databaseConnection.OracleConnection"
+        collectionScriptName="UNIXOracleInstanceRealTimeScript">
+    </collector>
+
+
+    <!-- ............................................................... -->
+    <!-- .......      UNIX Oracle connection scripts         ........... -->
+    <!-- ............................................................... -->
+
+    <connScriptBundle connMethodEFN="root.types.collection.connectionMethod.perl.databaseConnection.OracleConnection">
+        <scriptRef name="OracleSSHSetup" scriptType="connection" seqNum="1" />
+    </connScriptBundle>
+
+    <scriptTable
+        scriptName="OracleSSHSetup"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="%atr%"
+          efnSource="root.types.internetAddress"
+          attributeName="address" />
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="%atr%"
+          efnSource="root.types.resource.software.installation.OracleInstallation.UNIXOracleInstallation"
+          attributeName="OracleHome" />
+        <scriptArg isGlobal="true" isOptional="true"
+            argNamePattern="%atr%"
+            efnSource="root.$bdna.globalModuleConfig.com_bdna_modules_os_Linux"
+            attributeName="LinuxStaticScript::sudoScan" />
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="instanceName"
+          efnSource="root.types.resource.applicationObject.server.database.OracleInstance.UNIXOracleInstance"
+          attributeName="name" />
+        
+        <![CDATA[
+        if ( $BDNA_Params{"ConnectType"} eq "Connect" ) {
+            &echo("Connection method script OracleSSHSetup <<<PATCHED TO USE TELNET IF SSH FAILS!>>>:");
+
+            my $address = $BDNA_Params{"address"};
+            my $username = $BDNA_Params{"userName"};
+            my $passwd = $BDNA_Params{"password"};
+            my $osauth = $BDNA_Params{"OSAuthentication"};               
+            my $home = $BDNA_Params{"OracleHome"};
+            my $sid = $BDNA_Params{"instanceName"};
+            my $schema = $BDNA_Params{"schemaName"};
+            my $schemaPassword = $BDNA_Params{"schemaPassword"};
+            my $shlib = "$BDNA_Params{'bdna.home'}/scripts/CLE/sh";
+            my $privateKey = $BDNA_Params{"privateKey"};
+            my $sudoScan = $BDNA_Params{'LinuxStaticScript::sudoScan'};
+            if ($privateKey eq "NO_PRIVATE_KEY_SPECIFIED") {
+                delete $BDNA_Params{"privateKey"};
+            }
+
+            $BDNA_Connection_Info{"OracleHome"} = $home;
+            $BDNA_Connection_Info{"instanceName"} = $sid;
+            $BDNA_Connection_Info{"schemaName"} = $schema;
+            $BDNA_Connection_Info{"schemaPassword"} = $schemaPassword;
+            $BDNA_Connection_Info{"OraclesudoScan"} = $sudoScan;
+            # Note: &validateOracleConnection() will set $BDNA_Connection_Info{"OSAuthentication"}.
+
+            # bug 11594
+            my $connectionType = 1;
+            &sshConnect();
+
+            if ($BDNA_ResultCode ne "com.bdna.cle.scripts.success") {
+                &telnetConnect();
+                $connectionType = 2;
+            }
+
+            #
+            # Test the Oracle connection to make sure it's good
+            #
+
+            if ($BDNA_ResultCode eq "com.bdna.cle.scripts.success") {
+                my $err = &validateOracleConnection($BDNA_Connection_Info{"HostObject"}, $osauth);
+
+                if ($err) {
+                    &echo("ORACLE error during connection: $err");
+                    # bug 11594                    
+                    if($connectionType == 1) {
+                        &echo("Closing SSH Connection...");
+                        &sshDisconnect();
+                    }
+                    else {
+                        &echo("Closing Telnet Connection...");
+                        &telnetDisconnect();
+                    }
+
+                    delete $BDNA_Connection_Info{"OracleHome"};
+                    delete $BDNA_Connection_Info{"connUsed"};
+                    delete $BDNA_Connection_Info{"sudoSuccess"};
+                    delete $BDNA_Connection_Info{"instanceName"};
+                    delete $BDNA_Connection_Info{"schemaName"};
+                    delete $BDNA_Connection_Info{"schemaPassword"};
+                    delete $BDNA_Connection_Info{"OSAuthentication"};
+                    delete $BDNA_Connection_Info{"isDBA"};
+             #       delete $BDNA_Connection_Info{"sudoSuccess"};
+                    $BDNA_ErrorCode  = 1;
+                    $BDNA_ResultCode = $err;
+
+                }
+            }
+
+        } elsif ( $BDNA_Params{"ConnectType"} eq "Disconnect" ) {
+            delete $BDNA_Connection_Info{"OracleHome"};
+            delete $BDNA_Connection_Info{"connUsed"};
+            delete $BDNA_Connection_Info{"sudoSuccess"};
+            delete $BDNA_Connection_Info{"instanceName"};
+            delete $BDNA_Connection_Info{"schemaName"};
+            delete $BDNA_Connection_Info{"schemaPassword"};
+            delete $BDNA_Connection_Info{"OSAuthentication"};
+            delete $BDNA_Connection_Info{"isDBA"};
+    #        delete $BDNA_Connection_Info{"sudoSuccess"};
+            # Bug 11594
+            # In case when telnetConnect() was called, sshDisconnect() works exactly same as telnetDisconnect()
+            # with the exception that it will try to remove an non-existant parameter i.e.
+            # delete $BDNA_Connection_Info{"sshWithGenerationalOpenSSHKey:additionalAttributes"};
+            # This does no harm, using only sshDisconnect irrespective of the connectionMethod used.
+            &sshDisconnect();
+            $BDNA_ErrorCode  = 0;
+            $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        }
+        else {
+            $BDNA_ErrorCode  = 1;
+            $BDNA_ResultCode = "Bad Script ConnectType '" . $BDNA_Params{"ConnectType"} . "'";
+        }
+        ]]>
+    </scriptTable>
+
+    <scriptTable
+        scriptName="OracleTELNETSetup"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="%atr%"
+          efnSource="root.types.internetAddress"
+          attributeName="address" />
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="%atr%"
+          efnSource="root.types.resource.software.installation.OracleInstallation.UNIXOracleInstallation"
+          attributeName="OracleHome" />
+        <scriptArg isGlobal="true" isOptional="true"
+            argNamePattern="%atr%"
+            efnSource="root.$bdna.globalModuleConfig.com_bdna_modules_os_Linux"
+            attributeName="LinuxStaticScript::sudoScan" />
+        <scriptArg isGlobal="false"  isOptional="false"
+          argNamePattern="instanceName"
+          efnSource="root.types.resource.applicationObject.server.database.OracleInstance.UNIXOracleInstance"
+          attributeName="name" />
+        <![CDATA[
+        if ( $BDNA_Params{"ConnectType"} eq "Connect" ) {
+            &echo("Connection method script OracleTELNETSetup:");
+
+            my $osauth = $BDNA_Params{"OSAuthentication"};               
+            my $home = $BDNA_Params{"OracleHome"};
+            my $sid = $BDNA_Params{"instanceName"};
+            my $schema = $BDNA_Params{"schemaName"};
+            my $schemaPassword = $BDNA_Params{"schemaPassword"};
+            my $sudoScan = $BDNA_Params{'LinuxStaticScript::sudoScan'};
+            &telnetConnect();
+
+            $BDNA_Connection_Info{"OracleHome"} = $home;
+            $BDNA_Connection_Info{"instanceName"} = $sid;
+            $BDNA_Connection_Info{"schemaName"} = $schema;
+            $BDNA_Connection_Info{"schemaPassword"} = $schemaPassword;
+            $BDNA_Connection_Info{"OraclesudoScan"} = $sudoScan;
+
+            # Note: &validateOracleConnection() set will $BDNA_Connection_Info{"OSAuthentication"}.
+            # Test the Oracle connection to make sure it's good
+
+            if ($BDNA_ResultCode eq "com.bdna.cle.scripts.success") {
+                my $err = &validateOracleConnection($BDNA_Connection_Info{"HostObject"}, $osauth);
+                if ($err) {
+                    &echo("ORACLE error during connection: $err");
+                    $BDNA_ErrorCode  = 1;
+                    $BDNA_ResultCode = $err;
+
+                    &telnetDisconnect();
+
+                    delete $BDNA_Connection_Info{"OracleHome"};
+                    delete $BDNA_Connection_Info{"connUsed"};
+                    delete $BDNA_Connection_Info{"sudoSuccess"};
+                    delete $BDNA_Connection_Info{"instanceName"};
+                    delete $BDNA_Connection_Info{"schemaName"};
+                    delete $BDNA_Connection_Info{"schemaPassword"};
+                    delete $BDNA_Connection_Info{"OSAuthentication"};
+                    delete $BDNA_Connection_Info{"isDBA"};
+         #           delete $BDNA_Connection_Info{"sudoSuccess"};
+                }
+            }
+        } elsif ( $BDNA_Params{"ConnectType"} eq "Disconnect" ) {
+            &telnetDisconnect();         
+            delete $BDNA_Connection_Info{"OracleHome"};
+            delete $BDNA_Connection_Info{"connUsed"};
+            delete $BDNA_Connection_Info{"sudoSuccess"};
+            delete $BDNA_Connection_Info{"instanceName"};
+            delete $BDNA_Connection_Info{"schemaName"};
+            delete $BDNA_Connection_Info{"schemaPassword"};
+            delete $BDNA_Connection_Info{"OSAuthentication"};
+            delete $BDNA_Connection_Info{"isDBA"};
+      #      delete $BDNA_Connection_Info{"sudoSuccess"};
+            $BDNA_ErrorCode  = 0;
+            $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        }
+        else {
+            $BDNA_ErrorCode  = 1;
+            $BDNA_ResultCode = "Bad Script ConnectType '" . $BDNA_Params{"ConnectType"} . "'";
+        }
+
+        ]]>
+    </scriptTable>
+
+
+    <!-- ............................................................... -->
+    <!-- .......            UNIX Oracle collection scripts   ........... -->
+    <!-- ............................................................... -->
+
+    <scriptTable
+        scriptName="UNIXOracleInstanceStaticScript"
+        scriptVersion="1.0">
+        <![CDATA[
+
+        my ($host, $sql, @output);
+# get the Oracle connection and other configuration info
+        $host = $BDNA_Connection_Info{"HostObject"};
+        $sql = "select '<BDNA>' || name || '<BDNA>' || value from v\$parameter " .
+                  "    where name in " .
+                  "    ('db_name', 'db_domain', 'mts_service', 'compatible', 'instance_number', 'cluster_database_instances')";
+        @output = &execSQL($host, $sql, "param");
+        $BDNA_Results{"edition"} = "Standard";            
+        while (@output) {
+            $_ = shift(@output);
+            if (/Enterprise Edition Release/) {
+                $BDNA_Results{"edition"} = "Enterprise";
+            } elsif (/Personal Edition Release/) {
+                $BDNA_Results{"edition"} = "Personal";            
+            }
+            
+            if (/^<BDNA>db_name<BDNA>(.*)$/) {
+                my $val = $1;
+                $val =~ s/\s+//g;
+                &echo("db_name $val");
+                $BDNA_Results{"databaseName"} = $val;
+            } elsif (/^<BDNA>db_domain<BDNA>(.*)$/) {
+                my $val = $1;
+                $val =~ s/\s+//g;
+                &echo("db_domain $val");
+                $BDNA_Results{"databaseDomain"} = $val;
+            } elsif (/^<BDNA>mts_service<BDNA>(.*)$/) {
+                my $val = $1;
+                $val =~ s/\s+//g;
+                &echo("mts_service $val");
+                $BDNA_Results{"serviceName"} = $val;
+            } elsif (/^<BDNA>compatible<BDNA>(.*)$/) {
+                my $val = $1;
+                $val =~ s/\s+//g;
+                &echo("compatible $val");
+                $BDNA_Results{"compatibleVersion"} = $val;
+            } elsif (/^<BDNA>instance_number<BDNA>(.*)$/) {
+                my $val = $1;
+                $val =~ s/\s+//g;
+                &echo("instance number $val");
+                $BDNA_Results{"instanceNumber"} = $val;
+            } elsif (/^<BDNA>cluster_database_instances<BDNA>(.*)$/) {
+                my $val = $1;
+                $val =~ s/\s+//g;
+                &echo("cluster instances $val");
+                $BDNA_Results{"clusterDatabaseInstances"} = $val;
+            }
+        }
+        
+# get the RAC option
+        $sql = "select '<BDNA>' || parameter || '<BDNA>' || value from v\$option " .
+                  "    where parameter in " .
+                  "    ('Real Application Clusters')";
+        @output = &execSQL($host, $sql, "rac");
+        $BDNA_Results{"RACEnabled"} = 0;        
+        while (@output) {
+            $_ = shift(@output);
+            if (/^<BDNA>Real Application Clusters<BDNA>TRUE.*$/) {
+                $BDNA_Results{"RACEnabled"} = 1;
+            } 
+        }   
+# get the Partitioning option
+        $sql = "select '<BDNA>' || parameter || '<BDNA>' || value from v\$option " .
+                  "    where parameter in " .
+                  "    ('Partitioning')";
+        @output = &execSQL($host, $sql, "partEnabled");
+        $BDNA_Results{"PartitioningEnabled"} = 0;        
+        while (@output) {
+            $_ = shift(@output);
+            if (/^<BDNA>Partitioning<BDNA>TRUE.*$/) {
+                $BDNA_Results{"PartitioningEnabled"} = 1;
+            } 
+        }   
+# get database role option
+       eval {
+            $sql = "select '<BDNA>' || database_role || '<BDNA>' from v\$database ";
+            @output = &execSQL($host, $sql, "dbRole");
+            while (@output) {
+                $_ = shift(@output);
+                if (/^<BDNA>(.*)<BDNA>$/) {
+                    $BDNA_Results{"dbRole"} = $1;
+                }
+            }
+        };        
+# get the partition feature usage
+        $sql = "select '<BDNA>' || table_owner || '<BDNA>' || to_char(count(distinct table_name)) from dba_tab_partitions " .
+                  " where table_owner <> 'SYSTEM' " .
+                  " group by table_owner";
+        @output = &execSQL($host, $sql, "part");
+        my $pschemas = "";   
+        while (@output) {
+            $_ = shift(@output);
+            if (/^<BDNA>(.*)<BDNA>(\d+)$/) {
+                if ($pschemas) {
+                    $pschemas .= $BDNA_Separator;
+                }
+                $pschemas .= $1 . $BDNA_Separator . $2;
+            } 
+        }    
+        $BDNA_Results{"partitionedSchemas"} = $pschemas;
+        if (!($pschemas eq "")) {
+            $BDNA_Results{"PartitioningApplied"} = 1;
+        }
+        
+# get the real version info for the instance/database
+        $sql = "select '<BDNA>', version from v\$instance";
+        @output = &execSQL($host, $sql, "ver");
+        my $sessions;
+        while (@output) {
+            $_ = shift(@output);
+            if (/^<BDNA>(.*)$/) {
+                my $val = $1;
+                $val =~ s/\s+//g;
+                &echo("Oracle version $val");
+                $BDNA_Results{"version"} = $val;
+            }
+        }
+
+# get the upTime info for the instance/database
+        
+        $sql = "select '<BDNA>' || startup_time || '<BDNA>' || ((sysdate-startup_time)*86400) from v\$instance";
+        @output = &execSQL($host, $sql, "uptime");
+        while (@output) {
+            $_ = shift(@output);
+            if (/^<BDNA>(.*)<BDNA>(.*)$/) {
+                my $startdate = $1;
+                my $uptime = $2 if ($2 =~ /^\d*\.{0,1}\d+$/);
+                $uptime =~ s/\s+//g;
+                &echo("Oracle database Started on: $startdate");
+                &echo("Oracle database Uptime in seconds: $uptime");
+                $BDNA_Results{"startDate"} = $startdate;
+                $BDNA_Results{"upTime"} = $uptime;
+            }
+        }
+
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_ErrorCode = 0;
+        $BDNA_MessageBundle = "MessagesBundle";
+
+        ]]>
+    </scriptTable>
+
+    <scriptTable
+        scriptName="UNIXOracleInstanceDynamicScript"
+        scriptVersion="1.0">
+        <![CDATA[
+
+# get the Oracle connection
+        my $host = $BDNA_Connection_Info{"HostObject"};
+        
+#        bug 25670 
+#        &echo("Querying user information from bdna_dba_users_view..");
+#        my $sql = "select '<BDNA>' || username from bdna_dba_users_view";
+#        my @output = &execSQL($host, $sql, "users");
+#        my $schemas = "";
+#        while (@output) {
+#            $_ = shift(@output);
+#            if (/^<BDNA>(\w*)$/) {
+#                &echo("schema $1");
+#                if ($schemas) {
+#                    $schemas = $schemas . "<BDNA,>" . $1;
+#                } else {
+#                    $schemas = $1;
+#                }
+#            }
+#        }
+
+        # query dba_users table if dba_users_view query fails.
+    #    chomp($schemas);
+        my $schemas = "";
+        &echo("Querying user information from dba_users table...");
+        my $sql = "select '<BDNA>' || username from dba_users";
+        my @output = &execSQL($host, $sql, "users_from_dba_users");
+        while (@output) {
+            $_ = shift(@output);
+            if (/^<BDNA>(\S*)$/) {
+                &echo("schema $1");
+                if ($schemas) {
+                    $schemas = $schemas . "<BDNA,>" . $1;
+                } else {
+                    $schemas = $1;
+                }
+            }
+        }
+        $BDNA_Results{"schemas"} = $schemas;
+
+        $sql = "select '<BDNA>' || tablespace_name from dba_tablespaces";
+        @output = &execSQL($host, $sql, "tbsp");
+        my $tablespaces = "";
+        while (@output) {
+            $_ = shift(@output);
+            if (/^<BDNA>(\S*)$/) {
+                &echo("tablespace $1");
+                if ($tablespaces) {
+                    $tablespaces = $tablespaces . "<BDNA,>" . $1;
+                } else {
+                    $tablespaces = $1;
+                }
+            }
+        }
+
+        $BDNA_Results{"tablespaces"} = $tablespaces;
+
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_ErrorCode = 0;
+        $BDNA_MessageBundle = "MessagesBundle";
+        ]]>
+    </scriptTable>
+
+    <scriptTable
+        scriptName="UNIXOracleInstanceRealTimeScript"
+        scriptVersion="1.0">
+        <![CDATA[
+
+# get the Oracle connection
+        my $host = $BDNA_Connection_Info{"HostObject"};
+        my ($sql, @output, $sessions);
+# concurrent sessions
+        $sql = "select '<BDNA>', sessions_current from v\$license";
+        @output = &execSQL($host, $sql, "license");
+        while (@output) {
+            $_ = shift(@output);
+            if (/^<BDNA>(\W*)(\w*)$/) {
+                &echo("Oracle connections $2");
+                $BDNA_Results{"numSessions"} = $2;
+            }
+        }
+        
+# open cursors
+        $sql = "select '<BDNA>', count(*) from v\$open_cursor";
+        @output = &execSQL($host, $sql, "cursor");
+        while (@output) {
+            $_ = shift(@output);
+            if (/^<BDNA>(\W*)(\w*)$/) {
+                &echo("Oracle open cursors $2");
+                $BDNA_Results{"openCursors"} = $2;
+            }
+        }
+
+# total bytes used
+        $sql =  "select '<BDNA>', " .
+            "       to_char(sum(bytes), '999999999999999999999') " .
+        "from dba_segments";
+        @output = &execSQL($host, $sql, "used");
+        while (@output) {
+            $_ = shift(@output);
+            if (/^<BDNA>(\W*)(\w*)$/) {
+                &echo("Total bytes used (schemas) $2");
+                $BDNA_Results{"totalBytesUsed"} = $2;
+            }
+        }
+
+# total bytes allocated
+        $sql =  "select '<BDNA>', " .
+            "       to_char(sum(bytes), '999999999999999999999') " .
+        "from dba_data_files";
+        @output = &execSQL($host, $sql, "alloc");
+        while (@output) {
+            $_ = shift(@output);
+            if (/^<BDNA>(\W*)(\w*)$/) {
+                &echo("Total bytes allocated (tablespaces) $2");
+                $BDNA_Results{"totalBytesAllocated"} = $2;
+            }
+        }
+
+# max concurrent connections so far
+        $sql =  "select '<BDNA>', sessions_highwater " .
+                " from v\$license";
+
+        @output = &execSQL($host, $sql, "highw");
+        while (@output) {
+            $_ = shift(@output);
+            if (/^<BDNA>(\W*)(\w*)$/) {
+                &echo("Session high water mark $2");
+                $BDNA_Results{"sessionsHighWaterMark"} = $2;
+            }
+        }
+
+# schema sizes
+        $sql = "select '<BDNA>' || owner || '<BDNA>' || " .
+              "       to_char(sum(bytes), '999999999999999999999') " .
+          "  from dba_segments group by owner ";
+
+        my $schemaSizes = "";
+        @output = &execSQL($host, $sql, "schema");
+        while (@output) {
+            $_ = shift(@output);
+            if (/^<BDNA>(.*)<BDNA>(.*)$/) {
+                &echo("Oracle schema $1, size = $2 bytes");
+                if ($schemaSizes) {
+                    $schemaSizes = $schemaSizes . '<BDNA,>';
+                }
+                $schemaSizes = $schemaSizes . "$1<BDNA,>$2";
+
+            }
+        }
+        $BDNA_Results{"schemaSizes"} = $schemaSizes;
+
+# tablespace sizes
+
+        $sql = "select '<BDNA>' || t.tablespace_name || '<BDNA>' || " .
+              "       to_char(sum(bytes), '999999999999999999999') " .
+                  " from dba_tablespaces t, dba_data_files f " .
+                  " where t.tablespace_name = f.tablespace_name " .
+                  " group by t.tablespace_name";
+        my $tablespaceSizes = "";
+        @output = &execSQL($host, $sql, "tbsp");
+        while (@output) {
+            $_ = shift(@output);
+            if (/^<BDNA>(.*)<BDNA>(.*)$/) {
+                &echo("Oracle tablespace $1, size = $2 bytes");
+                if ($tablespaceSizes) {
+                    $tablespaceSizes = $tablespaceSizes . '<BDNA,>';
+                }
+                $tablespaceSizes = $tablespaceSizes . "$1<BDNA,>$2";
+
+            }
+        }
+        $BDNA_Results{"tablespaceSizes"} = $tablespaceSizes;
+
+        $BDNA_ResultCode = "com.bdna.cle.scripts.success";
+        $BDNA_ErrorCode = 0;
+        $BDNA_MessageBundle = "MessagesBundle";
+
+        ]]>
+    </scriptTable>
+
+</module>

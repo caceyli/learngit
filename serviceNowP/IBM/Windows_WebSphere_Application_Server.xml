@@ -1,0 +1,1508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+**********************************************************************
+*
+* Copyright (c) 2007-2008 BDNA Corporation.
+* All Rights Reserved. BDNA products and services are protected
+* by the following U.S. patent: #6,988,134. BDNA is trademark of
+* BDNA Corporation.
+*
+* ******BDNA CONFIDENTIAL******
+*
+* The following code was developed and is owned by BDNA Corporation.
+* This code is confidential and may contain trade secrets.  The code
+* must not be distributed to any party outside of BDNA Corporation
+* without written permission from BDNA Corporation.  The code may be
+* covered by patents, patents pending, or patents applied for in the
+* US or elsewhere.
+*
+**********************************************************************
+-->
+<!DOCTYPE bdna SYSTEM "bdna.dtd">
+
+<module name="com.bdna.modules.app.IBM.Windows_WebSphere_Application_Server"
+        displayLabel = "IBM WebSphere Application Server on Windows"
+        version="1" lastCompatibleVersion="1">
+
+    <moduleDependency parentModuleName="com.bdna.modules.app.IBM.WebSphere_Application_Server" parentModuleVersion="1" />
+    <moduleDependency parentModuleName="com.bdna.modules.common.Base" parentModuleVersion="1" />
+    <moduleDependency parentModuleName="com.bdna.modules.os.Windows" parentModuleVersion="1" />
+    <moduleDependency parentModuleName="com.bdna.modules.common.Connection" parentModuleVersion="1" />
+
+    <package name="Windows_WebSphere_Application_Server" displayLabel="IBM WebSphere Application Server on Windows" >
+            <depend name="IPAddresses"  />
+            <depend name="hardwareDevices"  />
+            <depend name="operatingSystems"  />
+    </package>
+    <packageRelationship parentPackage="WebSphere_Application_Server" childPackage="Windows_WebSphere_Application_Server"  />
+
+    <element 
+        elementName="WindowsWASInstallation"
+        elementTypePath="root.types.resource.software.installation.WASInstallation"
+        displayLabel="IBM WebSphere Application Server Installation on Windows"
+        isTemplate="true">
+        <attribute attributeName="profRegPath" dataType="string" displayLabel="Profile Registry File Path" />
+    </element>
+
+    <element
+        elementName="WindowsWASInstance"
+        elementTypePath="root.types.resource.applicationObject.server.ApplicationServer.WASInstance"
+        displayLabel="IBM WebSphere App Server Instance on Windows"
+        isTemplate="true">
+        <attribute attributeName="nodeVarPath" dataType="string" displayLabel="WAS Variables Directory" />
+        <attribute attributeName="nodeVarData" dataType="text" isList="true" displayLabel="WAS Variables file content" />
+        <attribute attributeName="rsrcFilePath" dataType="string" displayLabel="Resources File Path" />
+        <attribute attributeName="rsrcFileData" dataType="text" isList="true" displayLabel="Resources File content" />
+        <attribute attributeName="virtHostsFilePath" dataType="string" displayLabel="Virtual Hosts File Path" />
+        <attribute attributeName="virtHostsFileData" dataType="text" isList="true" displayLabel="Virtual Hosts File content" />
+        <attribute attributeName="hostsToLookup" dataType="text" isList="true" displayLabel="Lookup server list" />
+        <attribute attributeName="lookedUpHosts" dataType="text" isList="true" displayLabel="Host list after lookup" />
+        <attributeSet attributeSetName="WindowsWASParseServerIndex"
+            displayLabel="IBM Windows WAS Parse ServerIndex" collectorName="WindowsWASParseServerIndex_Collector"
+            maxScriptRunTime="1800000" collectionInterval="7200000">
+        <attributeSetEntry attributeName="appSrv_serverType" />
+        <attributeSetEntry attributeName="portsUsed" />
+        <!-- <attributeSetEntry attributeName="appSrv_Port" /> -->
+        <attributeSetEntry attributeName="nodeVarPath" />
+        <attributeSetEntry attributeName="rsrcFilePath" />     
+        <attributeSetEntry attributeName="virtHostsFilePath" /> 
+        </attributeSet>
+        <attributeSet attributeSetName="WindowsWASNodeandCoreGroup"
+            displayLabel="IBM Windows WAS Node and Core Group" collectorName="WindowsWASNodeandCoreGroup_Collector"
+            maxScriptRunTime="1800000" collectionInterval="7200000">
+        <attributeSetEntry attributeName="nodeGroup" />
+        <attributeSetEntry attributeName="coreGroup" />
+        <attributeSetEntry attributeName="appSrv_clusterName" />
+        <attributeSetEntry attributeName="appSrv_isClusterServer" />
+        </attributeSet>
+        <attributeSet
+            attributeSetName="WindowsWASNodeVariables"
+            displayLabel="Windows WAS Node Variables" collectorName="WindowsWASNodeVariables_Collector"
+            maxScriptRunTime="1800000" collectionInterval="7200000">
+        <attributeSetEntry attributeName="nodeVarData"/>
+        </attributeSet>
+<!--    <attributeSet
+            attributeSetName="WindowsWASJDBCResources"
+            displayLabel="Windows WAS JDBC Resources" collectorName="WindowsWASJDBCResources_Collector"
+            maxScriptRunTime="1800000" collectionInterval="7200000">
+        <attributeSetEntry attributeName="rsrcFileData"/>
+        </attributeSet>   
+        <attributeSet
+            attributeSetName="WindowsWASLookupHosts"
+            displayLabel="Windows WAS Server lookup" collectorName="WindowsWASLookupHosts_Collector"
+            maxScriptRunTime="1800000" collectionInterval="7200000">
+        <attributeSetEntry attributeName="lookedUpHosts"/>
+        </attributeSet>     
+        <attributeSet
+            attributeSetName="WindowsWASVirtualHosts"
+            displayLabel="Windows WAS Virtual Hosts" collectorName="WindowsWASVirtualHosts_Collector"
+            maxScriptRunTime="1800000" collectionInterval="7200000">
+        <attributeSetEntry attributeName="virtHostsFileData"/>
+        </attributeSet>    -->
+
+        <attributeSet
+            attributeSetName="WindowsWASIsInstanceRunning"
+            displayLabel="Windows WAS Instance Running" collectorName="WindowsWASIsInstanceRunning_Collector"
+            maxScriptRunTime="1800000" collectionInterval="7200000">
+        <attributeSetEntry attributeName="appSrv_isRunning"/>
+        </attributeSet>
+    </element>
+
+    <packageAttributeSet packageName="Windows_WebSphere_Application_Server" attributeSetName="WindowsWASNodeandCoreGroup"/>
+    <packageAttributeSet packageName="WebSphere_Application_Server" attributeSetName="WindowsWASNodeandCoreGroup"/>
+
+    <collector
+        collectorName="WindowsWASNodeandCoreGroup_Collector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WindowsWASNodeandCoreGroupScript">
+    </collector>
+
+    <packageAttributeSet packageName="Windows_WebSphere_Application_Server" attributeSetName="WindowsWASParseServerIndex"/>
+    <packageAttributeSet packageName="WebSphere_Application_Server" attributeSetName="WindowsWASParseServerIndex"/>
+
+    <collector
+        collectorName="WindowsWASParseServerIndex_Collector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WindowsWASParseServerIndexScript">
+    </collector>
+
+
+    <packageAttributeSet packageName="Windows_WebSphere_Application_Server" attributeSetName="WindowsWASNodeVariables"/>
+    <packageAttributeSet packageName="WebSphere_Application_Server" attributeSetName="WindowsWASNodeVariables"/>
+
+    <collector
+        collectorName="WindowsWASNodeVariables_Collector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WindowsWASGetFileScript">
+        <collectionParams
+            typeElementFullName="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance"
+            attributeName="nodeVarPath">
+        </collectionParams>
+    </collector>
+
+<!--
+    <packageAttributeSet packageName="Windows_WebSphere_Application_Server" attributeSetName="WindowsWASJDBCResources"/>
+    <packageAttributeSet packageName="WebSphere_Application_Server" attributeSetName="WindowsWASJDBCResources"/>    
+
+    <collector
+        collectorName="WindowsWASJDBCResources_Collector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WindowsWASGetFileScript">
+        <collectionParams
+            typeElementFullName="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance"
+            attributeName="rsrcFilePath">
+        </collectionParams>
+    </collector>
+
+    <packageAttributeSet packageName="Windows_WebSphere_Application_Server" attributeSetName="WindowsWASLookupHosts"/>
+    <packageAttributeSet packageName="WebSphere_Application_Server" attributeSetName="WindowsWASLookupHosts"/>
+
+    <collector
+        collectorName="WindowsWASLookupHosts_Collector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WindowsWASHostsLookupScript">
+    </collector>
+
+    <packageAttributeSet packageName="Windows_WebSphere_Application_Server" attributeSetName="WindowsWASVirtualHosts"/>
+    <packageAttributeSet packageName="WebSphere_Application_Server" attributeSetName="WindowsWASVirtualHosts"/>
+
+    <collector
+        collectorName="WindowsWASVirtualHosts_Collector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WindowsWASGetFileScript">
+        <collectionParams
+            typeElementFullName="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance"
+            attributeName="virtHostsFilePath">
+        </collectionParams>
+    </collector>
+-->
+
+    <packageAttributeSet packageName="Windows_WebSphere_Application_Server" attributeSetName="WindowsWASIsInstanceRunning"/>
+    <packageAttributeSet packageName="WebSphere_Application_Server" attributeSetName="WindowsWASIsInstanceRunning"/>
+
+    <collector
+        collectorName="WindowsWASIsInstanceRunning_Collector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WindowsWASIsInstanceRunningScript">
+    </collector>
+
+    <element
+        elementName="WindowsWASVariable"
+        elementTypePath="root.types.resource.applicationObject.WASVariable"
+        displayLabel="IBM WebSphere App Server Env Variables on Windows"
+        isTemplate="true">
+    </element>
+
+    <element
+        elementName="WindowsWASProfileInitialFootprint"
+        elementTypePath="root.types.footprint.WASProfileInitialFootprint"
+        displayLabel="IBM WebSphere App Server Initial Profile Footprint on UNIX"
+        isTemplate="true">
+        <attribute attributeName="profRegData" dataType="text" isList="true" displayLabel="File Content" />
+        <attributeSet
+            attributeSetName="WindowsWASProfileInitialFootprint"
+            displayLabel="Windows WAS Profile Initial Footprint"
+            collectorName="WindowsWASProfileInitialFootprint_Collector"
+            maxScriptRunTime="1800000"
+            collectionInterval="7200000">
+        <attributeSetEntry attributeName="profRegData" />
+        </attributeSet>
+    </element>
+
+    <packageAttributeSet packageName="Windows_WebSphere_Application_Server" attributeSetName="WindowsWASProfileInitialFootprint"/>
+    <packageAttributeSet packageName="WebSphere_Application_Server" attributeSetName="WindowsWASProfileInitialFootprint"/>
+
+    <collector
+        collectorName="WindowsWASProfileInitialFootprint_Collector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WindowsWASGetFileScript">
+        <collectionParams
+            typeElementFullName="root.types.resource.software.installation.WASInstallation.WindowsWASInstallation"
+            attributeName="profRegPath">
+        </collectionParams>
+    </collector>
+
+    <element
+        elementName="WindowsWASProfileFootprint"
+        elementTypePath="root.types.footprint.WASProfileFootprint"
+        displayLabel="IBM WebSphere App Server Profile Configuration Footprint on Windows"
+        isTemplate="true">
+        <attribute attributeName="cellPath" dataType="string" displayLabel="Path to Cell Xml" />
+        <attribute attributeName="cellData" dataType="text" isList="true" displayLabel="Cell Xml file Contents" />
+        <attribute attributeName="svrCfgPath" dataType="string" displayLabel="Server Config file path" />
+        <attribute attributeName="svrCfgData" dataType="text" isList="true" displayLabel="Server Config file data" />
+        <attributeSet
+            attributeSetName="WindowsWAS_SvrCfg"
+            displayLabel="Windows WAS Server Config data" collectorName="WindowsWAS_SvrCfg_Collector"
+            maxScriptRunTime="1800000" collectionInterval="7200000">
+        <attributeSetEntry attributeName="svrCfgData"/>
+        </attributeSet>
+        <attributeSet
+            attributeSetName="WindowsWASProfileFootprint" displayLabel="Windows WAS Profile Footprint"
+            collectorName="WindowsWASProfileFootprint_Collector"
+            maxScriptRunTime="1800000" collectionInterval="7200000">
+        <attributeSetEntry attributeName="cellName"/>
+        <attributeSetEntry attributeName="nodeName"/>
+        <attributeSetEntry attributeName="cellPath"/>        
+        </attributeSet>
+        <attributeSet
+            attributeSetName="WindowsWASCellType"
+            displayLabel="Windows WAS Cell Type" collectorName="WindowsWASCellType_Collector"
+            maxScriptRunTime="1800000" collectionInterval="7200000">
+        <attributeSetEntry attributeName="cellData"/>
+        </attributeSet>
+        <attributeSet
+            attributeSetName="WindowsWASGetServers"
+            displayLabel="Windows WAS Servers" collectorName="WindowsWASGetServers_Collector"
+            maxScriptRunTime="1800000" collectionInterval="7200000">
+        <attributeSetEntry attributeName="servers"/>
+        </attributeSet>
+    </element>
+
+    <packageAttributeSet packageName="Windows_WebSphere_Application_Server" attributeSetName="WindowsWAS_SvrCfg"/>
+    <packageAttributeSet packageName="WebSphere_Application_Server" attributeSetName="WindowsWAS_SvrCfg"/>
+
+    <collector
+        collectorName="WindowsWAS_SvrCfg_Collector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WindowsWASGetFileScript">
+        <collectionParams
+            typeElementFullName="root.types.footprint.WASProfileFootprint.WindowsWASProfileFootprint"
+            attributeName="svrCfgPath">
+        </collectionParams>
+    </collector>
+
+    <packageAttributeSet packageName="Windows_WebSphere_Application_Server" attributeSetName="WindowsWASProfileFootprint"/>
+    <packageAttributeSet packageName="WebSphere_Application_Server" attributeSetName="WindowsWASProfileFootprint"/>
+
+    <collector
+        collectorName="WindowsWASProfileFootprint_Collector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WindowsWASProfileFootprintScript">
+    </collector>
+
+
+    <packageAttributeSet packageName="Windows_WebSphere_Application_Server" attributeSetName="WindowsWASCellType"/>
+    <packageAttributeSet packageName="WebSphere_Application_Server" attributeSetName="WindowsWASCellType"/>
+
+    <collector
+        collectorName="WindowsWASCellType_Collector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WindowsWASGetFileScript">
+        <collectionParams
+            typeElementFullName="root.types.footprint.WASProfileFootprint.WindowsWASProfileFootprint"
+            attributeName="cellPath">
+        </collectionParams>
+    </collector>
+
+    <packageAttributeSet packageName="Windows_WebSphere_Application_Server" attributeSetName="WindowsWASGetServers"/>
+    <packageAttributeSet packageName="WebSphere_Application_Server" attributeSetName="WindowsWASGetServers"/>
+
+    <collector
+        collectorName="WindowsWASGetServers_Collector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WindowsWASGetServersScript">
+    </collector>
+
+
+    <element
+        elementName="Windows_WebSphere_AppServer_Footprint"
+        elementTypePath="root.types.footprint.WebSphere_AppServer_Footprint"
+        displayLabel="IBM WebSphere App Server Footprint on Windows"
+        isTemplate="true">
+    <attribute attributeName="version" dataType="string" displayLabel="WebSphere App Server Install version" />
+    <attribute attributeName="WASHome" dataType="string" displayLabel="WebSphere App Server Install Home" />
+    </element>
+
+    <element 
+        elementName="WindowsWASInitialFootprint"
+        elementTypePath="root.types.footprint"
+        displayLabel="IBM WebSphere App Server Initial Footprint on Windows"
+        isTemplate="true">
+        <attributeSet 
+            attributeSetName="WindowsWASInitialFootprintStatic"
+            displayLabel="Windows WebSphere App Server Initial Footprint Static"
+            collectorName="WindowsWASInitialFootprintStaticCollector"
+            maxScriptRunTime="1800000"
+            collectionInterval="7200000">
+        <attributeSetEntry attributeName="registryData" />
+        </attributeSet>
+    </element>
+
+    <packageAttributeSet packageName="Windows_WebSphere_Application_Server" 
+                         attributeSetName="WindowsWASInitialFootprintStatic"  />
+    <packageAttributeSet packageName="WebSphere_Application_Server" 
+                         attributeSetName="WindowsWASInitialFootprintStatic"  />
+
+    <collector 
+        collectorName="WindowsWASInitialFootprintStaticCollector"
+        connectionMethodPath="root.types.collection.connectionMethod.windows"
+        collectionScriptName="WinRegScript">
+        <collectionParams 
+            typeElementFullName="root.types.footprint.WindowsWASInitialFootprint"
+            attributeName="registryRoot">
+        </collectionParams>
+        <collectionParams 
+            typeElementFullName="root.types.footprint.WindowsWASInitialFootprint"
+            attributeName="registryKey">
+        </collectionParams>
+        <scriptRef name="WinRegScript" scriptType="collection" seqNum="1"  />
+    </collector>
+    <relationship parentType="root.types.resource.software.operatingSystem.Windows"
+        childType="root.types.footprint.WindowsWASInitialFootprint" />
+
+    <relationship parentType="root.types.resource.software.operatingSystem.Windows"
+        childType="root.types.footprint.WebSphere_AppServer_Footprint.Windows_WebSphere_AppServer_Footprint" />
+
+    <relationship parentType="root.types.footprint.WindowsWASInitialFootprint"
+        childType="root.types.footprint.WebSphere_AppServer_Footprint.Windows_WebSphere_AppServer_Footprint" />
+
+    <relationship parentType="root.types.footprint.WebSphere_AppServer_Footprint.Windows_WebSphere_AppServer_Footprint"
+        childType="root.types.resource.software.installation.WASInstallation.WindowsWASInstallation" />
+
+    <relationship parentType="root.types.resource.software.operatingSystem.Windows"
+        childType="root.types.resource.software.installation.WASInstallation.WindowsWASInstallation" />
+
+    <rule
+        name="populate_WindowsWASProfileFootprint_svrCfgPath"
+        weight="50">
+        <search variable="WindowsWASProfileFootprint"
+            pattern="root.types.footprint.WASProfileFootprint.WindowsWASProfileFootprint">
+            <use attribute="profilePath"/>
+        </search>
+        <search
+            variable="WindowsWASProfileInitialFootprint"
+            pattern="root.types.footprint.WASProfileInitialFootprint.WindowsWASProfileInitialFootprint">            
+        </search>
+        <search
+            variable="WindowsWASInstallation"
+            pattern="root.types.resource.software.installation.WASInstallation.WindowsWASInstallation">            
+            <use attribute="version"/>
+            <simpleFilterConst attribute="version" operator="matches" constant="4\.*" /> 
+        </search>      
+        <simpleJoinFilter lhsVariable="WindowsWASInstallation" operator="parentOf" rhsVariable="WindowsWASProfileInitialFootprint"/>
+        <simpleJoinFilter lhsVariable="WindowsWASProfileInitialFootprint" operator="parentOf" rhsVariable="WindowsWASProfileFootprint"    />
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server populate_WindowsWASProfileFootprint_svrCfgPaths  gnu.regexp.*">
+        <![CDATA[
+            String eltFullName = (String)args.get("WindowsWASProfileFootprint.elementFullName");
+            String profPath = (String)args.get("WindowsWASProfileFootprint.profilePath");
+            String result = "<result>";
+            String svrCfg = profPath + "\\config\\server-cfg.xml=svrCfgData";
+            result += _j4_dataXML(eltFullName, "svrCfgPath", svrCfg);
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="populate_WindowsWASProfileInitialFootprint_Default_userRoots"
+        weight="50">
+        <search variable="WindowsWASProfileInitialFootprint"
+            pattern="root.types.footprint.WASProfileInitialFootprint.WindowsWASProfileInitialFootprint">
+        </search>
+        <search
+            variable="WindowsWASInstallation"
+            pattern="root.types.resource.software.installation.WASInstallation.WindowsWASInstallation">
+            <use attribute="installDirectory" />
+        </search>
+        <simpleJoinFilter lhsVariable="WindowsWASInstallation" operator="parentOf" rhsVariable="WindowsWASProfileInitialFootprint"/>
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server populate_WindowsWASProfileInitialFootprint_userRoots  gnu.regexp.*">
+        <![CDATA[
+            String eltFullName = (String)args.get("WindowsWASProfileInitialFootprint.elementFullName");
+            String wasRoot = (String)args.get("WindowsWASInstallation.installDirectory");
+            String result = "<result>";
+            String profiles = new String();
+            profiles = "default<BDNA,1>" + wasRoot;
+            result += _j4_dataXML(eltFullName, "userRoots", profiles);
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="populate_WindowsWASProfileInitialFootprint_userRoots"
+        weight="60">
+        <search variable="WindowsWASProfileInitialFootprint"
+            pattern="root.types.footprint.WASProfileInitialFootprint.WindowsWASProfileInitialFootprint">
+            <use attribute="profRegData" />
+        </search>
+        <search
+            variable="WindowsWASInstallation"
+            pattern="root.types.resource.software.installation.WASInstallation.WindowsWASInstallation">
+        </search>
+        <simpleJoinFilter lhsVariable="WindowsWASInstallation" operator="parentOf" rhsVariable="WindowsWASProfileInitialFootprint"/>
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server populate_WindowsWASProfileInitialFootprint_userRoots  gnu.regexp.* javax.xml.parsers.*">
+        <![CDATA[
+            String eltFullName = (String)args.get("WindowsWASProfileInitialFootprint.elementFullName");
+            String fileData = (String)args.get("WindowsWASProfileInitialFootprint.profRegData");
+            String result = "<result>";
+            try {
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
+                Document doc = db.parse(new StringBufferInputStream(fileData));
+                String profiles = new String();
+                NodeList nodes = doc.getElementsByTagName("profile");
+                int numNodes = nodes.getLength();
+                for (int n=0; n<nodes.getLength(); n++)  {
+                    Element prof = (Element)nodes.item(n);
+                    String oneProfile = new String();
+                    String pName = prof.getAttribute("name");
+                    String pPath = prof.getAttribute("path");
+                    if ((pName != null) && (pPath != null)) {
+                        oneProfile += pName + "<BDNA,1>" + pPath;
+                    }
+                    if (profiles.length() > 0) {
+                       profiles += "<BDNA,>";
+                    }
+                    profiles += oneProfile;
+                }
+                result += _j4_dataXML(eltFullName, "userRoots", profiles);
+            } catch (Exception ex) {
+            }
+
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="populate_WindowsWASCellType"
+        weight="50">
+        <search variable="WindowsWASProfileFootprint"
+            pattern="root.types.footprint.WASProfileFootprint.WindowsWASProfileFootprint">
+            <use attribute="cellData" />
+        </search>
+        <search variable="WindowsWASProfileInitialFootprint"
+            pattern="root.types.footprint.WASProfileInitialFootprint.WindowsWASProfileInitialFootprint">
+        </search>
+        <simpleJoinFilter lhsVariable="WindowsWASProfileInitialFootprint" operator="parentOf" rhsVariable="WindowsWASProfileFootprint"/>
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server populate_WindowsWASCellType  gnu.regexp.* javax.xml.xpath.* javax.xml.parsers.*">
+        <![CDATA[
+            String eltFullName = (String)args.get("WindowsWASProfileFootprint.elementFullName");
+            String fileData = (String)args.get("WindowsWASProfileFootprint.cellData");
+            String result = "<result>";
+            String cType = new String();
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new StringBufferInputStream(fileData));
+            XPath xPath = XPathFactory.newInstance().newXPath();
+            cType = xPath.evaluate("/Cell/@cellType", doc);
+            if (cType.isEmpty()) {
+               cType = xPath.evaluate("/XMI/Cell/@cellType", doc);
+            }
+            result += _j4_dataXML(eltFullName, "cellType", cType);
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="populate_WindowsWAS_NodeandServer"
+        weight="50">
+        <search variable="WindowsWASProfileFootprint"
+            pattern="root.types.footprint.WASProfileFootprint.WindowsWASProfileFootprint">
+            <use attribute="svrCfgData" />
+        </search>
+        <search variable="WindowsWASProfileInitialFootprint"
+            pattern="root.types.footprint.WASProfileInitialFootprint.WindowsWASProfileInitialFootprint">
+        </search>
+        <simpleJoinFilter lhsVariable="WindowsWASProfileInitialFootprint" operator="parentOf" rhsVariable="WindowsWASProfileFootprint"/>
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server populate_WindowsWASCellType  gnu.regexp.* javax.xml.xpath.* javax.xml.parsers.*">
+        <![CDATA[
+            String eltFullName = (String)args.get("WindowsWASProfileFootprint.elementFullName");
+            String fileData = (String)args.get("WindowsWASProfileFootprint.svrCfgData");
+            String result = "<result>";
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new StringBufferInputStream(fileData));
+            XPath xPath = XPathFactory.newInstance().newXPath();
+            String node = xPath.evaluate("/Domain/nodes/@name", doc);
+            String server = xPath.evaluate("/Domain/nodes/servers/@name", doc);
+            result += _j4_dataXML(eltFullName, "nodeName", node);
+            result += _j4_dataXML(eltFullName, "servers", server);
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="populate_WindowsWAS_virtualHosts"
+        weight="50">
+        <search variable="WindowsWASInstance"
+            pattern="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance">
+            <use attribute="virtHostsFileData" />
+        </search>
+        <search variable="WindowsWASInstallation"
+            pattern="root.types.resource.software.installation.WASInstallation.WindowsWASInstallation">
+        </search>
+        <simpleJoinFilter lhsVariable="WindowsWASInstallation" operator="parentOf" rhsVariable="WindowsWASInstance"/>
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server populate_WindowsWAS_virtualHost  gnu.regexp.* javax.xml.xpath.* javax.xml.parsers.*">
+        <![CDATA[
+            String eltFullName = (String)args.get("WindowsWASInstance.elementFullName");
+            String fileData = (String)args.get("WindowsWASInstance.virtHostsFileData");
+            String result = "<result>";
+            String hostname, port;
+            hostname = port  = new String();
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new StringBufferInputStream(fileData));
+            //Document doc = db.parse(new File(args[0]));
+
+            NodeList vHosts = doc.getElementsByTagName("host:VirtualHost");
+            for (int i = 0; i < vHosts.getLength(); i++) {
+               Element dHost = (Element)vHosts.item(i);
+               String name = dHost.getAttribute("name");
+               if (name.equals("default_host")) {
+                  NodeList childNodes = dHost.getElementsByTagName("aliases");
+                  for (int j = 0; j < (childNodes.getLength()); j++) {
+                     Element child = (Element)childNodes.item(j);
+                     String hostIP = child.getAttribute("hostname");
+                     if ((hostname.isEmpty()) || ((!hostname.equals(hostIP)) && (!hostIP.equals("*")))) {
+                        hostname = hostIP;
+                        port = child.getAttribute("port");
+                     }
+                  }
+               }
+            }
+            result += _j4_dataXML(eltFullName, "appSrv_Port", port);            
+            if (!hostname.equals("*")) {
+                result += _j4_dataXML(eltFullName, "appSrv_IPAddr", hostname);                
+            }
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="populate_virtualHosts_from_SvrCfg"
+        weight="50">
+        <search variable="WindowsWASProfileFootprint"
+            pattern="root.types.footprint.WASProfileFootprint.WindowsWASProfileFootprint">
+            <use attribute="svrCfgData" />
+        </search>
+        <search variable="WindowsWASProfileInitialFootprint"
+            pattern="root.types.footprint.WASProfileInitialFootprint.WindowsWASProfileInitialFootprint">
+        </search>
+        <search variable="WindowsWASInstallation"
+            pattern="root.types.resource.software.installation.WASInstallation.WindowsWASInstallation">
+        </search>
+        <search variable="WindowsWASInstance"
+            pattern="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance">
+        </search>
+        <simpleJoinFilter lhsVariable="WindowsWASInstallation" operator="parentOf" rhsVariable="WindowsWASInstance"/>
+        <simpleJoinFilter lhsVariable="WindowsWASInstallation" operator="parentOf" rhsVariable="WindowsWASProfileInitialFootprint"/>
+        <simpleJoinFilter lhsVariable="WindowsWASProfileInitialFootprint" operator="parentOf" rhsVariable="WindowsWASProfileFootprint"/>
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server populate_virtualHosts_from_SvrCf gnu.regexp.* javax.xml.parsers.*">
+        <![CDATA[
+            String eltFullName = (String)args.get("WindowsWASInstance.elementFullName");
+            String fileData = (String)args.get("WindowsWASProfileFootprint.svrCfgData");
+            String result = "<result>";
+            String hostname, port;
+            hostname = port  = new String();
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new StringBufferInputStream(fileData));
+            //Document doc = db.parse(new File(args[0]));
+
+            NodeList vHosts = doc.getElementsByTagName("virtualHosts");
+            for (int i = 0; i < vHosts.getLength(); i++) {
+               Element dHost = (Element)vHosts.item(i);
+               String name = dHost.getAttribute("name");
+               if (name.equals("default_host")) {
+                  NodeList childNodes = dHost.getElementsByTagName("aliases");
+                  for (int j = 0; j < (childNodes.getLength()); j++) {
+                     Element child = (Element)childNodes.item(j);
+                     String hostIP = child.getAttribute("hostname");
+                     if ((hostname.isEmpty()) || ((!hostname.equals(hostIP)) && (!hostIP.equals("*")))) {
+                        hostname = hostIP;
+                        port = child.getAttribute("port");
+                     }
+                  }
+               }
+            }
+            result += _j4_dataXML(eltFullName, "appSrv_Port", port);
+            if (!hostname.equals("*")) {
+                result += _j4_dataXML(eltFullName, "appSrv_IPAddr", hostname);
+            }
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+<!--    <rule
+        name="populate_WindowsUDT_ADM_AppSrvToDBSrvDet"
+        weight="50">
+        <search variable="WindowsWASInstance"
+            pattern="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance">
+            <use attribute="rsrcFileData" />
+        </search>
+        <search variable="WindowsWASInstallation"
+            pattern="root.types.resource.software.installation.WASInstallation.WindowsWASInstallation">
+        </search>
+        <simpleJoinFilter lhsVariable="WindowsWASInstallation" operator="parentOf" rhsVariable="WindowsWASInstance"/>
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server populate_WindowsUDT_ADM_AppSrvToDBSrvDet gnu.regexp.* javax.xml.parsers.*">
+        <![CDATA[
+            String eltFullName = (String)args.get("WindowsWASInstance.elementFullName");
+            String rsrcData = (String)args.get("WindowsWASInstance.rsrcFileData");
+            String urlList = new String();
+            String result = "<result>";
+            RE exURL = new RE("jdbc:oracle:thin:@(\\S+):(\\S+):(\\S+)");
+            RE exIP = new RE("\\d+\\.\\d+\\.\\d+\\.\\d+");
+            String DBSrv_udt = new String();
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new StringBufferInputStream(rsrcData));
+            NodeList rsrcs = doc.getElementsByTagName("resourceProperties");
+            int num = rsrcs.getLength();
+            String name = new String();
+
+            for (int i = 0; i < num; i++) {
+                Element rsrc = (Element)rsrcs.item(i);
+                name = rsrc.getAttribute("name");
+                if (!name.isEmpty() && name.equals("URL")) {
+                    if (_j4_regexpIsMatch(rsrc.getAttribute("value"), exURL)) {
+                        DBSrv_udt += "dbInstancePort=" + _j4_regexpFirstMatchSubMatch(rsrc.getAttribute("value"), exURL, new Double(1)) + "<BDNA,1>";
+                        DBSrv_udt += "dbInstanceName=" + _j4_regexpFirstMatchSubMatch(rsrc.getAttribute("value"), exURL, new Double(2)) + "<BDNA,1>";
+                        String temp =  _j4_regexpFirstMatchSubMatch(rsrc.getAttribute("value"), exURL, new Double(0));
+                        if (_j4_regexpIsMatch(temp, exIP)) {
+                            DBSrv_udt += "dbHost_IPAddr=" + temp + "<BDNA,1>";
+                        } else {
+                            DBSrv_udt += "dbHost_DNSHostName=" + temp + "<BDNA,1>";
+                        }
+                        if (urlList.isEmpty()) {
+                            urlList += DBSrv_udt;
+                        } else {
+                            urlList += "<BDNA,>" + DBSrv_udt;
+                        }
+                        DBSrv_udt = "";
+                    }
+                }
+            }
+            result += _j4_dataXML(eltFullName, "ADM_AppSrvToDBSrvDet", urlList);
+            result += "</result>";
+            return result;
+
+        ]]>
+        </conclusion>
+    </rule> -->
+
+    <rule
+        name="populate_WindowsWAS_jdbcResources"
+        weight="50">
+        <search variable="WindowsWASInstance"
+            pattern="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance">
+            <use attribute="rsrcFileData" />
+        </search>
+        <search variable="WindowsWASInstallation"
+            pattern="root.types.resource.software.installation.WASInstallation.WindowsWASInstallation">
+        </search>
+        <simpleJoinFilter lhsVariable="WindowsWASInstallation" operator="parentOf" rhsVariable="WindowsWASInstance"/>
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server populate_WindowsWAS_jdbcResources gnu.regexp.* javax.xml.parsers.*">
+        <![CDATA[
+            String eltFullName = (String)args.get("WindowsWASInstance.elementFullName");
+            String rsrcData = (String)args.get("WindowsWASInstance.rsrcFileData");
+            //String ver = (String)args.get("WindowsWASInstallation.version");
+            String urlList = new String();
+            String result = "<result>";
+            ArrayList<String> DBSrvList = new ArrayList<String>();
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new StringBufferInputStream(rsrcData));
+            //Document doc = db.parse(new File(args[0]));
+            NodeList rsrcs = doc.getElementsByTagName("resources.jdbc:JDBCProvider");
+            int num = rsrcs.getLength();
+            String DB_Details = new String();
+            for (int i = 0; i < num; i++) {
+                Element rsrc = (Element)rsrcs.item(i);
+                String dbType = new String();
+                String value = new String();
+                String implName = rsrc.getAttribute("implementationClassName");
+                if (_j4_regexpIsMatch(implName, new RE("DB2"))) {
+                    if (_j4_regexpIsMatch(implName, new RE("DB2j"))) {
+                        dbType = "Cloudscape";
+                    } else {
+                        dbType = "Cloudscape";
+                    }
+                } else if (_j4_regexpIsMatch(implName, new RE("Oracle"))) {
+                         dbType = "Oracle";
+                } else if (_j4_regexpIsMatch(implName, new RE("SQLServer"))) {
+                         dbType = "SQLServer";
+                }
+                if (!dbType.equals("")) {
+                    if (!value.isEmpty()) { value += "<BDNA,1>"; }
+                    value += "dbType=" + dbType;
+                    NodeList childNodes = rsrc.getElementsByTagName("factories");
+                    for (int j = 0; j < (childNodes.getLength()); j++) {
+                        Element child = (Element)childNodes.item(j);
+                        if (!value.isEmpty()) { value += "<BDNA,1>"; }
+                            value += "name=" + child.getAttribute("name");
+                            String DBAlias = child.getAttribute("authDataAlias");
+                            Pattern pat = Pattern.compile("\\/(.+)$");
+                            Matcher fit = pat.matcher(DBAlias);
+                            if (fit.find()) {
+                                String instName = fit.group(0);
+                                if (!value.isEmpty()) { value += "<BDNA,1>"; }
+                                value += "dbInstanceName=" + instName;
+                            }
+
+                            NodeList rsrcList = childNodes.item(j).getChildNodes();
+                            for (int k = 0; k < (rsrcList.getLength()); k++) {
+                                if (rsrcList.item(k).getNodeName() == "propertySet") {
+                                    NodeList  rsrcProp = rsrcList.item(k).getChildNodes();
+                                    for (int l = 0; l < (rsrcProp.getLength()); l++) {
+                                        if (rsrcProp.item(l).getNodeName() == "resourceProperties") {
+                                            Element rsrcEntry = (Element)rsrcProp.item(l);
+                                            String rsrcName = rsrcEntry.getAttribute("name");
+                                            if (rsrcName.equals("databaseName")) {
+                                                String str = rsrcEntry.getAttribute("value");
+                                                if (!str.isEmpty()) {
+                                                    if (!value.isEmpty()) { value += "<BDNA,1>"; }
+                                                    value += "databaseName=" + str;
+                                                }
+                                            } else if (rsrcName.equals("serverName")) {
+                                                String str = rsrcEntry.getAttribute("value");
+                                                if (!str.isEmpty()) {
+                                                    if (!value.isEmpty()) { value += "<BDNA,1>"; }
+                                                    value += "serverName=" + str;
+                                                }
+                                            } else if (rsrcName.equals("portNumber")) {
+                                                String str = rsrcEntry.getAttribute("value");
+                                                if (!str.isEmpty()) {
+                                                    if (!value.isEmpty()) { value += "<BDNA,1>"; }
+                                                        value += "dbInstancePort=" + str;
+                                                }
+                                            } else if (rsrcName.equals("URL")) {
+                                                String str = rsrcEntry.getAttribute("value");
+                                                if (!str.isEmpty()) {
+                                                    if (!value.isEmpty()) { value += "<BDNA,1>"; }
+                                                    value += "url=" + str;
+                                                }
+                                            }
+                                       }
+                                  }
+                             }
+                        }
+                    }
+                }
+                if (!DB_Details.isEmpty()) { DB_Details += "<BDNA,>" + value; }
+                else { DB_Details += value; }
+            }
+
+            String lookupHosts = new String();
+            String[] dbList = DB_Details.split("<BDNA,>");
+            for(int i =0; i < dbList.length ; i++) {
+                String[] dbDet = dbList[i].split("<BDNA,1>");
+                String DBSrv_udt = new String();
+                for(int j =0; j < dbDet.length ; j++) {
+                    String svr, port, hostName, ipAddr, sid;
+                    svr = port = hostName = ipAddr = sid  = new String();
+                    Pattern pat = Pattern.compile("serverName=(.+)");
+                    Matcher fit = pat.matcher(dbDet[j]);
+                    if (fit.find()) {
+                        svr = fit.group(1);
+                    } else {
+                        DBSrv_udt += dbDet[j] + "<BDNA,1>";
+                        Pattern pat1 = Pattern.compile("url=jdbc.*?\\/\\/(.*?)\\:(\\d+)(:)?");
+                        Matcher fit1 = pat1.matcher(dbDet[j]);
+                        Pattern pat2 = Pattern.compile("url=jdbc:oracle:thin:\\@(.+):(.+?):(.+)");
+                        Matcher fit2 = pat2.matcher(dbDet[j]);
+                        Pattern pat3 = Pattern.compile("url=jdbc:oracle:oci.*?:\\@(.+):(.+?):(.+)");
+                        Matcher fit3 = pat3.matcher(dbDet[j]);
+                        Pattern pat4 = Pattern.compile("url=jdbc:oracle:oci.*?:\\@(.+)");
+                        Matcher fit4 = pat4.matcher(dbDet[j]);
+                        Pattern pat5 = Pattern.compile("url=jdbc.*?\\@(.+):(.+?):.+");
+                        Matcher fit5 = pat5.matcher(dbDet[j]);
+
+                        if (fit1.find()) {
+                            svr = fit1.group(1);
+                            port = fit1.group(2);
+                        } else if (fit2.find()) {
+                            svr = fit2.group(1);
+                            port = fit2.group(2);
+                            sid = fit2.group(3);
+                        } else if (fit3.find()) {
+                            svr = fit3.group(1);
+                            port = fit3.group(2);
+                            sid = fit3.group(3);
+                        } else if (fit4.find()) {
+                            //$BDNA_Results{"ociClient"} = "Yes";
+                        } else if (fit5.find()) {
+                            svr = fit5.group(1);
+                            port = fit5.group(2);
+                        }
+                    }                    
+                    if (sid.length() != 0) {
+                        DBSrv_udt += "SID=" + sid + "<BDNA,1>";
+                    }
+                    if (port.length() != 0) {
+                        DBSrv_udt += "dbInstancePort=" + port + "<BDNA,1>";
+                    }
+                    if (svr.length() != 0) {
+                        if (!lookupHosts.isEmpty()) { lookupHosts += ','; }
+                        lookupHosts += svr;
+                    }
+                }
+                int strLen = DBSrv_udt.length();
+                DBSrvList.add(DBSrv_udt.substring(0,strLen-8));
+            }
+
+            String rsrcList = new String();
+            Iterator iter = DBSrvList.iterator();
+            if (iter.hasNext()) {
+                rsrcList += iter.next();
+                while (iter.hasNext()) {
+                    rsrcList += "<BDNA,>" + iter.next();
+                }
+            }
+            result += _j4_dataXML(eltFullName, "jdbcResources", rsrcList);
+            if (lookupHosts.isEmpty()) {
+                result += _j4_dataXML(eltFullName, "ADM_AppSrvToDBSrvDet", rsrcList);
+            }
+            result += _j4_dataXML(eltFullName, "hostsToLookup", lookupHosts);
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="populate_jdbcResources_from_SvrCfg"
+        weight="50">
+        <search variable="WindowsWASProfileFootprint"
+            pattern="root.types.footprint.WASProfileFootprint.WindowsWASProfileFootprint">
+            <use attribute="svrCfgData" />
+        </search>
+        <search variable="WindowsWASProfileInitialFootprint"
+            pattern="root.types.footprint.WASProfileInitialFootprint.WindowsWASProfileInitialFootprint">
+        </search>
+        <search variable="WindowsWASInstallation"
+            pattern="root.types.resource.software.installation.WASInstallation.WindowsWASInstallation">
+        </search>
+        <search variable="WindowsWASInstance"
+            pattern="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance">
+        </search>
+
+        <simpleJoinFilter lhsVariable="WindowsWASInstallation" operator="parentOf" rhsVariable="WindowsWASInstance"/>
+        <simpleJoinFilter lhsVariable="WindowsWASInstallation" operator="parentOf" rhsVariable="WindowsWASProfileInitialFootprint"/>
+        <simpleJoinFilter lhsVariable="WindowsWASProfileInitialFootprint" operator="parentOf" rhsVariable="WindowsWASProfileFootprint"/>
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server populate_jdbcResources_from_SvrCfg gnu.regexp.* javax.xml.parsers.*">
+        <![CDATA[
+            String eltFullName = (String)args.get("WindowsWASInstance.elementFullName");
+            String rsrcData = (String)args.get("WindowsWASProfileFootprint.svrCfgData");
+
+            String urlList = new String();
+            String result = "<result>";
+            ArrayList<String> DBSrvList = new ArrayList<String>();
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new StringBufferInputStream(rsrcData));
+            //Document doc = db.parse(new File(args[0]));
+            NodeList rsrcs = doc.getElementsByTagName("resourceProviders");
+            int num = rsrcs.getLength();
+            String DB_Details = new String();
+            for (int i = 0; i < num; i++) {
+                Element rsrc = (Element)rsrcs.item(i);
+                String dbType = new String();
+                String value = new String();
+                String implName = rsrc.getAttribute("implementationClassName");
+                if (_j4_regexpIsMatch(implName, new RE("DB2"))) {
+                    if (_j4_regexpIsMatch(implName, new RE("DB2j"))) {
+                        dbType = "Cloudscape";
+                    } else {
+                        dbType = "Cloudscape";
+                    }
+                } else if (_j4_regexpIsMatch(implName, new RE("Oracle"))) {
+                         dbType = "Oracle";
+                } else if (_j4_regexpIsMatch(implName, new RE("SQLServer"))) {
+                         dbType = "SQLServer";
+                }
+                if (!dbType.equals("")) {
+                    if (!value.isEmpty()) { value += "<BDNA,1>"; }
+                    value += "dbType=" + dbType;
+                    NodeList childNodes = rsrc.getElementsByTagName("factories");
+                    for (int j = 0; j < (childNodes.getLength()); j++) {
+                        Element child = (Element)childNodes.item(j);
+                        if (!value.isEmpty()) { value += "<BDNA,1>"; }
+                            value += "name=" + child.getAttribute("name");
+                            String DBAlias = child.getAttribute("authDataAlias");
+                            Pattern pat = Pattern.compile("\\/(.+)$");
+                            Matcher fit = pat.matcher(DBAlias);
+                            if (fit.find()) {
+                                String instName = fit.group(0);
+                                if (!value.isEmpty()) { value += "<BDNA,1>"; }
+                                value += "dbInstanceName=" + instName;
+                            }
+
+                            NodeList rsrcList = childNodes.item(j).getChildNodes();
+                            for (int k = 0; k < (rsrcList.getLength()); k++) {
+                                if (rsrcList.item(k).getNodeName() == "propertySet") {
+                                    NodeList  rsrcProp = rsrcList.item(k).getChildNodes();
+                                    for (int l = 0; l < (rsrcProp.getLength()); l++) {
+                                        if (rsrcProp.item(l).getNodeName() == "resourceProperties") {
+                                            Element rsrcEntry = (Element)rsrcProp.item(l);
+                                            String rsrcName = rsrcEntry.getAttribute("name");
+                                            if (rsrcName.equals("databaseName")) {
+                                                String str = rsrcEntry.getAttribute("value");
+                                                if (!str.isEmpty()) {
+                                                    if (!value.isEmpty()) { value += "<BDNA,1>"; }
+                                                    value += "databaseName=" + str;
+                                                }
+                                            } else if (rsrcName.equals("serverName")) {
+                                                String str = rsrcEntry.getAttribute("value");
+                                                if (!str.isEmpty()) {
+                                                    if (!value.isEmpty()) { value += "<BDNA,1>"; }
+                                                    value += "serverName=" + str;
+                                                }
+                                            } else if (rsrcName.equals("portNumber")) {
+                                                String str = rsrcEntry.getAttribute("value");
+                                                if (!str.isEmpty()) {
+                                                    if (!value.isEmpty()) { value += "<BDNA,1>"; }
+                                                        value += "dbInstancePort=" + str;
+                                                }
+                                            } else if (rsrcName.equals("URL")) {
+                                                String str = rsrcEntry.getAttribute("value");
+                                                if (!str.isEmpty()) {
+                                                    if (!value.isEmpty()) { value += "<BDNA,1>"; }
+                                                    value += "url=" + str;
+                                                }
+                                            }
+                                       }
+                                  }
+                             }
+                        }
+                    }
+                }
+                if (!DB_Details.isEmpty()) { DB_Details += "<BDNA,>" + value; }
+                else { DB_Details += value; }
+            }
+
+            String lookupHosts = new String();
+            String[] dbList = DB_Details.split("<BDNA,>");
+            for(int i =0; i < dbList.length ; i++) {
+                String[] dbDet = dbList[i].split("<BDNA,1>");
+                String DBSrv_udt = new String();
+                for(int j =0; j < dbDet.length ; j++) {
+                    String svr, port, hostName, ipAddr, sid;
+                    svr = port = hostName = ipAddr = sid  = new String();
+                    Pattern pat = Pattern.compile("serverName=(.+)");
+                    Matcher fit = pat.matcher(dbDet[j]);
+                    if (fit.find()) {
+                        svr = fit.group(1);
+                    } else {
+                        DBSrv_udt += dbDet[j] + "<BDNA,1>";
+                        Pattern pat1 = Pattern.compile("url=jdbc.*?\\/\\/(.*?)\\:(\\d+)(:)?");
+                        Matcher fit1 = pat1.matcher(dbDet[j]);
+                        Pattern pat2 = Pattern.compile("url=jdbc:oracle:thin:\\@(.+):(.+?):(.+)");
+                        Matcher fit2 = pat2.matcher(dbDet[j]);
+                        Pattern pat3 = Pattern.compile("url=jdbc:oracle:oci.*?:\\@(.+):(.+?):(.+)");
+                        Matcher fit3 = pat3.matcher(dbDet[j]);
+                        Pattern pat4 = Pattern.compile("url=jdbc:oracle:oci.*?:\\@(.+)");
+                        Matcher fit4 = pat4.matcher(dbDet[j]);
+                        Pattern pat5 = Pattern.compile("url=jdbc.*?\\@(.+):(.+?):.+");
+                        Matcher fit5 = pat5.matcher(dbDet[j]);
+
+                        if (fit1.find()) {
+                            svr = fit1.group(1);
+                            port = fit1.group(2);
+                        } else if (fit2.find()) {
+                            svr = fit2.group(1);
+                            port = fit2.group(2);
+                            sid = fit2.group(3);
+                        } else if (fit3.find()) {
+                            svr = fit3.group(1);
+                            port = fit3.group(2);
+                            sid = fit3.group(3);
+                        } else if (fit4.find()) {
+                            //$BDNA_Results{"ociClient"} = "Yes";
+                        } else if (fit5.find()) {
+                            svr = fit5.group(1);
+                            port = fit5.group(2);
+                        }
+                    }
+                    if (sid.length() != 0) {
+                        DBSrv_udt += "SID=" + sid + "<BDNA,1>";
+                    }
+                    if (port.length() != 0) {
+                        DBSrv_udt += "dbInstancePort=" + port + "<BDNA,1>";
+                    }
+                    if (svr.length() != 0) {
+                        if (!lookupHosts.isEmpty()) { lookupHosts += ','; }
+                        lookupHosts += svr;
+                    }
+                }
+                int strLen = DBSrv_udt.length();
+                DBSrvList.add(DBSrv_udt.substring(0,strLen-8));
+            }
+
+            String rsrcList = new String();
+            Iterator iter = DBSrvList.iterator();
+            if (iter.hasNext()) {
+                rsrcList += iter.next();
+                while (iter.hasNext()) {
+                    rsrcList += "<BDNA,>" + iter.next();
+                }
+            }
+            result += _j4_dataXML(eltFullName, "jdbcResources", rsrcList);
+            if (lookupHosts.isEmpty()) {
+                result += _j4_dataXML(eltFullName, "ADM_AppSrvToDBSrvDet", rsrcList);
+            }
+            result += _j4_dataXML(eltFullName, "hostsToLookup", lookupHosts);
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="populate_WindowsUDT_ADM_AppSrvToDBSrvDet"
+        weight="50">
+        <search variable="WindowsWASInstance"
+            pattern="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance">
+            <use attribute="jdbcResources" />
+            <use attribute="lookedUpHosts" />
+        </search>
+        <search variable="WindowsWASInstallation"
+            pattern="root.types.resource.software.installation.WASInstallation.WindowsWASInstallation">
+        </search>
+        <simpleJoinFilter lhsVariable="WindowsWASInstallation" operator="parentOf" rhsVariable="WindowsWASInstance"/>
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server populate_WindowsUDT_ADM_AppSrvToDBSrvDet gnu.regexp.* javax.xml.parsers.*">
+        <![CDATA[
+            String eltFullName = (String)args.get("WindowsWASInstance.elementFullName");
+            String jdbcResources = (String)args.get("WindowsWASInstance.jdbcResources");
+            String lookUpHosts = (String)args.get("WindowsWASInstance.lookedUpHosts");
+            String result = "<result>";
+            String DBSrvList = new String();
+
+            String[] rsrcList = jdbcResources.split("<BDNA,>");
+            for(int i =0; i < rsrcList.length ; i++) {
+               if  (!DBSrvList.isEmpty()) {
+                  DBSrvList += "<BDNA,>";
+               }
+               DBSrvList += rsrcList[i];
+               Pattern pat = Pattern.compile("url=(.+)");
+               Matcher fit = pat.matcher(rsrcList[i]);
+               if (fit.find()) {
+                  String url = fit.group(1);
+                  String[] lookupList = lookUpHosts.split("<BDNA,>");
+                  for(int j =0; j < lookupList.length ; j++) {
+                     String[] hostList = lookupList[j].split("<BDNA,1>");
+                     int ind = 0;
+                     if (url.indexOf(hostList[ind++]) != -1) {
+                        while (ind < hostList.length) {
+                           DBSrvList += "<BDNA,1>" + hostList[ind++];
+                        }
+                     }
+                  }
+               }
+            }
+            result += _j4_dataXML(eltFullName, "ADM_AppSrvToDBSrvDet", DBSrvList);
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="populate_WindowsWASVariables"
+        weight="50">
+        <search variable="WindowsWASInstance"
+            pattern="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance">
+            <use attribute="nodeVarData" />
+        </search>
+        <search variable="WindowsWASInstallation"
+            pattern="root.types.resource.software.installation.WASInstallation.WindowsWASInstallation">
+        </search>
+        <simpleJoinFilter lhsVariable="WindowsWASInstallation" operator="parentOf" rhsVariable="WindowsWASInstance"/>
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server populate_WindowsWASVariables  gnu.regexp.* javax.xml.parsers.*">
+        <![CDATA[
+            String eltFullName = (String)args.get("WindowsWASInstance.elementFullName");
+            String nodeData = (String)args.get("WindowsWASInstance.nodeVarData");
+            String varList = new String();          
+            String result = "<result>";
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new StringBufferInputStream(nodeData));
+            NodeList nodes = doc.getElementsByTagName("entries");
+            int num = nodes.getLength();
+            String name = new String();
+            String value = new String();
+            for (int i = 0; i < num; i++) {
+                Element node = (Element)nodes.item(i);
+                name = node.getAttribute("symbolicName");
+                value = node.getAttribute("value");
+                if (!name.isEmpty() && !value.isEmpty()) {
+                    if (varList.isEmpty()) {
+                        varList += name + "=" + value;
+                    } else {
+                    varList += "<BDNA,>" + name + "=" + value;
+                    }
+                }
+            }
+
+            result += _j4_dataXML(eltFullName, "WASVariables", varList);
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="create_WindowsWASInstallation_from_WebSphere_AppServer_Footprint"
+        weight="50">
+        <search variable="Windows_WebSphere_AppServer_Footprint"
+            pattern="root.types.footprint.WebSphere_AppServer_Footprint.Windows_WebSphere_AppServer_Footprint">
+            <use attribute="WASHome" />
+            <use attribute="version" />
+        </search>
+        <search variable="Windows"
+            pattern="root.types.resource.software.operatingSystem.Windows">
+        </search>
+        <simpleJoinFilter lhsVariable="Windows" operator="parentOf" rhsVariable="Windows_WebSphere_AppServer_Footprint"/>
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM WebSphere_Application_Server create_WASInstallation_from_WebSphere_AppServer_Footprint  gnu.regexp.*">
+        <![CDATA[
+            String parent = (String)args.get("Windows_WebSphere_AppServer_Footprint.elementFullName");
+            String eltFullName;
+            HashSet eCreated = new HashSet();
+            String wasHome = (String)args.get("Windows_WebSphere_AppServer_Footprint.WASHome");
+            String version = (String)args.get("Windows_WebSphere_AppServer_Footprint.version");
+            String result = "<result>";
+            String eltName = "WindowsWASInstallation_" + wasHome;
+            eltName = eltName.replace('.', '_').replaceAll("\\s", "_");
+            eltFullName = parent + "." + eltName;
+            if (!eCreated.contains(eltFullName)) {
+                eCreated.add(eltFullName);
+                String type = "root.types.resource.software.installation.WASInstallation.WindowsWASInstallation";
+                result += elementXML(eltName, type, parent);
+                result += _j4_dataXML(eltFullName, "name","IBM WebSphere Application Server Installation");
+                result += _j4_dataXML(eltFullName, "installDirectory", wasHome);
+                result += _j4_dataXML(eltFullName, "version", version);
+                String profReg = wasHome + "\\properties\\profileRegistry.xml=profRegData";
+                result += _j4_dataXML(eltFullName, "profRegPath", profReg);
+                result += containerXML((String)args.get("Windows.elementFullName"), eltFullName);
+            }
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule 
+        name="create_Windows_WebSphere_AppServer_Footprint_from_Registry"
+        weight="90">
+        <search 
+            variable="Windows"
+            pattern="root.types.resource.software.operatingSystem.Windows">
+            <use attribute="installedSoftwareDetails"  />
+        </search>
+        <search 
+            variable="WindowsWASInitialFootprint"
+            pattern="root.types.footprint.WindowsWASInitialFootprint">
+            <use attribute="registryData"  />
+        </search>
+        <simpleJoinFilter lhsVariable="Windows" operator="parentOf" rhsVariable="WindowsWASInitialFootprint"    />
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server create_Windows_WebSphere_AppServer_Footprint_from_Registry  gnu.regexp.*">
+        <![CDATA[
+            String parent = (String)args.get("Windows.elementFullName");
+            String eltFullName;
+            HashSet eCreated = new HashSet();
+            String registryData = (String)args.get("WindowsWASInitialFootprint.registryData");
+            String installedSoftwareDetails = (String)args.get("Windows.installedSoftwareDetails");
+            String result = "<result>";
+            RE exName = new RE("WSBAA|IBMWebAS|WebSphere Application Server");
+            RE exVersion = new RE("[V|v]?(\\d[\\d\\.]+)");
+            RE exUninstall = new RE("(.+)\\\\_uninst");
+            RE exPath = new RE("HKEY_LOCAL_MACHINE\\\\SOFTWARE\\\\IBM\\\\WebSphere Application Server\\\\(\\d[\\d\\.]+)$");
+            ArrayList addRemoveEntries = _j4_getAddRemoveRegistry(installedSoftwareDetails, exName);
+            ArrayList registry = _j4_getRegistry(registryData);
+            HashMap resultSet = new HashMap() ;
+            HashMap multipleVersion = new HashMap() ;
+            String version = "";
+            String installDir = "";
+            String edition = "";
+
+            for (Iterator u1 = registry.iterator(); u1.hasNext(); ) {
+                String swInstallDir = "";
+                HashMap reg0 = (HashMap)u1.next();
+                String entryName = _j4_registryGetEntryFullName(reg0);
+
+                if (_j4_regexpIsMatch(entryName, exPath)) {
+                    if (_j4_regexpIsMatch(_j4_registryGetEntryName(reg0), exVersion)) {
+                        version = _j4_registryGetEntryName(reg0);
+                    }
+                    swInstallDir = _j4_registryGetValue(reg0, "InstallLocation");
+                    if (!(_j4_defined(swInstallDir))) {
+                       swInstallDir = _j4_registryGetValue(reg0, "APPSERVER_ROOT");
+                    }
+                    edition =  _j4_registryGetValue(reg0, "Edition");
+
+                    _j4_mput(multipleVersion, version, "<BDNA>");
+                    _j4_mput(resultSet, _j4_concat("version", version), version);
+                    _j4_mput(resultSet, _j4_concat("edition", version), edition);
+                    _j4_mput(resultSet, _j4_concat("installDirectory", version), swInstallDir);
+
+                    if (_j4_defined(swInstallDir)) {
+                        _j4_mput(resultSet, _j4_concat("uniqueName", version), swInstallDir.toLowerCase());
+                    } else if (_j4_defined(version)) {
+                        _j4_mput(resultSet, _j4_concat("uniqueName", version), version.toLowerCase());
+                    }
+                }
+            }
+
+            for (Iterator u2 = addRemoveEntries.iterator(); u2.hasNext(); ) {
+                HashMap reg = (HashMap)u2.next();
+                String entryName = _j4_registryGetEntryName(reg);
+                String addRemoveVersion = _j4_registryGetValue(reg, "DisplayVersion");
+                installDir = _j4_registryGetValue(reg, "InstallLocation");
+                String uninstall = _j4_registryGetValue(reg, "UninstallString");
+                if (!_j4_defined(addRemoveVersion) && _j4_regexpIsMatch(entryName, exVersion)) {
+                    addRemoveVersion = _j4_regexpFirstMatchSubMatch(entryName, exVersion, new Double(0));
+                }
+
+                if (!_j4_defined(installDir) && _j4_regexpIsMatch(uninstall, exUninstall)) {
+                    installDir = _j4_regexpFirstMatchSubMatch(uninstall, exUninstall, new Double(0));
+                }
+                if (_j4_defined(addRemoveVersion)) {
+                   version = addRemoveVersion;
+                }
+
+                _j4_mput(multipleVersion, version, "<BDNA>");
+                _j4_mput(resultSet, _j4_concat("name", version), entryName);
+
+                if (_j4_defined(addRemoveVersion)) {
+                    _j4_mput(resultSet, _j4_concat("version", version), addRemoveVersion);
+                }
+
+
+                if (_j4_defined(installDir)) {
+                    _j4_mput(resultSet, _j4_concat("installDirectory", version), installDir);
+                }
+
+                if (_j4_defined(installDir)) {
+                    _j4_mput(resultSet, _j4_concat("uniqueName", version), installDir.toLowerCase());
+                } else if ((_j4_defined(version)) && (!_j4_defined((String)_j4_mget(resultSet, _j4_concat("uniqueName", version))))) {
+                    _j4_mput(resultSet, _j4_concat("uniqueName", version), version.toLowerCase());
+                }
+            }
+
+            for (Iterator u = _j4_mkeys(multipleVersion).iterator(); u.hasNext(); ) {
+                String ver = (String)u.next();
+                String eltName = "WindowsWebSphereAppServerFootprint_" + _j4_createElementName((String)_j4_mget(resultSet, _j4_concat("uniqueName", ver)));
+                eltFullName = composeElementFullName(parent,eltName);
+                if (!eCreated.contains(eltFullName)) {
+                    eCreated.add(eltFullName);
+                    result += elementXML(eltName, "root.types.footprint.WebSphere_AppServer_Footprint.Windows_WebSphere_AppServer_Footprint", parent);
+                    result += _j4_dataXML(eltFullName, "name", "IBM WebSphere App Server Footprint on Windows");
+                    result += _j4_dataXML(eltFullName, "version", (String)_j4_mget(resultSet, _j4_concat("version", ver)));
+                    result += _j4_dataXML(eltFullName, "WASHome", (String)_j4_mget(resultSet, _j4_concat("installDirectory", ver)));
+                    result += _j4_dataXML(eltFullName, "systemType","Windows");
+                }
+            }
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule
+        name="create_Windows_WebSphere_AppServer_Footprint_from_SystemData"
+        weight="50">
+        <search
+            variable="Windows"
+            pattern="root.types.resource.software.operatingSystem.Windows">
+            <use attribute="systemData"  />
+            <simpleFilterConst attribute="systemData" operator="contains" constant="IBM WebSphere Application Server"/>
+        </search>
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server create_Windows_WebSphere_AppServer_Footprint_from_SystemData gnu.regexp.*">
+        <![CDATA[
+             String parent = (String)args.get("Windows.elementFullName");
+             String eltName;
+             String eltFullName;
+             String sysData = (String)args.get("Windows.systemData");
+             String[] winSysData = sysData.split("<BDNA,>");
+             String serviceData = "";
+             HashSet eCreated = new HashSet();
+             String result = "<result>";
+             RE re_WAS = new RE("IBM WebSphere Application Server");
+             RE re_service = new RE("operatingSystem\\.services=<BDNA,1>");
+
+             for (int i = 0; i < winSysData.length; i++) {
+                if (re_service.getMatch(winSysData[i]) != null) {
+                   serviceData = winSysData[i];
+                   break;
+                }
+             }
+
+             String[] servEntries = serviceData.split("<BDNA,1>");
+             ArrayList al = new ArrayList();
+             for (int i = 0; i < servEntries.length; i++) {
+                 if (re_WAS.getMatch(servEntries[i]) != null) {
+                     String[] entry = servEntries[i].split("<BDNA,2>");
+                     HashMap hm = new HashMap();
+                     for (int j = 0; j < entry.length; j+= 1) {
+                         String[] data = entry[j].split("=");
+                         hm.put(data[0], data[1]);
+                     }
+                     al.add(hm);
+                 }
+            }
+
+            RE re_servicePath = new RE("\"\"(.+)\\\\bin\\\\wasservice.exe");
+            RE re_version = new RE("[V|v]([\\d\\.]+)");
+            for (Iterator _iter = al.iterator(); _iter.hasNext(); ) {
+                HashMap _ser = (HashMap)_iter.next();
+                Set hashKeys = _ser.keySet();
+                String version = "";
+                String path = "";
+                for (Iterator it = hashKeys.iterator(); it.hasNext(); ) {
+                    String key = (String)it.next();
+                    if(key.startsWith("displayName")) {
+                        version = _j4_regexpFirstMatchSubMatch((String)_ser.get(key), re_version, new Double(0));
+                    } else if (key.startsWith("pathName")) {
+                        path = _j4_regexpFirstMatchSubMatch((String)_ser.get(key), re_servicePath, new Double(0));
+                    }
+                }
+
+                eltName = "WindowsWebSphereAppServerFootprint_" + _j4_createElementName(path.toLowerCase());
+                eltFullName = composeElementFullName(parent, eltName);
+                if (!eCreated.contains(eltFullName)) {
+                    eCreated.add(eltFullName);
+                    result += elementXML(eltName, "root.types.footprint.WebSphere_AppServer_Footprint.Windows_WebSphere_AppServer_Footprint", parent);
+                    result += _j4_dataXML(eltFullName, "name", "IBM WebSphere App Server Footprint on Windows");
+                    result += _j4_dataXML(eltFullName, "version",version);
+                    result += _j4_dataXML(eltFullName, "WASHome", path);
+                    result += _j4_dataXML(eltFullName, "systemType","Windows");
+                }
+            }
+            result += "</result>";
+            return result;
+
+        ]]>
+        </conclusion>
+    </rule>
+
+    <rule 
+        name="create_WindowsWASInitialFootprint_from_Windows"
+        weight="50">
+        <search 
+            variable="Windows"
+            pattern="root.types.resource.software.operatingSystem.Windows">
+            <use attribute="installedSoftware"  />
+            <simpleFilterConst attribute="installedSoftware" operator="matches" constant="WSBAA|IBMWebAS|WebSphere Application Server"  />
+        </search>
+        <conclusion type="java" argumentList="com.bdna.modules.app.IBM Windows_WebSphere_Application_Server create_WindowsWASInitialFootprint_from_Windows  gnu.regexp.*">
+        <![CDATA[
+            String parent = (String)args.get("Windows.elementFullName");
+            String eltFullName;
+            HashSet eCreated = new HashSet();
+            String result = "<result>";                        
+            String eltName = "WindowsWASInitialFootprint";
+            eltFullName = parent + "." + eltName;
+            if (!eCreated.contains(eltFullName)) {
+                eCreated.add(eltFullName);
+                result += elementXML(eltName, "root.types.footprint.WindowsWASInitialFootprint", parent);
+                result += _j4_dataXML(eltFullName, "name","WindowsWASInitialFootprint");
+                result += _j4_dataXML(eltFullName, "registryRoot", "HKEY_LOCAL_MACHINE");
+                result += _j4_dataXML(eltFullName, "registryKey", "SOFTWARE\\IBM\\WebSphere Application Server");
+            }
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <scriptTable
+        scriptName="WindowsWASGetFileScript"
+        scriptVersion="1.0">
+    </scriptTable>
+
+    <scriptTable
+        scriptName="WindowsWASProfileFootprintScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.footprint.WASProfileFootprint.WindowsWASProfileFootprint"
+            attributeName="profilePath" />
+    </scriptTable>
+
+    <scriptTable
+        scriptName="WindowsWASGetServersScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.footprint.WASProfileFootprint.WindowsWASProfileFootprint"
+            attributeName="profilePath" />
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.footprint.WASProfileFootprint.WindowsWASProfileFootprint"
+            attributeName="cellName" />
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.footprint.WASProfileFootprint.WindowsWASProfileFootprint"
+            attributeName="nodeName" />
+    </scriptTable>
+
+    <scriptTable
+        scriptName="WindowsWASParseServerIndexScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance"
+            attributeName="profilePath" />
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance"
+            attributeName="cellName" />
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance"
+            attributeName="nodeName" />
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance"
+            attributeName="appsrv_Name" />
+    </scriptTable>
+
+    <scriptTable
+        scriptName="WindowsWASHostsLookupScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance"
+            attributeName="hostsToLookup" />
+    </scriptTable>
+
+    <scriptTable
+        scriptName="WindowsWASNodeandCoreGroupScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance"
+            attributeName="profilePath" />
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance"
+            attributeName="cellName" />
+    </scriptTable>
+
+    <scriptTable
+        scriptName="WindowsWASIsInstanceRunningScript"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.software.installation.WASInstallation.WindowsWASInstallation"
+            attributeName="installDirectory" />
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%atr%"
+            efnSource="root.types.resource.applicationObject.server.ApplicationServer.WASInstance.WindowsWASInstance"
+            attributeName="appsrv_Name" />
+    </scriptTable>
+</module>

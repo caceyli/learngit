@@ -1,0 +1,34 @@
+(define a hasmap)
+Map<String,String> BDNA_Results = new HashMap<String, String>();
+
+(add key and value to the hash)
+BDNA_Results.put("licenseServerHost", licenseServerHostM.group(1));
+
+(gett the value for specific key)
+String value = BDNA_Results.get("licenseServerHost")
+
+(output a hashmap one by one)		
+Iterator<?> iterResult = BDNA_Results.entrySet().iterator(); //to the head point
+while(iterResult.hasNext()){ //if the present port hash has next
+     Map.Entry entryResult = (Map.Entry) iterResult.next(); //to the present point and try to get the key and value
+     Object keyResult = entryResult.getKey();  // get the 
+     Object valueResult =  entryResult.getValue();  //test
+     System.out.println(keyResult + ":" + valueResult);  //test            
+}//test
+
+(the following is to define whether 'line' is an empty string)
+if (line!= null && line.equals(""))
+
+(null means not existed, "" means one existed empty string)
+if (BDNA_Results.get("licenseServerHost"==null)
+
+(replace all \r|\n with "")
+one = one.replaceAll("\r|\n", "");
+
+(pattern/match)
+Pattern p1 = Pattern.compile("^\\(.*\\).*$", Pattern.CASE_INSENSITIVE);
+Matcher m1 = p1.matcher(line);
+if (m1.find（））｛info = matcher.group(1);｝
+
+
+

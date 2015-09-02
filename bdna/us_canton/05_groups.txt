@@ -1,0 +1,24 @@
+Parent Type	Parent Key Value	Parent Key Column	Child Type	Child Key Value	Child Key Column	Add/Delete	Namespace
+root.types.resource.logicalset.project	Project 10_10_1		root.types.resource.network	10_10_1_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project 10_10_10		root.types.collectionZone	10.10.10.0/24	hostIPAddress	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project 10_10_10		root.types.collectionZone	10.10.3.0-10.10.4.255	hostIPAddress	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project 10_10_11		root.types.collectionZone	10.10.11.0/24	hostIPAddress	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project 10_10_2-3-4		root.types.collectionZone	10.10.2.0/24	hostIPAddress	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project 10_10_2-3-4		root.types.resource.network	10_10_3_0-10_10_4_255	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project 192_168		root.types.collectionZone	192.168.1.0/24	hostIPAddress	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project 192_168		root.types.collectionZone	192.168.2.0/24	hostIPAddress	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project 192_168		root.types.collectionZone	192.168.3.0/24	hostIPAddress	A	NS_GLOBAL
+root.types.resource.logicalset.project	Engineering		root.types.collectionZone	192.168.3.0/24	hostIPAddress	A	NS_GLOBAL
+root.types.resource.logicalset.project	QA		root.types.collectionZone	192.168.3.0/24	hostIPAddress	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	192_168_1_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	192_168_2_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	192_168_3_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	192_168_8_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	10_10_1_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	10_10_2_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	10_10_10_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	10_10_11_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	10_10_13_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	10_10_18_x	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	10_10_3_0-10_10_4_255	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	10_10_12_69	name	A	NS_GLOBAL

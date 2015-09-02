@@ -1,0 +1,118 @@
+task_type	packages	locations	start_scan	stop_scan	shifts	scan_interval	credentials	scan_name	scan_desc	priority
+
+############################
+# Blackberry L3 Task
+############################
+#Inventory	BlackBerry Server (Windows)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	BlackBerryEnterpriseServerMSSQLConnection<BDNA,1>import-blackberry-good<BDNA,>BlackBerryEnterpriseServerMSSQLConnection<BDNA,1>import-blackberry-bad	Scan Test - Blackberry L3	Scan Test - Blackberry L3	Priority Scan
+
+############################
+# IBM DB2 L3 Task
+############################
+Inventory	IBM DB2 Database Server (UNIX)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	DB2Connection<BDNA,1>import-ssh-db2<BDNA,>DB2Connection<BDNA,1>import-adm-ssh-db2	Scan Test - IBM DB2 L3	Scan Test - IBM DB2 L3	Priority Scan
+
+############################
+# ESX L2 Task
+############################
+Inventory	VMware ESX	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	esx<BDNA,1>import-ESX-good<BDNA,>esx<BDNA,1>import-ESX-kchu<BDNA,>esx<BDNA,1>import-ESX-root2	Scan Test - ESX L2	Scan Test - ESX L2	Priority Scan
+
+############################
+# Informix L3 Task
+############################
+Inventory	Informix Database Server (UNIX)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	InformixDBAccessConnection<BDNA,1>import-ssh-good	Scan Test - Informix L3	Scan Test - Informix L3	Priority Scan
+
+############################
+# Level 1 Only Task
+############################
+Inventory	Basic Scan - Level 1 (no credentials required)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once		Scan Task All Level1		Normal Scan
+
+############################
+# MacOS L2 Task
+############################
+Inventory	Mac OS	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	sshForMac<BDNA,1>import-MacOS-good	Scan Test - MacOS L2	Scan Test - MacOS L2	Priority Scan
+
+############################################
+# SQL Server Task
+############################################
+Inventory	Microsoft SQL Server (Windows)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	MSSQLServerConnection<BDNA,1>import-mssql-good<BDNA,>MSSQLServerConnection<BDNA,1>import-mssql-blackberry<BDNA,>MSSQLServerConnection<BDNA,1>import-mssql-bad<BDNA,>MSSQLServerConnection<BDNA,1>import-adm-sql-sa<BDNA,>MSSQLServerConnection<BDNA,1>import-mssql-good2	Scan Test - Microsoft SQL Server	Scan Test - Microsoft SQL Server	Normal Scan
+
+############################
+# Oracle Applications L3 Task
+############################
+Inventory	Oracle Applications (UNIX)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	OracleAppConnection<BDNA,1>import-ssh-good<BDNA,1>import-orapp-good<BDNA,>OracleAppConnection<BDNA,1>import-ssh-good<BDNA,1>import-orapp-bad	Scan Test - Oracle Applications L3	Scan Test - Oracle Applications L3	Priority Scan
+
+
+############################
+# SAP L3 Task
+############################
+Inventory	SAP Solution Manager	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	SAPSolManConnection<BDNA,1>import-sapL3-bad	Scan Test - SAP L3	Scan Test - SAP L3	Priority Scan
+
+############################
+# SNMP L2 Task
+############################
+Inventory	SNMP	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	snmp<BDNA,1>import-snmp-good<BDNA,>snmp<BDNA,1>import-snmp-bad1<BDNA,>snmp<BDNA,1>import-snmp-bad2<BDNA,>snmp<BDNA,1>import-snmp-bad3	Scan Test - SNMP L2	Scan Test - SNMP L2	Priority Scan
+
+
+############################
+# Sybase L3 Task
+############################
+Inventory	Sybase Database Server (UNIX)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	SybaseConnection<BDNA,1>import-ssh-good<BDNA,1>import-unixSyb-good<BDNA,>SybaseConnection<BDNA,1>import-ssh-good<BDNA,1>import-unixSyb-bad	Scan Test - Sybase L3	Scan Test - Sybase L3	Priority Scan
+
+############################
+# UNIX L2 Task
+############################
+Inventory	UNIX	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	ssh<BDNA,1>import-ssh-good<BDNA,>ssh<BDNA,1>import-ssh-bad1<BDNA,>ssh<BDNA,1>import-ssh-bad2<BDNA,>ssh<BDNA,1>import-ssh-bad3<BDNA,>ssh<BDNA,1>import-ssh-bad4<BDNA,>ssh<BDNA,1>import-adm-ssh-db2<BDNA,>ssh<BDNA,1>import-adm-qa-ssh-root<BDNA,>ssh<BDNA,1>import-XenServer-good<BDNA,>ssh<BDNA,1>import-oracle-vm-guest-root<BDNA,>ssh<BDNA,1>import-oracle-vm-server<BDNA,>ssh<BDNA,1>import-XenServer-bdnatest<BDNA,>ssh<BDNA,1>import-xen-guest-root<BDNA,>ssh<BDNA,1>import-Tru64-ssh-root	Scan Test - UNIX L2	Scan Test - UNIX L2	Priority Scan
+
+
+############################
+# Unix Oracle L3 Task
+############################
+Inventory	Oracle Database Server (UNIX)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	OracleConnection<BDNA,1>import-ssh-good<BDNA,1>import-unixOra-manager<BDNA,>OracleConnection<BDNA,1>import-ssh-good<BDNA,1>import-unixOra-bdna<BDNA,>OracleConnection<BDNA,1>import-ssh-good<BDNA,1>import-unixOra-bad1<BDNA,>OracleConnection<BDNA,1>import-ssh-good<BDNA,1>import-unixOra-bad2<BDNA,>OracleConnection<BDNA,1>import-sshWithKey-good<BDNA,1>import-unixOra-bdna<BDNA,>OracleConnection<BDNA,1>import-adm-ssh-bdnatest<BDNA,1>import-adm-oracle-system	Scan Test - Unix Oracle L3	Scan Test - Unix Oracle L3	Priority Scan
+
+
+############################
+# WebLogic L3 Task
+############################
+Inventory	WebLogic Administration Server (UNIX)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	UNIXWebLogicL3Connection<BDNA,1>import-adm-ssh-bdnatest<BDNA,1>import-adm-weblogic<BDNA,>UNIXWebLogicL3Connection<BDNA,1>import-adm-qa-ssh-root<BDNA,1>import-adm-qa-weblogic1<BDNA,>UNIXWebLogicL3Connection<BDNA,1>import-adm-qa-ssh-root<BDNA,1>import-adm-qa-weblogic2	Scan Test - WebLogic L3	Scan Test - WebLogic L3	Priority Scan
+
+############################
+# WebSphere L3 Task
+############################
+Inventory	WebSphere Application Server (UNIX)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	UNIXWASConnection<BDNA,1>import-ssh-good<BDNA,1>import-websphereUnix<BDNA,>UNIXWASConnection<BDNA,1>import-ssh-websphere<BDNA,1>import-websphereUnix<BDNA,>UNIXWASConnection<BDNA,1>import-adm-qa-ssh-root<BDNA,1>import-adm-qa-websphere1	Scan Test - WebSphere L3	Scan Test - WebSphere L3	Priority Scan
+
+
+############################
+# Windows L2 Task
+############################
+Inventory	Windows	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	defaultwincs<BDNA,1>import-wincs-admin-bdna<BDNA,>defaultwincs<BDNA,1>import-wincs-admin-bdna123<BDNA,>defaultwincs<BDNA,1>import-wincs-admin-simple0<BDNA,>defaultwincs<BDNA,1>import-wincs-bituser3<BDNA,>defaultwincs<BDNA,1>import-wincs-bituser2<BDNA,>defaultwincs<BDNA,1>import-wincs-itself<BDNA,>defaultwincs<BDNA,1>import-wincs-baduser<BDNA,>defaultwincs<BDNA,1>import-wincs-bdnauser<BDNA,>defaultwincs<BDNA,1>import-wincs-admin-win2008<BDNA,>defaultwincs<BDNA,1>import-xen-app-bdnatest<BDNA,>defaultwincs<BDNA,1>import-adm-wincs-admin<BDNA,>defaultwincs<BDNA,1>import-ms-virtual-server	Scan Test - Windows L2	Scan Test - Windows L2	Priority Scan
+
+
+############################
+# Windows Oracle L3 Task
+############################
+Inventory	Oracle Database Server (Windows)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	winOracleConnection<BDNA,1>import-wincs-admin-bdna123<BDNA,1>import-winOra-bdna<BDNA,>winOracleConnection<BDNA,1>import-wincs-admin-bdna123<BDNA,1>import-winOra-myoracle<BDNA,>winOracleConnection<BDNA,1>import-wincs-admin-bdna123<BDNA,1>import-winOra-bdna123<BDNA,>winOracleConnection<BDNA,1>import-wincs-admin-bdna123<BDNA,1>import-winOra-mynavy	Scan Test - Windows Oracle L3	Scan Test - Windows Oracle L3	Priority Scan
+
+
+############################
+# ALOM L2 Task
+############################
+Inventory	Solaris Chasis ALOM	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	alom<BDNA,1>import-alom-good<BDNA,>alom<BDNA,1>import-alom-bad	Scan Test - Solaris Chasis ALOM L2	Scan Test - Solaris Chasis ALOM L2	Priority Scan
+
+
+############################
+# ILOM L2 Task
+############################
+Inventory	Solaris Chasis ILOM	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once	ilom<BDNA,1>import-ilom-good<BDNA,>ilom<BDNA,1>import-ilom-bad	Scan Test - Solaris Chasis ILOM L2	Scan Test - Solaris Chasis ILOM L2	Priority Scan
+
+
+############################
+# VCENTER Task
+############################
+Inventory	Windows<BDNA,>VMware vCenter<BDNA,>Basic Scan - Level 1 (no credentials required)	root.$bdna.NS_GLOBAL.network_10_10_12_69	immediately	12/31/2132 00:00:00	always	once	defaultwincs<BDNA,1>import-wincs-admin-simple0<BDNA,>vCenter<BDNA,1>import-vCenter-good	Scan Test - vCenter	Normal Scan
+
+
+############################
+# Hyper-V Task
+############################
+#Inventory	Hyper-V Server	root.$bdna.project_Project_All	01/01/1970 00:00:00	12/31/2132 00:00:00	always	once	hypervwincs<BDNA,1>import-hyperv-good1<BDNA,>hypervwincs<BDNA,1>import-hyperv-good2<BDNA,>hypervwincs<BDNA,1>import-hyperv-bad	Scan Task Hyper-V		Normal Scan
+
+

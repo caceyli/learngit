@@ -1,0 +1,497 @@
+fingerprint com.bdna.modules.app.Sybase.UNIX_Sybase_IQ "Sybase IQ on UNIX" {
+    metadata {
+        version 1;
+        compatibleWith 1;
+        newCategory "UNIX_Sybase_IQ:Sybase IQ on UNIX";
+        category "Sybase";
+        depends "com.bdna.modules.os.UNIX 1";
+        depends "com.bdna.modules.app.Sybase 1";
+    }
+
+    xml UNIX_Sybase_IQ_TYPE {:
+    <element
+        elementName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQ"
+        elementTypePath="root.types.moduleConfig.singleModuleConfig"
+        isTemplate="false"
+        parentPath="root.$bdna.globalModuleConfig"
+    />
+
+    <data
+        elementPath="root.$bdna.globalModuleConfig.com_bdna_modules_app_Sybase_UNIX_Sybase_IQ"
+        attributeName="processPatternList"><![CDATA[java<BDNA,>iqsrv]]></data>
+    <data
+        elementPath="root.$bdna.globalModuleConfig.com_bdna_modules_app_Sybase_UNIX_Sybase_IQ"
+        attributeName="applicationFootprintTag"><![CDATA[BC82A37D]]></data>
+
+    <element
+        elementName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQ"
+        elementTypePath="root.types.moduleConfig.singleModuleConfig"
+        isTemplate="false"
+        parentPath="root.$bdna.globalModuleConfig"
+    />
+
+    <data
+        elementPath="root.$bdna.globalModuleConfig.com_bdna_modules_app_Sybase_UNIX_Sybase_IQ"
+        attributeName="applicationFootprintTag"><![CDATA[BC82A37D]]></data>
+    <data
+        elementPath="root.$bdna.globalModuleConfig.com_bdna_modules_app_Sybase_UNIX_Sybase_IQ"
+        attributeName="filePatternList"><![CDATA[/bin/start_iq<BDNA,>/bin/dbdsn<BDNA,>/bin64/getiqinfo.sh<BDNA,>/bin/getiqinfo.sh<BDNA,>/bin/iqdsn<BDNA,>/bin64/iqdsn<BDNA,>/bin64/start_iq<BDNA,>/bin/start_asiq]]></data>
+
+    <element
+        elementName="UNIX_Sybase_IQ"
+        elementTypePath="root.types.resource.software.application.Sybase"
+        displayLabel="Sybase IQ on UNIX"
+        isTemplate="true">
+        <attrSysDefValue
+            attributeName="isRunning">False</attrSysDefValue>
+        <attributeSet
+            attributeSetName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQDynamic"
+            displayLabel="com_bdna_modules_app_Sybase_UNIX_Sybase_IQDynamic"
+            collectorName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQDynamic_collector"
+            maxScriptRunTime="1800000"
+            collectionInterval="7200000">
+        <attributeSetEntry attributeName="isRunning" />
+        </attributeSet>
+        <attributeSet
+            attributeSetName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQ_level2_shell_ATS"
+            displayLabel="com_bdna_modules_app_Sybase_UNIX_Sybase_IQ_level2_shell_ATS"
+            collectorName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQ_level2_shell_ATS_collector"
+            maxScriptRunTime="1800000"
+            collectionInterval="7200000">
+        <attributeSetEntry attributeName="version" />
+        </attributeSet>
+    </element>
+
+    <packageAttributeSet packageName="UNIX_Sybase_IQ" attributeSetName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQDynamic"  />
+    <packageAttributeSet packageName="Sybase" attributeSetName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQDynamic"  />
+    <packageAttributeSet packageName="UNIX_Sybase_IQ" attributeSetName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQ_level2_shell_ATS"  />
+    <packageAttributeSet packageName="Sybase" attributeSetName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQ_level2_shell_ATS"  />
+
+    <collector
+        collectorName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQDynamic_collector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQDynamic_script">
+        <scriptRef name="com_bdna_modules_app_Sybase_UNIX_Sybase_IQDynamic_script" scriptType="collection" seqNum="1"  />
+    </collector>
+
+    <collector
+        collectorName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQ_level2_shell_ATS_collector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQ_level2_shell_ATS_script">
+        <scriptRef name="com_bdna_modules_app_Sybase_UNIX_Sybase_IQ_level2_shell_ATS_script" scriptType="collection" seqNum="1"  />
+    </collector>
+
+    <element
+        elementName="UNIX_Sybase_IQFootprint"
+        elementTypePath="root.types.footprint"
+        displayLabel="UNIX_Sybase_IQFootprint"
+        isTemplate="true">
+        <attribute
+            attributeName="installDirs3"
+            dataType="text"
+            isList="true"
+            displayLabel="installDirs3"
+        />
+        <attribute
+            attributeName="installDirs4"
+            dataType="text"
+            isList="true"
+            displayLabel="installDirs4"
+        />
+        <attribute
+            attributeName="installDirs2"
+            dataType="text"
+            isList="true"
+            displayLabel="installDirs2"
+        />
+        <attributeSet
+            attributeSetName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQFootprintStatic"
+            displayLabel="com_bdna_modules_app_Sybase_UNIX_Sybase_IQFootprintStatic"
+            collectorName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQFootprintStatic_collector"
+            maxScriptRunTime="1800000"
+            collectionInterval="7200000">
+        <attributeSetEntry attributeName="installDirs" />
+        <attributeSetEntry attributeName="installDirs3" />
+        <attributeSetEntry attributeName="installDirs4" />
+        <attributeSetEntry attributeName="installDirs2" />
+        </attributeSet>
+    </element>
+
+    <packageAttributeSet packageName="UNIX_Sybase_IQ" attributeSetName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQFootprintStatic"  />
+    <packageAttributeSet packageName="Sybase" attributeSetName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQFootprintStatic"  />
+
+    <collector
+        collectorName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQFootprintStatic_collector"
+        connectionMethodPath="root.types.collection.connectionMethod.perl.shellConnection"
+        collectionScriptName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQFootprintStatic_script">
+        <scriptRef name="com_bdna_modules_app_Sybase_UNIX_Sybase_IQFootprintStatic_script" scriptType="collection" seqNum="1"  />
+    </collector>
+
+    <relationship
+        parentType="root.types.resource.software.operatingSystem.UNIX"
+        childType="root.types.resource.software.application.Sybase.UNIX_Sybase_IQ"
+    />
+
+    <relationship
+        parentType="root.types.resource.software.operatingSystem.UNIX"
+        childType="root.types.footprint.UNIX_Sybase_IQFootprint"
+    />
+
+    <relationship
+        parentType="root.types.footprint.UNIX_Sybase_IQFootprint"
+        childType="root.types.resource.software.application.Sybase.UNIX_Sybase_IQ"
+    />
+
+    <rule
+        name="create_UNIX_Sybase_IQ_from_UNIX_Sybase_IQFootprint16515"
+        weight="50"
+        generated="true">
+        <search
+            variable="UNIX_Sybase_IQFootprint"
+            pattern="root.types.footprint.UNIX_Sybase_IQFootprint">
+            <use attribute="installDirs"  />
+        </search>
+        <search
+            variable="UNIX"
+            pattern="root.types.resource.software.operatingSystem.UNIX">
+        </search>
+
+        <simpleJoinFilter lhsVariable="UNIX"     operator="parentOf" rhsVariable="UNIX_Sybase_IQFootprint"    />
+        <conclusion type="java" argumentList="com.bdna.modules.app.Sybase UNIX_Sybase_IQ create_UNIX_Sybase_IQ_from_UNIX_Sybase_IQFootprint16515  gnu.regexp.*">
+        <![CDATA[
+            String parent = (String)args.get("UNIX_Sybase_IQFootprint.elementFullName");
+            String eltFullName;
+            HashSet eCreated = new HashSet();
+            ArrayList _UNIX_Sybase_IQFootprint_installDirs = _j4_split("<BDNA,>", (String)args.get("UNIX_Sybase_IQFootprint.installDirs"));
+            String result = "<result>";
+            RE _exTag = new RE("TAG");
+            for (Iterator _uqj4_16516 = _UNIX_Sybase_IQFootprint_installDirs.iterator(); _uqj4_16516.hasNext(); ) {
+                String _dir = (String)_uqj4_16516.next();
+                if (! (_j4_regexpIsMatch(_dir, _exTag))) {
+
+                    String eltName = _j4_concat("UNIX_Sybase_IQ_", _dir);
+                    eltName = eltName.replace('.', '_').replaceAll("\\s", "_");
+                    eltFullName = parent + "." + eltName;
+                    if (!eCreated.contains(eltFullName)) {
+                        eCreated.add(eltFullName);
+                        result += elementXML(eltName, "root.types.resource.software.application.Sybase.UNIX_Sybase_IQ", parent);
+                        result += _j4_dataXML(eltFullName, "name","Sybase IQ on UNIX");
+                        result += _j4_dataXML(eltFullName, "installDirectory", _dir);
+                    }
+
+                }
+
+            }
+
+            for (Iterator it16517 = eCreated.iterator(); it16517.hasNext(); ) {
+                String _uqj4_16518 = (String)it16517.next();
+                result += containerXML((String)args.get("UNIX.elementFullName"), _uqj4_16518);
+            }
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+    <rule
+        name="create_UNIX_Sybase_IQ_from_UNIX_Sybase_IQFootprint16519"
+        weight="50"
+        generated="true">
+        <search
+            variable="UNIX_Sybase_IQFootprint"
+            pattern="root.types.footprint.UNIX_Sybase_IQFootprint">
+            <use attribute="installDirs2"  />
+        </search>
+        <search
+            variable="UNIX"
+            pattern="root.types.resource.software.operatingSystem.UNIX">
+        </search>
+
+        <simpleJoinFilter lhsVariable="UNIX"     operator="parentOf" rhsVariable="UNIX_Sybase_IQFootprint"    />
+        <conclusion type="java" argumentList="com.bdna.modules.app.Sybase UNIX_Sybase_IQ create_UNIX_Sybase_IQ_from_UNIX_Sybase_IQFootprint16519  gnu.regexp.*">
+        <![CDATA[
+            String parent = (String)args.get("UNIX_Sybase_IQFootprint.elementFullName");
+            String eltFullName;
+            HashSet eCreated = new HashSet();
+            ArrayList _UNIX_Sybase_IQFootprint_installDirs2 = _j4_split("<BDNA,>", (String)args.get("UNIX_Sybase_IQFootprint.installDirs2"));
+            String result = "<result>";
+            RE _exTag = new RE("TAG");
+            for (Iterator _uqj4_16520 = _UNIX_Sybase_IQFootprint_installDirs2.iterator(); _uqj4_16520.hasNext(); ) {
+                String _dir2 = (String)_uqj4_16520.next();
+                if (! (_j4_regexpIsMatch(_dir2, _exTag))) {
+
+                    String eltName = _j4_concat("UNIX_Sybase_IQ_", _dir2);
+                    eltName = eltName.replace('.', '_').replaceAll("\\s", "_");
+                    eltFullName = parent + "." + eltName;
+                    if (!eCreated.contains(eltFullName)) {
+                        eCreated.add(eltFullName);
+                        result += elementXML(eltName, "root.types.resource.software.application.Sybase.UNIX_Sybase_IQ", parent);
+                        result += _j4_dataXML(eltFullName, "name","Sybase IQ on UNIX");
+                        result += _j4_dataXML(eltFullName, "installDirectory", _dir2);
+                    }
+
+                }
+
+            }
+
+            for (Iterator it16521 = eCreated.iterator(); it16521.hasNext(); ) {
+                String _uqj4_16522 = (String)it16521.next();
+                result += containerXML((String)args.get("UNIX.elementFullName"), _uqj4_16522);
+            }
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+    <rule
+        name="create_UNIX_Sybase_IQ_from_UNIX_Sybase_IQFootprint16523"
+        weight="50"
+        generated="true">
+        <search
+            variable="UNIX_Sybase_IQFootprint"
+            pattern="root.types.footprint.UNIX_Sybase_IQFootprint">
+            <use attribute="installDirs3"  />
+        </search>
+        <search
+            variable="UNIX"
+            pattern="root.types.resource.software.operatingSystem.UNIX">
+        </search>
+
+        <simpleJoinFilter lhsVariable="UNIX"     operator="parentOf" rhsVariable="UNIX_Sybase_IQFootprint"    />
+        <conclusion type="java" argumentList="com.bdna.modules.app.Sybase UNIX_Sybase_IQ create_UNIX_Sybase_IQ_from_UNIX_Sybase_IQFootprint16523  gnu.regexp.*">
+        <![CDATA[
+            String parent = (String)args.get("UNIX_Sybase_IQFootprint.elementFullName");
+            String eltFullName;
+            HashSet eCreated = new HashSet();
+            ArrayList _UNIX_Sybase_IQFootprint_installDirs3 = _j4_split("<BDNA,>", (String)args.get("UNIX_Sybase_IQFootprint.installDirs3"));
+            String result = "<result>";
+            RE _exTag = new RE("TAG");
+            for (Iterator _uqj4_16524 = _UNIX_Sybase_IQFootprint_installDirs3.iterator(); _uqj4_16524.hasNext(); ) {
+                String _dir3 = (String)_uqj4_16524.next();
+                if (! (_j4_regexpIsMatch(_dir3, _exTag))) {
+
+                    String eltName = _j4_concat("UNIX_Sybase_IQ_", _dir3);
+                    eltName = eltName.replace('.', '_').replaceAll("\\s", "_");
+                    eltFullName = parent + "." + eltName;
+                    if (!eCreated.contains(eltFullName)) {
+                        eCreated.add(eltFullName);
+                        result += elementXML(eltName, "root.types.resource.software.application.Sybase.UNIX_Sybase_IQ", parent);
+                        result += _j4_dataXML(eltFullName, "name","Sybase IQ on UNIX");
+                        result += _j4_dataXML(eltFullName, "installDirectory", _dir3);
+                    }
+
+                }
+
+            }
+
+            for (Iterator it16525 = eCreated.iterator(); it16525.hasNext(); ) {
+                String _uqj4_16526 = (String)it16525.next();
+                result += containerXML((String)args.get("UNIX.elementFullName"), _uqj4_16526);
+            }
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+    <rule
+        name="create_UNIX_Sybase_IQ_from_UNIX_Sybase_IQFootprint16527"
+        weight="50"
+        generated="true">
+        <search
+            variable="UNIX_Sybase_IQFootprint"
+            pattern="root.types.footprint.UNIX_Sybase_IQFootprint">
+            <use attribute="installDirs4"  />
+        </search>
+        <search
+            variable="UNIX"
+            pattern="root.types.resource.software.operatingSystem.UNIX">
+        </search>
+
+        <simpleJoinFilter lhsVariable="UNIX"     operator="parentOf" rhsVariable="UNIX_Sybase_IQFootprint"    />
+        <conclusion type="java" argumentList="com.bdna.modules.app.Sybase UNIX_Sybase_IQ create_UNIX_Sybase_IQ_from_UNIX_Sybase_IQFootprint16527  gnu.regexp.*">
+        <![CDATA[
+            String parent = (String)args.get("UNIX_Sybase_IQFootprint.elementFullName");
+            String eltFullName;
+            HashSet eCreated = new HashSet();
+            ArrayList _UNIX_Sybase_IQFootprint_installDirs4 = _j4_split("<BDNA,>", (String)args.get("UNIX_Sybase_IQFootprint.installDirs4"));
+            String result = "<result>";
+            RE _exTag = new RE("TAG");
+            for (Iterator _uqj4_16528 = _UNIX_Sybase_IQFootprint_installDirs4.iterator(); _uqj4_16528.hasNext(); ) {
+                String _dir4 = (String)_uqj4_16528.next();
+                if (! (_j4_regexpIsMatch(_dir4, _exTag))) {
+
+                    String eltName = _j4_concat("UNIX_Sybase_IQ_", _dir4);
+                    eltName = eltName.replace('.', '_').replaceAll("\\s", "_");
+                    eltFullName = parent + "." + eltName;
+                    if (!eCreated.contains(eltFullName)) {
+                        eCreated.add(eltFullName);
+                        result += elementXML(eltName, "root.types.resource.software.application.Sybase.UNIX_Sybase_IQ", parent);
+                        result += _j4_dataXML(eltFullName, "name","Sybase IQ on UNIX");
+                        result += _j4_dataXML(eltFullName, "installDirectory", _dir4);
+                    }
+
+                }
+
+            }
+
+            for (Iterator it16529 = eCreated.iterator(); it16529.hasNext(); ) {
+                String _uqj4_16530 = (String)it16529.next();
+                result += containerXML((String)args.get("UNIX.elementFullName"), _uqj4_16530);
+            }
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+    <rule
+        name="create_UNIX_Sybase_IQFootprint_from_UNIX16531"
+        weight="50"
+        generated="true">
+        <search
+            variable="UNIX"
+            pattern="root.types.resource.software.operatingSystem.UNIX">
+            <use attribute="applicationFootprintTags"  />
+            <simpleFilterConst attribute="applicationFootprintTags" operator="contains" constant=",BC82A37D,"  />
+        </search>
+
+        <conclusion type="java" argumentList="com.bdna.modules.app.Sybase UNIX_Sybase_IQ create_UNIX_Sybase_IQFootprint_from_UNIX16531  gnu.regexp.*">
+        <![CDATA[
+            String parent = (String)args.get("UNIX.elementFullName");
+            String eltFullName;
+            HashSet eCreated = new HashSet();
+            ArrayList _UNIX_applicationFootprintTags = _j4_split("<BDNA,>", (String)args.get("UNIX.applicationFootprintTags"));
+            String result = "<result>";
+
+            String eltName = "UNIX_Sybase_IQFootprint" + _j4_createElementName("");
+            eltFullName = parent + "." + eltName;
+            if (!eCreated.contains(eltFullName)) {
+                eCreated.add(eltFullName);
+                result += elementXML(eltName, "root.types.footprint.UNIX_Sybase_IQFootprint", parent);
+                result += _j4_dataXML(eltFullName, "name","");
+            }
+
+
+            result += "</result>";
+            return result;
+        ]]>
+        </conclusion>
+    </rule>
+
+    <scriptTable
+        scriptName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQDynamic_script"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%efntype%:%atr%"
+            efnSource="root.types.resource.software.application.Sybase.UNIX_Sybase_IQ"
+            attributeName="installDirectory" />
+        <![CDATA[
+            my $host = $BDNA_Connection_Info{"HostObject"};
+            my $_UNIX_Sybase_IQ_installDirectory = $BDNA_Params{"root.types.resource.software.application.Sybase.UNIX_Sybase_IQ:installDirectory"};
+            my $_UNIX_Sybase_IQ_isRunning;
+            my @_runningProcess = &_j4_findProcess($host, [("iqsrv")]);
+            my @_runningProcess2 = &_j4_findProcess($host, [("java")]);
+            my $_isRunning = "False";
+            my $_isRunningDir;
+            my $_exProcess = "(.*)bin/iqsrv|(.*)bin64/iqsrv";
+            my $_exProcess2 = "iq.agent=(.*)/java/IQAgent\\d*.jar";
+            foreach my $_proc (@_runningProcess) {
+                if (&_j4_defined($_proc)&&&_j4_regexpIsMatch($_proc, $_exProcess)) {
+                    $_isRunningDir = &_j4_lref([&_j4_regexpFirstMatch($_proc, $_exProcess)], 0);
+                    if (&_j4_contains($_isRunningDir, $_UNIX_Sybase_IQ_installDirectory)) {
+                        $_isRunning = "True";
+                    }
+                }
+            }
+            foreach my $_proc (@_runningProcess2) {
+                if (&_j4_defined($_proc)&&&_j4_regexpIsMatch($_proc, $_exProcess2)) {
+                    $_isRunningDir = &_j4_lref([&_j4_regexpFirstMatch($_proc, $_exProcess2)], 0);
+                    if (&_j4_contains($_isRunningDir, $_UNIX_Sybase_IQ_installDirectory)) {
+                        $_isRunning = "True";
+                    }
+                }
+            }
+            $_UNIX_Sybase_IQ_isRunning = $_isRunning;
+            $BDNA_Results{"isRunning"} = $_UNIX_Sybase_IQ_isRunning;
+        ]]>
+    </scriptTable>
+
+
+    <scriptTable
+        scriptName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQ_level2_shell_ATS_script"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="false" isOptional="false"
+            argNamePattern="%efntype%:%atr%"
+            efnSource="root.types.resource.software.application.Sybase.UNIX_Sybase_IQ"
+            attributeName="installDirectory" />
+        <![CDATA[
+            my $host = $BDNA_Connection_Info{"HostObject"};
+            my $_UNIX_Sybase_IQ_installDirectory = $BDNA_Params{"root.types.resource.software.application.Sybase.UNIX_Sybase_IQ:installDirectory"};
+            my $_UNIX_Sybase_IQ_version;
+            my %_env = ();
+            my %_env2 = ();
+            my @_versionInfo = &_j4_executeCommand($host, {%_env}, $_UNIX_Sybase_IQ_installDirectory, &_j4_concat($_UNIX_Sybase_IQ_installDirectory, "/bin64/iqdsn -l"), "true");
+            my @_versionInfo2 = &_j4_executeCommand($host, {%_env2}, $_UNIX_Sybase_IQ_installDirectory, &_j4_concat($_UNIX_Sybase_IQ_installDirectory, "/bin/iqdsn -l"), "true");
+            my $_exVersion = "Sybase\\s*IQ\\s*Data\\s*Source\\s*Utility\\s*Version\\s*(\\d[\\d\\.]*)";
+            my $_exDirVersion = "IQ-(\\d+)_(\\d)";
+            my $_version;
+            my $_versionPrefixDir;
+            my $_versionSuffixDir;
+            foreach my $_line (@_versionInfo) {
+                if (! (&_j4_defined($_version))&&&_j4_regexpIsMatch($_line, $_exVersion)) {
+                    $_version = &_j4_lref([&_j4_regexpFirstMatch($_line, $_exVersion)], 0);
+                }
+            }
+            foreach my $_line2 (@_versionInfo2) {
+                if (! (&_j4_defined($_version))&&&_j4_regexpIsMatch($_line2, $_exVersion)) {
+                    $_version = &_j4_lref([&_j4_regexpFirstMatch($_line2, $_exVersion)], 0);
+                }
+            }
+            if (! (&_j4_defined($_version))&&&_j4_regexpIsMatch($_UNIX_Sybase_IQ_installDirectory, $_exDirVersion)) {
+                $_versionPrefixDir = &_j4_lref([&_j4_regexpFirstMatch($_UNIX_Sybase_IQ_installDirectory, $_exDirVersion)], 0);
+                $_versionSuffixDir = &_j4_lref([&_j4_regexpFirstMatch($_UNIX_Sybase_IQ_installDirectory, $_exDirVersion)], 1);
+                if (&_j4_defined($_versionPrefixDir)&&&_j4_defined($_versionSuffixDir)) {
+                    $_version = &_j4_concat(&_j4_concat($_versionPrefixDir, "."), $_versionSuffixDir);
+                }
+            }
+            if (&_j4_defined($_version)) {
+                $_UNIX_Sybase_IQ_version = $_version;
+                $BDNA_Results{"version"} = $_UNIX_Sybase_IQ_version;
+            }
+
+        ]]>
+    </scriptTable>
+
+    <scriptTable
+        scriptName="com_bdna_modules_app_Sybase_UNIX_Sybase_IQFootprintStatic_script"
+        scriptVersion="1.0">
+        <scriptArg isGlobal="true" isOptional="false"
+            argNamePattern="%efnname%:%atr%"
+            efnSource="root.$bdna.globalModuleConfig"
+            attributeName="filePatternList" />
+        <scriptArg isGlobal="true" isOptional="true"
+            argNamePattern="%efnname%:%atr%"
+            efnSource="root.$bdna.globalModuleConfig.ModularCollectionOutOfSystemFind"
+            attributeName="ModularCollection::outOfSystemFindFilePath" />
+        <![CDATA[
+            my $host = $BDNA_Connection_Info{"HostObject"};
+            my @_UNIX_installDirs2;
+            my @_UNIX_installDirs;
+            my @_UNIX_installDirs4;
+            my @_UNIX_installDirs3;
+            @_UNIX_installDirs = &_j4_findFiles($host, [("/bin/dbdsn", "/bin/getiqinfo.sh", "/bin/start_asiq")]);
+            @_UNIX_installDirs = &_j4_push([@_UNIX_installDirs], "TAG12_5");
+            @_UNIX_installDirs2 = &_j4_findFiles($host, [("/bin/iqdsn", "/bin/getiqinfo.sh", "/bin/start_asiq")]);
+            @_UNIX_installDirs2 = &_j4_push([@_UNIX_installDirs2], "TAG12_6");
+            @_UNIX_installDirs3 = &_j4_findFiles($host, [("/bin/iqdsn", "/bin/getiqinfo.sh", "/bin/start_iq")]);
+            @_UNIX_installDirs3 = &_j4_push([@_UNIX_installDirs3], "TAG1516");
+            @_UNIX_installDirs4 = &_j4_findFiles($host, [("/bin64/iqdsn", "/bin64/getiqinfo.sh", "/bin64/start_iq")]);
+            @_UNIX_installDirs4 = &_j4_push([@_UNIX_installDirs4], "TAG1516_64");
+            $BDNA_Results{"installDirs3"} = join($BDNA_Separator, @_UNIX_installDirs3);
+            $BDNA_Results{"installDirs"} = join($BDNA_Separator, @_UNIX_installDirs);
+            $BDNA_Results{"installDirs4"} = join($BDNA_Separator, @_UNIX_installDirs4);
+            $BDNA_Results{"installDirs2"} = join($BDNA_Separator, @_UNIX_installDirs2);
+        ]]>
+    </scriptTable>
+    :}
+}
+
+

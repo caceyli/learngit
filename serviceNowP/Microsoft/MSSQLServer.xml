@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+**********************************************************************
+*
+* Copyright (c) 2007-2008 BDNA Corporation.
+* All Rights Reserved. BDNA products and services are protected
+* by the following U.S. patent: #6,988,134. BDNA is trademark of
+* BDNA Corporation.
+*
+* ******BDNA CONFIDENTIAL******
+*
+* The following code was developed and is owned by BDNA Corporation.
+* This code is confidential and may contain trade secrets.  The code
+* must not be distributed to any party outside of BDNA Corporation
+* without written permission from BDNA Corporation.  The code may be
+* covered by patents, patents pending, or patents applied for in the
+* US or elsewhere.
+*
+* 
+**********************************************************************
+-->
+
+<!DOCTYPE bdna SYSTEM "bdna.dtd">
+
+<module 
+    name="com.bdna.presentationModules.database.MSSQLServer"
+    displayLabel="Presentation Properties for MSSQL Attributes"
+    requiredPlatformVersion="030300"      
+    version="2" 
+    lastCompatibleVersion="1">
+    
+    <moduleDependency parentModuleName="com.bdna.modules.database.MSSQLServer" parentModuleVersion="1" />
+    
+    <typeElement typeElementName="root.types.resource.applicationObject.server.database.MSSQLServerInstance">
+        <attrUIProp attributeName="MSSQLL3DatabaseDetails" isDisplayable="0" showInListView="0"/>
+    </typeElement>
+
+    <typeElement typeElementName="root.types.resource.software.installation.MSSQLServerInstallation">
+        <attrUIProp attributeName="cdKey" isDisplayable="0" showInListView="0"/>
+        <attrUIProp attributeName="clusterIP" isDisplayable="0" showInListView="0"/>
+    </typeElement>
+
+    <typeElement typeElementName="root.types.resource.applicationObject.server.database.MSSQLServerInstance">
+        <attrUIProp attributeName="cdKey" isDisplayable="0" showInListView="0"/>
+        <attrUIProp attributeName="clusterIP" isDisplayable="0" showInListView="0"/>
+    </typeElement>
+</module>
+
+

@@ -111,7 +111,7 @@ k. setup oracle invirenment parameters:
    export ORACLE_SID=ora11g
    export LD_LIBRARY_PATH=$ORACLE_HOME/lib
    export PATH=$PATH:$ORACLE_HOME/bin
-   export DISPLAY=<Cygwin_Host>:0.0
+   export DISPLAY=<Cygwin_Host>:0.0  (sometimes probably DISPLAY=<Cygwin_Host>:3)
 l. login vnc :192.168.9.102: 2 (as oracle user)
    xhost +
    cd /oracle/database
@@ -190,7 +190,33 @@ w. Create BDNA tablespace: https://github.com/caceyli/learngit/blob/master/cacey
 Discover 7.7 Production Machine Setup (http://wiki.bdnacorp.com/index.php/Discover_7.7_Production_Machine_Setup)
 1. Setup cron for time synchronization  (not clear)
 2. Create users (eg: bdna)
-3. Install DB client  (not clear)
+3. Install DB client  (don't need to insall oracle server or useradd oracle)
+   #mkdir /home/oracle
+   Put the tarball from ftp://192.168.8.25/app/BDNA/discover7.7.0/ora11gClientApp.tar.gz into /home/oracle
+   #cd /home/oracle
+   #gunzip *.gz | tar -xvf
+   #su
+   #cd /
+   #ln -s  /home/oracle/u01 u01
+   #su - bdna
+   $vi .bash_profile
+   export ORACLE_BASE=/u01/app/oracle
+   export ORACLE_HOME=$ORACLE_BASE/product/11.2.0
+   Add $ORACLE_HOME/bin to PATH
+   $Relogin
+   $Edit /u01/APP/oracle/product/11.2.0/network/admin/tnsnames.ora
+   Add tnsname entry for svr1018 as below
+   svr1018=
+   (DESCRIPTION =
+     (ADDRESS_LIST =
+       (ADDRESS = (PROTOCOL = TCP) HOST = svr1018.bdnacorp.com)(PORT = 1521))
+     )
+     (CONNECT_DATA =
+       (SERVER = DEDICATED)
+       (SID = ora11g)
+     )
+   )
+   (Notes: only if tnsping svr1018 OK, installation is finished, even though sqlplus system/bdna connection failed.)
 4. Install RPMs from the EssentialRPMs.tar.gz
 6. Install Perl RPMs from EssentialPerlRPMs.tar.gz
 9. Install RPMs for 32 bit application support from Essential32bit.tar.gz
@@ -215,7 +241,7 @@ Discover 7.7 Production Machine Setup (http://wiki.bdnacorp.com/index.php/Discov
    bdna    ALL=NOPASSWD: ALL
    oracle  ALL=NOPASSWD: ALL
 10. Add the local hostname and ip address to /etc/hosts
-   192.168.9.102    VMST9102   VMST9102.BDNACN.COM
+    192.168.9.102    VMST9102   VMST9102.BDNACN.COM
 
 
 Discover 7.7 Development Machine Setup (http://wiki.bdnacorp.com/index.php/Discover_7.7_Development_Machine_Setup)
