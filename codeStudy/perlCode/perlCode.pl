@@ -31,4 +31,4 @@ while(defined($strl =<>))
 $strl=~/(\|.*\|)/;
 print input $1;
 }
-20150919
+20150930
