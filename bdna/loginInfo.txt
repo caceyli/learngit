@@ -69,6 +69,11 @@ user/email: cacey/bdnacn.com
 password:   Simple01
 
 
+JBoss Login
+cacey@bdnacn.com
+simple01
+
+
 
 
 

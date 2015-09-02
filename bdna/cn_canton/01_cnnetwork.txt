@@ -1,0 +1,10 @@
+Add/Delete	Network Name	Zone (IP)	CLE	Namespace
+A	192_168_8_x	192.168.8.1-255	Default collection engine	Global Namespace
+A	192_168_9_x	192.168.9.1-255	Default collection engine	Global Namespace
+A	192_168_10_x	192.168.10.1-255	Default collection engine	Global Namespace
+A	10_10_2_x	10.10.2.25	Default collection engine	Global Namespace
+A	10_10_4_30	10.10.4.30	Default collection engine	Global Namespace
+A	10_10_1_128	10.10.1.128	Default collection engine	Global Namespace
+A	10_10_11_94	10.10.11.94	Default collection engine	Global Namespace
+A	192_168_1_111	192.168.1.111	Default collection engine	Global Namespace
+A	192_168_1_44	192.168.1.44	Default collection engine	Global Namespace
