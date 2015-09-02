@@ -33,6 +33,7 @@ lmsOverview_20150316.csv  lmsTables_20150316.dmp  lmsTables_20150316.log
 Git commands
 git clone git@gitlab.bdnacorp.com:discover-team/sequences-7-7.git
 git clone git@gitlab.bdnacorp.com:discover-team/sequences-7-6-1.git
+git clone git@gitlab.bdnacorp.com:discover-team/discover-7-7.git
 
 
 

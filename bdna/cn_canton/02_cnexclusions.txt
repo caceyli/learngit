@@ -1,0 +1,10 @@
+IP	Networks	Namespace
+192.168.8.12		Global Namespace
+192.168.8.13		Global Namespace
+192.168.8.14		Global Namespace
+192.168.8.15		Global Namespace
+192.168.8.105		Global Namespace
+192.168.8.22		Global Namespace
+192.168.8.45		Global Namespace
+192.168.8.25		Global Namespace
+192.168.8.37		Global Namespace
