@@ -1,0 +1,29 @@
+1. prepare environment:
+   a. install jdk 1.8.
+   b. install eclips.
+   c. prepare sshd library and java code. (D:\lihhgithub\learngit\bdna\aeilomSimulateJDK8.zip)
+
+2. aeilomSimulateJDK8.zip incluses:
+   a. sshd library for jdb8: apache-sshd-0.14.0.
+   b. java code: AlomShell.java, AlomTest.java, MyPasswordAuthenticator.java.
+
+3. open eclips:
+   a. create a new java project named 'alomtest' - next - Libraries - Add External Jars - choos apache-sshd-0.14.0 Lib - finish 
+   b. right click on src - new - package - Name 'com.alomtest' - finish.
+   c. copy all java code to the new package.
+
+4. change AlomTest.java:
+   a. sshd.setHost("192.168.8.115"); (only use the localhost, test can succeed)
+   b. sshd.setPort(22);   (one test would bind the port, need to close the eclips to unbind it, otherwise, it will not work after exported)
+
+5. do tests: (if there is error, you can tips in output console)
+   a. right click on the project 'alomtest' and choose debug as java application.
+   b. right click on the project 'alomtest' and choose run as java application.
+
+6. export the project as java runable jar.
+   a. right click on the project 'alomtest' - export - java - Runnable JAR file - next - Launch configuration (your project 'alomtest'), Export destination (where you put your jar and jar name), Library handling (default) - finish.
+   b. test: java -jar XXX.jar
+
+7. done!
+
+
