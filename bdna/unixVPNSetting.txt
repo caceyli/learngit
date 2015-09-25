@@ -1,5 +1,5 @@
-rpm -ivh ppp-2.4.5-5.el6.x86_64.rpm
-pptp-1.8.0.tar
+rpm -ivh ppp-2.4.5-5.el6.x86_64.rpm (D:\caceyftp\installer\)
+pptp-1.8.0.tar  (D:\caceyftp\installer\pptp-1.8.0.tar.gz)
 tar -xf pptp-1.8.0.tar
 cd pptp-1.8.0
 make 
