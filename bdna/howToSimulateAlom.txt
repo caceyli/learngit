@@ -16,11 +16,11 @@
    a. sshd.setHost("192.168.8.115"); (only use the localhost, test can succeed)
    b. sshd.setPort(22);   (one test would bind the port, need to close the eclips to unbind it, otherwise, it will not work after exported)
 
-5. do tests: (if there is error, you can tips in output console)
+5. do tests: (if there is error, you can see tips in output console)
    a. right click on the project 'alomtest' and choose debug as java application.
    b. right click on the project 'alomtest' and choose run as java application.
 
-6. export the project as java runable jar.
+6. export the project as java runnable jar.
    a. right click on the project 'alomtest' - export - java - Runnable JAR file - next - Launch configuration (your project 'alomtest'), Export destination (where you put your jar and jar name), Library handling (default) - finish.
    b. test: java -jar XXX.jar
 
