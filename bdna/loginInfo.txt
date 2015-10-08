@@ -7,6 +7,7 @@ own host/bdna ftp/GZvpn: lihh/bdnacn
 ESX SERVER:
 192.168.8.41  (root/bdna202)
 192.168.8.100 (root/Simple.0)
+192.168.9.100 (root/bdnacn202)
 
 Gary movie share:
 192.168.8.113 (administrator/bdna@202)
