@@ -74,7 +74,10 @@ JBoss Login
 cacey@bdnacn.com
 simple01
 
-
+Git commands
+git clone git@gitlab.bdnacorp.com:discover-team/sequences-7-7.git
+git clone git@gitlab.bdnacorp.com:discover-team/sequences-7-6-1.git
+git clone git@gitlab.bdnacorp.com:discover-team/discover-7-7.git
 
 
 
