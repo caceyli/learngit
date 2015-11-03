@@ -1,0 +1,46 @@
+1. nohup time exp system/bdnacn owner=vmst9102_bdna_770_18 statistics=none file=vmst9102.dmp log=20151103_export.log 2>&1 &
+
+2. vi install770/conf/connection.properties:
+
+bdna.dbURL = jdbc:oracle:thin:@vmst9103:1521:ora11g
+bdna.dbServer = 192.168.9.103
+bdna.dbUser = bdna
+bdna.dbPassword = bdna
+
+3. sh $BDNA_HOME/bin/createOracleUser.sh  (system password is required)
+
+4. nohup time imp system/bdnacn fromuser=vmst9102_bdna_770_18 touser=bdna buffer=10000000 feedback=20000 file=vmst9102.dmp log=20151103_export.log 2>&1 &
+
+5. vi $BDNA_HOME/conf/license.txt:
+41646d696e697374726174696f6e
+5265636f6e63696c696174696f6e
+5374616e6461726473
+537570706f7274
+496e76656e746f7279
+5363616e2041646d696e697374726174696f6e
+4170706c69636174696f6e20446570656e64656e6379204d6170
+
+6. sudo cp -r $BDNA_HOME/bdna_web/templates/* /var/www/html
+
+7. sh startagent.sh &
+   sh bdna.sh
+   bdna> startup
+
+8. sh bdna.sh 
+property -m agendaManager:bdna.control.hostName localhost
+property -m CLM1:bdna.control.hostName localhost
+property -m CLE1:bdna.control.hostName localhost
+property -m RULE0:bdna.control.hostName localhost
+property -m RULE1:bdna.control.hostName localhost
+property -m bdnaCLE:bdna.control.hostName localhost
+property -m PerlCS1:bdna.control.hostName localhost
+property -m bdnaPerlCS:bdna.control.hostName localhost
+property -m PERL_SERVER_localhost:bdna.control.hostName localhost
+property -m RS:bdna.control.hostName localhost
+
+9. login the UI using encrypted password for root:
+select * from usr;
+
+
+(refer to http://wiki.bdnacorp.com/index.php/New_QA_Hire_Training_Guide)
+
