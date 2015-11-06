@@ -15,6 +15,9 @@ nobsdcomp
 nodeflate
 require-mppe-128
 
+touch /bin/ip
+chmod a+x /bin/ip
+
 pptpsetup -create vpn -server 12.54.125.134 -username CaceyLi -password anDb327 -encrypt -start
 
 cat /etc/ppp/chap-secrets
