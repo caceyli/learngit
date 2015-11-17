@@ -6,7 +6,6 @@
 3. copy D:\caceyftp\serviceNowP\midServer\mid.2015-04-06-2300.windows.x86-64.zip to the server: 192.168.8.232
 4. unzip the installer to C:\ServiceNow\MID Server1\agent
 5. modify the C:\ServiceNow\MID Server1\agent\conf.xml as following. (4 place)
-       
    a. Find the <parameter name="url" value="https://YOUR_INSTANCE.service-now.com"/> element and change the value to the URL of your instance.
    b. Enter the MID user credentials in the mid.instance.username and mid.instance.password parameters. By default, the MID Server, uses basic authentication for SOAP messages. The password value is also encrypted authentication.
    c. Find the <parameter name="name" value="YOUR_MIDSERVER_NAME_GOES_HERE"/> element and change the value to define the name of your MID Server.
