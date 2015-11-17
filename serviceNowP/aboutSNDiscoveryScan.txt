@@ -1,7 +1,11 @@
-1. dowload midserver from https://bdnaintegration.service-now.com -->MID Server-->Downloads to D:\caceyftp\serviceNowP\midServer\
-2. copy D:\caceyftp\serviceNowP\midServer\mid.2015-04-06-2300.windows.x86-64.zip to the server: 192.168.8.232
-2. unzip the installer to C:\ServiceNow\MID Server1\agent
-3. modify the C:\ServiceNow\MID Server1\agent\conf.xml as following. (4 place)
+1. BDNA ServiceNow discovery:
+   a. Service-now Test Instance: http://bdnaintegration.service-now.com
+   b. Login: bdna/bdna
+   c. To setup your mid-server, use credential: bdna_mid/bdna_mid
+2. dowload midserver from https://bdnaintegration.service-now.com -->MID Server-->Downloads to D:\caceyftp\serviceNowP\midServer\
+3. copy D:\caceyftp\serviceNowP\midServer\mid.2015-04-06-2300.windows.x86-64.zip to the server: 192.168.8.232
+4. unzip the installer to C:\ServiceNow\MID Server1\agent
+5. modify the C:\ServiceNow\MID Server1\agent\conf.xml as following. (4 place)
        
        
        <!-- Tells the MID server where to contact its associated Service-now instance.  Edit 
@@ -21,7 +25,7 @@
        <parameter name="name" value="YOUR_MIDSERVER_NAME_GOES_HERE"/>
 
 
-
+      eg:
 
        <!-- Tells the MID server where to contact its associated Service-now instance.  Edit 
             this value to provide the URL of your organization's Service-now instance. -->
@@ -32,7 +36,7 @@
             to log into the instance.  -->
        
        <parameter name="mid.instance.username" value="bdna_mid"/>
-       <parameter encrypt="true" name="mid.instance.password" value="encrypted:diKGlFPvfPAEvFFuKrveiQ=="/>
+       <parameter encrypt="true" name="mid.instance.password" value="bdna_mid"/>
 	
        <!-- Defines the name by which your MID server is known on the Service-now instance.  
             Edit this value to provide the name you want, or leave it blank and the MID server
