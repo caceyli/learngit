@@ -7,22 +7,11 @@
 4. unzip the installer to C:\ServiceNow\MID Server1\agent
 5. modify the C:\ServiceNow\MID Server1\agent\conf.xml as following. (4 place)
        
-       
-       <!-- Tells the MID server where to contact its associated Service-now instance.  Edit 
-            this value to provide the URL of your organization's Service-now instance. -->
-       <parameter name="url" value="https://YOUR_INSTANCE.service-now.com"/>
-
-	   <!-- If your Service-now instance has authentication enabled (the normal case), set 
-            these parameters to define the user name and password the MID server will use 
-            to log into the instance.  -->
-       
-       <parameter name="mid.instance.username" value="YOUR_INSTANCE_USER_NAME_HERE" />
-       <parameter name="mid.instance.password" value="YOUR_INSTANCE_PASSWORD_HERE" encrypt="true"/>
-	
-       <!-- Defines the name by which your MID server is known on the Service-now instance.  
-            Edit this value to provide the name you want, or leave it blank and the MID server
-            will make up a name. -->
-       <parameter name="name" value="YOUR_MIDSERVER_NAME_GOES_HERE"/>
+   a. Find the <parameter name="url" value="https://YOUR_INSTANCE.service-now.com"/> element and change the value to the URL of your instance.
+   b. Enter the MID user credentials in the mid.instance.username and mid.instance.password parameters. By default, the MID Server, uses basic authentication for SOAP messages. The password value is also encrypted authentication.
+   c. Find the <parameter name="name" value="YOUR_MIDSERVER_NAME_GOES_HERE"/> element and change the value to define the name of your MID Server.
+   d. (Optional) Enter connection information for the proxy server. Remove the appropriate comment tags from the proxy configuration information. For example, you can configure the mid.proxy.use_proxy, mid.proxy.host, mid.proxy.port, mid.proxy.username, and mid.proxy.password.
+   (NOTE: If this MID Server is installed on a system that contains other MID Servers, edit the wrapper.conf file as described in the procedure for installing multiple MID Servers.)
 
 
       eg:
