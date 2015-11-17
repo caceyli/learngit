@@ -1,0 +1,45 @@
+1. dowload midserver from https://bdnaintegration.service-now.com -->MID Server-->Downloads to D:\caceyftp\serviceNowP\midServer\
+2. copy D:\caceyftp\serviceNowP\midServer\mid.2015-04-06-2300.windows.x86-64.zip to the server: 192.168.8.232
+2. unzip the installer to C:\ServiceNow\MID Server1\agent
+3. modify the C:\ServiceNow\MID Server1\agent\conf.xml as following. (4 place)
+       
+       
+       <!-- Tells the MID server where to contact its associated Service-now instance.  Edit 
+            this value to provide the URL of your organization's Service-now instance. -->
+       <parameter name="url" value="https://YOUR_INSTANCE.service-now.com"/>
+
+	   <!-- If your Service-now instance has authentication enabled (the normal case), set 
+            these parameters to define the user name and password the MID server will use 
+            to log into the instance.  -->
+       
+       <parameter name="mid.instance.username" value="YOUR_INSTANCE_USER_NAME_HERE" />
+       <parameter name="mid.instance.password" value="YOUR_INSTANCE_PASSWORD_HERE" encrypt="true"/>
+	
+       <!-- Defines the name by which your MID server is known on the Service-now instance.  
+            Edit this value to provide the name you want, or leave it blank and the MID server
+            will make up a name. -->
+       <parameter name="name" value="YOUR_MIDSERVER_NAME_GOES_HERE"/>
+
+
+
+
+       <!-- Tells the MID server where to contact its associated Service-now instance.  Edit 
+            this value to provide the URL of your organization's Service-now instance. -->
+       <parameter name="url" value="https://bdnaintegration.service-now.com/"/>
+
+	   <!-- If your Service-now instance has authentication enabled (the normal case), set 
+            these parameters to define the user name and password the MID server will use 
+            to log into the instance.  -->
+       
+       <parameter name="mid.instance.username" value="bdna_mid"/>
+       <parameter encrypt="true" name="mid.instance.password" value="encrypted:diKGlFPvfPAEvFFuKrveiQ=="/>
+	
+       <!-- Defines the name by which your MID server is known on the Service-now instance.  
+            Edit this value to provide the name you want, or leave it blank and the MID server
+            will make up a name. -->
+       <parameter name="name" value="BDNA_FP_CACEY_DEV"/>
+
+4. run start.bat to install the MID Server as a Windows Service.
+
+
+(For more information, refer to http://wiki.servicenow.com/index.php?title=MID_Server_Installation#gsc.tab=0)
