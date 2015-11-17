@@ -43,7 +43,7 @@
             will make up a name. -->
        <parameter name="name" value="BDNA_FP_CACEY_DEV"/>
 
-4. run start.bat to install the MID Server as a Windows Service.
+6. run start.bat to install the MID Server as a Windows Service.
 
 
 (For more information, refer to http://wiki.servicenow.com/index.php?title=MID_Server_Installation#gsc.tab=0)
