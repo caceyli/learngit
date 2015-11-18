@@ -1,0 +1,21 @@
+Check whether the spesfic port is occupied or not: netstat -ano|grep 1521
+If something returned, means the port is in use.
+How to set static listener:
+
+SID_LIST_LISTENER =
+  (SID_LIST =
+ (SID_DESC =
+      (SID_NAME = ora11g)
+      (ORACLE_HOME = /u01/app/oracle/product/11.2.0/dbhome_1)
+      (GLOBAL_DBNAME = ora11g)
+    )
+  )
+
+LISTENER =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.8.184)(PORT = 1521))
+    )
+  )
+
+ADR_BASE_LISTENER = /u01/app/oracle
