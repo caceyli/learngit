@@ -1,27 +1,20 @@
-1. dowload midserver from https://bdnaintegration.service-now.com -->MID Server-->Downloads to D:\caceyftp\serviceNowP\midServer\
-2. copy D:\caceyftp\serviceNowP\midServer\mid.2015-04-06-2300.windows.x86-64.zip to the server: 192.168.8.232
-2. unzip the installer to C:\ServiceNow\MID Server1\agent
-3. modify the C:\ServiceNow\MID Server1\agent\conf.xml as following. (4 place)
-       
-       
-       <!-- Tells the MID server where to contact its associated Service-now instance.  Edit 
-            this value to provide the URL of your organization's Service-now instance. -->
-       <parameter name="url" value="https://YOUR_INSTANCE.service-now.com"/>
+The instruction to setup a mid server:
+>>
+1. BDNA ServiceNow discovery:
+   a. Service-now Test Instance: http://bdnaintegration.service-now.com
+   b. Login: bdna/bdna
+   c. To setup your mid-server, use credential: bdna_mid/bdna_mid
+2. dowload midserver from https://bdnaintegration.service-now.com -->MID Server-->Downloads to D:\caceyftp\serviceNowP\midServer\
+3. copy D:\caceyftp\serviceNowP\midServer\mid.2015-04-06-2300.windows.x86-64.zip to the server: 192.168.8.232
+4. unzip the installer to C:\ServiceNow\MID Server1\agent
+5. modify the C:\ServiceNow\MID Server1\agent\conf.xml as following. (4 place)
+   a. Find the <parameter name="url" value="https://YOUR_INSTANCE.service-now.com"/> element and change the value to the URL of your instance.
+   b. Enter the MID user credentials in the mid.instance.username and mid.instance.password parameters. By default, the MID Server, uses basic authentication for SOAP messages. The password value is also encrypted authentication.
+   c. Find the <parameter name="name" value="YOUR_MIDSERVER_NAME_GOES_HERE"/> element and change the value to define the name of your MID Server.
+   d. (Optional) Enter connection information for the proxy server. Remove the appropriate comment tags from the proxy configuration information. For example, you can configure the mid.proxy.use_proxy, mid.proxy.host, mid.proxy.port, mid.proxy.username, and mid.proxy.password.
+   (NOTE: If this MID Server is installed on a system that contains other MID Servers, edit the wrapper.conf file as described in the procedure for installing multiple MID Servers.)
 
-	   <!-- If your Service-now instance has authentication enabled (the normal case), set 
-            these parameters to define the user name and password the MID server will use 
-            to log into the instance.  -->
-       
-       <parameter name="mid.instance.username" value="YOUR_INSTANCE_USER_NAME_HERE" />
-       <parameter name="mid.instance.password" value="YOUR_INSTANCE_PASSWORD_HERE" encrypt="true"/>
-	
-       <!-- Defines the name by which your MID server is known on the Service-now instance.  
-            Edit this value to provide the name you want, or leave it blank and the MID server
-            will make up a name. -->
-       <parameter name="name" value="YOUR_MIDSERVER_NAME_GOES_HERE"/>
-
-
-
+6. eg:
 
        <!-- Tells the MID server where to contact its associated Service-now instance.  Edit 
             this value to provide the URL of your organization's Service-now instance. -->
@@ -32,14 +25,14 @@
             to log into the instance.  -->
        
        <parameter name="mid.instance.username" value="bdna_mid"/>
-       <parameter encrypt="true" name="mid.instance.password" value="encrypted:diKGlFPvfPAEvFFuKrveiQ=="/>
+       <parameter encrypt="true" name="mid.instance.password" value="bdna_mid"/>
 	
        <!-- Defines the name by which your MID server is known on the Service-now instance.  
             Edit this value to provide the name you want, or leave it blank and the MID server
             will make up a name. -->
        <parameter name="name" value="BDNA_FP_CACEY_DEV"/>
 
-4. run start.bat to install the MID Server as a Windows Service.
-
+7. run start.bat to install the MID Server as a Windows Service.
 
 (For more information, refer to http://wiki.servicenow.com/index.php?title=MID_Server_Installation#gsc.tab=0)
+<<
