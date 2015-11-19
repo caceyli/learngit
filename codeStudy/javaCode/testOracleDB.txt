@@ -57,3 +57,21 @@ public void testOracle()
         }
     }
 }
+
+
+
+JDBC无所谓Oracle还是DB2的, 获取connection的通用步骤如下
+       try
+       { 
+                 Class.forName("oracle.jdbc.driver.OracleDriver");
+                 con=DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:name", "scott","tiger");
+                 st=con.createStatement();
+                 rs=st.executeQuery(sql);
+                 while(rs.next())
+                 {
+                            System.out.println(rs.getInt("id"));
+                            System.out.println(rs.getString("name"));
+                 }
+       }catch(Exception e){ 
+           ...
+       }
