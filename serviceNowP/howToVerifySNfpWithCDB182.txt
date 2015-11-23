@@ -1,0 +1,98 @@
+How to use serviceNow fp test vm (8.182):
+
+About technopedia_fp on 182
+1. login: prod/bdna
+2. sync script (only fp tables): /home/prod/sync_fp_tables/sync_fp_tables.sh. (only 5 minutes can finish, so you run it whenever you need to syn your update in 8.22 to 8.182)
+3. sync script (all cdb tables): /home/oracle/content/refresh_db.sh (need 5 hours to finish, sugguest running it once each week in automative method).
+4. do not update or query anything in 8.22 directly. (don't connect with new tns harbor set)
+
+
+About work procedures
+1. manually synchronize cdb fp to 182: sh sync_fp_tables.sh.
+2. update code for technopedia_fp: pull origin master  (cp -r /home/prod/cacey/content-db/technopedia_fp /home/prod)
+3. cd to /home/prod/technopedia_fp and run 'ant' to update files under scripts folder if code has updated.
+4. do modification.
+5. verify modification (under /home/prod/technopedia_fp/script/):
+a. sh /home/prod/sync_fp_tables/sync_fp_tables.sh
+b. sh technopedia_fp_verify.sh -s in-development -y  (this skips 'ready for verification', not affect the result, but disorder the work flow.) (with -y, if verification done, update module state, the succeded marked progressflag as 'ready for release' and Verify Result as SUCCESS, the failed marked Verify Result as FAIL.
+   sh technopedia_fp_verify.sh -s all
+   sh technopedia_fp_verify.sh -s ready for verification (same to default , not update module status)
+   sh technopedia_fp_verify.sh    (default at prescent, not update module status, in future, probably, -y is default as well)
+   sh technopedia_fp_verify.sh -y (default + update module status)
+   sh technopedia_fp_verify.sh -n com.bdna.modules.app.Adobe.UNIXAdobeReader -y (check specific module, and update its status passed or not.)
+   sh technopedia_fp_verify.sh -m caceyli@bdna.com
+6. remember this is on test cdb, if verification not passed, modify it on 10.88 and repeat step 1 and step 5.
+7. after verification passed (first publish then release)
+a. sh technopedia_fp_publish.sh -m caceyli@bdna.com
+b. sh technopedia_fp_release.sh -m caceyli@bdna.com    (create BDNA_Fingerprint_full_dev_only_.zip, no update on CDB, just for your test.)
+   sh technopedia_fp_release.sh -m caceyli@bdna.com -y (create /home/prod/technopedia_fp/dist//BDNA_Fingerprint_full_.zip, not update progressflag, update on CDB Fingerprint Release table, if firstly running this command, zip name contains full, otherwise contains patial. That is to say, if Last Build Version is NONE', the package is a full one, otherwise it is a partial one.)
+   sh technopedia_fp_release.sh -m caceyli@bdna.com -y -a (-a means to update all fb tables, get full package, so never use it until there is some spectial/big change which may afftect all/many fb tables, change like table structure.)
+8. get the output package from step 7.b, and copy to where the fp_player located and start serviceNow discover test:
+a. java -jar player.jar (this will load the package which located in the same folder as player.jar to sevice now. Maybe!)
+
+
+About the scripts:
+1. Usage: sh /home/prod/technopedia_fp/script/technopedia_fp_verify.sh -m "harbor@bdnacn.com,dev@bdnacn.com"
+[-m] specify the mail that receive the result. (Optional)
+[-s] specfiy scope of modules to be verified, default as 'ready for verification', possible value {all|in-development,ready for verification}
+[-y] update module state (progressflag and verify_flag) automatically, default as 'false'.
+[-n] specfiy module name to be validated, such as 'com.bdna.modules.app.Adobe.UNIXAdobeReader'
+[-h] show the help message.
+
+2. Usage: sh /home/prod/technopedia_fp/script/technopedia_fp_publish.sh -m "harbor@bdnacn.com,dev@bdnacn.com"
+[-m] specify the mail that receive the result. (Optional)
+[-s] specify catalog schema name defaut as 'content'. (Optional)
+[-h] show the help message.
+
+3. Usage: sh /home/prod/technopedia_fp/script/technopedia_fp_release.sh -m "harbor@bdnacn.com,dev@bdnacn.com"
+[-m] specify the mail that receive the result. (Optional)
+[-y] flag to update technopedia and content release status. (Optional)
+[-d] specify release directory, default as '/home/prod/technopedia_fp/dist/'. (Optional)
+[-v] specify release package version, default as yyyy.MM.dd_HH_mm. (Optional)
+[-a] enable the flag to load all fingerprint package. (Optional)
+[-f] specfiy jdbc connection properties file, default as 'jdbc.properties'. (optional)
+[-h] show the help message.
+
+
+crontab -e (20 o'clock every friday night, start synchronize all cdb table to 182)
+00 20 *  *  05 (( sh /home/oracle/content/refresh_db.sh ) < /dev/null 2>&1) |tee /home/oracle/content/logs/refresh_db.sh_`date +\%Y.\%m.\%d`.log
+
+vpn file: /home/prod/cacey
+          /root/
+
+startvpn
+<
+set timeout -1
+
+spawn sudo ssh -D 22 root@192.168.8.182
+expect {
+        "(yes/no)?" {send "yes\r"; exp_continue}
+        "password:" {send "bdnacn\r"}
+       }
+expect "\\#"
+send "pptpsetup -create vpn -server 12.54.125.134 -username CaceyLi -password anDb327 -encrypt -start\r"
+expect "\\#"
+send "route add -host 12.54.125.134 gw 192.168.8.2\r"
+expect "\\#"
+send "route del -net 0.0.0.0\r"
+expect "\\#"
+send "route add default ppp0\r"
+expect "\\#"
+send "exit\r"
+interact
+>
+
+stopvpn
+<
+sudo killall pppd
+>
+
+To become a sudo user:
+vi /etc/suders
+
+# %wheel        ALL=(ALL)       NOPASSWD: ALL
+root    ALL=NOPASSWD: ALL
+bdna    ALL=NOPASSWD: ALL
+oracle  ALL=NOPASSWD: ALL
+#prod    ALL=NOPASSWD: ALL
+
