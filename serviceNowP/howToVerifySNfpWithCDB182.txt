@@ -41,17 +41,23 @@ About the scripts:
 
 2. Usage: sh /home/prod/technopedia_fp/script/technopedia_fp_publish.sh -m "harbor@bdnacn.com,dev@bdnacn.com"
 [-m] specify the mail that receive the result. (Optional)
+[-n] specify the name of modules to be be published, separated by comma. (Optional)
 [-s] specify catalog schema name defaut as 'content'. (Optional)
 [-h] show the help message.
 
+
 3. Usage: sh /home/prod/technopedia_fp/script/technopedia_fp_release.sh -m "harbor@bdnacn.com,dev@bdnacn.com"
 [-m] specify the mail that receive the result. (Optional)
-[-y] flag to update technopedia and content release status. (Optional)
+[-y] enable the option to update fingerprint release tables. (Optional)
+[-q] enable the option to upload test package to qa folder. (Optional)
 [-d] specify release directory, default as '/home/prod/technopedia_fp/dist/'. (Optional)
+[-n] specify release package name, default as 'Fingerprint Release MM/dd/yyyy'. (Optional)
 [-v] specify release package version, default as yyyy.MM.dd_HH_mm. (Optional)
-[-a] enable the flag to load all fingerprint package. (Optional)
-[-f] specfiy jdbc connection properties file, default as 'jdbc.properties'. (optional)
+[-a] enable the flag to load full fingerprint package. (Optional)
+[-f] specify JDBC connection properties file, default as 'jdbc.properties'. (Optional)
 [-h] show the help message.
+Note : [-y] and [-q] are exclusive options.
+
 
 
 crontab -e (20 o'clock every friday night, start synchronize all cdb table to 182)
