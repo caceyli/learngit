@@ -21,3 +21,10 @@ def main():
 if __name__ == '__main__':
 	main()
 
+
+#get input from screen, and change string to int so that it can be math.
+age = input('input your age：')
+yourAge = int(age)
+if yourAge >= 18:
+    print('your age is', age)
+    print('adult')
