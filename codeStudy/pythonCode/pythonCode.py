@@ -28,5 +28,8 @@ yourAge = int(age)
 if yourAge >= 18:
     print('your age is', age)
     print('adult')
+else:
+    print('teenager')    
+    
 
 
