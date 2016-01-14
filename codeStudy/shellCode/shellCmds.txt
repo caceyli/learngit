@@ -1,0 +1,63 @@
+#!/bin/bash
+sh bdna.sh >/dev/null <<EOF
+list
+exit
+EOF
+
+
+#!/bin/bash
+sh bdna.sh 2>/dev/null <<EOF
+list
+exit
+EOF
+
+
+#!/bin/bash
+sh bdna.sh >/dev/null 2>&1 <<EOF
+list
+exit
+EOF
+
+
+grep "not successful" | wc -l
+grep bdna.version $bdna_version_file | sed 's/.*=//
+echo $Plat_Ver | cut -d"." -f1
+echo $BDNAComponentHosts | tr ',' '\n'
+
+#cat /etc/passwd|head -n 5
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+
+#cat /etc/passwd|head -n 5|cut -d : -f 1
+root
+bin
+daemon
+adm
+lp
+
+#cat /etc/passwd |awk  -F ':'  '{print $1}'  
+root
+daemon
+bin
+sys
+
+
+while getopts "f:k:sinhcdl" opt
+do
+    case $opt in
+    f) BCP_FILE=$OPTARG;;
+    k) LICENSE_KEY=$OPTARG;;
+    s) SKIP_STARTUP_BDNA=true;;
+    i) FORCE_INSTALL=true;;
+    n) IGNORE_LICENSE=true;;
+    c) UPDATE_CONTENT_FILES=true;;
+    l) UPDATE_CONTENT_FILES_LOCALLY_ONLY=true;;
+    d) UPDATE_DATABASE=true;;
+    h) print_usage ; exit 0;;
+    *) print_usage ; exit 1;;
+    esac
+done
+
