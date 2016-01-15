@@ -61,3 +61,6 @@ do
     esac
 done
 
+sed:
+(example text: <Parameter name="dbServer" value="192.168.8.182" override="false"/>)
+db_host=`cat $config_xml_file | grep dbServer | sed 's/.*value="//g' | sed 's/".*$//g'`
