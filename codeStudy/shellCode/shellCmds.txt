@@ -61,6 +61,17 @@ do
     esac
 done
 
-sed:
+sed :
 (example text: <Parameter name="dbServer" value="192.168.8.182" override="false"/>)
 db_host=`cat $config_xml_file | grep dbServer | sed 's/.*value="//g' | sed 's/".*$//g'`
+
+/*awk: http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.htm*/
+cat /etc/passwd |awk  -F ':'  'BEGIN {print "name,shell"}  {print $1","$7} END {print "blue,/bin/nosh"}'
+name,shell
+root,/bin/bash
+....
+blue,/bin/nosh
+
+# awk -F: '/root/{print $7}' /etc/passwd             
+/bin/bash
+
