@@ -1,0 +1,143 @@
+2016/01/16
+1. socket: socket -- bind -- listen -- accept
+2. shell: awk, cut, getopts
+3. python:
+a. list
+   classmates = ['Michael', 'Bob', 'Tracy']
+   classmates
+   classmates[i]
+   len(classmates)
+   classmates.pop()
+   classmates.pop(i)
+
+   tub
+   classmates = ('Michael', 'Bob', 'Tracy')
+   t = ()
+   t = (1,)
+   classmates[i]
+
+b. if
+   Age = input('your age:')
+   age = int(Age)
+   if age >= 18:
+       print('adult')
+   elif age >= 6:
+       print('teenager')
+   else:
+       print('kid')
+
+c. for
+   names = ['Michael', 'Bob', 'Tracy']
+   for name in names:
+       print(name)
+
+   sum = 0
+   for x in range(101):
+       sum = sum + x
+   print(sum)
+
+   (while)
+   sum = 0
+   n = 99
+   while n > 0:
+       sum = sum + n
+       n = n - 2
+   print(sum)
+
+c.EXercise:
+
+L = ['Bart', 'Lisa', 'Adam']
+for a in L:
+    print ('hello,',a)
+
+L=['Bart','Lisa','Adam']
+n=len(L)
+i=0
+while i<n:
+    print('Hello,%s'%L[i])
+    i+=1
+
+L =['Bart','Lisa','Adam']
+for x in L:
+    print('Hello,%s'%x)
+
+
+d. dict
+   d = {'Michael': 95}
+   d
+   d['Michael']=95
+   d.get('Michael',-1)
+   d.pop('Michael')
+
+   set
+   s1 = set([1, 2, 3])
+   s.add(4)
+   s.remove(4)
+   s2 = set([2, 3, 4])
+   s1 & s2
+   s1 | s2
+
+   a = ['c', 'b', 'a']
+   a.sort()
+   a='abc'
+   b = a.replace('a', 'A')
+
+e. abstest.py
+   def my_abs(x):
+       if not isinstance(x, (int, float)):
+           raise TypeError('bad operand type')
+       if x >= 0:
+           return x
+       else:
+           return -x
+
+   >>>from abstest import my_abs 
+   >>>my_abs(-5)
+
+   def nop():
+       pass
+
+f. import math
+   def move(x, y, step, angle=0):
+       nx = x + step * math.cos(angle)
+       ny = y - step * math.sin(angle)
+       return nx, ny
+
+>>> x, y = move(100, 100, 60, math.pi / 6)
+>>> print(x, y)
+
+>>> r = move(100, 100, 60, math.pi / 6)
+>>> print(r)
+
+
+exercis: (ax2 + bx + c = 0)
+
+import math
+def quadratic(a,b,c):
+    delta=bb-4ac
+    if delta==0:
+        return -b/(2a)
+    else:
+        x1=(-b+math.sqrt(bb-4ac))/(2a)
+        x2=(-b-math.sqrt(bb-4ac))/(2a)
+        return x1,x2
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+  
