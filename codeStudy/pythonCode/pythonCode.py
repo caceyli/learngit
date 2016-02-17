@@ -32,4 +32,37 @@ else:
     print('teenager')    
     
 
+# send email form from_addr to to_addr through smtp_server 'smtp.gmail.com:587'.
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+from email import encoders
+from email.header import Header
+from email.mime.text import MIMEText
+from email.utils import parseaddr, formataddr
+import smtplib
+
+def _format_addr(s):
+        name, addr = parseaddr(s)
+        return formataddr((Header(name, 'utf-8').encode(), addr))
+
+from_addr = input('From: ')
+# from_addr = raw_input('From: ') for python2
+password = input('Password: ')
+to_addr = input('To: ')
+smtp_server = input('SMTP server: ')
+
+msg = MIMEText('hello, send by Python 6...', 'plain', 'utf-8')
+msg['From'] =_format_addr('Python lover <%s>' % from_addr)
+msg['To'] = _format_addr('administrator <%s>' % to_addr)
+msg['Subject'] = Header('hello from smtp server 6', 'utf-8').encode()
+
+server = smtplib.SMTP(smtp_server,587)
+# server = smtplib.SMTP('smtp.gmail.com:587')
+server.starttls()
+server.set_debuglevel(1)
+server.login(from_addr, password)
+server.sendmail(from_addr, [to_addr], msg.as_string())
+server.quit()
+
 
