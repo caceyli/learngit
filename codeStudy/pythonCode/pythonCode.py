@@ -88,13 +88,24 @@ password = input('Password: ')
 to_addr = input('To: ')
 smtp_server = input('SMTP server: ')
 
+# not just text content
 msg = MIMEMultipart()
 
 msg['From'] =_format_addr('Python lover <%s>' % from_addr)
 msg['To'] = _format_addr('administrator <%s>' % to_addr)
 msg['Subject'] = Header('hello from smtp server 7', 'utf-8').encode()
 
-msg.attach(MIMEText('send with file...', 'plain', 'utf-8'))
+# just text content, no attachment or inserted picture
+#msg = MIMEText('hello, send by Python 6...', 'plain', 'utf-8')
+
+# as attachment
+#msg.attach(MIMEText('send with file...', 'plain', 'utf-8'))
+
+# inserted picture as content
+msg.attach(MIMEText('<html><body><h1>Hello</h1>' +
+    '<p><img src="cid:0"></p>' +
+    '</body></html>', 'html', 'utf-8'))
+    
 with open('G:\\old_machine\\timeSchedule.jpg', 'rb') as f:
     # set file name and type jpg:
     mime = MIMEBase('image', 'jpg', filename='timeSchedule.jpg')
