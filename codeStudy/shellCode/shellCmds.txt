@@ -76,4 +76,47 @@ sed :
 (example text: <Parameter name="dbServer" value="192.168.8.182" override="false"/>)
 db_host=`cat $config_xml_file | grep dbServer | sed 's/.*value="//g' | sed 's/".*$//g'`
 
-
+>/dev/null 2>&1 与 2>&1 >/dev/null 的区别及使用技巧
+Command >/dev/null 2>&1 相当于
+stdout="/dev/null"
+stderr="$stdout"   ## 这时，stderr也等于"/dev/null"了
+ 
+结果是标准输出和标准错误都指向了/dev/null， 也就是所有的输出都被我们丢弃
+ 
+Command 2>&1 >/dev/null 相当于
+stderr="$stdout" ##  stderr指向了屏幕，因为stdout这时还是指向屏幕！
+stdout="/dev/null" ##   stdout指向了/dev/null，但不会影响到 stderr的指向
+ 
+结果是标准错误仍然被打印到屏幕上， 而标准输出被丢弃
+ 
+相信IQ>0的同学都不难理解上边的解释（A=100; B=A和 B=A, A=100 ，不过如此而已)
+99.99%的情况下， 看到Command 2>&1 >/dev/null这种写法，我们就可以预测悲局会发生。
+先看一下接下来要使用的示例脚本：
+ 
+------------------------------------------------------------
+samli@stc_5_17:~/bin> cat test.sh 
+#! /bin/bash
+echo hello       ## write to STDOUT
+echo world >&2   ## write to STDERR
+------------------------------------------------------------
+ 
+使用两种不同顺序的重定向， 来看看结果：
+samli@stc_5_17:~/bin> ./test.sh >/dev/null 2>&1
+samli@stc_5_17:~/bin> ./test.sh 2>&1 >/dev/null 
+world
+ 
+如果我们的脚本在crontab中运行，而且不幸地遇上了sendmail做为MTA， 那么这些输出都将被做为邮件发送（假设你不了解置空MAILTO的意义）。但我们的sendmail客户端程序在母盘中一般是不会正常工作的， 那么/var/spool/clientmqueue/这目录下边的垃圾就很可观了， inode被用光大多是这个原因（见本K吧中其它文章）
+不过那 0.01% 却是最有意思的技巧。 下边我们来看个也是很简单的例子。
+ 
+1, 忽略标准错误， 从标准输出取值（地球人都会使用的方法）
+samli@stc_5_17:~/bin> a=$( ./test.sh 2> /dev/null )
+samli@stc_5_17:~/bin> echo $a
+hello
+ 
+2, 那么， 如何只取得 world 呢？ 关健在于如何忽略标准输出，而取得标准错误
+好吧， 通篇文章都是为了解释这个答案！
+samli@stc_5_17:~/bin> b=$( ./test.sh 2>&1 >/dev/null )     
+samli@stc_5_17:~/bin> echo $b
+world
+ 
+最后，提个小建议，为了避免>/dev/null 2>&1写法上的困扰，建议使用 &>/dev/null
