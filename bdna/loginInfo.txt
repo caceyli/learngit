@@ -44,6 +44,7 @@ US nas2 shared:
 
 bdna wiki:
 http://wiki.bdnacorp.com/index.php/Main_Page
+http://wiki.bdnacorp.com/index.php/New_AIX%2C_Solaris_and_Tru64_systems
 
 bugzilla:
 http://bugzilla.bdnacorp.com/
