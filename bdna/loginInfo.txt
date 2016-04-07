@@ -44,6 +44,8 @@ US nas2 shared:
 
 bdna wiki:
 http://wiki.bdnacorp.com/index.php/Main_Page
+http://wiki.bdnacorp.com/index.php/New_AIX%2C_Solaris_and_Tru64_systems
+http://wiki.bdnacorp.com/index.php/Virtual_machines
 
 bugzilla:
 http://bugzilla.bdnacorp.com/
@@ -81,9 +83,14 @@ git clone git@gitlab.bdnacorp.com:discover-team/discover-7-7.git
 git clone git@gitlab.bdnacorp.com:hluo/content-db.git
 
 
+nas3:
+10.1.3.8
+administrator/n1md@345
 
 
-
+skype:
+lhhexile@hotmail.com
+simple01
 
 
 
