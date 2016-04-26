@@ -25,6 +25,5 @@ else
   do
       rm -rf $filename
   done
-
 fi
 
