@@ -92,5 +92,7 @@ skype:
 lhhexile@hotmail.com
 simple01
 
-
+Esxi 5.0
+192.168.8.152
+root/simple01
 
