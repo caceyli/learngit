@@ -1,0 +1,15 @@
+#!/usr/bin/expect
+set timeout -1
+
+spawn sh /home/bdna/myTask/bdna_7.7.1_4055_20150723.installer
+expect "(y/n)*"
+send "y\r"
+expect "(y/n)*"
+send "y\r"
+expect "(y/n)*"
+send "n\r"
+expect "(y/n)*"
+send "y\r"
+expect "complete*"
+send "platform 770 GA installed"
+interact
