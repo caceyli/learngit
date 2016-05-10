@@ -1,0 +1,24 @@
+# sh $BDNA_HOME/bin/runjava.sh com.bdna.agenda.BulkCommon BulkTask4 <TaskDefinitionFile> <BulkOutputFileDir>
+# sh $BDNA_HOME/bdna.sh
+# module -i <BulkOutputFileDir>/BulkTask4_<timestamp>.xml
+#
+# task_type : One of the predefined maintainence task names or Inventory
+# packages : '*' for all packages defined for the task, or packageName[<BDNA,>packageName]* for all packages to include
+# locations: locElemFullName[<BDNA,>locElemFullName]* for all locations associated with task
+# start_scan, stop_scan, shifts, scan_interval: same as normal bulk task
+# credentials: <empty> if no credentials required by packages selected,
+#              Single credentials defined as:
+#                credElemType<BDNA,1>credNameLvl2
+#                credElemType<BDNA,1>credNameLvl2<BDNA,1>credNameLvl2
+#              Or multiple credententials as required by packages as:
+#                <singleCred>[<BDNA,>singleCred]*
+# scan_name: Name of scan task
+# scan_desc: Description of scan task
+
+task_type	packages	locations	start_scan	stop_scan	shifts	scan_interval	credentials	scan_name	scan_desc	priority
+
+
+############################
+# Level 1 Only Task
+############################
+Inventory	Basic Scan - Level 1 (no credentials required)	root.$bdna.project_Project_All	immediately	12/31/2132 00:00:00	always	once		Scan Task All Level1		Normal Scan

@@ -1,0 +1,4 @@
+Parent Type	Parent Key Value	Parent Key Column	Child Type	Child Key Value	Child Key Column	Add/Delete	Namespace
+root.types.resource.logicalset.project	Project All		root.types.resource.network	192_168_8_232	name	A	NS_GLOBAL
+root.types.resource.logicalset.project	Project All		root.types.resource.network	192_168_9_105	name	A	NS_GLOBAL
+
