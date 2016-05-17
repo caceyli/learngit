@@ -1,4 +1,9 @@
 #!/bin/bash
+[oracle@Gary9105 ~]$ date '+%Y%m%d'
+20160516
+
+NOW=`date '+%Y%m%d'`
+
 sh bdna.sh >/dev/null <<EOF
 list
 exit
