@@ -1,4 +1,7 @@
 #!/bin/bash
+remove all blank at the end of file 'win2k3_01_20160518.txt' and create a new fiel win2k3_01.txt. the former file content not changed.
+[oracle@Gary9105 ~]$ sed -e 's/[ ]*$//g' win2k3_01_20160518.txt >win2k3_01.txt
+
 [oracle@Gary9105 ~]$ date '+%Y%m%d'
 20160516
 
