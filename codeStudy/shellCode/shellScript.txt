@@ -1,4 +1,4 @@
-1.ģ��linnux��¼shell
+1.模拟linnux登录shell
 
 #/bin/bash
 echo -n "login:" 
@@ -10,7 +10,7 @@ echo "the host and password is right!"
 else echo "input is error!"
 fi
 
-2.�Ƚ���������С
+2.比较两个数大小
 
 #/bin/bash
 echo "please enter two number"
@@ -23,7 +23,7 @@ then echo "NO.1 > NO.2"
 else echo "NO.1 < NO.2" 
 fi
 
-3.����/root/Ŀ¼���Ƿ���ڸ��ļ�
+3.查找/root/目录下是否存在该文件
 
 #/bin/bash
 echo "enter a file name:"
@@ -33,7 +33,7 @@ then echo "the file is exist!"
 else echo "the file is not exist!"
 fi
 
-4.forѭ����ʹ��
+4.for循环的使用
 
 #/bin/bash
 clear
@@ -42,7 +42,7 @@ do
     echo "$num"
 done
 
-5.����������
+5.命令行输入
 
 #/bin/bash
 echo "Please enter a user:"
@@ -53,7 +53,7 @@ then echo "the user is running."
 else echo "the user is not running."
 fi
 
-6.ɾ����ǰĿ¼�´�СΪ0���ļ�
+6.删除当前目录下大小为0的文件
 
 #/bin/bash
 for filename in `ls`
@@ -68,7 +68,7 @@ do
         fi      
 done
 
-7.���/export/um_lpp_source�����ļ�����ô�����ļ�ϵͳ��С��Ϊ3G
+7.如果/export/um_lpp_source下有文件，那么将其文件系统大小改为3G
 
  #/bin/bash
 while line=`ls /export/um_lpp_source`
@@ -84,7 +84,7 @@ done
 
  
 
-8.����IP��ַ
+8.测试IP地址
 
 #/bin/bash
 for i in  1 2 3 4 5 6 7 8 9 
@@ -93,7 +93,7 @@ do
     ping -c 1 192.168.0.$i
 done
 
-9.���test.log�Ĵ�С����0����ô��/optĿ¼�µ�*.tar.gz�ļ�
+9.如果test.log的大小大于0，那么将/opt目录下的*.tar.gz文件
 
  #/bin/sh
 a=2
@@ -108,7 +108,7 @@ do
         fi
 done
 
-10.��ӡ��ȡ�����ݣ�Ϊ�����������׼��
+10.打印读取的内容，为下面的例子做准备
 
 #/bin/bash
 while read name
@@ -116,7 +116,7 @@ do
 echo $name
 done
 
-11.��0.sh�ж�ȡ���ݲ���ӡ
+11.从0.sh中读取内容并打印
 
 #/bin/bash
 while read line
@@ -124,7 +124,7 @@ do
     echo $line
 done < 0.sh
 
-12.��ȡa.c�е����ݲ�����1����
+12.读取a.c中的内容并做加1运算
 
 #/bin/bash
 test -e a.c
@@ -134,7 +134,7 @@ do
 done < a.c
 echo $a
 
-13.��ͨ�޲�������
+13.普通无参数函数
 
 #/bin/bash
 p ()
@@ -143,7 +143,7 @@ p ()
 }
 p
 
-14.���������ݲ���
+14.给函数传递参数
 
 #/bin/bash
 p_num ()
@@ -156,7 +156,7 @@ do
     p_num $n
 done
 
-15.�����ļ���
+15.创建文件夹
 
 #/bin/bash
 while :
@@ -173,12 +173,12 @@ do
     fi
 done
 
-16.��ȡ����IP��ַ
+16.获取本机IP地址
 
 #/bin/bash
 ifconfig | grep "inet addr:" | awk '{ print $2 }'| sed 's/addr://g'
 
-17.��������ļ�
+17.查找最大文件
 
 #/bin/bash
 a=0
@@ -192,7 +192,7 @@ do
 done
 echo "the max file is $namemax"
 
-18.���ҵ�ǰ������IP�û����ض���ip.txt�ļ���
+18.查找当前网段内IP用户，重定向到ip.txt文件中
 
 #/bin/bash
 a=1
@@ -208,13 +208,13 @@ do
     fi
 done
 
-19.��ӡ��ǰ�û�
+19.打印当前用户
 
 #/bin/bash
 echo "Current User is :"
 echo $(ps | grep "$$" | awk '{print $2}')
 
-20.case�����ϰ
+20.case语句练习
 
 #!/bin/bash
 clear
@@ -235,7 +235,7 @@ case $num in
     ;;
 esac
 
-21.yes/no���ز�ͬ�Ľṹ
+21.yes/no返回不同的结构
 
 #!/bin/bash
 clear
@@ -250,15 +250,15 @@ case $a in
     ;;
 esac
 
-22.ɱ����
+22.杀进程
 
  #/bin/bash
-pid=`ps -ef | grep '�����������' | grep -v 'grep' | awk '{ print $2}'`
+pid=`ps -ef | grep '进程相关内容' | grep -v 'grep' | awk '{ print $2}'`
 if [ -n "$pid" ]; then
         kill -9 $pid
 fi
 
- 23.���������ʹ��
+ 23.内置命令的使用
 
 #/bin/bash
 
@@ -284,7 +284,7 @@ fi
 25.
 
 #/bin/bash
-26.��ӡ�������û�
+26.打印无密码用户
 
 #/bin/bash
 echo "No Password User are :"
@@ -312,15 +312,15 @@ echo $(cat /etc/shadow | grep "!!" | awk 'BEGIN { FS=":" }{print $1}')
         echo "that's all folks! "
 
 
-28.���˿ں��Ƿ�������
+28.检查端口号是否已启动
 #!/bin/bash
 n=1
-echo "���xxx����..."
+echo "检查xxx服务..."
 while true
 do
         if test $n -gt 20
         then 
-                echo "xxx��������ʧ��"
+                echo "xxx服务启动失败"
                 break
         fi
                 
@@ -328,7 +328,35 @@ do
         n=$(($n+1))
         port=`netstat -antp | grep "0.0.0.0:8080"`
         if [ ${#port} -gt 3 ]; then
-                echo "xxx�����Ѿ�����"
+                echo "xxx服务已经启动"
                 break;
         fi
 done
+
+29. 把多行内容输出到一个文件
+1）一行行地echo重定向
+2）echo -e + 多行，重定向
+3）用Here Document方式（具体参见：http://linux.die.net/abs-guide/here-docs.html）
+(
+cat <<EOF
+#! /bin/bash
+
+# ......
+所有内容
+EOF
+) >/tmp/b
+
+方法二太麻烦，遇到双引号还要转
+#!/bin/sh
+echo -e "start()\n{\n  echo \"start\"\n}" >/tmp/b
+
+方法三，不需要转义， 比较方便
+#!/bin/sh
+(
+cat <<EOF
+start()
+{
+    echo "start"
+}
+EOF
+) >/tmp/b
