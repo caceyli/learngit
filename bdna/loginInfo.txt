@@ -100,3 +100,8 @@ vCenter Server 6.0
 192.168.8.232/9.113
 adminitrator@vsphere.local
 Simple.0
+
+JIRA:
+https://bdnacorp.atlassian.net/
+CaceyLi@bdna.com
+anDb327
