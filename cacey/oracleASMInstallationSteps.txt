@@ -344,3 +344,22 @@ IS_ BLOCK_SIZE FILE_SIZE_BLKS
 
 
 SQL>
+
+22. about asm user:
+以 sys 用户身份连接到 ASM 实例后，您可以更新在口令文件中更新的 SYS 口令：
+SQL> alter user sys identified by oracle
+2  /
+
+User altered.
+尽管这个 ASM 实例不带数据库，您仍然可以创建用户：
+SQL> create user asmoper identified by dumboper
+2  /
+
+User created.
+现在，您可以将 SYSASM 角色授予该用户：
+SQL> grant sysasm to asmoper;
+
+Grant succeeded.
+进行授权之后，asmoper 用户（而非 SYS 用户）可以执行所有 ASM 管理功能。该用户可以通过子句 as sysasm 进行连接，该子句类似于常规数据库中的“as sysdba”子句。
+$ sqlplus asmoper/dumboper as sysasm
+这个特性实现了迫切需要的 ASM 和 DBA 职权分离。
