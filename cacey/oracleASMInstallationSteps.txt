@@ -380,3 +380,15 @@ Enter password: ******
 ASMCMD> exit
 
 关键是10g下修改sys密码需要关闭数据库实例和ASM实例，修改方法是重建密码文件。
+
+23. ASM 实例托管基于内存的元数据表，这些表通过动态性能视图呈现。
+• ASM 实用程序使用SQL 语言访问这些表来检索仅含元数据的信息
+• 包含许多专用的ASM 相关视图，例如：
+ 
+V$ASM_ALIAS V$ASM_ATTRIBUTE V$ASM_CLIENT
+V$ASM_DISK V$ASM_DISK_IOSTAT V$ASM_DISK_STAT
+V$ASM_DISKGROUP V$ASM_DISKGROUP_STAT V$ASM_FILE
+V$ASM_OPERATION V$ASM_TEMPLATE
+ 
+上面列出了包含ASM 相关元数据的最常用动态性能视图。还有数百个其它动态性能视图，但是其中大多数视图都是空的，因为它们需要数据库实例装载
+据库控制文件。ASM 实例不装载数据库控制文件。
