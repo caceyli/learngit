@@ -1,0 +1,297 @@
+2016/01/25
+
+1. for
+d = {'a': 1, 'b': 2, 'c': 3}
+for key in d:
+    print(key)
+for value in d.values():
+    pirnt(value)
+for k, v in d.items():
+    print(k, '=', v)
+
+>>> [k + '=' + v for k, v in d.items()]
+['a=1', 'b=2', 'c=3']
+    
+for ch in 'ABC':
+    print(ch)
+
+>>> from collections import Iterable
+>>> isinstance('abc', Iterable) # str是否可迭代
+True
+>>> isinstance([1,2,3], Iterable) # list是否可迭代
+True
+>>> isinstance(123, Iterable) # 整数是否可迭代
+False
+
+>>> for i, value in enumerate(['A', 'B', 'C']):
+...     print(i, value)
+...
+0 A
+1 B
+2 C
+
+>>> for x, y in [(1, 1), (2, 4), (3, 9)]:
+...     print(x, y)
+...
+1 1
+2 4
+3 9
+
+2. list producer
+>>> list(range(1, 11))
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+>>> L = []
+>>> for x in range(1, 11):
+...    L.append(x * x)
+...
+>>> L
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+
+>>> def f(x):
+...     return x * x
+...
+>>> r = map(f, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+>>> [x * x for x in range(1, 11)]
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+
+>>> L = ['Hello', 'World', 'IBM', 'Apple']
+>>> [s.lower() for s in L]
+['hello', 'world', 'ibm', 'apple']
+
+------------------------------------------------------
+example:
+
+print([x * x for x in range(1, 11)])
+print([x * x for x in range(1, 11) if x % 2 == 0])
+print([m + n for m in 'ABC' for n in 'XYZ'])
+
+d = {'x': 'A', 'y': 'B', 'z': 'C' }
+print([k + '=' + v for k, v in d.items()])
+
+L = ['Hello', 'World', 'IBM', 'Apple']
+print([s.lower() for s in L])
+
+------------------------------------------------------
+
+2. generator
+
+L = [x * x for x in range(10)]
+>>> L = [x * x for x in range(10)]
+>>> L
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+>>> g = (x * x for x in range(10))
+>>> g
+<generator object <genexpr> at 0x1022ef630>
+
+>>> next(g)
+0
+
+>>> g = (x * x for x in range(10))
+>>> for n in g:
+...     print(n)
+
+
+def fib(max):
+    n, a, b = 0, 0, 1
+    while n < max:
+        print(b)
+        a, b = b, a + b
+        n = n + 1
+    return 'done'
+
+def fib(max):
+    n, a, b = 0, 0, 1
+    while n < max:
+        yield b
+        a, b = b, a + b
+        n = n + 1
+    return 'done'
+
+def odd():
+    print('step 1')
+    yield 1
+    print('step 2')
+    yield(3)
+    print('step 3')
+    yield(5)
+
+>>> o = odd()
+>>> next(o)
+step 1
+1
+>>> next(o)
+step 2
+3
+>>> next(o)
+step 3
+5
+>>> next(o)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+
+
+>>> g = fib(6)
+>>> while True:
+...     try:
+...         x = next(g)
+...         print('g:', x)
+...     except StopIteration as e:
+...         print('Generator return value:', e.value)
+...         break
+g: 1
+g: 1
+g: 2
+g: 3
+g: 5
+g: 8
+Generator return value: done
+
+
+
+
+03. Iterable/Iterator/iter([])
+list[]、tuple、dict{}、set、str
+generator
+
+>>> from collections import Iterable
+>>> isinstance((x for x in range(10)), Iterable)
+True
+>>> isinstance([], Iterable)
+True
+
+>>> from collections import Iterator
+>>> isinstance((x for x in range(10)), Iterator)
+True 
+>>> isinstance([], Iterator)
+False
+>>> isinstance(iter([]), Iterator)
+True
+
+------------------------------------
+for x in [1, 2, 3, 4, 5]:
+    pass
+------------------------------------
+
+# 首先获得Iterator对象:
+it = iter([1, 2, 3, 4, 5])
+# 循环:
+while True:
+    try:
+        # 获得下一个值:
+        x = next(it)
+    except StopIteration:
+        # 遇到StopIteration就退出循环
+        break
+
+------------------------------------
+
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+from collections import Iterable, Iterator
+
+def g():
+    yield 1
+    yield 2
+    yield 3
+
+print('Iterable? [1, 2, 3]:', isinstance([1, 2, 3], Iterable))
+print('Iterable? \'abc\':', isinstance('abc', Iterable))
+print('Iterable? 123:', isinstance(123, Iterable))
+print('Iterable? g():', isinstance(g(), Iterable))
+
+print('Iterator? [1, 2, 3]:', isinstance([1, 2, 3], Iterator))
+print('Iterator? iter([1, 2, 3]):', isinstance(iter([1, 2, 3]), Iterator))
+print('Iterator? \'abc\':', isinstance('abc', Iterator))
+print('Iterator? 123:', isinstance(123, Iterator))
+print('Iterator? g():', isinstance(g(), Iterator))
+
+
+###################################
+C:\Python34>python.exe newtest.py
+Iterable? [1, 2, 3]: True
+Iterable? 'abc': True
+Iterable? 123: False
+Iterable? g(): True
+Iterator? [1, 2, 3]: False
+Iterator? iter([1, 2, 3]): True
+Iterator? 'abc': False
+Iterator? 123: False
+Iterator? g(): True
+
+###################################
+
+
+-----------------------------------------
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+def g():
+    yield 1
+    yield 2
+    yield 3
+
+o=g()
+while True:
+    try:
+        print (next(o))
+    except StopIteration:
+        break
+-------------------------------------------------
+
+#######################################
+C:\Python34>python.exe test0607.py
+1
+2
+3
+#######################################
+
+# iter list:
+print('for x in [1, 2, 3, 4, 5]:')
+for x in [1, 2, 3, 4, 5]:
+    print(x)
+
+print('for x in iter([1, 2, 3, 4, 5]):')
+for x in iter([1, 2, 3, 4, 5]):
+    print(x)
+
+print('next():')
+it = iter([1, 2, 3, 4, 5])
+print(next(it))
+print(next(it))
+print(next(it))
+print(next(it))
+print(next(it))
+
+d = {'a': 1, 'b': 2, 'c': 3}
+
+# iter each key:
+print('iter key:', d)
+for k in d.keys():
+    print('key:', k)
+
+# iter each value:
+print('iter value:', d)
+for v in d.values():
+    print('value:', v)
+
+# iter both key and value:
+print('iter item:', d)
+for k, v in d.items():
+    print('item:', k, v)
+
+# iter list with index:
+print('iter enumerate([\'A\', \'B\', \'C\']')
+for i, value in enumerate(['A', 'B', 'C']):
+    print(i, value)
+
+# iter complex list:
+print('iter [(1, 1), (2, 4), (3, 9)]:')
+for x, y in [(1, 1), (2, 4), (3, 9)]:
+    print(x, y)
+
+----------------------------------------------------------------
+

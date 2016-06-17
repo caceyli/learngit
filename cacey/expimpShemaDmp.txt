@@ -1,0 +1,33 @@
+from 245 (bdna245) to 103 (bdna):
+1. on 245, export the schema:
+   nohup time exp system/bdnacn owner=bdna245 file=/home/bdna/bdna245.dmp log=bdna245.log 2>&1 &
+   Note: If you get a lot of "EXP-00091: Exporting questionable statistics." errors during export, you may need to run the export again with statistics=none switch. For example:
+   nohup time exp system/bdnacn owner=bdna245 statistics=none file=/home/bdna/bdna245.dmp log=bdna245.log 2>&1 &
+2. on 103, install new bdna home.
+3. on 103, Modify $BDNA_HOME/conf/connection.properties
+4. on 103, Create a new BDNA schema:
+   sh $BDNA_HOME/bin/createOracleUser.sh (Our Oracle system password usually defaults to bdna)
+5. on 103, import the schema
+   nohup time imp system/bdna fromuser=aa touser=regress buffer=10000000 feedback=20000 file=/home/bdna/bdna245.dmp log=bdna245_import.log 2>&1 &
+6. sudo cp -r $BDNA_HOME/bdna_web/templates/* /var/www/html
+7. sh runjava.sh com.bdna.control.agent.AgentIdentity
+8. sh bdna.sh
+property -m RULE0:bdna.control.hostName <bdna_host>
+property -m RULE1:bdna.control.hostName <bdna_host>
+property -m CLM1:bdna.control.hostName <bdna_host>
+property -m agendaManager:bdna.control.hostName <bdna_host>
+property -m bdnaCLE:bdna.control.hostName <bdna_host>
+property -m CLE1:bdna.control.hostName <bdna_host>
+property -m RS:bdna.control.hostName <bdna_host>
+property -m Admin:bdna.control.hostName <bdna_host>
+property -m SYSTEM_SERVICE:bdna.control.hostName <bdna_host>
+property -m PerlCS1:bdna.control.hostName <bdna_host>
+property -m bdnaPerlCS:bdna.control.hostName <bdna_host>
+property -m NotificationManager:bdna.control.hostName <bdna_host>
+property -m PERL_SERVER_localhost:bdna.control.hostName <bdna_host>
+7. sh install770/bin/debugagent.sh &
+9. startup RS
+10. On UI, Go to Administration application, click Datawarehouse -> Snapshot Discovery Data.
+11. In Administration application, click Applications -> Refresh Inventory Reports.
+Now if you go to the Analytics application, the inventory reports should be available for viewing.
+

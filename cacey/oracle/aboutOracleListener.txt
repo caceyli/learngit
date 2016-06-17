@@ -1,5 +1,6 @@
 Check whether the spesfic port is occupied or not: netstat -ano|grep 1521
 If something returned, means the port is in use.
+
 How to set static listener:
 
 SID_LIST_LISTENER =

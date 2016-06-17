@@ -1,0 +1,120 @@
+1. install OS
+2. 2 Network adapters. (need to reboot, otherwise, new adapter won't take effect)
+3. network configuration. 
+[root@hanoi ~]# vi /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=eth0
+BOOTPROTO=no
+HWADDR=00:50:56:8D:31:59
+ONBOOT=yes
+IPADDR=192.168.8.16
+NETMASK=255.255.252.0
+GATEWAY=192.168.8.161
+TYPE=Ethernet
+
+[root@hanoi ~]# vi /etc/sysconfig/network-scripts/ifcfg-eth1
+# Advanced Micro Devices [AMD] 79c970 [PCnet32 LANCE]
+DEVICE=eth1
+ONBOOT=yes
+BOOTPROTO=static
+IPADDR=192.168.8.225
+NETMASK=255.255.252.0
+GATEWAY=192.168.8.161
+HWADDR=00:0C:29:4C:5F:52
+
+4. instasll samba
+[root@hanoi ~]# rpm -qa |grep samba
+system-config-samba-1.2.21-1.el4.1
+samba-common-3.0.28-0.el4.9
+samba-client-3.0.28-0.el4.9
+samba-3.0.28-0.el4.9
+[root@hanoi ~]#
+
+5. set dns server
+[root@hanoi ~]# vi /etc/resolv.conf
+nameserver 192.168.8.161
+
+6. join to the domain server (192.168.8.161: CACEYVCENTERDC.COM)
+[root@hanoi ~]# setup
+
+Authentication Configuration
+Use Winbind
+Use MD5 Passwords
+Use Kerberos
+Use Winbind Authentication
+
+Kerberos Settings:
+Realm: CACEYVENTERDC.COM
+KDC  : 192.168.8.161:88
+Admin Server: null
+
+Winbind Settings:
+Security Model: (*)ads
+        Domain: CACEYVCENTERDC
+     ADS Realm: CACEYVENTERDC.COM
+Template Shell: (*) /bin/bash
+
+Join Domain - Join Settings
+Domain Administrator: Administrator
+            password: (you can't see it)
+
+Failed !!! login failed, the use the following method to re-join to domain:
+
+[root@localhost ~]# net ads join -U Administrator
+Administrator's password:
+[2016/06/16 13:08:36, 0] libsmb/cliconnect.c:cli_session_setup_spnego(859)
+  Kinit failed: Clock skew too great
+Failed to join domain: Time difference at domain controller
+[root@localhost ~]# service winbind status
+winbindd dead but pid file exists
+[root@localhost ~]# service winbind stop
+
+Shutting down Winbind services:                            [FAILED]
+[root@localhost ~]# service winbind status
+winbindd dead but subsys locked
+[root@localhost ~]# service winbind start
+Starting Winbind services:                                 [  OK  ]
+[root@localhost ~]# ntpdate 192.168.8.161
+16 Jun 01:38:20 ntpdate[23675]: step time server 192.168.8.161 offset -41548.346296 sec
+[root@localhost ~]# /etc/init.d/ntpd start
+Starting ntpd:                                             [  OK  ]
+[root@localhost ~]# date
+Thu Jun 16 01:38:52 EDT 2016
+[root@localhost ~]# net ads join -U Administrator
+Administrator's password:
+Using short domain name -- CACEYVCENTERDC
+DNS update failed!
+Joined 'HANOI' to realm 'CACEYVCENTERDC.COM'
+[root@localhost ~]# service winbind start
+Starting Winbind services:                                 [  OK  ]
+[root@localhost ~]# service winbind status
+winbindd (pid 23700 23697) is running...
+[root@localhost ~]#
+
+
+7. configure smb.conf
+[root@hanoi ~]# vi /etc/samba/smb.conf
+
+#============================ Share Definitions ==============================
+
+   idmap uid = 16777216-33554431
+   idmap gid = 16777216-33554431
+   template shell = /bin/bash
+   winbind use default domain = true
+   realm = CACEYVCENTERDC.COM
+[homes]
+        comment = Home Directories
+        browseable = no
+        writable = yes
+;       valid users = %S
+;       valid users = MYDOMAIN\%S
+
+[printers]
+        comment = All Printers
+        path = /var/spool/samba
+        browseable = no
+        guest ok = no
+        writable = no
+        printable = yes
+
+
+8. if the host doesn't appeard in DNS SERVER, Add this new host mannually on DNS SERVER.

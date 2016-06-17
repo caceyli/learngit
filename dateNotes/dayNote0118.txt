@@ -16,14 +16,22 @@ def add_end(L=None):
     if L is None:
         L = []
     L.append('END')
+
+
     return L
 
 b. variable var
 def calc(*numbers):
+    sum = 0
+    for n in numbers:
+        sum = sum + n * n
+    return sum
 >>> calc([1, 2, 3])
 14
 >>> calc((1, 3, 5, 7))
 84
+>>> calc(1, 2, 3)
+14
 >>> nums = [1, 2, 3]
 >>> calc(*nums)
 
@@ -34,10 +42,64 @@ def person(name, age, **kw):
 >>> extra = {'city': 'Beijing', 'job': 'Engineer'}
 >>> person('Jack', 24, **extra)
 
+d. named key var
+def person(name, age, *, city, job):
+    print(name, age, city, job)
+
 def person(name, age, *, city, job):
 >>> person('Jack', 24, city='Beijing', job='Engineer')
 
-d. def fact(n):
+
+examples:
+                   
+	 var_args.py
+-------------------------------------
+def hello(greeting, *args):
+    if (len(args)==0):
+        print('%s!' % greeting)
+    else:
+        print('%s, %s!' % (greeting, ', '.join(args)))
+
+hello('Hi') # => greeting='Hi', args=()
+hello('Hi', 'Sarah') # => greeting='Hi', args=('Sarah')
+hello('Hello', 'Michael', 'Bob', 'Adam') # => greeting='Hello', args=('Michael', 'Bob', 'Adam')
+
+names = ('Bart', 'Lisa')
+hello('Hello', *names) # => greeting='Hello', args=('Bart', 'Lisa')
+--------------------------------------
+         kw_args.py
+--------------------------------------
+def print_scores(**kw):
+    print('      Name  Score')
+    print('------------------')
+    for name, score in kw.items():
+        print('%10s  %d' % (name, score))
+    print()
+
+print_scores(Adam=99, Lisa=88, Bart=77)
+
+data = {
+    'Adam Lee': 99,
+    'Lisa S': 88,
+    'F.Bart': 77
+}
+
+print_scores(**data)
+
+def print_info(name, *, gender, city='Beijing', age):
+    print('Personal Info')
+    print('---------------')
+    print('   Name: %s' % name)
+    print(' Gender: %s' % gender)
+    print('   City: %s' % city)
+    print('    Age: %s' % age)
+    print()
+
+print_info('Bob', gender='male', age=20)
+print_info('Lisa', gender='female', city='Shanghai', age=18)
+----------------------------------------------
+
+e. def fact(n):
        if n==1:
            return 1
        return n * fact(n - 1)
@@ -71,7 +133,7 @@ d. def fact(n):
 ===> 120
 
 
-e. clic
+f. clic
 
 >>> L = list(range(100))
 >>> L[0:10]
@@ -79,4 +141,6 @@ e. clic
 >>> L[:10:2]
 >>> L[::5]
 >>> 'ABCDEFG'[:3]
-
+'ABC'
+>>> 'ABCDEFG'[::2]
+'ACEG'

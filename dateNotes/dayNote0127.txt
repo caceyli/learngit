@@ -1,0 +1,239 @@
+2016/01/27
+
+1. StringTokenizer st
+   st.countTokens()
+   st.hasMoreTokens()
+   st.nextToken()
+
+2. FileInputStream fs = new FileInputStream(file)
+   Properties props
+   props.load(fs)
+   fs.close()
+   Iterator iter
+   try {} catch {}
+
+3. >>> f = abs
+   >>> f(-10)
+   10
+
+def add(x, y, f):
+    return f(x) + f(y)
+
+add(-5, 6, abs)
+x = -5
+y = 6
+f = abs
+f(x) + f(y) ==> abs(-5) + abs(6) ==> 11
+return 11
+
+4. map
+>>> def f(x):
+...     return x * x
+...
+>>> r = map(f, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+>>> list(r)
+[1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+>>> list(map(str, [1, 2, 3, 4, 5, 6, 7, 8, 9]))
+['1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+5. reduce
+reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
+
+>>> from functools import reduce
+>>> def add(x, y):
+...     return x + y
+...
+>>> reduce(add, [1, 3, 5, 7, 9])
+25
+
+>>> from functools import reduce
+>>> def fn(x, y):
+...     return x * 10 + y
+...
+>>> reduce(fn, [1, 3, 5, 7, 9])
+13579
+
+----------------------------------------------------------------------------------------------
+from functools import reduce
+
+def char2num(s):
+    return {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}[s]
+
+def str2int(s):
+    return reduce(lambda x, y: x * 10 + y, map(char2num, s))
+----------------------------------------------------------------------------------------------
+
+6. filter
+-------------------------
+def is_odd(n):
+    return n % 2 == 1
+
+list(filter(is_odd, [1, 2, 4, 5, 6, 9, 10, 15]))
+# 结果: [1, 5, 9, 15]
+-------------------------
+def is_odd(n):
+    return n % 2 == 1
+
+L = range(100)
+
+print(list(filter(is_odd, L)))
+
+def not_empty(s):
+    return s and s.strip()
+
+print(list(filter(not_empty, ['A', '', 'B', None, 'C', '  ']))
+---------------------------------------------------------------
+
+7. sorted
+------------------------------------------------------
+from operator import itemgetter
+
+L = ['bob', 'about', 'Zoo', 'Credit']
+
+print(sorted(L))
+print(sorted(L, key=str.lower))
+
+students = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
+
+print(sorted(students, key=itemgetter(0)))
+print(sorted(students, key=lambda t: t[1]))
+print(sorted(students, key=itemgetter(1), reverse=True))
+--------------------------------------------------------
+
+
+8. return function
+
+------------------------------------
+def lazy_sum(*args):
+    def sum():
+        ax = 0
+        for n in args:
+            ax = ax + n
+        return ax
+    return sum
+
+
+>>> f = lazy_sum(1, 3, 5, 7, 9)
+>>> f
+<function lazy_sum.<locals>.sum at 0x101c6ed90>
+
+>>> f()
+25
+
+
+---------------------------------------
+def lazy_sum(*args):
+    def sum():
+        ax = 0
+        for n in args:
+            ax = ax + n
+        return ax
+    return sum
+
+f = lazy_sum(1, 2, 4, 5, 7, 8, 9)
+print(f)
+print(f())
+
+# why f1(), f2(), f3() returns 9, 9, 9 rather than 1, 4, 9?
+def count():
+    fs = []
+    for i in range(1, 4):
+        def f():
+             return i * i
+        fs.append(f)
+    return fs
+
+f1, f2, f3 = count()
+
+print(f1())
+print(f2())
+print(f3())
+
+# fix:
+def count():
+    fs = []
+    def f(n):
+        def j():
+            return n * n
+        return j
+    for i in range(1, 4):
+        fs.append(f(i))
+    return fs
+
+f1, f2, f3 = count()
+
+print(f1())
+print(f2())
+print(f3())
+---------------------------------------
+
+
+9. anonymous function
+
+>>> list(map(lambda x: x * x, [1, 2, 3, 4, 5, 6, 7, 8, 9]))
+[1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+>>> f = lambda x: x * x
+>>> f
+<function <lambda> at 0x101c6ef28>
+>>> f(5)
+25
+
+def build(x, y):
+    return lambda: x * x + y * y
+
+
+10. decorator
+
+-----------------
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import functools
+
+def log(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kw):
+        print('call %s():' % func.__name__)
+        return func(*args, **kw)
+    return wrapper
+
+@log
+def now():
+    print('2015-3-25')
+
+now()
+
+def logger(text):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kw):
+            print('%s %s():' % (text, func.__name__))
+            return func(*args, **kw)
+        return wrapper
+    return decorator
+
+@logger('DEBUG')
+def today():
+    print('2015-3-25')
+
+today()
+print(today.__name__)
+--------------------------------------------
+
+
+11. Partial function
+
+--------------------------------------------
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import functools
+
+int2 = functools.partial(int, base=2)
+
+print('1000000 =', int2('1000000'))
+print('1010101 =', int2('1010101'))
+--------------------------------------------
+
