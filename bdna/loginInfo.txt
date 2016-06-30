@@ -77,6 +77,7 @@ cacey@bdnacn.com
 simple01
 
 Git commands
+http://gitlab.bdnacorp.com/users/sign_in
 git clone git@gitlab.bdnacorp.com:discover-team/sequences-7-7.git
 git clone git@gitlab.bdnacorp.com:discover-team/sequences-7-6-1.git
 git clone git@gitlab.bdnacorp.com:discover-team/discover-7-7.git
