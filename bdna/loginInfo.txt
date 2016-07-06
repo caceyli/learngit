@@ -93,8 +93,8 @@ skype:
 lhhexile@hotmail.com
 simple01
 
-Esxi 5.0/5.5
-192.168.8.152/153
+Esxi 5.0/5.5  VMForESXi50_cacey/VMForESXi55_cacey  on 192.168.9.100
+192.168.8.152/153, 192.168.8.146/161
 root/simple01
 
 vCenter Server 6.0
