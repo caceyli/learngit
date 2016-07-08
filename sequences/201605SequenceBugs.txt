@@ -1,0 +1,163 @@
+201605 Sequence Bugs:
+
+1. ENH11222  [Visa][Fingerprint] Add Fingerprint for MongoDB Enterprise Server software
+QA Verification:
+-------------------------------------
+Result can be validated by doing a Level 2 scan against 10.10.10.51 (linux)
+
+IP address: 10.10.10.51 (vmlinuxbit01.bdnacorp.com) 
+Credential: root/bdna 
+-------------------------------------
+
+(Attached screenshots: screenshotForMongoDBEnterpriseOnUNIX.bmp)
+--------------------------------------
+
+2. ENH11223  [Visa][Fingerprint] Add Fingerprint for Datastax Enterprise software
+QA Verification:
+-------------------------------------
+Result can be validated by doing a Level 2 scan against 10.10.10.51 (linux)
+
+IP address: 10.10.10.51 (vmlinuxbit01.bdnacorp.com) 
+Credential: root/bdna 
+-------------------------------------
+
+(Attached screenshots: screenshotForDatastaxEnterpiseOnUNIX.bmp)
+--------------------------------------
+
+3. ENH11204  [J.P. Morgan Chase & Co. ][Level One Scan Fingerprint] Please create fingerprint for Level One Scan to type "WINDOWS SERVER 2012 R2 DATACENTER SP0" 
+1) Windows 2012 with Hyper-V Service. (belong to Windows 2012, not Hyper-V 2012, this only can be typed as Windows 2012 at L2)
+2) Hyper-V 2012 has no Level 1/2 fp.
+3) OS with Hyper-V Service (either windows 2012 or Hyper-V 2012 was typed as Windows at L1)
+4) refer to Bug 24874: http://bugzilla.bdnacorp.com/show_bug.cgi?id=24874
+
+
+QA Verification: 
+--------------------------------------
+Test Environment: 
+IP address: 10.10.13.16  (windows 2012)
+Credential: administrator/Simple.0
+--------------------------------------
+
+Test Case 1 -- reproduce the issue: 
+1. Install old Enterprise sequences. (eg: 2016-03 sequences) 
+2. new a level 2 scan against 10.10.13.16.
+6. after scan finished, 10.10.13.16 was not typed as Windows2012 at level 2 as the screenshot 'win2012WithHypVserviceNotTypedasWin2012atL2.bmp' showed. 
+--------------------------------------
+
+Test Case 2 -- Validate the code enhancement on 2016-05 sequence release:
+1. Install 2016-05 Enterprise sequences.
+2. new a level 2 scan against 10.10.13.16.
+6. after scan finished, 10.10.13.16 was correctly typed as Windows2012 at level 2 as the screenshot 'win2012WithHypVserviceTypedasWin2012atL2.bmp' showed. 
+--------------------------------------
+
+(attached screenshots: win2012WithHypVserviceNotTypedasWin2012atL2.bmp, swin2012WithHypVserviceTypedasWin2012atL2.bmp)
+--------------------------------------
+
+
+4. ENH11171  [Verizon ][Sequence - Fingerprint] RedHat JBOSS Enterprise web service version 2.1 requires fingerprinting 
+QA Verification:
+-------------------------------------
+Result can be validated by doing a Level 2 scan against 10.10.10.51 (linux)
+
+IP address: 10.10.10.51 (vmlinuxbit01.bdnacorp.com) 
+Credential: root/bdna 
+-------------------------------------
+
+(Attached screenshots: screenshotForRedHatJBossEnterpriseWebServeronUNIX.bmp)
+-------------------------------------
+
+
+5. BUG06906  [Verizon][Level One Scan] 358 out of 447 are untyped   (about sudo)
+sudo $BDNA_HOME/nih/Nmap/src/nmap.Linux.RHEL6.x86_64 -n -sS -PI -PS80,135,445,3389 -O -F 10.133.6.164 2>&1 
+$BDNA_HOME/nih/Nmap/src/nmap.Linux.RHEL6.x86_64 --privileged -n -sS -PI -PS80,135,445,3389 -O -F 10.133.6.164 2>&1 
+/apps/opt/bdna/static_nmap/Nmap/src/nmap.Linux.RHEL6.x86_64 --privileged -n -sS -PI -PS80,135,445,3389 -O -F 10.133.6.164 2>&1 
+
+[bdna@VMDC8123 ~]$ $BDNA_HOME/nih/Nmap/src/nmap.Linux.RHEL6.x86_64 --privileged -n -sS -PI -PS80,135,445,3389 -O -F 10.133.6.164 2>&1
+
+Starting Nmap 5.51 ( http://nmap.org ) at 2016-03-29 16:21 CST
+socket troubles in Init: Operation not permitted (1)
+
+[bdna@VMDC8123 ~]$ sudo setcap cap_net_raw+ep $BDNA_HOME/nih/Nmap/src/nmap.Linux.RHEL6.x86_64
+[bdna@VMDC8123 ~]$ getcap $BDNA_HOME/nih/Nmap/src/nmap.Linux.RHEL6.x86_64
+/home/bdna/install770/nih/Nmap/src/nmap.Linux.RHEL6.x86_64 = cap_net_raw+ep
+
+[bdna@VMDC8123 ~]$ $BDNA_HOME/nih/Nmap/src/nmap.Linux.RHEL6.x86_64 --privileged -n -sS -PI -PS80,135,445,3389 -O -F 10.133.6.164 2>&1
+
+Starting Nmap 5.51 ( http://nmap.org ) at 2016-03-29 16:23 CST
+Read from /home/bdna/install770/nih/Nmap/src: nmap-os-db nmap-services.
+Read from /usr/local/share/nmap: nmap-payloads.
+Note: Host seems down. If it is really up, but blocking our ping probes, try -Pn
+Nmap done: 1 IP address (0 hosts up) scanned in 3.41 seconds
+
+
+1) # visudo (run this command as root user): 
+
+sudo user has root privilige
+*******************
+//Comment out the "Defaults requiretty" line 
+#Defaults requiretty 
+//Add a line to turn off requiretty for the user 
+Defaults:bdna !requiretty 
+
+//Comment out the env_reset line 
+# Defaults env_reset 
+// Add a line to turn off env_reset for the user 
+Defaults:bdna !env_reset 
+
+//Add following line under line 'root ALL=NOPASSWD: ALL' 
+bdna ALL=NOPASSWD: ALL 
+
+$ sudo -l:
+User bdna may run the following commands on this host: 
+(ALL) NOPASSWD: ALL 
+*******************
+
+sudo user has no root privilige
+*******************
+//Add following line under line 'root ALL=NOPASSWD: ALL' 
+bdna ALL=() NOPASSWD: ALL 
+
+$ sudo -l:
+User bdna may run the following commands on this host: 
+(bdna) NOPASSWD: ALL
+******************
+
+2) 
+
+
+
+ENH11216 [Verizon][Sequence Gapfill] FactBase erroneously reporting Symantec\Veritas Master Servers in Fingerprinted Applications in all OS
+
+QA Verification: 
+--------------------------------------
+Test Environment: 
+IP address: 10.10.10.51  (Linux)
+Credential: root/bdna
+
+two stages:
+1. stage 1 for Veritas NetBackup Master Server: /opt/app/Symantec/NetBackup_Client_and_Server
+2. stage 2 for NOT Veritas NetBackup Master Server: /opt/app/Symantec/Not_Netbackup_Server
+
+expected result:
+only 1 Veritas NetBackup Master erver was discovered.
+--------------------------------------
+
+Test Case 1 -- reproduce the issue: 
+1. Install old Enterprise sequences. (eg: 2016-03 sequences) 
+2. new a level 2 scan against 10.10.10.51.
+3. after scan finished, refresh the report.
+4. review the report in Fingerprinted Applications in all OS: 2 Veritas NetBackup Master erver were discovered.
+
+--------------------------------------
+
+Test Case 2 -- Validate the code enhancement on 2016-05 sequence release:
+1. Install 2016-05 Enterprise sequences.
+2. new a level 2 scan against 10.10.13.16.
+3. after scan finished, refresh the report.
+4. review the report in Fingerprinted Applications in all OS: 1 Veritas NetBackup Master erver were discovered.
+--------------------------------------
+
+(attached screenshots: NetBackupMasterServerFPHasOverMatch.bmp, NetBackupMasterServerFPOverMatchFixed.bmp)
+--------------------------------------
+
+Updated with Technopedia Mapping (SW, HW, and CPU) for 2016-05 release on April 7, 2016.
