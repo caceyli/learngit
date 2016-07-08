@@ -1,0 +1,394 @@
+Oracle ASM installation:
+
+1. os
+[root@localhost ~]# lsb_release -a
+LSB Version:    :core-3.1-amd64:core-3.1-ia32:core-3.1-noarch:graphics-3.1-amd64:graphics-3.1-ia32:graphics-3.1-noarch
+Distributor ID: RedHatEnterpriseServer
+Description:    Red Hat Enterprise Linux Server release 5.4 (Tikanga)
+Release:        5.4
+Codename:       Tikanga
+[root@localhost ~]# 
+
+2. rpm version
+[root@localhost ~]# uname -rm
+2.6.18-164.el5 x86_64
+
+3. installer: G:\caceyftp\asm
+linux.x64_11gR2_grid.zip
+oracleasm-2.6.18-164.el5-2.0.5-1.el5.x86_64.rpm
+oracleasmlib-2.0.4-1.el5.x86_64.rpm
+oracleasm-support-2.1.8-1.el5.x86_64.rpm
+
+4. create oracle/grid user
+/usr/sbin/groupadd -g 501 oinstall
+/usr/sbin/groupadd -g 502 dba
+/usr/sbin/groupadd -g 503 oper
+/usr/sbin/groupadd -g 504 asmadmin
+/usr/sbin/groupadd -g 505 asmoper
+/usr/sbin/groupadd -g 506 asmdba
+/usr/sbin/useradd -g oinstall -G dba,asmdba,oper oracle
+/usr/sbin/useradd -g oinstall -G asmadmin,asmdba,asmoper,oper,dba grid
+
+5. create oracle home
+mkdir -p /u01/app/oracle/product/11.2.0/dbhome_1
+mkdir -p /u01/app/grid/product/11.2.0/grid
+chown -R oracle:oinstall /u01/app/
+chown -R grid:oinstall /u01/app/grid
+chomod -R 775 /u01
+
+6. install asmlib
+[root@localhost asm]# ls
+oracleasm-2.6.18-164.el5-2.0.5-1.el5.x86_64.rpm
+oracleasmlib-2.0.4-1.el5.x86_64.rpm
+oracleasm-support-2.1.8-1.el5.x86_64.rpm 
+[root@localhost asm]# rpm -ivh oracleasm*
+
+7. configure asmlib
+[root@localhost ~]# /etc/init.d/oracleasm configure
+Configuring the Oracle ASM library driver.
+
+This will configure the on-boot properties of the Oracle ASM library
+driver.  The following questions will determine whether the driver is
+loaded on boot and what permissions it will have.  The current values
+will be shown in brackets ('[]').  Hitting <ENTER> without typing an
+answer will keep that current value.  Ctrl-C will abort.
+
+Default user to own the driver interface []: grid
+Default group to own the driver interface []: asmadmin
+Start Oracle ASM library driver on boot (y/n) [n]: y
+Scan for Oracle ASM disks on boot (y/n) [y]: y
+Writing Oracle ASM library driver configuration: done
+Initializing the Oracle ASMLib driver:                     [  OK  ]
+Scanning the system for Oracle ASMLib disks:               [  OK  ]
+
+[root@localhost ~]# /etc/init.d/oracleasm enable
+Writing Oracle ASM library driver configuration: done
+Initializing the Oracle ASMLib driver:                     [  OK  ]
+Scanning the system for Oracle ASMLib disks:               [  OK  ]
+
+8. create asm disks
+1) add a new hard disk: sdb
+2) based on /dev/sdb, create 3 primary disks with command fdisk: /dev/sdb1, sdb2, sdb3
+http://blog.itpub.net/94384/viewspace-600344/
+3)partprobe
+4)/etc/init.d/oracleasm createdisk vol1 /dev/sdb1
+  /etc/init.d/oracleasm createdisk vol2 /dev/sdb2
+  /etc/init.d/oracleasm createdisk vol3 /dev/sdb3
+5)if above not all ok, reboot can make it work, i think.
+6)attain disk changes and check asm disk
+[root@localhost ~]# /etc/init.d/oracleasm scandisks
+[root@localhost ~]# /etc/init.d/oracleasm listdisks
+
+9. config .bash_profile
+#ORACLE_11G_grid
+ORACLE_BASE=/u01/app/grid
+ORACLE_HOME=$ORACLE_BASE/product/11.2.0/grid
+ORACLE_SID=+ASM
+PATH=$PATH:$ORACLE_HOME/bin
+export ORACLE_BASE ORACLE_HOME ORACLE_SID PATH
+#end
+
+#ORACLE_11G_oracle
+ORACLE_BASE=/u01/app/oracle
+ORACLE_HOME=$ORACLE_BASE/product/11.2.0/db_1
+ORACLE_SID=yft
+PATH=$PATH:$ORACLE_HOME/bin
+export ORACLE_BASE ORACLE_HOME ORACLE_SID PATH
+#end
+
+10. configure os kernel
+[root@localhost ~]# vi /etc/sysctl.conf
+fs.aio-max-nr = 1048576
+fs.file-max = 6815744
+kernel.shmall = 2097152
+kernel.shmmax = 536870912
+kernel.shmmni = 4096
+kernel.sem = 250 32000 100 128
+net.ipv4.ip_local_port_range = 9000 65500
+net.core.rmem_default = 262144
+net.core.rmem_max = 4194304
+net.core.wmem_default = 262144
+net.core.wmem_max = 1048586
+
+[root@localhost ~]# sysctl -p
+
+[root@localhost ~]# vi /etc/security/limits.conf
+oracle soft nproc 2047
+oracle hard nproc 16384
+oracle soft nofile 1024
+oracle hard nofile 65536
+grid soft nproc 2047
+grid hard nproc 16384
+grid soft nofile 1024
+grid hard nofile 65536
+
+[root@localhost ~]# vi /etc/pam.d/login
+session required pam_limits.so
+
+[root@localhost ~]# vi /etc/profile
+if [ $USER = "oracle" ] || [ $USER = "grid" ]; then
+        if [ $SHELL = "/bin/ksh" ]; then
+                ulimit -p 16384
+                ulimit -n 65536
+        else
+                ulimit -u 16384 -n 65536
+        fi
+fi
+
+11. install rpms for oracle (get the rpms from OS cd files)
+[root@localhost osrpm]# ls
+elfutils-libelf-devel-0.137-3.el5.x86_64.rpm
+elfutils-libelf-devel-static-0.137-3.el5.x86_64.rpm
+gcc-4.1.2-46.el5.x86_64.rpm
+gcc-c++-4.1.2-46.el5.x86_64.rpm
+glibc-devel-2.5-42.i386.rpm
+glibc-devel-2.5-42.x86_64.rpm
+glibc-headers-2.5-42.x86_64.rpm
+kernel-headers-2.6.18-164.el5.x86_64.rpm
+libaio-devel-0.3.106-3.2.i386.rpm
+libaio-devel-0.3.106-3.2.x86_64.rpm
+libgomp-4.4.0-6.el5.x86_64.rpm
+libstdc++-devel-4.1.2-46.el5.x86_64.rpm
+sysstat-7.0.2-3.el5.x86_64.rpm
+unixODBC-2.2.11-7.1.i386.rpm
+unixODBC-2.2.11-7.1.x86_64.rpm
+unixODBC-devel-2.2.11-7.1.i386.rpm
+unixODBC-devel-2.2.11-7.1.x86_64.rpm
+
+12. install asm
+[grid@localhost grid]$ unzip linux.x64_11gR2_grid.zip
+[grid@localhost grid]$ ./runInstaller
+
+13. if get error while running root.sh, here  is the solution: http://www.aixchina.net/home/space.php?uid=15081&do=blog&id=25724
+1) sh /u01/app/grid/product/11.2.0/grid/root.sh (get error)
+2) [root@localhost ~]# vi /etc/selinux/config
+SELINUX=disabled
+3) /u01/app/grid/product/11.2.0/grid/crs/install/rootcrs.pl -delete -force -verbose
+4) sh /u01/app/grid/product/11.2.0/grid/root.sh ('UpdateNodeList' was successful.)
+
+14. after asm is installed successfully, create a asm instance:
+[grid@localhost ~]$ asmca
+
+15. check asm status
+[grid@localhost osrpm]# ps -ef|grep ASM
+grid      7189     1  0 15:40 ?        00:00:00 asm_pmon_+ASM
+grid      7191     1  0 15:40 ?        00:00:00 asm_vktm_+ASM
+grid      7195     1  0 15:40 ?        00:00:00 asm_gen0_+ASM
+grid      7197     1  0 15:40 ?        00:00:00 asm_diag_+ASM
+grid      7199     1  0 15:40 ?        00:00:00 asm_psp0_+ASM
+grid      7201     1  0 15:40 ?        00:00:00 asm_dia0_+ASM
+grid      7203     1  0 15:40 ?        00:00:00 asm_mman_+ASM
+grid      7205     1  0 15:40 ?        00:00:00 asm_dbw0_+ASM
+grid      7207     1  0 15:40 ?        00:00:00 asm_lgwr_+ASM
+grid      7209     1  0 15:40 ?        00:00:00 asm_ckpt_+ASM
+grid      7211     1  0 15:40 ?        00:00:00 asm_smon_+ASM
+grid      7213     1  0 15:40 ?        00:00:00 asm_rbal_+ASM
+grid      7215     1  0 15:40 ?        00:00:00 asm_gmon_+ASM
+grid      7217     1  0 15:40 ?        00:00:00 asm_mmon_+ASM
+grid      7219     1  0 15:40 ?        00:00:00 asm_mmnl_+ASM
+grid      7593  7590  0 16:58 ?        00:00:00 oracle+ASM (DESCRIPTION=(LOCAL=YES)(ADDRESS=(PROTOCOL=beq)))
+
+[grid@localhost ~]$ lsnrctl status
+
+LSNRCTL for Linux: Version 11.2.0.1.0 - Production on 22-JAN-2016 17:00:26
+
+Copyright (c) 1991, 2009, Oracle.  All rights reserved.
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=IPC)(KEY=EXTPROC1521)))
+STATUS of the LISTENER
+------------------------
+Alias                     LISTENER
+Version                   TNSLSNR for Linux: Version 11.2.0.1.0 - Production
+Start Date                22-JAN-2016 15:02:06
+Uptime                    0 days 1 hr. 58 min. 20 sec
+Trace Level               off
+Security                  ON: Local OS Authentication
+SNMP                      OFF
+Listener Parameter File   /u01/app/grid/product/11.2.0/grid/network/admin/listener.ora
+Listener Log File         /u01/app/grid/diag/tnslsnr/localhost/listener/alert/log.xml
+Listening Endpoints Summary...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(KEY=EXTPROC1521)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=localhost.localdomain)(PORT=1521)))
+Services Summary...
+Service "+ASM" has 1 instance(s).
+  Instance "+ASM", status READY, has 1 handler(s) for this service...
+The command completed successfully
+
+16. shutdown ASM instance
+SQL> conn /as sysasm
+Connected.
+SQL> shutdown immediate
+ASM diskgroups volume disabled
+ASM diskgroups dismounted
+ASM instance shutdown
+SQL>
+
+17. startup with error after reboot:  http://www.cnblogs.com/Richardzhu/articles/2978124.html
+SQL> conn /as sysasm
+Connected to an idle instance.
+SQL> startup
+ORA-01078: failure in processing system parameters
+ORA-29701: unable to connect to Cluster Synchronization Service
+
+Solution:
+
+
+1) crsctl check css
+2) crsctl check has
+3) crsctl status resource -t
+4) crs_stat -p ora.cssd
+5) crsctl start resource ora.cssd
+6) crs_stat -t
+
+
+SQL> conn /as sysasm
+Connected to an idle instance.
+SQL> startup
+ASM instance started
+
+Total System Global Area  283930624 bytes
+Fixed Size                  2212656 bytes
+Variable Size             256552144 bytes
+ASM Cache                  25165824 bytes
+ASM diskgroups mounted
+SQL>
+
+
+18. install oracle database:
+1) installer: ftp://192.168.8.25/installer/Linux/Oracle/ORACLE11GR2bit64/
+linux.x64_11gR2_database_1of2.zip
+linux.x64_11gR2_database_2of2.zip
+
+2) install db:
+create and configure a database
+Server class
+Single instance database installation
+Advanced Install
+language
+Enterprise Edition
+location
+General Purpose/Transaction Processing
+sid
+Enable Automatic Memory Management
+Use Database Control for database management
+Automatic Storage Management (asmsnmp user password: bdnacn)
+Do not enable automated backups
+Select ASM Disk Group (installed asm)
+Db passwords
+group
+checks
+summary
+root.sh
+
+
+19. CRS-0210: Could not find resource 'ora.LISTENER.lsnr'. (while installing oracle database instance: http://www.linuxidc.com/Linux/2015-01/111579p2.htm)
+
+[grid@localhost ~]$ crs_stat -t
+Name           Type           Target    State     Host
+------------------------------------------------------------
+ora....OUP1.dg ora....up.type ONLINE    ONLINE    localhost
+ora.asm        ora.asm.type   ONLINE    ONLINE    localhost
+ora.cssd       ora.cssd.type  ONLINE    ONLINE    localhost
+ora.diskmon    ora....on.type ONLINE    ONLINE    localhost
+
+
+[grid@localhost ~]$ srvctl add listener
+PRCN-2061 : Failed to add listener ora.LISTENER.lsnr
+PRCN-2065 : Port(s) 1521 are not available on the nodes given
+PRCN-2035 : Port 1521 is not available on node(s) or virtual host(s): localhost.localdomain
+
+[grid@localhost ~]$ lsnrctl stop
+
+[grid@localhost ~]$ srvctl add listener
+
+[grid@localhost ~]$ lsnrctl start
+
+[grid@localhost ~]$ crs_stat -t
+Name           Type           Target    State     Host
+------------------------------------------------------------
+ora....OUP1.dg ora....up.type ONLINE    ONLINE    localhost
+ora....ER.lsnr ora....er.type ONLINE    ONLINE    localhost
+ora.asm        ora.asm.type   ONLINE    ONLINE    localhost
+ora.cssd       ora.cssd.type  ONLINE    ONLINE    localhost
+ora.diskmon    ora....on.type ONLINE    ONLINE    localhost
+
+20. Check.
+SQL> select instance_name,status from v$instance;
+
+INSTANCE_NAME    STATUS
+---------------- ------------
+ora11g           OPEN
+
+SQL>  select * from v$controlfile;
+
+STATUS
+-------
+NAME
+--------------------------------------------------------------------------------
+IS_ BLOCK_SIZE FILE_SIZE_BLKS
+--- ---------- --------------
+
++ASMGROUP1/ora11g/controlfile/current.261.901916783
+NO       16384            594
+
+
++ASMGROUP1/ora11g/controlfile/current.260.901916783
+YES      16384            594
+
+STATUS
+-------
+NAME
+--------------------------------------------------------------------------------
+IS_ BLOCK_SIZE FILE_SIZE_BLKS
+--- ---------- --------------
+
+
+SQL>
+
+22. about asm user:  (http://blog.chinaunix.net/uid-11570547-id-59114.html)
+以 sys 用户身份连接到 ASM 实例后，您可以更新在口令文件中更新的 SYS 口令：
+SQL> alter user sys identified by oracle
+2  /
+
+User altered.
+尽管这个 ASM 实例不带数据库，您仍然可以创建用户：
+SQL> create user asmoper identified by dumboper
+2  /
+
+User created.
+现在，您可以将 SYSASM 角色授予该用户：
+SQL> grant sysasm to asmoper;
+
+Grant succeeded.
+进行授权之后，asmoper 用户（而非 SYS 用户）可以执行所有 ASM 管理功能。该用户可以通过子句 as sysasm 进行连接，该子句类似于常规数据库中的“as sysdba”子句。
+$ sqlplus asmoper/dumboper as sysasm
+这个特性实现了迫切需要的 ASM 和 DBA 职权分离。
+
+在Oracle 11.2中，可以使用asmcmd工具修改单个实例的sys密码。
+
+$ export ORACLE_SID=+ASM
+$ asmcmd
+ASMCMD> passwd sys
+Enter old password (optional): ******
+Enter new password: ******
+
+也可以使用asmcmd工具修改RAC的sys密码
+
+ASMCMD> orapwusr --modify --password sys
+
+Enter password: ******
+ASMCMD> exit
+
+关键是10g下修改sys密码需要关闭数据库实例和ASM实例，修改方法是重建密码文件。
+
+23. ASM 实例托管基于内存的元数据表，这些表通过动态性能视图呈现。
+• ASM 实用程序使用SQL 语言访问这些表来检索仅含元数据的信息
+• 包含许多专用的ASM 相关视图，例如：
+ 
+V$ASM_ALIAS V$ASM_ATTRIBUTE V$ASM_CLIENT
+V$ASM_DISK V$ASM_DISK_IOSTAT V$ASM_DISK_STAT
+V$ASM_DISKGROUP V$ASM_DISKGROUP_STAT V$ASM_FILE
+V$ASM_OPERATION V$ASM_TEMPLATE
+ 
+上面列出了包含ASM 相关元数据的最常用动态性能视图。还有数百个其它动态性能视图，但是其中大多数视图都是空的，因为它们需要数据库实例装载
+据库控制文件。ASM 实例不装载数据库控制文件。

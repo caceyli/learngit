@@ -1,0 +1,6 @@
+BDNA Discover cmds:
+
+1. collect attributes 'NetBiosComputerName' and 'WindowsDomainName' at level 1 for all OS:
+ /home/bdna/install771/nih/nbtscan/nbtscan.Linux -v -s'|' -t 5 192.168.8.225
+
+2. 
