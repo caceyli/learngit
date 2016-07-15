@@ -11,3 +11,7 @@ sqlplus remote connection with service name:
 sqlplus system/bdnacn@//192.168.11.101:1522/ora12c
 
 SQL> select instance_name,status from v$instance;
+
+
+Customer environment, probably this situation:
+http://www.dba-oracle.com/security/removing_permissions.htm
