@@ -68,5 +68,5 @@ port: 2500
 For this environment
 *********************
 Level 2 credential: vzpbdna/bdna
-Level 3 credential: BDNADISC/bdnacn
+Level 3 credential: BDNADISC/bdna
 *********************
