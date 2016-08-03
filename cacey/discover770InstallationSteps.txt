@@ -185,6 +185,7 @@ v. SELECT * FROM dba_profiles s WHERE s.profile='DEFAULT' AND resource_name='PAS
    select * from dba_profiles;
    alter profile default limit FAILED_LOGIN_ATTEMPTS unlimited;  (user never locked)
    alter user system account unlock;
+   alter user system identified by bdnacn;
 w. Create BDNA tablespace: https://github.com/caceyli/learngit/blob/master/cacey/oracle/postinstall_MEDIUM_67G.sql
 
 
