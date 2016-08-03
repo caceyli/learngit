@@ -184,6 +184,7 @@ v. SELECT * FROM dba_profiles s WHERE s.profile='DEFAULT' AND resource_name='PAS
    ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;  (user password never expired)
    select * from dba_profiles;
    alter profile default limit FAILED_LOGIN_ATTEMPTS unlimited;  (user never locked)
+   alter user system account unlock;
 w. Create BDNA tablespace: https://github.com/caceyli/learngit/blob/master/cacey/oracle/postinstall_MEDIUM_67G.sql
 
 
