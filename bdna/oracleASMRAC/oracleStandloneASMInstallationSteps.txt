@@ -392,3 +392,78 @@ V$ASM_OPERATION V$ASM_TEMPLATE
  
 上面列出了包含ASM 相关元数据的最常用动态性能视图。还有数百个其它动态性能视图，但是其中大多数视图都是空的，因为它们需要数据库实例装载
 据库控制文件。ASM 实例不装载数据库控制文件。
+
+
+24. 本来想把这台机环境改成跟这个bug 一样， 就是chmod u-x $ORACLE_HOME/bin/oracle 结果发现一堆问题：
+
+[oracle@localhost ~]$sqlplus system/bdnacn@192.168.9.84/ora11g
+[oracle@localhost ~]$sqlplus system/bdnacn
+ERROR:
+ORA-12537: TNS:connection closed
+
+甚至导致database 直接挂掉，，启动不了也关不了，，最后只能把asm instance 重启才可以重新启动db instance. 其实所有的问题都始于它的权限设置： $ORACLE_HOME/bin/oracle. 
+开始这是这样的：  -rwsr-s--x  (这样的话，，sqlplus system/bdnacn 是正常的 但@ip/sid 也是不行的，好奇怪。）
+chmod u-x 后： -rwsr-x---   （不明白为什么group 的s 会变成x,, 正是因为这个变成x, 所以才会出出ORA-12537 的错，所以要设法把x变s, 后来发现只有在root 用户下才能实现，，所以其实应该很简单： 一开始应该在root 用户下更改文件的权限： chmod o-x $ORACLE_HOME/bin/oracle）
+
+[oracle@localhost trace]$ ll /u01/app/oracle/product/11.2.0/dbhome_1/bin/oracle
+-rwsr-x--x 1 oracle asmadmin 210824714 Aug  4 15:12 /u01/app/oracle/product/11.2.0/dbhome_1/bin/oracle
+
+[oracle@localhost trace]$ su
+Password:
+[root@localhost trace]# chmod g+s /u01/app/oracle/product/11.2.0/dbhome_1/bin/oracle
+[root@localhost trace]# ll /u01/app/oracle/product/11.2.0/dbhome_1/bin/oracle
+-rwsr-s--x 1 oracle asmadmin 210824714 Aug  4 15:12 /u01/app/oracle/product/11.2.0/dbhome_1/bin/oracle
+
+[root@localhost trace]# su - oracle
+restart dbatabase instance ora11g
+
+[root@localhost oracle]# su - vzpbdna 
+[vzpbdna@localhost ~]$ export ORACLE_HOME=/u01/app/oracle/product/11.2.0/dbhome_1
+[vzpbdna@localhost ~]$ export ORACLE_SID=ora11g
+[vzpbdna@localhost ~]$ /u01/app/oracle/product/11.2.0/dbhome_1/bin/sqlplus system/bdnacn
+
+SQL*Plus: Release 11.2.0.1.0 Production on Thu Aug 4 19:04:36 2016
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+
+
+[vzpbdna@localhost ~]$ /u01/app/oracle/product/11.2.0/dbhome_1/bin/sqlplus system/bdnacn@192.168.9.84/ora11g
+
+SQL*Plus: Release 11.2.0.1.0 Production on Thu Aug 4 19:04:52 2016
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+
+[vzpbdna@localhost ~]$ exit
+logout
+[root@localhost oracle]#  chmod o-x /u01/app/oracle/product/11.2.0/dbhome_1/bin/oracle
+[root@localhost oracle]# ll /u01/app/oracle/product/11.2.0/dbhome_1/bin/oracle
+-rwsr-s--- 1 oracle asmadmin 210824714 Aug  4 15:12 /u01/app/oracle/product/11.2.0/dbhome_1/bin/oracle
+
+[root@localhost oracle]# su - vzpbdna
+[vzpbdna@localhost ~]$ ls
+[vzpbdna@localhost ~]$ export ORACLE_HOME=/u01/app/oracle/product/11.2.0/dbhome_1
+[vzpbdna@localhost ~]$ export ORACLE_SID=ora11g
+[vzpbdna@localhost ~]$ /u01/app/oracle/product/11.2.0/dbhome_1/bin/sqlplus system/bdnacn
+
+SQL*Plus: Release 11.2.0.1.0 Production on Thu Aug 4 19:06:32 2016
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+ERROR:
+ORA-12546: TNS:permission denied
+
+[vzpbdna@localhost ~]$ /u01/app/oracle/product/11.2.0/dbhome_1/bin/sqlplus system/bdnacn@192.168.9.84/ora11g
+
+SQL*Plus: Release 11.2.0.1.0 Production on Thu Aug 4 19:06:38 2016
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+
+
+
