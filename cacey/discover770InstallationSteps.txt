@@ -265,4 +265,4 @@ Discover 7.7 Development Machine Setup (http://wiki.bdnacorp.com/index.php/Disco
   
 
 
-
+./runInstaller -invPtrLoc /home/ora12c/u01/app/oraInventory
