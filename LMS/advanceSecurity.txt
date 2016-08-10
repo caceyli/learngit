@@ -1,0 +1,237 @@
+[10:00:28 AM] Alex: BDNA server: 10.10.13.133
+[10:00:46 AM] Alex: Database server: 10.10.1 75
+ENCRYPTION_WALLET_LOCATION=
+  (SOURCE=
+   (METHOD=FILE)
+    (METHOD_DATA=
+     (DIRECTORY=/home/oracle/app/oracle/admin/ora11g/wallet)))
+
+$ORALCE_BASE/admin/$sid/wallet
+
+
+alter system set encryption key authenticated by "bdna";
+
+create tablespace encryts datafile 'D:\APP\ORACLE12\ORADATA\ORCL12\ENCRYTS01.DBF' size 5m encryption default storage(encrypt);
+create tablespace encryts datafile 'D:\APP\ORACLE12\ORADATA\ORCL12\ENCRYTSPDBORCL.DBF' size 5m encryption default storage(encrypt);
+create tablespace encryts datafile 'D:\APP\ORACLE12\ORADATA\ORCL12\ENCRYTSPDB01.DBF' size 5m encryption default storage(encrypt);
+
+select TABLESPACE_NAME, ENCRYPTED from DBA_TABLESPACES where ENCRYPTED='YES';
+
+Create user C##TEST identified by bdna;
+grant create session, create any table, create any view, create any index, create any procedure, drop any table, drop any view, drop any index, select any table, insert any table, update any table, delete any table to C##TEST;
+
+
+select
+    'DBA_LOBS'               as DATA_DICTIONARY_VIEW,
+    OWNER                    as TABLE_OWNER,
+    TABLE_NAME ,
+    COLUMN_NAME,
+    ENCRYPT,
+    SECUREFILE
+  from DBA_LOBS
+  where ENCRYPT not in ('NO', 'NONE')
+union all
+select
+    'DBA_LOB_PARTITIONS'     as DATA_DICTIONARY_VIEW,
+    TABLE_OWNER,
+    TABLE_NAME ,
+    COLUMN_NAME,
+    ENCRYPT,
+    SECUREFILE
+  from DBA_LOB_PARTITIONS
+  where ENCRYPT not in ('NO', 'NONE')
+union all
+select
+    'DBA_LOB_SUBPARTITIONS'  as DATA_DICTIONARY_VIEW,
+    TABLE_OWNER,
+    TABLE_NAME ,
+    COLUMN_NAME,
+    ENCRYPT,
+    SECUREFILE
+  from DBA_LOB_SUBPARTITIONS
+  where ENCRYPT not in ('NO', 'NONE')
+order by 1, 2, 3, 4;
+
+
+CREATE TABLE t1 ( A CLOB ENCRYPT USING 'AES128')
+    LOB(a) STORE AS SECUREFILE (
+         CACHE
+    );
+
+
+Create user TEST identified by bdna;
+grant create session, create any table, create any view, create any index, create any procedure, drop any table, drop any view, drop any index, select any table, insert any table, update any table, delete any table to TEST;
+(select * from v$option;
+
+为了安全起见，有时想对敏感数据加密，对其进行编码以保证授权用户才能理解它。可以使用Oracle的TDE（ TRANSPARENTData Encryption，透明数据加密）特性。使用Oracle钱夹存储密匙，数据库处理所有的加密和解密细节。Oracle DATABASE 10g允许加密表总的列，在Oracle Database 11g中，可以加密整个表空间。
+
+1、创建和管理Oracle钱夹
+1) 创建一个新目录，并指定为wallet目录
+
+$ mkdir -p /u01 APP/oracle/admin/orcl/wallet
+
+设置wallet目录的方法很简单，编辑参数文件sqlnet.ora：
+
+$ vi $ORACLE_HOME/network/admin/sqlnet.ora
+
+加入以下信息，保存。
+
+ENCRYPTION_WALLET_LOCATION=
+
+ (SOURCE=
+
+   (METHOD=file)
+
+   (METHOD_DATA=
+
+       DIRECTORY=/u01 APP/oracle/admin/orcl/wallet)
+
+   )
+
+ )
+
+ENCRYPTION_WALLET_LOCATION参数的作用就是告知Wallet的实现方式和物理位置。上述示例中将/u01/app/oracle/admin/orcl/wallet目录作为主加密Key的存放位置。
+
+2)创建master key文件，指定wallet密码
+
+使用SYS用户登陆，通过以下命令建立加密文件：
+
+SQL> alter system set encryption key identified by "wjw";
+
+其中，wjw为wallet密码。Oracle Wallet是一个可以打开关闭的功能组件，设置密码之后，只有通过密码口令可以启用wallet功能。
+
+此时，在设置的目录下会多出一个ewallet.p12文件。这就是生成的master key文件。
+
+3) 启动和关闭Wallet
+
+启动Wallet：
+
+SQL> alter system set encryption wallet open identified by "wjw";
+
+关闭Wallet：
+
+SQL> alter system set encryption wallet close identified by "wjw";
+
+可以通过以下语句查询Wallet是否在打开状态：
+
+SQL> select * from v$encryption_wallet;
+
+2、加密数据列
+在创建了主密匙后，可以在希望加密的列的名字后使用ENCRYPT关键字，来加密表列。
+
+在创建表时加密列：
+
+SQL> create table t
+
+(id NUMBER primary key,
+
+name varchar2(30) encrypt);
+
+加密已有表中的某个列：
+
+SQL> alter table employees modify (emp_id encrypt);
+
+      为表新增一个加密列：
+
+SQL> alter table employees add (encrypt_id number(9) encrypt);
+
+      可以使用下列命令查看表中的加密列：
+
+SQL> desc表名称;
+
+如果处于某种原因想关闭加密，则可以使用DECRYPT关键字：
+
+SQL> alter table employees modify(emp_id decrypt);
+
+3、加密表空间
+1)       表空间加密的限制：
+
+l       不能加密临时和撤销表空间
+
+l       不能更改加密表空间的安全密匙
+
+l       不能加密外部表
+
+2)       加密表空间示例：
+
+SQL> create tablespace wjw
+
+    datafile '/u01 APP/oracle/oradata/orcl/wjw01.dbf' size 500m
+
+    encryption
+
+    default storage(encrypt);
+
+      其中encryption表时数据库使用默认的加密算法DES128，可以在encryption后面使用using子句来指定另外的算法，如：
+
+SQL> create tablespace wjw
+
+    datafile '/u01 APP/oracle/oradata/orcl/wjw01.dbf' size 500m
+
+    encryption using '3DES168'
+
+    default storage(encrypt);
+
+3)       检查一个表空间是否加密：
+
+SQL> select encrypted from dba_tablespaces where tablespace_name='WJW';
+
+
+
+
+  
+
+ADMINISTER KEY MANAGEMENT SET KEY IDENTIFIED BY password WITH BACKUP USING 'emp_key_backup';
+
+
+SQL> conn / as sysdba
+Connected.
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------
+NOT_AVAILABLE
+
+SQL> ADMINISTER KEY MANAGEMENT CREATE KEYSTORE 'C:\app\oracle12\admin\orcl12c\wallet' identified by bdna;
+
+keystore altered.
+
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------
+CLOSED
+
+SQL> ADMINISTER KEY MANAGEMENT SET KEYSTORE OPEN IDENTIFIED BY bdna;
+
+keystore altered.
+
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------
+OPEN_NO_MASTER_KEY
+
+SQL> ADMINISTER KEY MANAGEMENT SET KEY IDENTIFIED BY bdna WITH BACKUP USING 'emp_key_backup';
+
+keystore altered.
+
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------
+OPEN
+
+SQL>
+
+
+
+ <!-- Dummy IP Address -->
+    <element
+        elementName="internetAddress_192_168_4_111"
+        elementTypePath="root.types.internetAddress"
+        parentPath="root.$bdna.NS_GLOBAL"
+        isTemplate="false">
+    </element>
+...
+    <data elementPath="root.$bdna.NS_GLOBAL.internetAddress_192_168_4_111" attributeName="snmp_system_sysDescr_0"><![CDATA[KONICA MINOLTA 250]]></data>

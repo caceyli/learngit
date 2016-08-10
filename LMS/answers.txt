@@ -1,0 +1,78 @@
+
+-  Different PDBs should have some tables that shared the same table name
+-  Each PDB should have table that is only exists in each individual PDB
+
+SQL> conn system/bdna@pdborcl
+SQL> desc t
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER
+ NAME                                               VARCHAR2(10)
+
+SQL> conn system/bdna@pdb2
+Connected.
+SQL> desc t;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER
+ NAME                                               VARCHAR2(20)
+
+
+
+-  Each PDB should have database view that is only exists in each individual PDB
+SQL> conn system/bdna@pdb2
+Connected.
+SQL> select con_id, dbid, name from v$pdbs;
+
+    CON_ID       DBID NAME
+---------- ---------- ------------------------------
+         4 3937527955 PDB2
+
+
+SQL> conn system/bdna@pdborcl
+Connected.
+SQL>  select con_id, dbid, name from v$pdbs;
+
+    CON_ID       DBID NAME
+---------- ---------- ------------------------------
+         3 1572130551 PDBORCL
+
+
+-  I want a DB user that can access one PDB, but not allowed to access another PDB
+
+DB user: pdb02
+user passwd: pdb02
+
+eg:
+SQL> conn pdb02@pdb2
+Enter password:
+Connected.
+SQL> conn pdb02@pdborcl
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+-  I want a DB user that can access container both PDB, but not container
+DB user: c##syspdball
+user passwd: syspdball
+
+eg:
+
+SQL> conn c##syspdball@pdborcl
+Enter password:
+Connected.
+SQL> conn c##syspdball@pdb2
+Enter password:
+Connected.
+SQL>
+
+
+-  I want a DB user that can access all tables in PDB
+pdb3
+ 
+More importantly,
+-  I need another PDB that is configured on same CDB, but not running.
+PDB3
+
+ 

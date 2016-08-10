@@ -1,0 +1,12 @@
+1. dowload schema global-11g-schema-1-128202.zip from my ftp;
+2. unzip global-11g-schema-1-128202.zip;
+3. sqlplus system/bdna @global_11g_install.sql; 
+4. sqlplus sys/bdna as sysdba @global_11g_create_cubes.sql. (/tmp/Templates)
+
+
+
+
+  select
+    count(*) "DBA_ OLAP CUBES"
+  from  DBA_CUBES
+  where OWNER <> 'SH';

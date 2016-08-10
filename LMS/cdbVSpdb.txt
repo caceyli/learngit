@@ -1,0 +1,160 @@
+1. PDBs are virtual databases called Containers. The physical database that houses these containers is known as a Container Database (CDB). 
+To find out if the database has been created as a CDB or not, just check:
+
+SQL> select cdb from v$database;
+ 
+CDB
+---
+YES
+
+2. CDB has instance, PDBs do not have an instance associated with them and are simply HOSTED on the CDBs (PDBS are virtual inside a real database). 
+3. You can check the containers (or PDBs) created in a database in a view named V$PDBS, which is brand new in Oracle Database 12c.
+
+SQL> select con_id, dbid, name from v$pdbs;
+
+CON_ID DBID NAME
+---------- ---------- ------------------------------
+2 4050437773 PDB$SEED
+3 3315520345 PDB1
+4 3874438771 PDB2
+5 3924689769 PDB3
+
+4. How to connect to pdb:
+1) through setting a seession variable called container to the name of the PDB you want to operate on after connect to the CDB as sysdba user:
+   a. sqlplus sys/oracle as sysdba
+   b. SQL> alter session set container = pdb1;
+      Session altered.
+   c. SQL> shutdown immediate
+      Pluggable Database closed.
+      (note: Only the PDB called PDB1 will be shut down; other PDBs will not be affected.)
+2) through service name. When you create a PDB, Oracle automatically adds it as a service in the listener. 
+You can place that service name in an entry in the TNSNAMES.ORA file:
+
+PDB1 =
+(DESCRIPTION =
+(ADDRESS = (PROTOCOL = TCP)(HOST = prosrv1.proligence.com)(PORT = 1521))
+(CONNECT_DATA =
+(SERVER = DEDICATED)
+(SERVICE_NAME = PDB1)
+)
+)
+
+3) listener Example
+
+LISTENER =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.9.105)(PORT = 1522))
+      (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1522))
+    )
+  )
+
+SID_LIST_LISTENER =
+  (SID_LIST =
+ (SID_DESC =
+      (SID_NAME = ora12c)
+      (ORACLE_HOME = /ora12c/u01/app/oracle/product/12.1.0)
+      (GLOBAL_DBNAME = ora12c)
+    )
+   (SID_DESC =
+      (SID_NAME = ora12c)
+      (ORACLE_HOME = /ora12c/u01/app/oracle/product/12.1.0)
+      (GLOBAL_DBNAME = pdborcl)
+    )
+  )
+
+
+CONNECT TO PDB1 using the connect string:
+[oracle@prosrv1 ~]$ sqlplus system/oracle@pdb1
+
+5. To show which container (or, the PDB) you are connected to:
+
+SQL> show con_id
+CON_ID
+------------------------------
+5
+
+SQL> show con_name
+CON_NAME
+------------------------------
+PDB1
+
+
+6. Creating PDBs.
+1) the main CDB is not installed: 
+a. when you create a new CDB database, you will be asked whether to create it as a CDB and if so how many PDBs you want to create.
+2) the main CDB has been created already:
+a. using the familiar DBCA interface to create new pdbs. (a pdb user will be created)
+b. manually create one using sql:
+
+$ sqlplus sys/oracle as sysdba
+SQL> create pluggable DATABASE pdb3
+2 admin user syspdb3 identified by syspdb3
+3 roles= (CONNECT,DBA);
+
+Pluggable database created.
+You will learn about the different clauses used here (admin user, roles, etc.) later. The PDB is created but not open yet. You have to manually open it:
+
+SQL> alter pluggable database pdb3 open;
+Pluggable database altered.
+Now that the database is open, you can connect to it using the different methods shown earlier. Note that you have to be authenticated with SYSDBA role for this operation.
+
+7. the user created in pdbs is called local user, it's just only visible to the pdb in which it was created. (the user names created in different pdb can be same)
+SQL> alter session set container = pdb1;
+Session altered.
+SQL> create user hrmaster identified by hrmaster;
+User created.
+
+8. the user created in CDB is called common user. To create a user that is visible to all the PDBs in that CDB:
+SQL> create user c##finmaster identified by finmaster container = all;
+User created.
+SQL> grant create session to c##finmaster container = all;
+Grant succeeded.
+
+9. the user reated above can connect to all pdbs.
+[oracle@prosrv1 ~]$ sqlplus c##finmaster/finmaster@pdb1
+
+SQL> show con_name
+CON_NAME
+------------------------------
+PDB1
+
+[oracle@prosrv1 ~]$ sqlplus c##finmaster/finmaster@pdb2
+
+SQL> show con_name
+CON_NAME
+------------------------------
+PDB2
+
+10. The schemas of the common users in the PDBs are different from each other. For instance C##FINMASTER schema in PDB1 cannot see anything owned by C##FINMASTER in PDB2. Let's see with an example. Let's CONNECT to PDB1 and create a table T1:
+[oracle@prosrv1 ~]$ sqlplus c##finmaster/finmaster@pdb1
+
+SQL> show con_name
+CON_NAME
+------------------------------
+PDB1
+
+SQL> create table t1 (col1 NUMBER);
+Table created.
+[oracle@prosrv1 ~]$ sqlplus c##finmaster/finmaster@pdb2
+
+SQL> show con_name
+CON_NAME
+------------------------------
+PDB2
+
+SQL> desc t1 ERROR:
+ORA-04043: object t1 does not exist
+This error occurred because the schema is different. The common user is merely an authentication mechanism; the actual storage of data is different across different PDBs.
+
+11. A special type of view prefixed with CDB_ shows the information that relates to the entire CDB. (eg: CDB_USERS (for all the users in the CDB))
+SQL> select con_id, common, username from cdb_users where username like '%MASTER';
+CON_ID COM USERNAME
+---------- --- -------------
+1 YES C##FINMASTER
+3 NO HRMASTER
+3 YES C##FINMASTER
+4 YES C##FINMASTER
+
+12. startup all pdb:
+SQL> alter pluggable database all open;

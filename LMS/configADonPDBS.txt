@@ -1,0 +1,185 @@
+SQL> conn / as sysdba
+Connected.
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------
+NOT_AVAILABLE
+
+SQL> ADMINISTER KEY MANAGEMENT CREATE KEYSTORE 'C:\app\Administrator\admin\orcl12c\wallet' identified by bdna;
+
+keystore altered.
+
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------
+CLOSED
+
+SQL> ADMINISTER KEY MANAGEMENT SET KEYSTORE OPEN IDENTIFIED BY bdna;
+
+keystore altered.
+
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------
+OPEN_NO_MASTER_KEY
+
+SQL> ADMINISTER KEY MANAGEMENT SET KEY IDENTIFIED BY bdna WITH BACKUP USING 'emp_key_backup';
+
+keystore altered.
+
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------
+OPEN
+
+
+
+
+
+
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------------------------------------
+CLOSED
+
+SQL> alter system set encryption key authenticated by "bdna";
+
+系统已更改。
+
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------------------------------------
+OPEN
+
+SQL> conn system/bdna@pdborcl as sysdba
+已连接。
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------------------------------------
+CLOSED
+
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------------------------------------
+CLOSED
+
+SQL> ADMINISTER KEY MANAGEMENT SET KEYSTORE OPEN IDENTIFIED BY bdna;
+ADMINISTER KEY MANAGEMENT SET KEYSTORE OPEN IDENTIFIED BY bdna
+*
+第 1 行出现错误:
+ORA-01109: 数据库未打开
+
+
+SQL> alter pluggable database all open;
+alter pluggable database all open
+*
+第 1 行出现错误:
+ORA-65040: 不允许从可插入数据库内部执行该操作
+
+
+SQL> exit
+从 Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing opt
+ions 断开
+
+C:\>sqlplus system/bdna as sysdba
+
+SQL*Plus: Release 12.1.0.2.0 Production on 星期五 8月 7 12:20:21 2015
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+连接到:
+Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing opt
+ions
+
+SQL> alter pluggable database all open;
+
+插接式数据库已变更。
+
+SQL> conn system/bdna@pdborcl as sysdba
+已连接。
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------------------------------------
+CLOSED
+
+SQL> ADMINISTER KEY MANAGEMENT SET KEYSTORE OPEN IDENTIFIED BY bdna;
+
+密钥库已变更。
+
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------------------------------------
+OPEN_NO_MASTER_KEY
+
+SQL> ADMINISTER KEY MANAGEMENT SET KEY IDENTIFIED BY bdna WITH BACKUP USING 'emp
+_key_backup';
+
+密钥库已变更。
+
+SQL> select status from v$encryption_wallet;
+
+STATUS
+------------------------------------------------------------
+OPEN
+
+
+SQL> conn system/bdna@pdb01 as sysdba
+已连接。
+SQL> ADMINISTER KEY MANAGEMENT SET KEYSTORE OPEN IDENTIFIED BY bdna;
+
+密钥库已变更。
+
+SQL> ADMINISTER KEY MANAGEMENT SET KEY IDENTIFIED BY bdna WITH BACKUP USING 'emp
+_key_backup';
+
+密钥库已变更。
+
+SQL> create tablespace encrytspdb01 datafile 'D:\app\oracle12\oradata\orcl12\pdb
+01\ENCRYTSPDB.DBF' size 5m encryption default storage(encrypt);
+
+表空间已创建。
+
+SQL> Create user TEST identified by bdna;
+
+用户已创建。
+
+SQL> grant create session, create any table, create any view, create any index,
+create any procedure, drop any table, drop any view, drop any index, select any
+table, insert any table, update any table, delete any table to TEST;
+
+授权成功。
+
+SQL> create table t(id NUMBER primary key,name varchar2(30) encrypt);
+create table t(id NUMBER primary key,name varchar2(30) encrypt)
+                                     *
+第 1 行出现错误:
+ORA-28336: 不能加密 SYS 所拥有的对象
+
+
+SQL> conn test/bdna@pdb01
+已连接。
+SQL> create table t(id NUMBER primary key,name varchar2(30) encrypt);
+
+表已创建。
+
+SQL> CREATE TABLE t1 (A CLOB ENCRYPT USING 'AES128')
+  2      LOB(a) STORE AS SECUREFILE (
+  3           CACHE
+  4      );
+
+表已创建。
+
+SQL>
