@@ -27,7 +27,6 @@ route del -net 0.0.0.0
 route add default ppp0
 
 
-
 [root@VMDC8123 pptp-1.8.0]# sudo pptpsetup --create bdnavpn --server 12.54.125.134 --username CaceyLi --password anDb327 --encrypt --start
 Using interface ppp0
 Connect: ppp0 <--> /dev/pts/2
@@ -35,3 +34,30 @@ CHAP authentication succeeded
 MPPE 128-bit stateless compression enabled
 local  IP address 10.10.3.36
 remote IP address 10.10.3.46
+
+install git (G:\caceyftp\installer\git)
+rpm -ivh *rpm
+
+startvpn:
+#!/usr/bin/expect -f
+set timeout -1
+
+spawn sudo ssh -D 22 root@192.168.8.245
+expect {
+        "(yes/no)?" {send "yes\r"; exp_continue}
+        "password:" {send "bdnacn\r"}
+       }
+expect "\\#"
+send "pptpsetup -create vpn -server 12.54.125.134 -username CaceyLi -password anDb327 -encrypt -start\r"
+expect "\\#"
+send "route add -host 12.54.125.134 gw 192.168.8.2\r"
+expect "\\#"
+send "route del -net 0.0.0.0\r"
+expect "\\#"
+send "route add default ppp0\r"
+expect "\\#"
+send "exit\r"
+
+stopvpn:
+#!/bin/bash
+sudo killall pppd
