@@ -57,6 +57,7 @@ expect "\\#"
 send "route add default ppp0\r"
 expect "\\#"
 send "exit\r"
+interact
 
 stopvpn:
 #!/bin/bash
