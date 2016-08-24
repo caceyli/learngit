@@ -38,6 +38,13 @@ remote IP address 10.10.3.46
 install git (G:\caceyftp\installer\git)
 rpm -ivh *rpm
 
+bdna@VMDC9107 build]$ git config --global user.name "Cacey Li"
+[bdna@VMDC9107 build]$ git config --global user.email CaceyLi.bdna.com
+[bdna@VMDC9107 build]$ git config --list
+user.name=Cacey Li
+user.email=CaceyLi.bdna.com
+
+
 startvpn:
 #!/usr/bin/expect -f
 set timeout -1
