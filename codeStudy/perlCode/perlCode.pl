@@ -31,4 +31,67 @@ while(defined($strl =<>))
 $strl=~/(\|.*\|)/;
 print input $1;
 }
-201509011
+
+#get the PowerCenter options from the following text：#########################
+#List of supported platforms are:
+#[All operating systems] is authorized for [14] logical CPUs
+#Number of authorized repository instances: 255
+#Number of authorized CAL usage count: 0
+
+#List of PowerCenter options are:
+#   Valid [Data Analyzer]
+#   Valid [Mapping Generation]
+#   Valid [OS Profiles]
+#   Valid [Team Based Development]
+#List of connections are:
+#   Valid [DB2]
+#   Valid [Informix]
+#   Valid [Microsoft SQL Server]###############################
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+open(GRADES, "/home/bdna/cacey/perl/optionlist") or die "Can't open grades: $!\n";
+
+my @_licenseInfo =  <GRADES>;
+my $_optionFind = 0;
+my $_pcOptions="";
+foreach my $_line (@_licenseInfo) {
+if($_line =~/List of PowerCenter options are/){
+    $_optionFind = 1;
+    next;
+}
+if($_optionFind==1){
+    if($_line =~/Valid \[(.*)\]/){
+        if($_pcOptions){
+        $_pcOptions.="\n".$1;
+    }
+    else {
+        $_pcOptions=$1;
+    }
+}
+else {
+ last;
+}
+}
+}
+if($_pcOptions){
+    print "PowerCenter Options are:"."\n".$_pcOptions."\n";
+}
+close(GRADES);
+########Test restult################
+#[bdna@VMDC8245 perl]$ ./getoption2
+#PowerCenter Options are:
+#Data Analyzer
+#Mapping Generation
+#OS Profiles
+#Team Based Development
+#[bdna@VMDC8245 perl]$
+#####################################
+
+
+
+
+
+
+
