@@ -1,0 +1,103 @@
+############## BDNA-12557_start ##############
+Hi Ken, 
+
+  Did you scan against vm121rh with non oracle user (eg: bdna)? If yes, I think that's reasonable and should be just a limitation. 
+
+Because in the oracle environment on vm121rh, I found that there is one special setting "ORACLE_HOME in under oracle user home '/home/oracle' ", which would leading to only oracle user and root user can access it and Other user has no privilege to access it. So if you use user 'bdna' to do scan against vm121rh, you would not get what you expected (e.g. oracle level 2 data were not collected successfully). 
+
+PS: Usually we do not set oracle_home under oracle user home. 
+
+Here is my test process: 
+
+I have done two scan test, one with user 'oracle', the other one with user 'bdna', the formal test get normal result (level 2/3 data were all collected), the latter can't collect all level 2 data (only installation home were collected through process info), as the user 'bdna' does not has privilege to access oracle_home on vm121rh. 
+
+1. test1 with oracle user to do scan (using Discover/201609 seq): 
+   a. level 2 credential: oracle/oracle. 
+   b. level 2 scan result: all oracle Level 2 data (oracle installation) was discovered. 
+   c. level 3 credential: c##test_user/bdna 
+   d. level 3 scan result: all oracle Level 3 data was discovered. 
+
+2. test2 with non oracle user to do scan (using Discover/201609 seq): 
+   a. level 2 credential: bdna/bdna. 
+   b. level 2 scan result: not all oracle Level 2 data (eg: version, enterprise) was discovered. 
+   c. cause: the non oracle user (bdna) does not has privilege to access oracle_home on vm121rh. 
+
+3. I checked the oracle installation on vm121rh and found the ORACLE_HOME is under oracle user home "/home/oracle": 
+[bdna@vm121rh ~]$ ll /u01 
+lrwxrwxrwx. 1 root root 16 Sep 28 20:56 /u01 -> /home/oracle/u01 
+[bdna@vm121rh ~]$ 
+
+[bdna@vm121rh ~]$ ll /u01/app/oracle/product/12.1.0/ 
+ls: cannot access /u01/app/oracle/product/12.1.0/: Permission denied 
+[bdna@vm121rh ~]$ 
+
+
+  In conclusion, I think ORACLE_HOME setting would be the basic cause for your scan result and that's just a limitation not a bug. Now, I close this bug first. 
+
+Please check your scan user first and If you confirm this issue is not caused by ORACLE_HOME setting or you have any other different opinions, please reopen this bug and provide us more information. Thanks.
+############## BDNA-12557_end ##############
+
+############# HOTFIX_Daman_start ############
+In this case, 'module -i' probably just can work on cs(Collection Store) but not on factbase.  As the Daman custom FP contains code for report, 'module -i' on factbase will cause other unknow problems, we had met such case before.
+
+In case any problem in factbase, a better choice is to build a new Enterprise sequences as a hotfix based on Dec sequence code + Daman custom FP, so that it can work normally in both cs/fb.
+
+Customer can apply this hotfix through cs/factbase upgrade From Dec Enterprise Sequence or directly from their existing Enterprise Sequence if they haven't applied Released Dec Enterprise.
+############## HOTFIX_Daman_end ##############
+
+############## BDNA-13682_start ##############
+Hi Dimitry, 
+
+  I have one thing need to make clear, as I can't launch the UI now: 
+  Do you mean you can login the UI and can't open the report on UI? 
+
+  I have checked the logs on vm118rh and found something abnormal in dw.log: 
+  it looks like that reports were not refreshed completely after factbase upgrade to 201612. The report refreshing process was unexpectedly ended, as can be saw from the last line of dw.log: 
+
+  [ com.bdna.dw, INFO,11-30 16:49:53] Starting OP(BUILDDW_DATA,10,[G10_DEV_TEMP_ID_0_A, G10_DEV_TEMP_ID_0_MROS],[0],82) 
+
+  We have ever done tests(fb upgrade 201605 to latest, 201609 to latest) on GZ offices environment, result is normal. We suspect your issue may be caused by "refreshing not completed". Only after we confirm this can we go further. 
+
+  So, Can you manually re-do Refresh Report operation? Or, can I do that on this server (vm118rh) now? 
+
+
+Thanks 
+Cacey 
+############## BDNA-13682_end ##############
+
+############ ReleaseNotest_start ###########
+Hi Dmitry,
+
+  I have tested the Seq201612 with Discover 772 GA platform. The normal result of all tests done so far indicates that the Seq201612 is compatible with 770,771 and 772 GA. I have updated the Seq201612 Release Notes for 770,771 and 772. You can get them from the attachment or Github server: https://github.com/BDNA/Sequence-Documentation.
+
+
+  In Seq201612, there are 12 bugs, as can be saw from the filter (fixVersion = Seq201612), among which, 6 bugs are tracker bugs and only the following three bugs have code changed:
+
+.BDNA-1138  (mentioned in Release Notes)
+.BDNA-11220 (mentioned in Release Notes)
+.BDNA-12555(This bug issue is same as BDNA-12610,and BDNA-12610 is closed)
+
+QA needs to verify the code for the two bugs mentioned in Release Notes. As the code for BDNA-12555 has been verified in BDNA-12610 by QA and we found it has been included into the latest 2016-09 Release Enterprise sequence, we think, there is no need to repeate the same verification and So it wasn't mentioned in Seq201612 relase notes. 
+
+
+Sincerely
+Cacey
+
+Hi Dmitry,
+
+  I have tested the Seq201612 with Discover 772 GA platform. The normal result of all tests done so far indicates that the Seq201612 is compatible with 770,771 and 772 GA. I have updated the Seq201612 Release Notes for 770,771 and 772. You can get them from the attachment or Github server: https://github.com/BDNA/Sequence-Documentation.
+
+
+  In Seq201612, there are 12 bugs, as can be saw from the filter (fixVersion = Seq201612), among which, 6 bugs are tracker bugs and only the following two bugs have code changed:
+
+.BDNA-1138  (mentioned in Release Notes)
+.BDNA-11220 (mentioned in Release Notes)
+
+
+QA needs to verify the code for the above two bugs and move the tracker bugs to next release. 
+
+Sincerely
+Cacey
+############ ReleaseNotest_end ###########
+
+

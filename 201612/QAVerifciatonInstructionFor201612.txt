@@ -1,0 +1,77 @@
+BDNA-1138: [Visa] UPM pmrun should be scoped to only commands that require elevated privilege to run successfully
+
+QA Verification: 
+------------------------------------------- 
+## UPM Test Environment (in GZ office)## 
+ip: 192.168.8.156 (Linux) 
+upm user: test3 
+upm user passwd: <UED>bdnacn</UED><UPM>bdnacn</UPM> 
+user id for root: 0 
+user id for test3: 54328 
+
+Commands that require elevated privilege in pmlist: 
+1. find ** (not required password) 
+2. cat ** 
+3. ls ** 
+4. cd ** 
+5. chmod 01755 ** 
+6. /usr/sbin/dmidecode 
+7. /sbin/ifconfig ** 
+8. su - 
+9. /home/test/testapp/ContentManagerServer/bin/cmlevel 
+...... 
+
+(note: as this environment is a bit complicated, we didn't set such an environment in US network, so please QA to do test with this GZ environment, thanks.) 
+
+## Instructions ## 
+Test Case 1 -- reproduce the issue: 
+
+1. Install old Enterprise sequences. (eg: 2016-09 sequences) 
+2. New a level 2 scan against 192.168.8.156 with ssh credential (upm user and passwd).
+3. After scan finished, no need to refresh the report in this case, just check the cle log as the screenshot "root_dmidecode_log.png" showed: 
+upm user was switched to root user through command "pmrun su -", which means that every single command is executed as root in the scanning. 
+
+(note: the output for command "/usr/bin/id -u" is 0, that means the current user is "root") 
+
+
+Test Case 2 -- Validate the enhancement for this bug: 
+
+1. Install Seq201612 Enterprise sequences. 
+2. New a level 2 scan against 192.168.8.156 with ssh credential (upm user and passwd).
+3. Refresh the report after scan finished. 
+
+4. Verify the scan Result: 
+
+1). QA can check the cle log as the screenshot "pmrun_dmidecode_log.png" showed: 
+upm user was not switched to root user and command "/usr/sbin/dmidecode" was still run successfully, as pmrun elevated this command's priivlege. 
+
+(note: the output for command "/usr/bin/id -u" is 54328, that means the current user is "test3") 
+
+2). QA can check the UI report as the screenshot "test3_scanResult.png" showed: 
+BDNA scan with Common user "test3", can discover products installed under another common user's user home (/home/test), as pmrun elevated the priivlege of command "find **". 
+
+3). QA also can find that from the cle log only the commands listed in pmlist would be run by "pmrun". (eg: pmrun /usr/sbin/dmidecode)
+------------------------------------------- 
+
+######## this is my draft, not updated in bug ######
+The enhancement made for this bug is to enable pmrun to be scoped to only commands that require elevated privilege to run successfully while not all commands were set to require elevated privilege in upm environment. 
+Therefore, To verify that enhancement, we need to check the result against the commands listed in pmlist where defined what commands required elevated privilege. 
+######## this is my draft, not updated in bug ######
+
+
+BDNA-11220: [Verizon ][Fingerprint] Need Fingerprint for Veritas Netbackup "Master Server" and "Media Server"
+
+QA verification: 
+------------------------------------- 
+Result can be validated by doing a Level 2 scan against 10.10.10.51 (linux) and 
+10.10.13.56 (linux). 
+
+IP address: 10.10.10.51 (vmlinuxbit02.bdnacorp.com) 
+Credential: root/bdna 
+
+IP address: 10.10.13.56 
+Credential: root/Simple.0 
+
+（Attached screenshots for scan result： screenshotForNetBackupMasterServer.png, screenshotForNetBackupMediaServer.png） 
+
+
