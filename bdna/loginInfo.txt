@@ -61,6 +61,29 @@ GZ VPN:
 mygithup: (caceyli/Simple.0)
 git clone git@github.com:caceyli/learngit.git
 
+BDNAgithub: (caceylibdna/andB327)
+git clone git@github.com:BDNA/Sequences.git
+git clone git@github.com:BDNA/Discover.git
+git clone git@github.com:BDNA/Sequences-7.7.2.git
+git clone git@github.com:BDNA/Discover-7.7.2.git
+
+[bdna@VMDC8245 BDNA]$ git config --global user.name "Cacey Li"
+[bdna@VMDC8245 BDNA]$ git config --global user.email "caceyli@bdna.com"
+[bdna@VMDC8245 Sequences]$ git config remote.origin.url "git@github.com:BDNA/Sequences.git"
+(don't use --global if you just want to set the current git repository)
+[bdna@VMDC8245 BDNA]$ git config --list
+
+user.name=Cacey Li
+user.email=caceyli@bdna.com
+
+Git commands
+http://gitlab.bdnacorp.com/users/sign_in
+git clone git@gitlab.bdnacorp.com:discover-team/sequences-7-7.git
+git clone git@gitlab.bdnacorp.com:discover-team/sequences-7-6-1.git
+git clone git@gitlab.bdnacorp.com:discover-team/discover-7-7.git
+git clone git@gitlab.bdnacorp.com:hluo/content-db.git
+
+
 ServiceNow discovery:
 1. Service-now Test Instance: http://bdnaintegration.service-now.com
 a. Login: bdna/bdna
