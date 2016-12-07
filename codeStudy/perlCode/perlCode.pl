@@ -32,7 +32,8 @@ $strl=~/(\|.*\|)/;
 print input $1;
 }
 
-#get the PowerCenter options from the following text：#########################
+############################# start ###############################################
+#get the PowerCenter options from a comand output：#########################
 #List of supported platforms are:
 #[All operating systems] is authorized for [14] logical CPUs
 #Number of authorized repository instances: 255
@@ -88,10 +89,26 @@ close(GRADES);
 #Team Based Development
 #[bdna@VMDC8245 perl]$
 #####################################
+#### another method to get the above result: #################
+#### get the @list, and turn list @ to string $ with sub 'join', cut all except for the PowerCenter List.###
+#### turn the remained string to be @newlist with sub 'split', and then foreach list, get what we want. ####
 
+#!/usr/bin/perl
+use strict;
+use warnings;
 
+print "Hello, World...\n";
+open(GRADES, "/home/bdna/cacey/perl/optionlist") or die "Can't open grades: $!\n";
 
+#my $list = chomp <GRADES>;
+my @list =  <GRADES>;
+my $list = join('', @list);
+$list =~s/.*List of PowerCenter options are:\n(.*?)List.*/$1/s;
+my @newlist= split("\n",$list);
+foreach my $newlist (@newlist){
+$newlist=~/\[(.*)\]/;
+print "options is: ".$1."\n";
+}
 
-
-
-
+close(GRADES);
+############################# end ###############################################
