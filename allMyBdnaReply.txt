@@ -100,4 +100,145 @@ Sincerely
 Cacey
 ############ ReleaseNotest_end ###########
 
+############ Nmap_Sudo_start #############
+Hi Lucille,
+ 
+From the script output file returned from customer, the size of sudo file they used to run nmap command is:
+ 
+cmd13 ls -l /usr/bin/sudo 2>&1 result:
+---s--x--x 1 root root 123832 Jul 31 2014 /usr/bin/sudo
+ 
+The file size in my system (the first is the system sudo (size 123832), the second is the script provide by customer(size 1218))
+[root@VMST9102 ~]# ll /usr/bin/sudo
+---s--x--x. 1 root root 123832 Oct 7 2013 /usr/bin/sudo
+[root@VMST9102 ~]# ll ./sudo
+-rw-r--r--. 1 root root 1218 Mar 23 13:16 ./sudo
+ 
+From the size of sudo file, I think customer's real sudo command they used to run nmap is still the system sudo not the script.
+ 
+Here are 2 solutions based on the information we get from customer's environment through script:
+ 
+Solution 1: If customer want to use their own sudo script instead of the system sudo in BDNA discover scan task, they should use the script to overwrite the system sudo file first, otherwise, the sudo script will not be used at all by default. The instruction to overwrite the system sudo file:
+1) login with root user
+2) mv /usr/bin/sudo /usr/bin/sudo_bp
+3) copy the sudo script to /usr/bin/
+4) chmod a+x /usr/bin/sudo
+5) setcap cap_net_raw+ep /apps/opt/bdna/static_nmap/Nmap/src/nmap.Linux.RHEL6.x86_64
+(ps: according to the customer's sudo script, the real nmap command to be executed is /apps/opt/bdna/static_nmap/Nmap/src/nmap.Linux.RHEL6.x86_64)
+6) re-run the nmap command with sudo, it should work normally now:
+sudo $BDNA_HOME/nih/Nmap/src/nmap.Linux.RHEL6.x86_64 -n -sS -PI -PS80,135,445,3389 -O -F 10.133.6.164 2>&1
+7) If the above command succeeded, please ignore this step, otherwise, please run the following 2 command with their bdna user (bdnasvc) and return the output of command in step 6) and this step:
+$BDNA_HOME/nih/Nmap/src/nmap.Linux.RHEL6.x86_64 --privileged -n -sS -PI -PS80,135,445,3389 -O -F 10.133.6.164 2>&1
+/apps/opt/bdna/static_nmap/Nmap/src/nmap.Linux.RHEL6.x86_64 --privileged -n -sS -PI -PS80,135,445,3389 -O -F 10.133.6.164 2>&1
+ 
+Solution 2: If customer want to continue using the system sudo, they need to do some setting about sudo user:
+1) visudo (run this command as root user):
+ 
+//Comment out the "Defaults requiretty" line
+#Defaults requiretty
+//Add a line to turn off requiretty for the user
+Defaults:bdnasvc !requiretty
+ 
+//Comment out the env_reset line
+# Defaults env_reset
+// Add a line to turn off env_reset for the user
+Defaults:bdnasvc !env_reset
+ 
+//Add following line under line 'root ALL=NOPASSWD: ALL'
+bdnasvc ALL=NOPASSWD: ALL
+ 
+ps: this step, you can refer to discover installation instruction step 8 at http://wiki.bdnacorp.com/index.php/Discover_7.7_Production_Machine_Setup :
+ 
+**********
+step 8. Fix /etc/sudoers
+%visudo
+// Comment out the "Defaults requiretty" line
+# Defaults requiretty
+// Add a line to turn off requiretty for the user
+Defaults:<username> !requiretty
+// Comment out the env_reset line
+# Defaults env_reset
+// Add a line to turn off env_reset for the user
+Defaults:<username> !env_reset
+// Comment out PASSWD
+root ALL=NOPASSWD: ALL
+bdna ALL=NOPASSWD: ALL
+oracle ALL=NOPASSWD: ALL
+**********
+ 
+2) login as bdnasvc user and check it's sudo privilege with command 'sudo -l', you may see the words like:
+User bdnasvc may run the following commands on this host:
+(ALL) NOPASSWD: ALL
+3) re-run the nmap command with suodo, it should work normally now:
+sudo $BDNA_HOME/nih/Nmap/src/nmap.Linux.RHEL6.x86_64 -n -sS -PI -PS80,135,445,3389 -O -F 10.133.6.164 2>&1
+4) If the above command succeeded, please ignore this step, otherwise, please return the output of step 4) and command 'sudo -l' to us and provide the file /etc/sudoers in their environment for us.
+ 
+Thanks
+Cacey
+--------------------------------------------------------- the following is old -----------------------------------------------------------------------------------------------
+Hi Deepa/Lucille,
+ 
+I think that's the sudo user permission which resulted to nmap command failure.
+I have reproduced this issue by configuring user 'bdna' as a sudo user but not giving it root privileges:
+1. visudo
+2. add/modified following line under line 'root ALL=NOPASSWD: ALL'
+bdna    ALL=() NOPASSWD: ALL
+3. login as bdna user and check it's sudo privilege with command 'sudo -l', you may see the words like:
+User bdna may run the following commands on this host:
+    (bdna) NOPASSWD: ALL
+
+To solve this issue, we should configure user 'bdna' as a sudo user and give it root privileges with following steps:
+1. visudo (run this command as root user)
+2. add/modified following line under line 'root ALL=NOPASSWD: ALL'
+bdna ALL=NOPASSWD: ALL
+3. login as bdna user and check it's sudo privilege with command 'sudo -l', you may see the words like:
+User bdna may run the following commands on this host:
+(root) NOPASSWD: ALL
+4. re-run the nmap command, it should work normally now.
+5. if step 4 work well, please create a new level 1 scan task.
+ 
+Following is my tests result:
+ 
+Test case 1: reproduce the nmap permission issue.
+1. configure user 'bdna' as a sudo user but do not give it root priviledges.
+2. check sudo privilege with command 'sudo -l'
+[bdna@VMDC8245 ~]$ sudo -l
+Matching Defaults entries for bdna on this host:
+!requiretty, !visiblepw, always_set_home, !env_reset, env_keep="COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR LS_COLORS", env_keep+="MAIL PS1 PS2
+QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE", env_keep+="LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES", env_keep+="LC_MONETARY LC_NAME LC_NUMERIC
+LC_PAPER LC_TELEPHONE", env_keep+="LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY", secure_path=/sbin\:/bin\:/usr/sbin\:/usr/bin
+ 
+User bdna may run the following commands on this host:
+(bdna) NOPASSWD: ALL
+ 
+3.check nmap command:
+[bdna@VMDC8245 ~]$ sudo $BDNA_HOME/nih/Nmap/src/nmap.Linux.RHEL6.x86_64 -n -sS -PI -PS80,135,445,3389 -O -F 192.168.8.12 2>&1
+Warning: File ./nmap-os-db exists, but Nmap is using /home/bdna/install771/nih/Nmap/src/nmap-os-db for security and consistency reasons. set NMAPDIR=. to give priority to files in your local directory (may affect the other data files too).
+Warning: You are not root -- using TCP pingscan rather than ICMP
+You requested a scan type which requires root privileges.
+QUITTING!
+[bdna@VMDC8245 ~]$
+ 
+Test case 2: fixed the nmap permission issue.
+1. configure user 'bdna' as a sudo user and give it root priviledges.
+2. check sudo privilege with command 'sudo -l'
+[bdna@VMDC8245 ~]$ sudo -l
+Matching Defaults entries for bdna on this host:
+!requiretty, !visiblepw, always_set_home, !env_reset, env_keep="COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR LS_COLORS", env_keep+="MAIL PS1 PS2
+QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE", env_keep+="LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES", env_keep+="LC_MONETARY LC_NAME LC_NUMERIC
+LC_PAPER LC_TELEPHONE", env_keep+="LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY", secure_path=/sbin\:/bin\:/usr/sbin\:/usr/bin
+ 
+User bdna may run the following commands on this host:
+(root) NOPASSWD: ALL
+ 
+3. check nmap command and it works well:
+[bdna@VMDC8245 ~]$ sudo $BDNA_HOME/nih/Nmap/src/nmap.Linux.RHEL6.x86_64 -n -sS -PI -PS80,135,445,3389 -O -F 192.168.8.12 2>&1
+Warning: File ./nmap-os-db exists, but Nmap is using /home/bdna/install771/nih/Nmap/src/nmap-os-db for security and consistency reasons. set NMAPDIR=. to give priority to files in your local directory (may affect the other data files too).
+ 
+Starting Nmap 5.51 ( http://nmap.org ) at 2016-03-11 14:17 CST
+Cannot find nmap-payloads. UDP payloads are disabled.
+Nmap scan report for 192.168.8.12
+Host is up (0.00042s latency).
+.........................................
+############ Nmap_Sudo_end #############
 
