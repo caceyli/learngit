@@ -84,3 +84,43 @@ The dvoct.jar file contains Data Validation Option libraries that the PowerCente
 run Data Validation Option tests.
 You can find the dvoct.jar file in the following directory on the Data Validation Option Client machine:
 <DataValidationOptionInstallationDir>\DVO\powercenterlibs
+
+
+
+发件人: Gary Zhou
+发送时间: 2016年10月13日 17:19
+收件人: Miya Chen
+主题: Research for PowerExchange and Data Quality
+ 
+1.pwxcmd
+pwxcmd version
+
+In dbmover.cfg , CMDNODE=(XXX,YYY,ZZZ,NUM), XXX is the service_name
+
+pwxcmd displaystatus -sv service_name -u user_id -p password
+
+2.infacmd
+infacmd version
+
+infacmd as ListServiceOptions -dn domain_name -sn service_name -un user_id -pd password
+
+infacmd cms ListServiceOptions -dn domain_name -sn service_name -un user_id -pd password
+
+infacmd dis ListServiceOptions -dn domain_name -sn service_name -un user_id -pd password
+
+3.installation log.  
+
+/InstallationDirectory/Informatica*InstallLog.log
+
+There is PowerExchange for Greenplum in installation log.
+
+
+4.Edition
+
+Data Quality Advanced Edition, Data Quality Governance Premium Edition
+
+There are Identity Match Option and Web Services Option in Advanced Edition and Governance Premium Edition.
+
+
+Regards,
+Gary
