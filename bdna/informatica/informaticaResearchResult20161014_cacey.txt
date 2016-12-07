@@ -1,0 +1,86 @@
+经过这周的调查， 以下是我这周的总结：
+PowerExchange, PowerCenter, Data Quality 这三者应该是一起使用， PowerCenter 应该是主要的.  
+
+我认为，，这三个产品不管怎么装，，结构 应该都是一样，，应该有infacmd 这个命令，， 能够有像powercenter 那样的输出。 所以如果客户可以把它们的安装目录的文件列出来， 会给到很大帮助， 也可以要他们尝试infacmd 这个命令。  （没有安装感觉好迷茫） 
+
+
+以下是我调查的一些东西：
+
+powerExchange 有找到个安装文档， 独立安装后，也还是要连到powercenter 来使用。  
+1. PowerExchange 10.0 installations: PWX_100_UtilitiesGuide_en.pdf  
+2. PowerExchange cmds: PWX_100_UtilitiesGuide_en.pdf
+
+以下是在 PWX_100_UtilitiesGuide_en.pdf 里找到的一些可能关键的内容: 
+
+DTLINFO  - Build information utility. Use DTLINFO to display the version, release, and build level for PowerExchange.
+
+Use the DTLINFO utility to perform the following functions:•
+Display the version, release, and release level for PowerExchange or for a specific PowerExchange module.•
+Verify the installation of the product, a service pack, or a hotfix. For example, use the utility to determine the maintenance level of your PowerExchange software at the request of Informatica Global Customer Support.
+
+To run the DTLINFO utility on Linux, UNIX, and Windows:
+1.Navigate to the Informatica PowerExchange directory. 
+2.Enter the dtlinfo statement in one of the following ways:
+
+To view release information for PowerExchange, enter:
+dtlinfo
+To view release information for a specific PowerExchange module, enter:
+dtlinfo module_nameRunning
+
+
+The similar resulting output for dtlinfo:
+DTLINFO Latest Version:
+Copyright: Informatica Corporation. yyyy-yyyy
+This Software is protected by U.S. Patent Numbers patents.
+Segment#Revision :<//pwx/prod/vnnn_spn/source/dtlinfod/dtlinfod.c #n >
+Build :<vnnn><Month dd yyyy hh:mm:ss>
+
+probably signature files: DTLINFO, DTLREXE, DTLUAPPL, DTLUCBRG
+
+
+
+Data Quality 找到一个安装文档 （IN_901_DQ_InstallationAndConfigurationGuide_en.pdf）， 安装步骤是跟powercenter 一样。 由 Informatica platform 来安装.  安装过程不会显示产品名的.
+从IN_901_DQ_InstallationAndConfigurationGuide_en.pdf文档里的以下一段话：
+
+Informatica Installation
+The Informatica platform consists of a server component (Informatica services) and a client component.
+Informatica provides separate installers to install the Informatica services and clients.
+The Informatica platform includes the following products:
+¨ Informatica Data Quality and Informatica Data Explorer AE
+Note: The procedure to install Informatica Data Quality is the same as the procedure to install Informatica Data
+Explorer AE.
+¨ Informatica Data Services
+¨ PowerCenter
+The Informatica platform also includes components for PowerExchange and for Data Services and Data Quality
+adapters.
+Installation of Multiple Products
+If you purchase more than one Informatica product, you need to install the Informatica platform only once.
+
+还有另一个文档里一段话 FORM IN_101_InstallationAndConfigurationGuide_en.pdf (page 16) ：
+Informatica Installation
+Informatica provides separate installers to install the Informatica services and the Informatica clients. Download the Informatica installer files to install the Informatica services and clients for the Informatica domain.
+
+When you install the Informatica services on a machine, you install all files for all services. After you complete the installation, you can create application services based on the products and functionality that your organization purchased.
+
+还有这部分： IN_101_InstallationAndConfigurationGuide_en.pdf (page27)：
+Each application service provides different functionality within the Informatica domain. You create application services based on the license key generated for your organization.
+The following table lists the application services that you can create for each product:
+1. Data Quality Standard Edition
+2. Data Quality Advanced Edition
+3. Data Quality Governance Edition
+4. PowerCenter Standard Edition
+5. PowerCenter Advanced Edition
+6. PowerCenter Premium Edition
+
+
+我认为，，Data Quality， PowerCenter  可能都是用Informatica platform 装的， 就是Informatica platform 装了所有产品，但是只有客户付钱的产品功能才能用，，这个就是通过客户买的Licence key 决定， 所以 Licence key 是关键，，客户能输出　这三个产品的　Ｌiceｎｃｅ　ｋｅｙ，　我觉得，可以看到很多东西。 
+
+
+还有有些option, 是独立安装的， 比如：　　pｏｗｅｒＣｅｎｔｅｒ　那里
+1.4 Data Validation Option  
+has standlone installer:  https://kb.informatica.com/proddocs/Product%20Documentation/2/PC_952_DataValidationOption_UserGuide_en.pdf
+(file after installation: dvoct.jar)
+The dvoct.jar file contains Data Validation Option libraries that the PowerCenter Integration Service uses to
+run Data Validation Option tests.
+You can find the dvoct.jar file in the following directory on the Data Validation Option Client machine:
+<DataValidationOptionInstallationDir>\DVO\powercenterlibs
