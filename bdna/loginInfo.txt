@@ -46,6 +46,7 @@ bdna wiki:
 http://wiki.bdnacorp.com/index.php/Main_Page
 http://wiki.bdnacorp.com/index.php/New_AIX%2C_Solaris_and_Tru64_systems
 http://wiki.bdnacorp.com/index.php/Virtual_machines
+http://wiki.bdnacorp.com/index.php/Factbase_Linking/Merging
 
 bugzilla:
 http://bugzilla.bdnacorp.com/
@@ -57,6 +58,7 @@ vpn1mv.bdna.com
 
 GZ VPN:
 58.67.154.138
+124.42.240.97  (NEW)
 
 mygithup: (caceyli/Simple.0)
 git clone git@github.com:caceyli/learngit.git
@@ -121,14 +123,25 @@ Esxi 5.0/5.5  VMForESXi50_cacey/VMForESXi55_cacey  on 192.168.9.100
 root/simple01
 
 vCenter Server 6.0
-192.168.8.232/9.113
-adminitrator@vsphere.local
+192.168.8.232/9.113  (mine)
+administrator@vsphere.local
 Simple.0
+
+192.168.8.23 (bdnacn)
+administrator/bdna@202
 
 JIRA:
 https://bdnacorp.atlassian.net/
 CaceyLi@bdna.com
 anDb327
 
+google agent:
+http://192.168.10.37:808/pac?auth=uke1DG7TTvCOTKf1DckV&t=201701091912393204
+
+schemalTool:
+http://192.168.8.249:8080/bdna/SchemaTool.jnlp
+
+BDNA UI:
+http://192.168.8.249:8080/bdna/AppConsole.jnlp
 
 13528962650/hui,1234
