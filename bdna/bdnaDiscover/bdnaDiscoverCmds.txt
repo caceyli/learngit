@@ -1,6 +1,61 @@
 BDNA Discover cmds:
 
 1. collect attributes 'NetBiosComputerName' and 'WindowsDomainName' at level 1 for all OS:
- /home/bdna/install771/nih/nbtscan/nbtscan.Linux -v -s'|' -t 5 192.168.8.225
+$BDNA_HOME/nih/nbtscan/nbtscan.Linux -v -s'|' -t 5 192.168.8.225
 
-2. sudo $BDNA_HOME/nih/Nmap/src/nmap.Linux.RHEL6.x86_64 -n -sS -PI -PS80,135,445,3389 -O -F 192.168.8.12 2>&1
+2. get nmap trace:
+sudo $BDNA_HOME/nih/Nmap/src/nmap.Linux.RHEL6.x86_64 -n -sS -PI -PS80,135,445,3389 -O -F 192.168.8.12 2>&1
+
+3. bdna ping cmd:
+[bdna@VMDC8245 install772]$ sudo /home/bdna/install772/nih/Nmap/src/nmap.Linux.RHEL6.x86_64 -n -sP -PI --initial_rtt_timeout 3 192.168.9.103 2>&1
+
+Starting Nmap 5.51 ( http://nmap.org ) at 2017-04-10 14:48 CST
+Cannot find nmap-payloads. UDP payloads are disabled.
+Nmap scan report for 192.168.9.103
+Host is up (0.00058s latency).
+MAC Address: 00:0C:29:33:A1:CE (VMware)
+Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds
+
+taks 'ActiveIPAddresses' log:
+Task Id 1000401069 00000    |BDNA_Attrs: end of BDNA_Attrs..<EVAL_COLLECTION_SCRIPT startTime|
+Task Id 1000401069 00010    |="Mon Apr 10 13:27:19 2017">.cat: /etc/SuSE-release: No such fil|
+Task Id 1000401069 00020    |e or directory.<DEBUG>Collection Script(nmapIPAddressDiscovery) |
+Task Id 1000401069 00030    |executing ICMP Ping Scan Command Only.</DEBUG>.<DEBUG>ICMP Ping |
+Task Id 1000401069 00040    |Scan command: sudo /home/bdna/install772/nih/Nmap/src/nmap.Linux|
+Task Id 1000401069 00050    |.RHEL6.x86_64 -n -sP -PI --initial_rtt_timeout 3 192.168.9.103 2|
+Task Id 1000401069 00060    |>&1</DEBUG>.<DEBUG></DEBUG>.<DEBUG>Starting Nmap 5.51 ( http://n|
+Task Id 1000401069 00070    |map.org ) at 2017-04-10 13:27 CST</DEBUG>.<DEBUG>Cannot find nma|
+Task Id 1000401069 00080    |p-payloads. UDP payloads are disabled.</DEBUG>.<DEBUG>Nmap scan |
+Task Id 1000401069 00090    |report for 192.168.9.103</DEBUG>.<DEBUG>Host is up (0.00074s lat|
+Task Id 1000401069 000a0    |ency).</DEBUG>.<DEBUG>MAC Address: 00:0C:29:33:A1:CE (VMware)</D|
+Task Id 1000401069 000b0    |EBUG>.<DEBUG>Nmap done: 1 IP address (1 host up) scanned in 0.05|
+Task Id 1000401069 000c0    | seconds</DEBUG>.<DEBUG>Started Nmap Successfully</DEBUG>.<DEBUG|
+Task Id 1000401069 000d0    |>List Scan command: sudo /home/bdna/install772/nih/Nmap/src/nmap|
+Task Id 1000401069 000e0    |.Linux.RHEL6.x86_64 -n -sL 192.168.9.103 2>&1</DEBUG>.</EVAL_COL|
+Task Id 1000401069 000f0    |LECTION_SCRIPT endTime="Mon Apr 10 13:27:19 2017">.Collection sc|
+Task Id 1000401069 00100    |ript results: BDNA_ErrorCode=0; BDNA_ResultCode=com.bdna.cle.scr|
+Task Id 1000401069 00110    |ipts.success..BDNA_Results: ActiveIPAddresses=192.168.9.103; Act|
+Task Id 1000401069 00120    |iveIPAddressesCount=1; IcmpPingActiveIPAddresses=192.168.9.103; |
+Task Id 1000401069 00130    |IcmpPingIPAddressCount=1; InactiveIPAddressesCount=0; TcpSynPing|
+Task Id 1000401069 00140    |ActiveIPAddresses=TCP SYN Option not specified; TcpSynPingIPAddr|
+Task Id 1000401069 00150    |essCount=0; uniqueIPAddresses=192.168.9.103; uniqueIPAddressesCo|
+Task Id 1000401069 00160    |unt=1; end of BDNA_Results......................................|
+
+4. get opened ports:
+[bdna@VMDC8245 .ssh]$ sudo /home/bdna/BDNA/sequences/nih/Nmap/src/nmap.Linux.RHEL6.x86_64 -Pn 192.168.9.209
+
+Starting Nmap 5.51 ( http://nmap.org ) at 2017-06-22 10:12 CST
+Cannot find nmap-payloads. UDP payloads are disabled.
+Nmap scan report for 192.168.9.209
+Host is up (0.00058s latency).
+Not shown: 1149 filtered ports
+PORT    STATE  SERVICE
+22/tcp  open   ssh
+80/tcp  open   http
+88/tcp  open   kerberos-sec
+389/tcp open   ldap
+443/tcp open   https
+514/tcp open   shell
+636/tcp open   sldap
+902/tcp closed vmware-authd
+MAC Address: 00:0C:29:08:49:7A (VMware)
