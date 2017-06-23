@@ -25,6 +25,7 @@ https://aws.amazon.com/s3/?sc_channel=PS&sc_campaign=acquisition_US&sc_publisher
 https://aws.amazon.com/athena/?sc_channel=PS&sc_campaign=acquisition_US&sc_publisher=google&sc_medium=athena_b&sc_content=athena_e&sc_detail=aws%20athena&sc_category=athena&sc_segment=192044121090&sc_matchtype=e&sc_country=us&s_kwcid=AL!4422!3!192044121090!e!!g!!aws%20athena&ef_id=WUIdegAAALFuMW9R:20170615053920:s
 https://en.wikipedia.org/wiki/RPM_Package_Manager
 
-7.  .....
+7. https://github.com/bdna/D2/tree/Pioneer.0/Dev/agent/src/bdna-agent/config
+8. https://github.com/bdna/D2/blob/Pioneer.0/Dev/agent/mappingTables/APPIdCMDRFFTable_v2.csv
 
 Prashant list
