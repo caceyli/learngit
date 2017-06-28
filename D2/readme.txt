@@ -1,4 +1,4 @@
-1. login title with "caceyli/Simple.0":
+1. login Jenkins with "caceyli/Simple.0":
 http://10.10.12.96:8080
 
 2. Following vm must be used to stage applications : 
