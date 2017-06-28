@@ -6,6 +6,11 @@ Host : vm396ub   (vm396ub.bdnacorp.com:10.10.12.96)
 Login : appstaging – Simple.0 
 Home directory (/home/appstaging) can be used to create the files required for staging. This will help us keep all the apps in a single place.
 
+3. AWS:
+Sign-in URL: https://bdna-aws-d2.signin.aws.amazon.com/console 
+User name: caceyli
+User password: 5{']|Qd3G7Xr
+
 3. test the script with user (bdna/n1md@345) on 10.10.12.96.
 
 4. cvs files in github d2:
