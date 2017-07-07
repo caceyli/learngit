@@ -41,3 +41,54 @@ https://en.wikipedia.org/wiki/RPM_Package_Manager
 10. https://github.com/bdna/D2/blob/Pioneer.0/Dev/agent/mappingTables/APPIdCMDRFFTable_v2.csv
 
 Prashant list
+
+
+
+Need agent field testing before PR can be approved.
+Step for testing are the following:
+ 
+0. create linux machine for your own testing...
+ 
+1. get latest agent build from nas3
+\\nas3\shared\product\nightly-builds\pioneer\1.0\qa\...
+ 
+2. upload agent file to amazon instance under /var/lib/bdna
+ 
+For example:
+scp -i "n1md@345_californai.pem" <nas3-agent-build-files> ec2-user@ec2-54-241-168-95.us-west-1.compute.amazonaws.com:/var/lib/bdna
+ 
+3. upload staged application to amazon VM from vm396ub
+scp -i... similiar to above
+ 
+ 
+4. encrypt the config csv using bdna-encrypt.exe
+ 
+Windows version of bdna-encrypt.exe has been sent to your inbox.
+Linux version of bdna-encrypt can be found under "util" folder under nas3
+ 
+bdna-encrypt.exe –encrypt –inputFile=<test.csv> –outputFile=encrypted.txt
+ 
+4.1. copy the encrypted csv to amazon VM under /var/lib/bdna/config
+ 
+5 login to the target amazon VM
+ 
+right mouse click on the amazon console, choose "connect"
+ 
+For example:
+ssh -i "n1md@345_californai.pem" ec2-user@ec2-54-241-168-95.us-west-1.compute.amazonaws.com
+ 
+6. sudo as root
+>sudo su
+ 
+6. run the agent and do field testing, using this command
+/var/lib/bdna/bdna-agent
+ 
+7. actual scan result can be found under
+/var/lib/amazon/ssm/[instance id]/inventory/custom
+ 
+instance id can be different from different machine
+ 
+/var/lib/amazon/ssm/i-05d111884e7e6410a/inventory/custom
+ 
+8. you can also check agent log
+/var/log/bdna/bdna-agent.log
