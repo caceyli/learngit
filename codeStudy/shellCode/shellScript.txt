@@ -369,3 +369,23 @@ JAVA_VERSION=`java -version 2>&1 |awk 'NR==1{ gsub(/"/,""); print $3 }'`
 echo $JAVA_VERSION
 输出结果：
 $ 1.6.0_15
+
+31. kill process：
+ps -efww|grep 'd2ProcStag'|awk '{print $2}'|xargs kill -9
+ps -efww|grep 'sleep'|awk '{print $2}'|xargs kill -9
+ps -efww|grep -E 'd2ProcStag|sleep'|awk '{print $2}'|xargs kill -9
+
+32. do process stage:
+#!/bin/bash
+dir=`pwd`
+if test -e $dir/staging_processes.tar;
+then
+tar -xf staging_processes.tar
+fi
+if test -e $dir/staging_processes;
+then
+        cd $dir/staging_processes
+        sh appfile
+        sleep 3
+        rm -rf $dir/staging_processes
+fi
