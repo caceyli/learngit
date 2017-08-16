@@ -360,3 +360,12 @@ start()
 }
 EOF
 ) >/tmp/b
+
+30. shell获取jdk脚本写法如下：
+#!/bin/sh
+# Changed code to remove the 'head -1' as per the suggestion in comment.
+JAVA_VERSION=`java -version 2>&1 |awk 'NR==1{ gsub(/"/,""); print $3 }'`
+# export JAVA_VERSION
+echo $JAVA_VERSION
+输出结果：
+$ 1.6.0_15
