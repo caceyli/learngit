@@ -1,0 +1,113 @@
+Check SP:
+
+ORACLE:
+select name from user_source where type='PROCEDURE';
+select text from user_source where name='NBI_NM_IT_CLEANUP_DIMS_SP';
+select text from user_source where name='NBI_NM_ALL_CLEANUP_DIMS_SP';
+select text from user_source where name='NBI_NM_MD_CLEANUP_DIMS_SP';
+
+SQLSERVER:
+select count(*) from INFORMATION_SCHEMA.ROUTINES;	   
+select ROUTINE_NAME from INFORMATION_SCHEMA.ROUTINES where ROUTINE_NAME in ('NBI_NM_IT_CLEANUP_DIMS_SP','NBI_NM_MD_CLEANUP_DIMS_SP','NBI_NM_ALL_CLEANUP_DIMS_SP');
+exec sp_helptext 'NBI_NM_ALL_CLEANUP_DIMS_SP';
+
+Oracle SQL CURSOR
+
+WHENEVER SQLERROR EXIT SQL.SQLCODE;
+WHENEVER OSERROR EXIT SQL.SQLCODE;
+
+Declare cursor cur_dimNTables is select OBJ_NAME from BDNA_A_OBJ_METADATA$ where OBJ_NAME in ('tb1','tb2','tb3');
+tName varchar (30);
+dumCount number (30);
+Begin
+Open cur_dimNTables;
+Loop
+       fetch cur_dimNTables into tName;
+       exit when cur_dimNTables %notfound;
+       execute immediate 'select count(*) from '||tName||' where KEY_SYS =''0''' into dumCount;
+       if dumCount=0 AND tName NOT like '%N_SYSTEM%' then
+           execute immediate 'INSERT INTO '||tName||' (columns...) VALUES ('...')';
+       elsif dumCount=0 AND tName like '%N_SYSTEM%' then
+           execute immediate 'INSERT INTO '||tName||' ('...')
+           VALUES ('...')';
+       end if;
+End Loop;
+End;
+/
+show errors
+
+COMMIT;
+EXIT;
+
+
+MSSQL SQL CURSOR
+declare cur_dimNTables Cursor for select OBJ_NAME from BDNA_A_OBJ_METADATA$ where OBJ_NAME in ('tb1','tb2','tb3');
+open cur_dimNTables
+declare @tName varchar(100)
+declare @sql nvarchar(max)
+declare @dumCount varchar
+Fetch next From cur_dimNTables into @tName
+While(@@Fetch_Status = 0)
+    Begin
+                 set @sql=('select @a=count(*) from ['+@tName+'] where KEY_SYS=''0''')
+                 exec sp_executesql @sql,N'@a int out', @dumCount out
+                 IF @dumCount=0 AND @tName NOT like '%N_SYSTEM%'
+                     BEGIN
+                         EXEC('INSERT INTO ['+@tName+'] (....) VALUES('..')')
+                     END
+                 else if @dumCount=0 AND @tName like '%N_SYSTEM%'
+                     BEGIN
+                         EXEC('INSERT INTO ['+@tName+'] (....) VALUES('..')')
+                     END
+    Fetch next From cur_dimNTables into @tName
+    END
+Close cur_dimNTables
+Deallocate cur_dimNTables
+GO
+
+
+
+Oracle remote connection:
+C:\AnalyzePatchSet\Patch\Oracle>sqlplus bdna_publish/bdnacn@192.168.9.102:1521/ora11g
+
+Oracle ORA-00054的解决方法(resource busy and acquire with nowait specified)
+问题如下： http://www.linuxidc.com/Linux/2016-07/133614.htm
+
+SQL> conn scott/scott@vm_database
+Connected to Oracle Database 11g Enterprise Edition Release 11.1.0.6.0
+Connected as scott
+
+SQL> drop table student;
+
+drop table student
+
+ORA-00054: 资源正忙, 但指定以 NOWAIT 方式获取资源, 或者超时失效
+=========================================================
+
+解决方法如下：
+
+=========================================================
+
+SQL> select session_id from v$locked_object;
+
+SESSION_ID
+----------
+142
+
+SQL> SELECT sid, serial#, username, oSUSEr FROM v$session where sid = 142;
+
+SID SERIAL# USERNAME OSUSER
+---------- ---------- ------------------------------ ------------------------------
+142 38 SCOTT LILWEN
+
+SQL> ALTER SYSTEM KILL SESSION '142,38';
+
+System altered
+
+SQL> conn scott/scott@vm_database
+Connected to Oracle Database 11g Enterprise Edition Release 11.1.0.6.0
+Connected as scott
+
+SQL> drop table student;
+
+Table dropped
