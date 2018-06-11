@@ -99,7 +99,7 @@ j. install vnc:
    VNCSERVERARGS[2]="-geometry 800x600"
    set a vnc password for users separately:
    su - oracle
-   $vncpassword
+   $vncpasswd
    set the vnc server service to auto-start on boot and start now.
    #chkconfig vncserver on
    #service vncserver start
