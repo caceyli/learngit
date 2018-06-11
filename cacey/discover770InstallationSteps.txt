@@ -56,9 +56,9 @@ d. Create the following directories for Oracle installation:
    $ chown -R oracle.dba /oracle/u02
    $ chown -R oracle.dba /oracle/u03
    $ cd /
-   $ ln -s /oracle/u01 u01
-   $ ln -s /oracle/u02 u02
-   $ ln -s /oracle/u03 u03
+   $ ln -s /oracle/u01 /u01
+   $ ln -s /oracle/u02 /u02
+   $ ln -s /oracle/u03 /u03
 e. Use any text editor, create or edit the /etc/sysctl.conf file, and add or edit lines similar to the following:
    # BDNA customizations (added by cacey)
    fs.file-max = 6815744
